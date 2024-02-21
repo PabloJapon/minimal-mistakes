@@ -11,3 +11,4 @@ main:
     id: login-link
   - title: "Log Out"
     url: /logout/
+    id: logout-link

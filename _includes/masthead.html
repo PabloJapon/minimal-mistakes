@@ -64,6 +64,12 @@
       console.log('ha entrado', loginLink);
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
+
+    // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+      logoutLink.style.display = isLoggedIn ? 'block' : 'none';
+    }
   }
 
   // Ejecutar la función de manejo al cargar la página
