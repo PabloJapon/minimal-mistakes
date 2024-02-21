@@ -2,26 +2,8 @@
 layout: home
 ---
 
-{{ content }}
+<h1>Welcome to My Site!</h1>
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+<p>This is the main landing page content. You can write HTML or Markdown here.</p>
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
-
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% for post in posts %}
-    {% include archive-single.html type=entries_layout %}
-  {% endfor %}
-</div>
-
-<div>
-  {% capture splash_content %}{% include_relative _pages/splash-page.md %}{% endcapture %}
-  {{ splash_content | markdownify }}
-</div>
-
-{% include paginator.html %}
+{% include_relative _pages/splash-page.md %}
