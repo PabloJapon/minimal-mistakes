@@ -300,7 +300,7 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false #estaba en true
       read_time: true
       comments: # true
       share: true
@@ -311,14 +311,14 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false #estaba en true
   # _recipes
   - scope:
       path: ""
       type: recipes
     values:
       layout: single
-      author_profile: true
+      author_profile: false #estaba en true
       share: true
   # _pets
   - scope:
@@ -326,7 +326,7 @@ defaults:
       type: pets
     values:
       layout: single
-      author_profile: true
+      author_profile: false #estaba en true
       share: true
   # _portfolio
   - scope:
@@ -334,5 +334,5 @@ defaults:
       type: portfolio
     values:
       layout: single
-      author_profile: false
+      author_profile: false #estaba en true
       share: true
