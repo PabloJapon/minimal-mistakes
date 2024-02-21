@@ -8,3 +8,4 @@ main:
     url: /splash-page/
   - title: "Log In"
     url: /login/
+    id: login-link
