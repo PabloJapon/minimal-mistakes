@@ -8,3 +8,5 @@ main:
     url: /splash-page/
   - title: "Log In"
     url: /login/
+  - title: "Log Out"
+    url: /logout/
