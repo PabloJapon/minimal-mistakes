@@ -15,7 +15,7 @@
           {%- for link in site.data.navigation.main -%}
             {%- if link.title == "Log In" -%}
               <li id="login-link" class="masthead__menu-item" style="display: block;">
-                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Iniciar Sesión</a>
               </li>
             {%- endif -%}
             {%- if link.title != "Log In" -%}

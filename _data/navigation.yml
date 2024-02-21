@@ -6,7 +6,7 @@ main:
     url: /year-archive-grid/
   - title: "Planes/Tarifas"
     url: /planes/
-  - title: "Iniciar Sesión"
+  - title: "Log In"  # Mantén el título como "Log In"
     url: /login/
     id: login-link
   - title: "Cerrar Sesión"
