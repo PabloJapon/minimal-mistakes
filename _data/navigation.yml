@@ -6,5 +6,5 @@ main:
     url: /year-archive-grid/
   - title: "Splash Page"
     url: /splash-page/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+  - title: "Log In"
+    url: /login/
