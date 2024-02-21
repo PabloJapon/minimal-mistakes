@@ -6,7 +6,7 @@ header:
   overlay_filter: "0.5"
   overlay_image: /assets/images/service.jpg
   actions:
-    - label: "Downloaaad"
+    - label: "Descargar"
       url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
       download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
