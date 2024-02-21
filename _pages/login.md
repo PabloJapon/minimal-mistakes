@@ -12,29 +12,33 @@ permalink: /login/
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     // Additional actions after login if needed
-    updateLoginLink(user);
+    updateLoginButton(user);
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     // Additional actions after logout if needed
-    updateLoginLink(null);
+    updateLoginButton(null);
   });
 
-  function toggleLogin() {
+  function openLoginModal() {
     netlifyIdentity.open('login');
   }
 
-  function updateLoginLink(user) {
-    const loginLink = document.getElementById('login-link');
+  function updateLoginButton(user) {
+    const loginButton = document.getElementById('login-button');
+    const loginNavItem = document.getElementById('login-nav-item');
 
-    if (loginLink) {
+    if (loginButton && loginNavItem) {
       if (user) {
         // Usuario autenticado, actualiza el texto del enlace
-        loginLink.innerText = 'Log Out';
+        loginButton.innerText = `Bienvenido, ${user.user_metadata.full_name}!`;
+        // Actualiza el título de la navegación
+        loginNavItem.innerText = 'Log Out';
       } else {
-        // Usuario no autenticado, restaura el texto del enlace
-        loginLink.innerText = 'Log In';
+        // Usuario no autenticado, restaura el texto del enlace y el título de la navegación
+        loginButton.innerText = 'Log In';
+        loginNavItem.innerText = 'Log In';
       }
     }
   }
