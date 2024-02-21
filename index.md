@@ -10,7 +10,7 @@ header:
       url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
       download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
+excerpt: "Aquí pues ya vemos si ponemos algo o que pasa"
 intro: 
   - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
 feature_row:

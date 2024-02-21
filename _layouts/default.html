@@ -17,14 +17,9 @@
     <script>
       // Personalizar textos del widget de Netlify Identity a español
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (user) {
-            // El usuario está autenticado
-            window.netlifyIdentity.setLocale('es');  // Cambiar a español si el usuario está autenticado
-          } else {
-            // El usuario no está autenticado
-            window.netlifyIdentity.setLocale('en');  // Cambiar a inglés si el usuario no está autenticado
-          }
+        window.netlifyIdentity.on("init", (user) => {
+          // Aquí puedes establecer el idioma del widget
+          window.netlifyIdentity.setLocale("es");
         });
       }
     </script>
