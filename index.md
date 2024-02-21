@@ -6,9 +6,9 @@ header:
   overlay_filter: "0.5"
   overlay_image: /assets/images/service.jpg
   actions:
-    - label: "Download Image"
-      url: "/assets/images/service.jpg"
-      download: "downloaded-service.jpg"  # Agregamos el atributo 'download'
+    - label: "Download Folder"
+      url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
+      download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
 intro: 
