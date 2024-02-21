@@ -13,13 +13,9 @@
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
-            {%- if link.title == "Log In" and not user_authenticated -%}
-            <!-- Mostrar "Log In" solo si el usuario no está autenticado -->
-          {%- elsif link.title != "Log In" -%}
             <li class="masthead__menu-item">
               <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
             </li>
-          {%- endif -%}
           {%- endfor -%}
         </ul>
         {% if site.search == true %}
