@@ -7,6 +7,7 @@ permalink: /logout/
 <p>This is your logout page.</p>
 <button onclick="logout()">Logout</button>
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
   function logout() {
     netlifyIdentity.logout();
