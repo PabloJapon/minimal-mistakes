@@ -13,9 +13,16 @@
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
-            <li class="masthead__menu-item">
-              <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
-            </li>
+            {%- if link.title == "Log In" -%}
+              <li id="login-link" class="masthead__menu-item" style="display: block;">
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+              </li>
+            {%- endif -%}
+            {%- if link.title != "Log In" -%}
+              <li class="masthead__menu-item">
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+              </li>
+            {%- endif -%}
           {%- endfor -%}
         </ul>
         {% if site.search == true %}
@@ -33,3 +40,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Netlify Identity script and event handling
+  netlifyIdentity.on('login', user => {
+    console.log('User logged in', user);
+    handleAuthenticationChange();
+  });
+
+  netlifyIdentity.on('logout', () => {
+    console.log('User logged out');
+    handleAuthenticationChange();
+  });
+
+  // Función para manejar cambios en la autenticación y actualizar la barra de navegación
+  function handleAuthenticationChange() {
+    const isLoggedIn = netlifyIdentity.currentUser() !== null;
+
+    // Ocultar o mostrar la pestaña según si el usuario ha iniciado sesión
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) {
+      loginLink.style.display = isLoggedIn ? 'none' : 'block';
+    }
+  }
+
+  // Ejecutar la función de manejo al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    handleAuthenticationChange();
+  });
+</script>

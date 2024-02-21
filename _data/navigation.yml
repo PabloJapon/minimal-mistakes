@@ -8,5 +8,6 @@ main:
     url: /planes/
   - title: "Iniciar Sesión"
     url: /login/
+    id: login-link
   - title: "Cerrar Sesión"
     url: /logout/

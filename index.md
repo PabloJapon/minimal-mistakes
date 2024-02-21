@@ -1,5 +1,5 @@
 ---
-title: "App Restaurantes 2"
+title: "App Restaurantes 0.0"
 layout: splash
 header:
   overlay_color: "#000"
