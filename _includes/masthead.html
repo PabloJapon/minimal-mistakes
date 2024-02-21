@@ -15,15 +15,10 @@
           {%- for link in site.data.navigation.main -%}
             {%- if link.title == "Log In" -%}
               <li id="login-link" class="masthead__menu-item" style="display: block;">
-                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Iniciar Sesión</a>
               </li>
             {%- endif -%}
-            {%- if link.title == "Cerrar Sesión" -%}
-              <li id="logout-link" class="masthead__menu-item" style="display: none;">
-                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
-              </li>
-            {%- endif -%}
-            {%- if link.title != "Log In" and link.title != "Cerrar Sesión" -%}
+            {%- if link.title != "Log In" -%}
               <li class="masthead__menu-item">
                 <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
               </li>
@@ -64,10 +59,10 @@
 
     // Ocultar o mostrar la pestaña según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
-    const logoutLink = document.getElementById('logout-link');
-    if (loginLink && logoutLink) {
+    console.log('loginLink', loginLink);
+    if (loginLink) {
+      console.log('ha entrado', loginLink);
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
-      logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
   }
 
