@@ -59,3 +59,5 @@ feature_row4:
 Esto es el contenido principal de mi página de inicio.
 
 {% include feature_row id="intro" type="center" %}
+
+{% include feature_row %}
