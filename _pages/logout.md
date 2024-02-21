@@ -9,12 +9,10 @@ permalink: /logout/
 <script>
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
-    console.log('User logged in', user);
     // Additional actions after login if needed
   });
 
   netlifyIdentity.on('logout', () => {
-    console.log('User logged out');
     // Additional actions after logout if needed
   });
 
