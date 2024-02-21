@@ -1,12 +1,12 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
+  - title: "Página Guía"
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  - title: "Documentation"
+  - title: "Documentación"
     url: /year-archive-grid/
-  - title: "Splash Page"
-    url: /splash-page/
-  - title: "Log In"
+  - title: "Planes/Tarifas"
+    url: /planes/
+  - title: "Iniciar Sesión"
     url: /login/
-  - title: "Log Out"
+  - title: "Cerrar Sesión"
     url: /logout/
