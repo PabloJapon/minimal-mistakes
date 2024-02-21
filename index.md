@@ -7,8 +7,8 @@ header:
   overlay_image: /assets/images/service.jpg
   actions:
     - label: "Download Image"
-      url: "/assets/images/your-image.jpg"
-      download: "downloaded-image.jpg"  # Agregamos el atributo 'download'
+      url: "/assets/images/service.jpg"
+      download: "downloaded-service.jpg"  # Agregamos el atributo 'download'
       url: "/terms/"
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
