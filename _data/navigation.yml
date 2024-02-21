@@ -9,6 +9,6 @@ main:
   - title: "Sample Posts"
     url: /year-archive-grid/
   - title: "Splash Page"
-  #   url: /splash-page/
+    url: /splash-page/
   # - title: "Sitemap"
   #   url: /sitemap/
