@@ -59,8 +59,9 @@
 
     // Ocultar o mostrar la pestaña según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
-    console.log('mirar aquiiii', loginLink);
+    console.log('loginLink', loginLink);
     if (loginLink) {
+      console.log('ha entrado', loginLink);
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
   }
