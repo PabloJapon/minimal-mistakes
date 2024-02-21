@@ -6,9 +6,9 @@ main:
     url: /about/
   - title: "Posts"
     url: /portfolio/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
+  - title: "Sample Posts"
+    url: /year-archive-grid/
+  - title: "Splash Page"
+  #   url: /splash-page/
   # - title: "Sitemap"
   #   url: /sitemap/
