@@ -9,5 +9,5 @@ main:
   - title: "Log In"  # Mantén el título como "Log In"
     url: /login/
     id: login-link
-  - title: "Cerrar Sesión"
+  - title: "Log Out"
     url: /logout/
