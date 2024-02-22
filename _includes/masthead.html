@@ -51,15 +51,15 @@
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
-    // Recargar la página después de iniciar sesión
-    window.location.reload();
+    // Cambiar la URL después de iniciar sesión
+    history.replaceState(null, null, window.location.pathname);
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
-    // Recargar la página después de cerrar sesión
-    window.location.reload();
+    // Cambiar la URL después de cerrar sesión
+    history.replaceState(null, null, window.location.pathname);
   });
 
   // Función para manejar cambios en la autenticación y actualizar la barra de navegación
@@ -84,6 +84,7 @@
     handleAuthenticationChange();
   });
 </script>
+
 
 
 
