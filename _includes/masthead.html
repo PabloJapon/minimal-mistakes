@@ -59,15 +59,15 @@
 
     // Ocultar o mostrar la pestaña según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
-    console.log('loginLink', loginLink);
     if (loginLink) {
-      console.log('ha entrado', loginLink);
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
 
     // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
     const logoutLink = document.getElementById('logout-link');
+    console.log('logoutLink', loginLink);
     if (logoutLink) {
+      console.log('ha entrado', loginLink);
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
   }
