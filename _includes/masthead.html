@@ -18,7 +18,12 @@
                 <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Iniciar Sesión</a>
               </li>
             {%- endif -%}
-            {%- if link.title != "Log In" -%}
+            {%- if link.title == "Log Out" -%}
+              <li id="logout-link" class="masthead__menu-item" style="display: none;">
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Cerrar Sesión</a>
+              </li>
+            {%- endif -%}
+            {%- if link.title != "Log In" and link.title != "Log Out" -%}
               <li class="masthead__menu-item">
                 <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
               </li>
@@ -57,7 +62,7 @@
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
-    // Ocultar o mostrar la pestaña según si el usuario ha iniciado sesión
+    // Ocultar o mostrar la pestaña "Iniciar Sesión" según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
@@ -65,9 +70,7 @@
 
     // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
     const logoutLink = document.getElementById('logout-link');
-    console.log('logoutLink', logoutLink);
     if (logoutLink) {
-      console.log('ha entrado', logoutLink);
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
   }
