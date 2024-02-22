@@ -13,17 +13,12 @@
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
-            {%- if link.title == "Log In" -%}
-              <li id="login-link" class="masthead__menu-item" style="display: block;">
-                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Iniciar Sesión</a>
-              </li>
-            {%- endif -%}
             {%- if link.title == "Log Out" -%}
               <li id="logout-link" class="masthead__menu-item" style="display: none;">
-                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Cerrar Sesión</a>
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Mi Cuenta</a>
               </li>
             {%- endif -%}
-            {%- if link.title != "Log In" and link.title != "Log Out" -%}
+            {%- if link.title != "Log Out" -%}
               <li class="masthead__menu-item">
                 <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
               </li>
@@ -32,7 +27,7 @@
         </ul>
         
         <!-- Botón de prueba -->
-        <button id="prueba-boton" onclick="openNetlifyIdentity()">Prueba Botón</button>
+        <button id="prueba-boton" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
 
         {% if site.search == true %}
         <button class="search__toggle" type="button">

@@ -6,10 +6,6 @@ main:
     url: /year-archive-grid/
   - title: "Planes/Tarifas"
     url: /planes/
-  - title: "Log In"
-    url: "javascript:void(0);"
-    onclick: "openNetlifyIdentity()"
-    id: login-link
   - title: "Log Out"
     url: /logout/
     id: logout-link
