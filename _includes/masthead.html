@@ -47,7 +47,7 @@
 </div>
 
 <script>
-  let wasAuthenticated = false;
+  let wasAuthenticated = netlifyIdentity.currentUser() !== null;
 
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
@@ -55,19 +55,15 @@
     handleAuthenticationChange();
     // Redirigir a la página principal después de iniciar sesión si no estaba autenticado previamente
     if (!wasAuthenticated) {
-      console.log('holaholaaa');
       location.href = '/';
     }
   });
 
-  netlifyIdentity.on('logout', () => {
-    console.log('User logged out');
+  // Ejecutar la función de manejo al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
     handleAuthenticationChange();
-    // Redirigir a la página principal después de cerrar sesión
-    location.href = '/';
   });
 
-  // Función para manejar cambios en la autenticación y actualizar la barra de navegación
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
@@ -86,11 +82,14 @@
     wasAuthenticated = isLoggedIn;
   }
 
-  // Ejecutar la función de manejo al cargar la página
-  document.addEventListener('DOMContentLoaded', () => {
+  netlifyIdentity.on('logout', () => {
+    console.log('User logged out');
     handleAuthenticationChange();
+    // Redirigir a la página principal después de cerrar sesión
+    location.href = '/';
   });
 </script>
+
 
 
 
