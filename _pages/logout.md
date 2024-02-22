@@ -1,10 +1,10 @@
 ---
-title: "Log Out"
-permalink: /logout/
+title: "Mi Cuenta"
+permalink: /miCuenta/
 ---
 
 <!-- Your logout content here -->
-<button onclick="openLoginModal()">Login</button>
+<button onclick="openLoginModal()">Cerrar Sesión</button>
 
 <script>
   // Netlify Identity script and event handling

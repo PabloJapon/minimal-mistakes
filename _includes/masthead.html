@@ -27,7 +27,7 @@
         </ul>
         
         <!-- Botón de prueba -->
-        <button id="prueba-boton" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
+        <button id="login-link" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
 
         {% if site.search == true %}
         <button class="search__toggle" type="button">
@@ -74,7 +74,7 @@
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
     // Ocultar o mostrar el botón de prueba según si el usuario ha iniciado sesión
-    const pruebaBoton = document.getElementById('prueba-boton');
+    const pruebaBoton = document.getElementById('login-link');
     if (pruebaBoton) {
       pruebaBoton.style.display = isLoggedIn ? 'none' : 'block';
     }

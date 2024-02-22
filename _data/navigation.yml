@@ -7,5 +7,5 @@ main:
   - title: "Planes/Tarifas"
     url: /planes/
   - title: "Log Out"
-    url: /logout/
+    url: /miCuenta/
     id: logout-link
