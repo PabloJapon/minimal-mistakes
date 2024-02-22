@@ -55,7 +55,7 @@
     handleAuthenticationChange();
     // Redirigir a la página principal después de iniciar sesión si no estaba autenticado previamente
     if (!wasAuthenticated) {
-      location.href = '/';
+      location.reload(); // Actualizar la página después de iniciar sesión
     }
   });
 
@@ -89,6 +89,7 @@
     location.href = '/';
   });
 </script>
+
 
 
 
