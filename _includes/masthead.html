@@ -15,7 +15,7 @@
           {%- for link in site.data.navigation.main -%}
             {%- if link.title == "Log In" -%}
               <li id="login-link" class="masthead__menu-item" style="display: block;">
-                <a href="#" onclick="openNetlifyIdentity(); return false;">Iniciar Sesión</a>
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Iniciar Sesión</a>
               </li>
             {%- endif -%}
             {%- if link.title == "Log Out" -%}
@@ -47,53 +47,36 @@
 </div>
 
 <script>
-  function openNetlifyIdentity() {
-    // Open Netlify Identity login widget
-    netlifyIdentity.open();
-  }
 
-  // Check authentication status on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    const isLoggedIn = netlifyIdentity.currentUser() !== null;
-
-    // If user is already logged in, redirect to the home page
-    if (isLoggedIn) {
-      location.href = '/';
-    } else {
-      // If not logged in, continue with normal event handling
-      handleAuthenticationChange();
-    }
-  });
-
-  // Event handling for login
+  // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
   });
 
-  // Event handling for logout
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
+    // Redirigir a la página principal después de cerrar sesión
     location.href = '/';
   });
 
-  // Function to handle authentication change
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
+    // Ocultar o mostrar la pestaña "Iniciar Sesión" según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
 
+    // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) {
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
   }
 </script>
-
 
 
 
