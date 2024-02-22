@@ -50,10 +50,13 @@
 
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
-    console.log('User logged in', user);
-    handleAuthenticationChange();
-    // Redirigir a la página principal después de cerrar sesión
-    location.href = '/';
+    // Check if the user is already authenticated
+    if (!user.app_metadata || !user.app_metadata.roles) {
+      console.log('User logged in', user);
+      handleAuthenticationChange();
+      // Redirect to the home page only if not already authenticated
+      location.href = '/';
+    }
   });
 
   netlifyIdentity.on('logout', () => {
