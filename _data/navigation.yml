@@ -13,3 +13,7 @@ main:
   - title: "Log Out"
     url: /logout/
     id: logout-link
+  - title: "Mi Botón"
+    url: "javascript:void(0);"
+    onclick: "myFunction()"
+    id: my-button
