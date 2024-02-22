@@ -57,9 +57,7 @@
     console.log("¡Funciona el botón!");
     // Puedes agregar más lógica aquí según tus necesidades
   }
-</script>
 
-<script>
   function openNetlifyIdentity() {
     console.log("Clic en iniciar sesión");
     if (window.netlifyIdentity) {
@@ -97,6 +95,9 @@
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
   }
+
+  // Llamada inicial para configurar la visibilidad del botón al cargar la página
+  handleAuthenticationChange();
 </script>
 
 
