@@ -47,19 +47,28 @@
 </div>
 
 <script>
+  // Variable para rastrear si ya se ha redirigido
+  let redirected = false;
+
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
-    // Redirigir a la página principal después de iniciar sesión
-    window.location.href = '/';
+    // Redirigir a la página principal después de iniciar sesión (si aún no se ha redirigido)
+    if (!redirected) {
+      redirected = true;
+      window.location.href = '/';
+    }
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
-    // Redirigir a la página principal después de cerrar sesión
-    window.location.href = '/';
+    // Redirigir a la página principal después de cerrar sesión (si aún no se ha redirigido)
+    if (!redirected) {
+      redirected = true;
+      window.location.href = '/';
+    }
   });
 
   // Función para manejar cambios en la autenticación y actualizar la barra de navegación
