@@ -8,10 +8,11 @@ permalink: /realizar-pago/
 
 <!-- Tu formulario de pago y script aquí -->
 <form id="payment-form">
-  <!-- Campos del formulario, como el número de tarjeta, la fecha de vencimiento, el código CVC, etc. -->
-  <input type="text" id="card-number" placeholder="Número de tarjeta" required>
-  <input type="text" id="card-expiry" placeholder="Fecha de vencimiento" required>
-  <input type="text" id="card-cvc" placeholder="CVC" required>
+  <!-- Utiliza un div para montar el campo de la tarjeta -->
+  <div id="card-element"></div>
+
+  <!-- Otros campos del formulario, como el número de tarjeta, la fecha de vencimiento, el código CVC, etc. -->
+  <!-- ... -->
 
   <!-- Botón de pago -->
   <button type="button" id="submit-payment">Pagar</button>
@@ -19,9 +20,10 @@ permalink: /realizar-pago/
 
 <!-- Script para manejar el pago con Stripe.js -->
 <script>
-  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  var stripe = Stripe('tu_publishable_key');
   var elements = stripe.elements();
 
+  // Utiliza el div 'card-element' para montar el campo de la tarjeta
   var card = elements.create('card', {
     hidePostalCode: true,
     style: {
@@ -31,7 +33,7 @@ permalink: /realizar-pago/
     },
   });
 
-  card.mount('#card-number');
+  card.mount('#card-element');
 
   // Manejar el evento de clic en el botón de pago
   document.getElementById('submit-payment').addEventListener('click', function() {
