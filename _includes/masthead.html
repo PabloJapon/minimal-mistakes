@@ -51,15 +51,15 @@
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
-    // Cambiar la URL después de iniciar sesión
-    history.replaceState(null, null, window.location.pathname);
+    // Redirigir a la página principal después de iniciar sesión
+    location.href = '/';
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
-    // Cambiar la URL después de cerrar sesión
-    history.replaceState(null, null, window.location.pathname);
+    // Redirigir a la página principal después de cerrar sesión
+    location.href = '/';
   });
 
   // Función para manejar cambios en la autenticación y actualizar la barra de navegación
