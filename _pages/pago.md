@@ -49,7 +49,15 @@ permalink: /realizar-pago/
         var paymentMethodId = result.paymentMethod.id;
         // Puedes usar Ajax o Fetch para enviar el paymentMethodId a tu servidor
         // y completar la transacción con la clave secreta de Stripe
+
+        // Establecer la cantidad del pago (en centavos)
+        var amount = 1000; // 10 euros en centavos (1 euro = 100 centavos)
+
+        // Realizar la transacción en tu servidor con la cantidad
+        // Aquí deberías enviar el paymentMethodId y la cantidad al servidor
+        // y completar la transacción utilizando la clave secreta de Stripe
         console.log('Payment Method ID:', paymentMethodId);
+        console.log('Cantidad del Pago:', amount);
       }
     });
   });
