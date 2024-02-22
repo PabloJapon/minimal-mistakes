@@ -47,15 +47,32 @@
 </div>
 
 <script>
+  // Evento personalizado para controlar la redirección
+  document.addEventListener('authenticated', () => {
+    console.log('User authenticated');
+    // Redirigir a la página principal después de iniciar sesión
+    window.location.href = '/';
+  });
+
+  document.addEventListener('loggedOut', () => {
+    console.log('User logged out');
+    // Redirigir a la página principal después de cerrar sesión
+    window.location.href = '/';
+  });
+
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
+    // Disparar el evento personalizado después de iniciar sesión
+    document.dispatchEvent(new Event('authenticated'));
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
+    // Disparar el evento personalizado después de cerrar sesión
+    document.dispatchEvent(new Event('loggedOut'));
   });
 
   // Función para manejar cambios en la autenticación y actualizar la barra de navegación
@@ -66,8 +83,6 @@
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
-      // Redirigir a la página principal después de iniciar sesión
-      // window.location.href = '/';
     }
 
     // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
@@ -82,4 +97,5 @@
     handleAuthenticationChange();
   });
 </script>
+
 
