@@ -47,40 +47,42 @@
 </div>
 
 <script>
+  // Check authentication status on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
-  // Netlify Identity script and event handling
-  netlifyIdentity.on('login', user => {
-    // Check if the user is already authenticated
-    if (!user.app_metadata || !user.app_metadata.roles) {
-      console.log('User logged in', user);
-      handleAuthenticationChange();
-      // Redirect to the home page only if not already authenticated
+    // If user is already logged in, redirect to the home page
+    if (isLoggedIn) {
       location.href = '/';
+    } else {
+      // If not logged in, continue with normal event handling
+      handleAuthenticationChange();
     }
   });
 
-  netlifyIdentity.on('logout', () => {
-    console.log('User logged out');
+  // Event handling for login
+  netlifyIdentity.on('login', user => {
+    console.log('User logged in', user);
     handleAuthenticationChange();
-    // Redirigir a la página principal después de cerrar sesión
     location.href = '/';
   });
 
-  // Ejecutar la función de manejo al cargar la página
-  document.addEventListener('DOMContentLoaded', () => {
+  // Event handling for logout
+  netlifyIdentity.on('logout', () => {
+    console.log('User logged out');
     handleAuthenticationChange();
+    location.href = '/';
   });
 
+  // Function to handle authentication change
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
-    // Ocultar o mostrar la pestaña "Iniciar Sesión" según si el usuario ha iniciado sesión
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
       loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
 
-    // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) {
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
