@@ -51,11 +51,15 @@
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
+    // Redirigir a la página principal después de iniciar sesión
+    window.location.href = '/';
   });
 
   netlifyIdentity.on('logout', () => {
     console.log('User logged out');
     handleAuthenticationChange();
+    // Redirigir a la página principal después de cerrar sesión
+    window.location.href = '/';
   });
 
   // Función para manejar cambios en la autenticación y actualizar la barra de navegación
@@ -80,3 +84,4 @@
     handleAuthenticationChange();
   });
 </script>
+
