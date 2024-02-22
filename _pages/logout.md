@@ -7,10 +7,11 @@ Hola, hola
 
 ¡Bienvenido, <span id="username"></span>!
 
+<!-- Botón para redirigir a la página de realizar pago -->
+<a href="/realizar-pago/" class="button">Realizar Pago</a>
 
 <!-- Your logout content here -->
 <button onclick="logout()">Cerrar Sesión</button>
-
 
 <script>
   // Netlify Identity script and event handling
