@@ -32,7 +32,7 @@
         </ul>
         
         <!-- Botón de prueba -->
-        <button onclick="openNetlifyIdentity()">Prueba Botón</button>
+        <button id="prueba-boton" onclick="openNetlifyIdentity()">Prueba Botón</button>
 
         {% if site.search == true %}
         <button class="search__toggle" type="button">
@@ -53,11 +53,6 @@
 <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <script>
-  function myFunction() {
-    console.log("¡Funciona el botón!");
-    // Puedes agregar más lógica aquí según tus necesidades
-  }
-
   function openNetlifyIdentity() {
     console.log("Clic en iniciar sesión");
     if (window.netlifyIdentity) {
@@ -87,12 +82,6 @@
     const pruebaBoton = document.getElementById('prueba-boton');
     if (pruebaBoton) {
       pruebaBoton.style.display = isLoggedIn ? 'none' : 'block';
-    }
-
-    // Ocultar o mostrar la pestaña "Iniciar Sesión" según si el usuario ha iniciado sesión
-    const loginLink = document.getElementById('login-link');
-    if (loginLink) {
-      loginLink.style.display = isLoggedIn ? 'none' : 'block';
     }
 
     // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
