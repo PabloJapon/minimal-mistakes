@@ -6,9 +6,7 @@ permalink: /miCuenta/
 <!-- Your logout content here -->
 <button onclick="openLoginModal()">Cerrar Sesión</button>
 
-<div id="welcome-message" style="display: none;">
-  ¡Bienvenido, <span id="username"></span>!
-</div>
+¡Bienvenido, <span id="username"></span>!
 
 <script>
   // Netlify Identity script and event handling
