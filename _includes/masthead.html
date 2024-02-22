@@ -47,16 +47,20 @@
 </div>
 
 <script>
-  let wasAuthenticated = netlifyIdentity.currentUser() !== null;
 
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     console.log('User logged in', user);
     handleAuthenticationChange();
-    // Redirigir a la página principal después de iniciar sesión si no estaba autenticado previamente
-    if (!wasAuthenticated) {
-      location.reload(); // Actualizar la página después de iniciar sesión
-    }
+    // Redirigir a la página principal después de cerrar sesión
+    location.href = '/';
+  });
+
+  netlifyIdentity.on('logout', () => {
+    console.log('User logged out');
+    handleAuthenticationChange();
+    // Redirigir a la página principal después de cerrar sesión
+    location.href = '/';
   });
 
   // Ejecutar la función de manejo al cargar la página
@@ -78,16 +82,7 @@
     if (logoutLink) {
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
     }
-
-    wasAuthenticated = isLoggedIn;
   }
-
-  netlifyIdentity.on('logout', () => {
-    console.log('User logged out');
-    handleAuthenticationChange();
-    // Redirigir a la página principal después de cerrar sesión
-    location.href = '/';
-  });
 </script>
 
 
