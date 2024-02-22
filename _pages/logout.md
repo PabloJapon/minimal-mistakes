@@ -6,6 +6,8 @@ permalink: /miCuenta/
 <!-- Your logout content here -->
 <button onclick="openLoginModal()">Cerrar Sesión</button>
 
+Hola, hola
+
 ¡Bienvenido, <span id="username"></span>!
 
 <script>
