@@ -23,6 +23,16 @@
                 <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
               </li>
             {%- endif -%}
+            {%- if link.title == "Log Out" -%}
+              <li id="logout-link" class="masthead__menu-item" style="display: block;">
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>Cerrar Sesión</a>
+              </li>
+            {%- endif -%}
+            {%- if link.title != "Log Out" -%}
+              <li class="masthead__menu-item">
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+              </li>
+            {%- endif -%}
           {%- endfor -%}
         </ul>
         {% if site.search == true %}
