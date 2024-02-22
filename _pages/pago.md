@@ -20,7 +20,7 @@ permalink: /realizar-pago/
 
 <!-- Script para manejar el pago con Stripe.js -->
 <script>
-  var stripe = Stripe('tu_publishable_key');
+  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
   // Utiliza el div 'card-element' para montar el campo de la tarjeta
