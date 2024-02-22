@@ -47,6 +47,14 @@
 </div>
 
 <script>
+  function openNetlifyIdentity() {
+    console.log("Clic en iniciar sesión");
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.open();
+    } else {
+      console.error("Netlify Identity no está disponible");
+    }
+  }
 
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
