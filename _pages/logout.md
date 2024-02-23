@@ -1,6 +1,7 @@
 ---
 title: "Mi Cuenta"
 permalink: /miCuenta/
+layout: splash
 ---
 
 # ¡Bienvenido, <span id="username"></span>!
