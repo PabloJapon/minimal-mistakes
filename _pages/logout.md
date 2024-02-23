@@ -5,15 +5,18 @@ permalink: /miCuenta/
 
 # ¡Bienvenido, <span id="username"></span>!
 
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
-<stripe-buy-button
-  buy-button-id="buy_btn_1On4bYE2UvP4xcDsYEY1nabe"
-  publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo"
->
-</stripe-buy-button>
+<!-- Tabla de Tarifas -->
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 
-<!-- Tu contenido de cierre de sesión aquí -->
+<stripe-pricing-table pricing-table-id="prctbl_1On5HBE2UvP4xcDs5mx40eVF"
+publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo">
+</stripe-pricing-table>
+
+
+
+
+<!-- Cierre de sesión -->
 <button onclick="logout()">Cerrar Sesión</button>
 
 <script>
