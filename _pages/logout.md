@@ -3,20 +3,23 @@ title: "Mi Cuenta"
 permalink: /miCuenta/
 ---
 
-Hola, hola
+# ¡Bienvenido, <span id="username"></span>!
 
-¡Bienvenido, <span id="username"></span>!
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
-<!-- Botón para redirigir a la página de realizar pago -->
-<a href="/realizar-pago/" class="button">Realizar Pago</a>
+<stripe-buy-button
+  buy-button-id="buy_btn_1On4bYE2UvP4xcDsYEY1nabe"
+  publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo"
+>
+</stripe-buy-button>
 
-<!-- Your logout content here -->
+<!-- Tu contenido de cierre de sesión aquí -->
 <button onclick="logout()">Cerrar Sesión</button>
 
 <script>
-  // Netlify Identity script and event handling
+  // Netlify Identity script y manejo de eventos
   netlifyIdentity.on('login', user => {
-    // Additional actions after login if needed
+    // Acciones adicionales después del inicio de sesión si es necesario
 
     // Muestra el mensaje de bienvenida y el nombre de usuario
     const usernameSpan = document.getElementById('username');
@@ -27,7 +30,7 @@ Hola, hola
   });
 
   netlifyIdentity.on('logout', () => {
-    // Additional actions after logout if needed
+    // Acciones adicionales después del cierre de sesión si es necesario
 
     // Borra el nombre de usuario al cerrar sesión
     const usernameSpan = document.getElementById('username');
