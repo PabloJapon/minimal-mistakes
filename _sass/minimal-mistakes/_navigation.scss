@@ -340,7 +340,7 @@
 
 .nav__list {
   margin-bottom: 1.5em;
-
+  font-family: $sans-serif; /* This line sets the font family for the navigation links */
   input[type="checkbox"],
   label {
     display: none;
