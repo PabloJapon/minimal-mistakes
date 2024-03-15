@@ -188,7 +188,7 @@ body {
   &--overlay {
     position: relative;
     margin-bottom: 2em;
-    padding: 16em 0;
+    padding: 15em 0;
     @include clearfix;
     background-size: cover;
     background-repeat: no-repeat;
@@ -206,7 +206,7 @@ body {
     padding-left: 1em;
     padding-right: 1em;
     position: absolute;
-    bottom: 0;
+    bottom: 20px; /* Adjust this value to move it up or down */
     left: 0;
     width: 100%;
 
