@@ -188,7 +188,7 @@ body {
   &--overlay {
     position: relative;
     margin-bottom: 2em;
-    padding: 8em 0;
+    padding: 16em 0;
     @include clearfix;
     background-size: cover;
     background-repeat: no-repeat;
@@ -203,19 +203,19 @@ body {
     }
 
     .wrapper {
-      padding-left: 1em;
-      padding-right: 1em;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-  
-      @include breakpoint($x-large) {
-          max-width: $x-large;
-          left: 50%; /* Centering the wrapper at larger viewport sizes */
-          transform: translateX(-50%); /* Adjusting for centering */
-      }
-  }
+    padding-left: 1em;
+    padding-right: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    @include breakpoint($x-large) {
+        max-width: $x-large;
+        left: 50%; /* Centering the wrapper at larger viewport sizes */
+        transform: translateX(-50%); /* Adjusting for centering */
+    }
+}
 
     .page__title,
     .page__meta,
