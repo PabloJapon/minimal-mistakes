@@ -3,7 +3,7 @@ title: "App Restaurantes 0.0"
 layout: splash
 header:
   overlay_image: /assets/images/service.jpg
-  overlay_filter: rgba(102,153,255,1)
+  overlay_filter: rgba(102,153,255,0.5)
   #overlay_color: "#6699ff"
   #overlay_filter: "0.5"
   actions:
