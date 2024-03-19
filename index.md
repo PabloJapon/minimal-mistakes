@@ -1,5 +1,5 @@
 ---
-title: "App Restaurantes 0.0"
+title: "Gastrali 0.0"
 layout: splash
 header:
   overlay_image: /assets/images/service.jpg
