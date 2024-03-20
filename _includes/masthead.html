@@ -27,15 +27,15 @@
         </ul>
         
         <!-- Botón de prueba -->
-        <button id="login-link" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
+        <button class="btn btn--primary" id="login-link" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
 
         {% if site.search == true %}
-        <button class="search__toggle" type="button">
+        <button class="btn btn--primary search__toggle" type="button">
           <span class="visually-hidden">{{ site.data.ui-text[site.locale].search_label | default: "Toggle search" }}</span>
           <i class="fas fa-search"></i>
         </button>
         {% endif %}
-        <button class="greedy-nav__toggle hidden" type="button">
+        <button class="btn btn--primary greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle menu" }}</span>
           <div class="navicon"></div>
         </button>
