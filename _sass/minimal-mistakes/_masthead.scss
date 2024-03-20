@@ -23,7 +23,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    font-family: $header-font-family;
+    font-family: $global-font-family;
 
     @include breakpoint($x-large) {
       max-width: $max-width;
@@ -82,7 +82,7 @@
 }
 
 .masthead__menu-item {
-  font-family: $header-font-family;
+  font-family: $global-font-family;
   font-size: 16px; /* Set your desired font size here */
   //font-weight: bold;
   display: block;
