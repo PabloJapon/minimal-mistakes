@@ -7,7 +7,8 @@ header:
   #overlay_color: "#6699ff"
   #overlay_filter: "0.5"
   actions:
-     - url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
+     - label: "Descargar" 
+       url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
        download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
        btn_label: "Descargar"
        btn_class: "btn--primary"  # Apply the same class used for the "Read More" button
