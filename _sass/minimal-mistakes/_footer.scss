@@ -17,6 +17,11 @@
     background-color: $footer-background-color;
     display: flex; /* Add this line */
     align-items: stretch; /* Add this line */
+    flex-direction: column; /* Change the direction to column */
+  
+    img {
+      margin-bottom: 1em; /* Add some spacing between the image and other content */
+    }
   
     footer {
       @include clearfix;
