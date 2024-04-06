@@ -15,17 +15,8 @@
     -webkit-animation-delay: 0.45s;
     animation-delay: 0.45s;
     background-color: $footer-background-color;
-    position: relative; /* Add this line to set relative positioning */
     display: flex; /* Add this line */
     align-items: stretch; /* Add this line */
-  
-    img {
-      position: absolute; /* Add this line to set absolute positioning */
-      top: 0; /* Position the image at the top of the footer */
-      left: 0; /* Position the image at the left of the footer */
-      width: 100%; /* Make the image fill the width of the footer */
-      z-index: 1; /* Ensure the image appears above other content */
-    }
   
     footer {
       @include clearfix;
@@ -57,17 +48,75 @@
     }
   }
   
+  .page__footer-copyright {
+    font-family: $global-font-family;
+    font-size: $type-size-7;
+  }
+
   .page__footer-info {
     display: flex;
     justify-content: flex-start; /* Align items to the left */
     align-items: center;
-    margin-right: 10px; /* Add margin to the right */
+    margin-right: 500px; /* Add margin to the right */
+  
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+  
+    li {
+      font-family: $global-font-family;
+      font-size: $type-size-6;
+      text-transform: uppercase;
+    }
+  
+    li + li:before {
+      content: "";
+      padding-right: 5px;
+    }
+  
+    a {
+      font-weight: bold;
+    }
+  
+    .social-icons {
+      a {
+        white-space: nowrap;
+      }
+    }
   }
+  
   
   .page__footer-follow {
     display: flex;
     justify-content: flex-end; /* Align items to the right */
     align-items: center;
-    margin-left: 10px; /* Add margin to the left */
-  }
   
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+  
+    li {
+      font-family: $global-font-family;
+      font-size: $type-size-6;
+      text-transform: uppercase;
+    }
+  
+    li + li:before {
+      content: "";
+      padding-right: 5px;
+    }
+  
+    a {
+      font-weight: bold;
+    }
+  
+    .social-icons {
+      a {
+        white-space: nowrap;
+      }
+    }
+  }
