@@ -9,31 +9,25 @@
     </ul>
   </div>
 
+  <div class="page__footer-follow">
+    <ul class="social-icons">
+      {% if site.data.ui-text[site.locale].follow_label %}
+        <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
+      {% endif %}
 
-
-<div class="page__footer-follow">
-  <ul class="social-icons">
-    {% if site.data.ui-text[site.locale].follow_label %}
-      <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
-    {% endif %}
-
-    {% if site.footer.links %}
-      {% for link in site.footer.links %}
-        {% if link.label and link.url %}
-          {% if link.label != "Instagram" %} <!-- Check if the link label is not Instagram -->
-            <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer">{{ link.label }}</a></li>
+      {% if site.footer.links %}
+        {% for link in site.footer.links %}
+          {% if link.label and link.url %}
+            {% if link.label != "Instagram" %} <!-- Check if the link label is not Instagram -->
+              <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer">{{ link.label }}</a></li>
+            {% endif %}
           {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-
-    <!-- Add Terms and Services link -->
-    <li><a href="/TerminosYCondiciones/" rel="nofollow noopener noreferrer">Términos y Condiciones</a></li>
-
-    <!-- Add Instagram link -->
-    <li><a href="https://www.instagram.com/gastrali.app?igsh=Mnl0OGw1NjFwYml6" rel="nofollow noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
-
-  </ul>
+        {% endfor %}
+      {% endif %}
+      <!-- Add Instagram link -->
+      <li><a href="https://www.instagram.com/gastrali.app?igsh=Mnl0OGw1NjFwYml6" rel="nofollow noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+    </ul>
+  </div>
 </div>
 
 <div class="page__footer-copyright">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}.</div>
