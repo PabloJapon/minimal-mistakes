@@ -53,8 +53,8 @@
   
   .page__footer-follow {
     display: flex;
-    justify-content: space-between; // This will move items to the left and right
-    align-items: center; // This will vertically center items
+    justify-content: space-between;
+    align-items: center;
   
     ul {
       margin: 0;
@@ -83,4 +83,3 @@
       }
     }
   }
-  
