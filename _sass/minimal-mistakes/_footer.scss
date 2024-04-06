@@ -53,7 +53,7 @@
   
   .page__footer-follow {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Align items to the right */
     align-items: center;
   
     ul {
