@@ -50,6 +50,40 @@
     font-family: $global-font-family;
     font-size: $type-size-7;
   }
+
+  .page__footer-info {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+  
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+  
+    li {
+      font-family: $global-font-family;
+      font-size: $type-size-6;
+      text-transform: uppercase;
+    }
+  
+    li + li:before {
+      content: "";
+      padding-right: 5px;
+    }
+  
+    a {
+      font-weight: bold;
+    }
+  
+    .social-icons {
+      a {
+        white-space: nowrap;
+      }
+    }
+  }
+  
   
   .page__footer-follow {
     display: flex;
