@@ -20,6 +20,6 @@ permalink: /contact/
     </div>
   </div>
 </div>
-<input type="hidden" name="_next" value="https://gastrali.netlify.app/contact.html" />
+<input type="hidden" name="_next" value="https://gastrali.netlify.app/contact.md" />
 <input type="text" name="_gotcha" style="display:none" />   
 </form>
