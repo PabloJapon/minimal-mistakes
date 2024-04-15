@@ -3,7 +3,7 @@ title: Contact
 permalink: /contact/
 ---
 
-<form id="contactform" action="[//formspree.io/kurt.peek@gmail.com](https://formspree.io/f/mnqeoyry)" method="POST">
+<form id="contactform" action="https://formspree.io/f/mnqeoyry" method="POST">
 <div class="col-sm-7 slideanim">
   <div class="row">
     <div class="col-sm-6 form-group">
