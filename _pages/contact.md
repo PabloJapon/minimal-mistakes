@@ -5,15 +5,18 @@ permalink: /contact/
 
 # Contact Me
 
-<form name="contact" method="POST" netlify>
-  <label for="name">Name:</label><br>
-  <input type="text" id="name" name="name"><br>
-  
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email"><br>
-  
-  <label for="message">Message:</label><br>
-  <textarea id="message" name="message"></textarea><br>
-  
-  <button type="submit">Submit</button>
+<form
+  action="https://formspree.io/f/mnqeoyry"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
 </form>
