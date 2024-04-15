@@ -4,7 +4,7 @@ permalink: /contact/
 ---
 
 <!-- markdownlint-disable MD033 -->
-<form name="contact" action="/_pages/success.md" method="POST" data-netlify="true">
+<form name="contact" action="/_pages/success.html" method="POST" data-netlify="true">
   <input type="hidden" name="form-name" value="contact" />
   <p>
     <label for="name">Your Name:</label><br />
