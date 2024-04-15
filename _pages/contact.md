@@ -3,7 +3,6 @@ title: Contact
 permalink: /contact/
 ---
 
-<form id="contactform" action="https://formspree.io/f/mnqeoyry" method="POST">
 <div class="col-sm-7 slideanim">
   <div class="row">
     <div class="col-sm-6 form-group">
@@ -20,6 +19,18 @@ permalink: /contact/
     </div>
   </div>
 </div>
-<input type="hidden" name="_next" value="https://gastrali.netlify.app/contact.md" />
-<input type="text" name="_gotcha" style="display:none" />   
-</form>
+
+<input type="hidden" name="_next" value="https://gastrali.netlify.app/contact" />
+<input type="text" name="_gotcha" style="display:none" />
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("contactform").addEventListener("submit", function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        
+        // Redirect the user to the contact page after form submission
+        window.location.href = "https://gastrali.netlify.app/contact";
+    });
+});
+</script>
