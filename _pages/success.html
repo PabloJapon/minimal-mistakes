@@ -4,11 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Form Submission Successful</title>
-  <!-- Add any additional meta tags, stylesheets, or scripts as needed -->
+  <style>
+    /* Style for the overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value as needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Ensure it's above other content */
+    }
+
+    /* Style for the success message container */
+    .success-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
 <body>
-  <h1>Contact Form Submission Successful</h1>
-  <p>Gracias por ponerse en contacto con nosotros. Hemos recibido su mensaje y nos pondremos en contacto con usted lo antes posible.</p>
-  <!-- You can add additional content, links, or instructions here -->
+  <!-- Overlay to dim the background -->
+  <div class="overlay">
+    <!-- Success message container -->
+    <div class="success-container">
+      <h1>Contact Form Submission Successful</h1>
+      <p>Gracias por ponerse en contacto con nosotros. Hemos recibido su mensaje y nos pondremos en contacto con usted lo antes posible.</p>
+      <!-- Button to return to the homepage -->
+      <a href="index.html">Return to Homepage</a>
+    </div>
+  </div>
+  <!-- The rest of your website content goes here -->
+  <!-- This content will be dimmed and not clickable -->
 </body>
 </html>
