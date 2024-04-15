@@ -13,7 +13,7 @@ permalink: /contact/
     <input type="email" name="_replyto" id="email-address" placeholder="Email" required="">
     <label for="message">Mensaje</label>
     <textarea rows="5" name="message" id="message" placeholder="Mensaje" required=""></textarea>
-    <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+    <input type="hidden" name="_next" value="https://gastrali.netlify.app/contact"/>
   </fieldset>
   <input type="submit" value="Enviar">
 </form><style>/* reset */
