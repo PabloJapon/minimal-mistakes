@@ -6,7 +6,6 @@ layout: splash
 
 # ¡Bienvenido, <span id="username"></span>!
 
-
 <!-- Tabla de Tarifas -->
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 
@@ -14,8 +13,8 @@ layout: splash
 publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo">
 </stripe-pricing-table>
 
-
-
+<!-- Redireccionamiento a Stripe Checkout -->
+<script src="stripe_checkout.js"></script>
 
 <!-- Cierre de sesión -->
 <button onclick="logout()">Cerrar Sesión</button>
