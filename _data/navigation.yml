@@ -4,10 +4,12 @@ main:
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "Documentación"
     url: /year-archive-grid/
-  - title: "Planes/Tarifas"
+  - title: "Precios"
     url: /planes/
+  - title: "Tutoriales"
+    url: /tutoriales/
   - title: "Log Out"
     url: /miCuenta/
     id: logout-link
-  - title: "Portal de Clientes"
-    url: https://billing.stripe.com/p/login/test_4gweYa3TA6Cf3PabII
+  #- title: "Portal de Clientes"
+  #  url: https://billing.stripe.com/p/login/test_4gweYa3TA6Cf3PabII
