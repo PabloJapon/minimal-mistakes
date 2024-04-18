@@ -39,11 +39,13 @@ feature_row:
 
 Esto es el contenido principal de mi página de inicio.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=1&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+
+
 {% include feature_row id="intro" type="center" %}
 
 {% include feature_row %}
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=1&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
 
 
 
