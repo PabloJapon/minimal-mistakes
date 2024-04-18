@@ -35,9 +35,7 @@ header:
     provider: youtube
 ```
 
-<a href="https://www.youtube.com/watch?v=4xd4k43obXE&ab_channel=Sule">
-  <img src="https://www.youtube.com/watch?v=4xd4k43obXE&ab_channel=Sule.jpg" alt="YouTube Video">
-</a>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE" frameborder="0" allowfullscreen></iframe>
 
 
 

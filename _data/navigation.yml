@@ -4,6 +4,10 @@ main:
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "Documentación"
     url: /year-archive-grid/
+  - title: "Productos"
+    url: /productos/
+  - title: "Descargas"
+    url: /descargas/
   - title: "Precios"
     url: /precios/
   - title: "Tutoriales"
