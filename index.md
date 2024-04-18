@@ -43,7 +43,8 @@ Esto es el contenido principal de mi página de inicio.
 
 {% include feature_row %}
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=0&showinfo=0&modestbranding=1&rel=0&autoplay=0&loop=0&mute=0&start=0&end=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=0&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+
 
 
 
