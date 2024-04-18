@@ -1,5 +1,5 @@
 ---
-title: "Gastrali 0.0"
+title: "Slogan descriptivo"
 layout: splash
 header:
   overlay_image: /assets/images/service.jpg
@@ -7,12 +7,15 @@ header:
   #overlay_color: "#6699ff"
   #overlay_filter: "0.5"
   actions:
-     - label: "Descargar" 
-       url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
-       download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
-       btn_label: "Descargar"
+     #- label: "Descargar" 
+       #url: "/assets/downloads/CarpetaApp.zip"  # Reemplaza con la ruta correcta de tu archivo zip
+       #download: "CarpetaApp.zip"  # Nombre de archivo para la descarga
+       #btn_label: "Descargar"
+       #btn_class: "btn--primary"  # Apply the same class used for the "Read More" button
+     - label: "Comenzar" 
+       btn_label: "Comenzar"
        btn_class: "btn--primary"  # Apply the same class used for the "Read More" button
-excerpt: "Aquí pues ya vemos si ponemos algo o que pasa"
+excerpt: "Descripción corta"
 intro: 
   - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
 feature_row:
