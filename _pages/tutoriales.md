@@ -35,6 +35,11 @@ header:
     provider: youtube
 ```
 
+header:
+  video:
+    id: -PVofD2A9t8
+    provider: youtube
+
 ### Vimeo
 
 To embed the following Vimeo video at url `https://vimeo.com/212731897` into a post or page's main content you'd use: 
