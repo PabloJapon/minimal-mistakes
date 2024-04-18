@@ -3,14 +3,26 @@
    ========================================================================== */
 
 .masthead {
-  position: relative;
-  border-bottom: 0px; //1px solid $border-color;
+  //position: relative;
+  //border-bottom: 0px; //1px solid $border-color;
+  //-webkit-animation: $intro-transition;
+  //animation: $intro-transition;
+  //-webkit-animation-delay: 0.15s;
+  //animation-delay: 0.15s;
+  //z-index: 20;
+  //background-color: #ffffff !important;
+
+  position: fixed; /* Agrega esta línea para hacer que el masthead se mantenga fijo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #ffffff !important;
+  border-bottom: 0; //1px solid $border-color;
   -webkit-animation: $intro-transition;
   animation: $intro-transition;
   -webkit-animation-delay: 0.15s;
   animation-delay: 0.15s;
-  z-index: 20;
-  background-color: #ffffff !important;
 
   &__inner-wrap {
     @include clearfix;
