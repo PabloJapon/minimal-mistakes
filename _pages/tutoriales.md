@@ -35,10 +35,8 @@ header:
     provider: youtube
 ```
 
-header:
-  video:
-    id: -PVofD2A9t8
-    provider: youtube
+[![YouTube Video](https://img.youtube.com/vi/-PVofD2A9t8/0.jpg)](https://www.youtube.com/embed/-PVofD2A9t8)
+
 
 ### Vimeo
 
