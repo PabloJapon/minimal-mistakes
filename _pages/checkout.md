@@ -8,6 +8,10 @@ permalink: /checkout/
 <div class="page__content">
   <h2>Complete el formulario y proceda al pago:</h2>
   
+  <!-- Selected Plan Section -->
+  <div id="selected-plan"></div>
+  
+  <!-- Payment Form -->
   <form id="payment-form">
     <div>
       <label for="name">Nombre:</label>
@@ -40,7 +44,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const elements = stripe.elements();
 
   // Create an instance of the card Element
-  const cardElement = elements.create('card');
+  const cardElement = elements.create('card', {
+    style: {
+      base: {
+        fontSize: '16px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        color: '#32325d',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+      },
+    },
+  });
 
   // Add an instance of the card Element into the `card-element` div
   cardElement.mount('#card-element');
@@ -75,5 +90,60 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = '/pago-exitoso';
     }
   });
+
+  // Display selected plan dynamically
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan');
+  if (plan) {
+    const selectedPlanElement = document.getElementById('selected-plan');
+    selectedPlanElement.innerHTML = `<h3>Plan Seleccionado: ${plan}</h3>`;
+  }
 });
 </script>
+
+<style>
+  /* Custom CSS to style the form */
+  .page__content {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  #card-element {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
