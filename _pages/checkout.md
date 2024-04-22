@@ -1,6 +1,7 @@
 ---
 title: "Checkout"
 permalink: /checkout/
+plan: "{{ page.params.plan }}"
 ---
 
 # Checkout
