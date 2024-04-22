@@ -3,6 +3,13 @@ title: "Elige el plan ideal para ti"
 permalink: /precios/
 ---
 
-# Elige tu plan ideal
+# Elige tu plan ideal.
 
-Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+- Plan Básico: Precio $10/mes
+  [Elegir Plan](/checkout?plan=basico)
+
+- Plan Estándar: Precio $20/mes
+  [Elegir Plan](/checkout?plan=estandar)
+
+- Plan Premium: Precio $30/mes
+  [Elegir Plan](/checkout?plan=premium)
