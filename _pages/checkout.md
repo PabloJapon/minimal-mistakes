@@ -3,6 +3,8 @@ title: "Checkout"
 permalink: /checkout/
 ---
 
+<script src="https://js.stripe.com/v3/"></script>
+
 # Checkout
 
 <div class="page__content">
@@ -143,7 +145,4 @@ document.addEventListener('DOMContentLoaded', function() {
     cursor: pointer;
   }
 
-  button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-</style>
+  button
