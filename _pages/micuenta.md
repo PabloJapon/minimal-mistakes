@@ -48,22 +48,29 @@ layout: splash
     // Retrieve the user's Stripe customer ID from Netlify Identity
     const customerId = user.user_metadata.stripe_customer_id;
 
-    // Fetch the subscription details from Stripe using the customer ID
-    fetch('/.netlify/functions/getSubscription', {
+    // Fetch the subscription details from the serverless function
+    fetch('/.netlify/functions1/getSubscription', {
       method: 'POST',
       body: JSON.stringify({ customerId }),
     })
     .then(response => response.json())
     .then(data => {
-      // Extract the subscription plan name from the response
-      const planName = data.plan_name;
-
-      // Update the subscription-plan element with the plan name
-      const subscriptionPlanElement = document.getElementById('subscription-plan');
-      subscriptionPlanElement.innerText = 'Plan: ' + planName;
+      if (data.planName) {
+        // Update the subscription-plan element with the plan name
+        const subscriptionPlanElement = document.getElementById('subscription-plan');
+        subscriptionPlanElement.innerText = 'Plan: ' + data.planName;
+      } else {
+        // Display an error message if no active subscription found
+        const subscriptionPlanElement = document.getElementById('subscription-plan');
+        subscriptionPlanElement.innerText = 'No active subscription found';
+      }
     })
     .catch(error => {
+      // Log and display any errors that occur
       console.error('Error fetching subscription information:', error);
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.innerText = 'Error fetching subscription information';
     });
   }
 </script>
+
