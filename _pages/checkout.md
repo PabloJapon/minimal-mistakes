@@ -38,7 +38,7 @@ permalink: /checkout/
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Set up Stripe.js with your publishable key
-  const stripe = Stripe('YOUR_PUBLISHABLE_KEY');
+  const stripe = Stripe('{{ site.STRIPE_PUBLISHABLE_KEY }}');
 
   // Create an instance of the card Element
   const elements = stripe.elements();
@@ -92,3 +92,4 @@ document.addEventListener('DOMContentLoaded', function() {
 <style>
 /* Add your custom CSS styles here */
 </style>
+
