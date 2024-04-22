@@ -83,6 +83,10 @@ async function initiateSubscriptionCheckout() {
       body: JSON.stringify({ planId: 'your_plan_id' }) // Replace 'your_plan_id' with the actual plan ID
     });
 
+    if (!response.ok) {
+      throw new Error('Failed to create Checkout session');
+    }
+
     const session = await response.json();
 
     // Redirect to the Checkout page with success and cancel URLs
@@ -95,6 +99,7 @@ async function initiateSubscriptionCheckout() {
     console.error('Error initiating subscription checkout:', error);
   }
 }
+
 
 // Call the function when the page loads or when the user clicks a button to initiate checkout
 initiateSubscriptionCheckout();
