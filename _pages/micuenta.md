@@ -25,8 +25,8 @@ layout: splash
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
 
-    // Retrieve subscription information and display the plan name
-    getSubscriptionPlan(user);
+    // Display the subscription plan
+    displaySubscriptionPlan(user);
   });
 
   netlifyIdentity.on('logout', () => {
@@ -37,47 +37,25 @@ layout: splash
     if (usernameSpan) {
       usernameSpan.innerText = '';
     }
+
+    // Clear the subscription plan when the user logs out
+    const subscriptionPlanElement = document.getElementById('subscription-plan');
+    if (subscriptionPlanElement) {
+      subscriptionPlanElement.innerText = '';
+    }
   });
 
   function logout() {
     netlifyIdentity.logout();
   }
 
-  // Function to retrieve subscription information
-  function getSubscriptionPlan(user) {
-    // Retrieve the user's Stripe customer ID from Netlify Identity
-    const customerId = user.user_metadata.stripe_customer_id;
-    console.log('Customer ID:', customerId);
-
-    // Fetch the subscription details from the serverless function
-    fetch('/.netlify/functions/getSubscription', {
-      method: 'POST',
-      body: JSON.stringify({ customerId }),
-    })
-    .then(response => {
-      console.log('Response status:', response.status);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Subscription data:', data);
-      if (data.planName) {
-        // Update the subscription-plan element with the plan name
-        const subscriptionPlanElement = document.getElementById('subscription-plan');
-        subscriptionPlanElement.innerText = 'Plan: ' + data.planName;
-      } else {
-        // Display an error message if no active subscription found
-        const subscriptionPlanElement = document.getElementById('subscription-plan');
-        subscriptionPlanElement.innerText = 'No active subscription found';
-      }
-    })
-    .catch(error => {
-      // Log and display any errors that occur
-      console.error('Error fetching subscription information:', error);
-      const subscriptionPlanElement = document.getElementById('subscription-plan');
-      subscriptionPlanElement.innerText = 'Error fetching subscription information';
-    });
+  // Function to display the subscription plan
+  function displaySubscriptionPlan(user) {
+    // Get the subscription plan from Netlify Identity metadata
+    const planName = user.user_metadata.subscription_plan;
+    
+    // Display the plan name
+    const subscriptionPlanElement = document.getElementById('subscription-plan');
+    subscriptionPlanElement.innerText = 'Plan: ' + planName;
   }
 </script>
