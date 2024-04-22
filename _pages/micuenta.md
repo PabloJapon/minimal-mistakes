@@ -56,11 +56,18 @@ publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4
 
   // Function to display the subscription plan
   function displaySubscriptionPlan(user) {
-    // Get the subscription plan from Netlify Identity metadata
-    const planName = user.user_metadata.subscription_plan;
-    
-    // Display the plan name
-    const subscriptionPlanElement = document.getElementById('subscription-plan');
-    subscriptionPlanElement.innerText = 'Plan: ' + planName;
-  }
+    // Check if subscription plan metadata exists
+    if (user.user_metadata && user.user_metadata.subscription_plan) {
+        // Get the subscription plan from Netlify Identity metadata
+        const planName = user.user_metadata.subscription_plan;
+
+        // Display the plan name
+        const subscriptionPlanElement = document.getElementById('subscription-plan');
+        subscriptionPlanElement.innerText = 'Plan: ' + planName;
+    } else {
+        // If subscription plan metadata doesn't exist, display a message
+        const subscriptionPlanElement = document.getElementById('subscription-plan');
+        subscriptionPlanElement.innerText = 'Todavía no has elegido ningún plan';
+    }
+}
 </script>
