@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Display the selected plan dynamically
   const planElement = document.createElement('h2');
   planElement.textContent = plan ? 'Plan Seleccionado: ' + plan : 'No se ha seleccionado ningún plan';
-  document.body.appendChild(planElement);
+  
+  // Insert the plan element below the existing content
+  const checkoutContent = document.querySelector('.page-content');
+  checkoutContent.appendChild(planElement);
 });
 </script>
