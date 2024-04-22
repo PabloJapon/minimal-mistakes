@@ -70,4 +70,32 @@ publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4
         subscriptionPlanElement.innerText = 'Todavía no has elegido ningún plan';
     }
 }
+
+// Function to initiate subscription checkout
+async function initiateSubscriptionCheckout() {
+  try {
+    // Make a request to your server to create a Checkout session
+    const response = await fetch('/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ planId: 'your_plan_id' }) // Replace 'your_plan_id' with the actual plan ID
+    });
+
+    const session = await response.json();
+
+    // Redirect to the Checkout page with success and cancel URLs
+    stripe.redirectToCheckout({
+      sessionId: session.id,
+      successUrl: 'https://yourwebsite.com/success',
+      cancelUrl: 'https://yourwebsite.com/miCuenta' // Redirect back to the account page
+    });
+  } catch (error) {
+    console.error('Error initiating subscription checkout:', error);
+  }
+}
+
+// Call the function when the page loads or when the user clicks a button to initiate checkout
+initiateSubscriptionCheckout();
 </script>
