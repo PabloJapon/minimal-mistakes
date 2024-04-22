@@ -7,6 +7,8 @@ permalink: /checkout/
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('Checkout page loaded');
+
   const urlParams = new URLSearchParams(window.location.search);
   const plan = urlParams.get('plan');
   console.log('Plan selected:', plan);
