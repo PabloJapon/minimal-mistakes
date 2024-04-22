@@ -278,6 +278,8 @@ compress_html:
   ignore:
     envs: development
 
+# Keys 
+stripe_publishable_key: "{{ site.SITE_STRIPE_PUBLISHABLE_KEY }}"
 
 # Collections
 collections:
