@@ -26,7 +26,7 @@ layout: splash
     }
 
     // Retrieve subscription information and display the plan name
-    getSubscriptionPlan(user);
+    getSubscriptionPlan();
   });
 
   netlifyIdentity.on('logout', () => {
@@ -44,15 +44,12 @@ layout: splash
   }
 
   // Function to retrieve subscription information
-  function getSubscriptionPlan(user) {
-    // Retrieve the user's Stripe customer ID from Netlify Identity
-    const customerId = user.user_metadata.stripe_customer_id;
-    console.log('Customer ID:', customerId);
-
-    // Fetch the subscription details from the serverless function
+  function getSubscriptionPlan() {
+    // Fetch the subscription details from Stripe using the token or session ID
     fetch('/.netlify/functions/getSubscription', {
       method: 'POST',
-      body: JSON.stringify({ customerId }),
+      // Pass the token or session ID received from Stripe Checkout
+      body: JSON.stringify({ paymentToken: 'your_payment_token_or_session_id' }),
     })
     .then(response => {
       if (!response.ok) {
