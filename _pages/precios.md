@@ -13,3 +13,8 @@ permalink: /precios/
 
 - Plan Premium: Precio $30/mes
   [Elegir Plan](/checkout?plan=premium)
+
+
+
+  <a href="https://your-site-name.netlify.app/payment.html">Go to Payment Page</a>
+
