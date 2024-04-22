@@ -6,16 +6,13 @@ layout: splash
 
 # ¡Bienvenido, <span id="username"></span>!
 
-<!-- Tabla de Tarifas -->
-<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-
-<stripe-pricing-table pricing-table-id="prctbl_1On5HBE2UvP4xcDs5mx40eVF"
-publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo">
-</stripe-pricing-table>
+<!-- Subscription Plan Name -->
+<div id="subscription-plan"></div>
 
 <!-- Cierre de sesión -->
 <button onclick="logout()">Cerrar Sesión</button>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
   // Netlify Identity script y manejo de eventos
   netlifyIdentity.on('login', user => {
@@ -27,6 +24,9 @@ publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4
     if (usernameSpan) {
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
+
+    // Retrieve subscription information and display the plan name
+    getSubscriptionPlan(user);
   });
 
   netlifyIdentity.on('logout', () => {
@@ -41,5 +41,29 @@ publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4
 
   function logout() {
     netlifyIdentity.logout();
+  }
+
+  // Function to retrieve subscription information
+  function getSubscriptionPlan(user) {
+    // Retrieve the user's Stripe customer ID from Netlify Identity
+    const customerId = user.user_metadata.stripe_customer_id;
+
+    // Fetch the subscription details from Stripe using the customer ID
+    fetch('/.netlify/functions/getSubscription', {
+      method: 'POST',
+      body: JSON.stringify({ customerId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Extract the subscription plan name from the response
+      const planName = data.plan_name;
+
+      // Update the subscription-plan element with the plan name
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.innerText = 'Plan: ' + planName;
+    })
+    .catch(error => {
+      console.error('Error fetching subscription information:', error);
+    });
   }
 </script>
