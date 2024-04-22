@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('Checkout page loaded');
   
   // Get the Stripe publishable key from environment variable
-  const stripePublishableKey = '{{ site.STRIPE_PUBLISHABLE_KEY }}';
+  const stripePublishableKey = '{{ site.stripe_publishable_key }}';
   console.log(stripePublishableKey);
 
   // Set up Stripe.js with the publishable key
