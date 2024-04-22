@@ -30,8 +30,11 @@ permalink: /checkout/
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Checkout page loaded');
   
-  // Set up Stripe.js with your publishable key
-  const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
+  // Get the Stripe publishable key from environment variable
+  const stripePublishableKey = '{{ site.STRIPE_PUBLISHABLE_KEY }}';
+
+  // Set up Stripe.js with the publishable key
+  const stripe = Stripe(stripePublishableKey);
 
   // Create an instance of Elements
   const elements = stripe.elements();
