@@ -17,8 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const planElement = document.createElement('h2');
   planElement.textContent = plan ? 'Plan Seleccionado: ' + plan : 'No se ha seleccionado ningún plan';
   
-  // Insert the plan element below the existing content
-  const checkoutContent = document.querySelector('.page-content');
-  checkoutContent.appendChild(planElement);
+  // Insert the plan element below the existing content if .page__content exists
+  const checkoutContent = document.querySelector('.page__content');
+  if (checkoutContent) {
+    checkoutContent.appendChild(planElement);
+  } else {
+    console.error('.page__content element not found.');
+  }
 });
 </script>
