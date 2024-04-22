@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Payment Form</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    /* Add your custom CSS styles here */
+    /* Example styles for demonstration */
+    #card-element {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #card-holder-name {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #card-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Custom Payment Form</h1>
+
+<form id="payment-form">
+  <input type="text" id="card-holder-name" placeholder="Cardholder Name">
+  <div id="card-element"></div>
+  <button id="card-button" type="submit">Pay Now</button>
+</form>
+
+<script>
+  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  var elements = stripe.elements();
+  var cardElement = elements.create('card');
+  cardElement.mount('#card-element');
+
+  var cardButton = document.getElementById('card-button');
+
+  cardButton.addEventListener('click', function(ev) {
+    ev.preventDefault();
+    stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+      billing_details: {
+        name: document.getElementById('card-holder-name').value
+      }
+    }).then(function(result) {
+      if (result.error) {
+        console.error(result.error.message);
+      } else {
+        // Payment succeeded
+        // You can handle the successful payment here, e.g., show a success message
+        alert('Payment successful!');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
