@@ -47,14 +47,21 @@ layout: splash
   function getSubscriptionPlan(user) {
     // Retrieve the user's Stripe customer ID from Netlify Identity
     const customerId = user.user_metadata.stripe_customer_id;
+    console.log('Customer ID:', customerId);
 
     // Fetch the subscription details from the serverless function
-    fetch('/.netlify/functions1/getSubscription', {
+    fetch('/.netlify/functions/getSubscription', {
       method: 'POST',
       body: JSON.stringify({ customerId }),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log('Subscription data:', data);
       if (data.planName) {
         // Update the subscription-plan element with the plan name
         const subscriptionPlanElement = document.getElementById('subscription-plan');
@@ -73,4 +80,3 @@ layout: splash
     });
   }
 </script>
-
