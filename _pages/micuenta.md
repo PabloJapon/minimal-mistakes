@@ -6,6 +6,11 @@ layout: splash
 
 # ¡Bienvenido, <span id="username"></span>!
 
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1On5HBE2UvP4xcDs5mx40eVF"
+publishable-key="pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo">
+</stripe-pricing-table>
+
 <!-- Subscription Plan Name -->
 <div id="subscription-plan"></div>
 
