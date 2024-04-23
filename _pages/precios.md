@@ -17,4 +17,4 @@ permalink: /precios/
 
 <a href="https://gastrali.netlify.app/payment.html">Go to Payment Page</a>
 
-<a href="/payment_form.md">Go to Payment Page MD</a>
+<a href="./payment_form.md">Go to Payment Page MD</a>
