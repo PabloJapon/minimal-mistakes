@@ -1,4 +1,12 @@
-const stripe = require('stripe')('process.env.STRIPE_SECRET_KEY');
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+if (!stripeSecretKey) {
+  console.error('Error: Stripe secret key is missing!');
+} else {
+  console.log('Stripe secret key:', stripeSecretKey);
+}
+
+const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event) => {
   try {
