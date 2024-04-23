@@ -38,6 +38,7 @@
     "test": "test"
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "stripe": "^15.3.0"
   }
 }
