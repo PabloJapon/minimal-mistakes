@@ -60,9 +60,22 @@
       if (result.error) {
         console.error(result.error.message);
       } else {
-        // Payment succeeded
-        // You can handle the successful payment here, e.g., show a success message
-        alert('Payment successful!');
+        // Create a subscription using the payment method
+        stripe.confirmCardPayment({
+          payment_method: result.paymentMethod.id,
+          setup_future_usage: 'off_session',
+          confirm_subscription: true,
+          items: [
+            {price: 'price_1On33zE2UvP4xcDsDD9jPJzw'} // Replace with your price ID
+          ]
+        }).then(function(confirmResult) {
+          if (confirmResult.error) {
+            console.error(confirmResult.error.message);
+          } else {
+            // Subscription confirmed
+            alert('Subscription successful!');
+          }
+        });
       }
     });
   });
