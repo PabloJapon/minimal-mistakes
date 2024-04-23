@@ -14,7 +14,7 @@ permalink: /payment_form/
     body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
-      margin: 0;
+      margin: 4em;
       padding: 0;
       display: flex;
       justify-content: center;
