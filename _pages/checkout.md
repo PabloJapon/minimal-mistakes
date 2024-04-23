@@ -3,7 +3,21 @@ title: "Checkout"
 permalink: /checkout/
 ---
 
-<script src="https://js.stripe.com/v3/"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  console.log('Checkout page loaded');
+
+  try {
+    const response = await fetch('/.netlify/functions/get-wallet-config');
+    const data = await response.json();
+
+    // Use data returned by the server (wallet config) here
+    console.log('Wallet config:', data);
+  } catch (error) {
+    console.error('Error fetching wallet config:', error);
+  }
+});
+</script>
 
 # Checkout
 
