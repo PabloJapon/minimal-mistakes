@@ -1,5 +1,6 @@
 ---
 layout: default
+permalink: /payment_form/
 ---
 
 <!DOCTYPE html>
