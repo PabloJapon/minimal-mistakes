@@ -86,10 +86,26 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       console.log('Payment method created:', paymentMethod);
       
-      // TODO: Send payment method to your server to process payment
-      // For now, you can display a success message or redirect to a success page
-      alert('Pago exitoso. Redirigiendo a página de éxito...');
-      window.location.href = '/pago-exitoso';
+      // Send payment method to serverless function for processing
+      const response = await fetch('/.netlify/functions/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: 1000, // amount in cents
+          currency: 'usd',
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Client secret:', data.clientSecret);
+        
+        // Use client secret to confirm payment (optional)
+      } else {
+        console.error('Failed to create payment intent:', response.statusText);
+      }
     }
   });
 
@@ -145,4 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
     cursor: pointer;
   }
 
-  button
+  button {
+    /* Add custom styles for button */
+  }
+</style>
