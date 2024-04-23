@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Payment Form</title>
+  <title>Custom Subscription Form</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     /* Add your custom CSS styles here */
@@ -32,16 +32,16 @@
 </head>
 <body>
 
-<h1>Custom Payment Form</h1>
+<h1>Custom Subscription Form</h1>
 
 <form id="payment-form">
   <input type="text" id="card-holder-name" placeholder="Cardholder Name">
   <div id="card-element"></div>
-  <button id="card-button" type="submit">Pay Now</button>
+  <button id="card-button" type="submit">Subscribe Now</button>
 </form>
 
 <script>
-  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  var stripe = Stripe('pk_test_XXXXXXXXXXXXXXXXXXXX');
   var elements = stripe.elements();
   var cardElement = elements.create('card');
   cardElement.mount('#card-element');
@@ -60,20 +60,34 @@
       if (result.error) {
         console.error(result.error.message);
       } else {
-        // Create a subscription using the payment method
-        stripe.confirmCardPayment({
-          payment_method: result.paymentMethod.id,
-          setup_future_usage: 'off_session',
-          confirm_subscription: true,
-          items: [
-            {price: 'price_1On33zE2UvP4xcDsDD9jPJzw'} // Replace with your price ID
-          ]
-        }).then(function(confirmResult) {
-          if (confirmResult.error) {
-            console.error(confirmResult.error.message);
+        // Send payment method to server and retrieve client secret
+        fetch('/create-payment-intent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            payment_method: result.paymentMethod.id,
+            amount: 1000, // Amount in cents
+            currency: 'usd' // Change to your desired currency
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if (data.error) {
+            console.error(data.error.message);
           } else {
-            // Subscription confirmed
-            alert('Subscription successful!');
+            // Confirm the subscription using the received client secret
+            stripe.confirmCardPayment(data.clientSecret, {
+              payment_method: result.paymentMethod.id
+            }).then(function(confirmResult) {
+              if (confirmResult.error) {
+                console.error(confirmResult.error.message);
+              } else {
+                // Subscription confirmed
+                alert('Subscription successful!');
+              }
+            });
           }
         });
       }
@@ -83,3 +97,4 @@
 
 </body>
 </html>
+
