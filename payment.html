@@ -36,6 +36,7 @@
 
 <form id="payment-form">
   <input type="text" id="card-holder-name" placeholder="Cardholder Name">
+  <input type="email" id="email" placeholder="Email Address">
   <div id="card-element"></div>
   <button id="card-button" type="submit">Pay Now</button>
 </form>
@@ -55,7 +56,7 @@
   var cardHolderName = document.getElementById('card-holder-name').value;
   var email = document.getElementById('email').value; // Assuming you have an input field for email
   var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
-  var priceId = 'price_123'; // Replace with actual price ID
+  var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
   
   // Make AJAX request to Netlify Function endpoint
   fetch('https://gastrali.netlify.app/.netlify/functions/server', {
