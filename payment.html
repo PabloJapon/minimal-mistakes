@@ -49,23 +49,42 @@
   var cardButton = document.getElementById('card-button');
 
   cardButton.addEventListener('click', function(ev) {
-    ev.preventDefault();
-    stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-      billing_details: {
-        name: document.getElementById('card-holder-name').value
-      }
-    }).then(function(result) {
-      if (result.error) {
-        console.error(result.error.message);
-      } else {
-        // Payment succeeded
-        // You can handle the successful payment here, e.g., show a success message
-        alert('Payment successful!');
-      }
-    });
+  ev.preventDefault();
+
+  // Collect form data
+  var cardHolderName = document.getElementById('card-holder-name').value;
+  var email = document.getElementById('email').value; // Assuming you have an input field for email
+  var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
+  var priceId = 'price_123'; // Replace with actual price ID
+  
+  // Make AJAX request to Netlify Function endpoint
+  fetch('https://gastrali.netlify.app/.netlify/functions/server', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      payment_method: paymentMethod,
+      priceId: priceId
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to create subscription');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Handle successful subscription creation
+    alert('Subscription created successfully!');
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error creating subscription:', error);
+    alert('Failed to create subscription. Please try again later.');
   });
+});
 </script>
 
 </body>
