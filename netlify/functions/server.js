@@ -1,39 +1,35 @@
-const express = require('express');
-const app = express();
 const stripe = require('stripe')('process.env.STRIPE_SECRET_KEY');
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-// Route to create a subscription
-app.post('/create-subscription', async (req, res) => {
+exports.handler = async (event) => {
   try {
+    const body = JSON.parse(event.body);
+    
     // Create a customer
     const customer = await stripe.customers.create({
-      email: req.body.email,
-      payment_method: req.body.payment_method,
+      email: body.email,
+      payment_method: body.payment_method,
       invoice_settings: {
-        default_payment_method: req.body.payment_method
+        default_payment_method: body.payment_method
       }
     });
 
     // Create a subscription
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
-      items: [{ price: req.body.priceId }]
+      items: [{ price: body.priceId }]
     });
 
     // Subscription created successfully
-    res.status(200).json({ subscription });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ subscription })
+    };
   } catch (error) {
     // Handle errors
     console.error('Error creating subscription:', error);
-    res.status(500).json({ error: 'Failed to create subscription' });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to create subscription' })
+    };
   }
-});
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+};
