@@ -8,7 +8,7 @@ permalink: /payment_form/
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduzca sus datos de pago</title>
+  <title>Por favor introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -66,48 +66,39 @@ permalink: /payment_form/
       box-sizing: border-box;
     }
 
-    /* Ajustar diseño para los elementos de expiración y CVC */
-    .inline-labels {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .inline-elements {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .inline-elements .stripe-element {
-      width: calc(50% - 5px); /* Establecer el ancho para ocupar el 50% del contenedor menos el espacio */
-    }
-
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 12px; /* Ajustar el tamaño de fuente de las etiquetas */
+      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
+    }
+
+    .inline-elements, .inline-labels {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Introduzca sus datos de pago</h1>
+  <h1>Formulario de Pago Personalizado</h1>
 
-  <form id="payment-form">
-    <label for="card-number-element" class="element-label">Número de Tarjeta</label>
-    <div id="card-number-element" class="stripe-element"></div>
-    <div class="inline-labels">
-      <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-      <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
-    </div>
-    <div class="inline-elements">
-      <div id="card-expiry-element" class="stripe-element"></div>
-      <div id="card-cvc-element" class="stripe-element"></div>
-    </div>
-    <button id="card-button" type="submit">Pagar Ahora</button>
-  </form>
+  <label for="card-number-element" class="element-label">Número de Tarjeta</label>
+  <div id="card-number-element" class="stripe-element"></div>
+
+  <div class="inline-elements">
+    <div id="card-expiry-element" class="stripe-element"></div>
+    <div id="card-cvc-element" class="stripe-element"></div>
+  </div>
+
+  <div class="inline-labels">
+    <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
+    <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+  </div>
+
+  <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
 
 <script>
