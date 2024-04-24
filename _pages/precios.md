@@ -9,17 +9,19 @@ layout: splash
 <style>
 .plan-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .plan {
-  width: 300px; /* Ancho deseado de cada plan */
+  width: 400px; /* Ancho deseado de cada plan */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .plan h2 {
@@ -46,20 +48,20 @@ layout: splash
 
 <div class="plan-container">
   <div class="plan">
-    <h2>Plan Básico</h2>
-    <p>Precio: $10/mes</p>
+    <h2>Básico</h2>
+    <p>0€</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=basico'">Elegir Plan</button>
   </div>
 
   <div class="plan">
-    <h2>Plan Estándar</h2>
-    <p>Precio: $20/mes</p>
+    <h2>Estándar</h2>
+    <p>30€</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=estandar'">Elegir Plan</button>
   </div>
 
   <div class="plan">
-    <h2>Plan Premium</h2>
-    <p>Precio: $30/mes</p>
+    <h2>Premium</h2>
+    <p>50€</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=premium'">Elegir Plan</button>
   </div>
 </div>
