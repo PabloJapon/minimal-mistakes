@@ -58,15 +58,18 @@ permalink: /payment_form/
 
     /* Custom styling for Stripe elements */
     .stripe-element {
+      width: calc(50% - 5px); /* Set width to occupy 50% of container minus gap */
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      box-sizing: border-box;
     }
 
     /* Adjust layout for expiry and CVC elements */
     .inline-elements {
       display: flex;
+      flex-wrap: wrap; /* Wrap elements if they exceed container width */
       gap: 10px;
     }
   </style>
