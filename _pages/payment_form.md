@@ -72,9 +72,7 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
-    <!-- Cardholder Name field -->
     <input type="text" id="card-holder-name" placeholder="Cardholder Name">
-    <!-- Email field hidden, will be populated with Netlify Identity email -->
     <input type="email" id="email" placeholder="Email Address">
     <div id="card-element"></div>
     <button id="card-button" type="submit">Pay Now</button>
@@ -109,7 +107,7 @@ permalink: /payment_form/
 
     // Collect form data
     var cardHolderName = document.getElementById('card-holder-name').value;
-    var email = getNetlifyIdentityEmail(); // Get email from Netlify Identity
+    var email = document.getElementById('email').value; // Get email from input field
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
     
@@ -121,7 +119,6 @@ permalink: /payment_form/
       },
       body: JSON.stringify({
         email: email,
-        cardHolderName: cardHolderName,
         payment_method: paymentMethod,
         priceId: priceId
       })
@@ -143,10 +140,13 @@ permalink: /payment_form/
     });
   });
 
-  // Function to get Netlify Identity email
-  function getNetlifyIdentityEmail() {
-    var user = window.netlifyIdentity && window.netlifyIdentity.currentUser();
-    return user && user.email ? user.email : null;
+  // Prefill email field with user's email from Netlify Identity
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', function(user) {
+      if (user && user.email) {
+        document.getElementById('email').value = user.email;
+      }
+    });
   }
 </script>
 
