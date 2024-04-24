@@ -4,11 +4,11 @@ permalink: /payment_form/
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Payment Form</title>
+  <title>Introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -20,7 +20,7 @@ permalink: /payment_form/
 
     .container {
       max-width: 400px;
-      margin: 50px auto; /* Adjust margin as needed */
+      margin: 50px auto; /* Ajustar margen según sea necesario */
       padding: 20px;
       background-color: #fff;
       border-radius: 10px;
@@ -56,9 +56,9 @@ permalink: /payment_form/
       background-color: #0056b3;
     }
 
-    /* Custom styling for Stripe elements */
+    /* Estilo personalizado para los elementos de Stripe */
     .stripe-element {
-      width: 100%; /* Set width to occupy 100% of container */
+      width: 100%; /* Establecer el ancho para ocupar el 100% del contenedor */
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -66,38 +66,39 @@ permalink: /payment_form/
       box-sizing: border-box;
     }
 
-    /* Adjust layout for expiry and CVC elements */
+    /* Ajustar diseño para los elementos de expiración y CVC */
     .inline-elements {
       display: flex;
-      flex-wrap: wrap; /* Wrap elements if they exceed container width */
+      flex-wrap: wrap; /* Envolver elementos si exceden el ancho del contenedor */
       gap: 10px;
     }
 
     .inline-elements .stripe-element {
-      width: calc(50% - 5px); /* Set width to occupy 50% of container minus gap */
+      width: calc(50% - 5px); /* Establecer el ancho para ocupar el 50% del contenedor menos el espacio */
     }
 
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
+      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Custom Payment Form</h1>
+  <h1>Formulario de Pago Personalizado</h1>
 
   <form id="payment-form">
-    <label for="card-number-element" class="element-label">Card Number</label>
+    <label for="card-number-element" class="element-label">Número de Tarjeta</label>
     <div id="card-number-element" class="stripe-element"></div>
     <div class="inline-elements">
-      <label for="card-expiry-element" class="element-label">Expiration Date</label>
+      <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
       <div id="card-expiry-element" class="stripe-element"></div>
-      <label for="card-cvc-element" class="element-label">Security Code</label>
+      <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
       <div id="card-cvc-element" class="stripe-element"></div>
     </div>
-    <button id="card-button" type="submit">Pay Now</button>
+    <button id="card-button" type="submit">Pagar Ahora</button>
   </form>
 </div>
 
@@ -105,7 +106,7 @@ permalink: /payment_form/
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
-  // Custom styling for Stripe elements
+  // Estilo personalizado para los elementos de Stripe
   var style = {
     base: {
       fontSize: '16px',
@@ -133,23 +134,23 @@ permalink: /payment_form/
   cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
 
-    // Use Netlify Identity to get user data
+    // Usar Netlify Identity para obtener los datos del usuario
     var user = netlifyIdentity && netlifyIdentity.currentUser();
     if (!user) {
-      // If the user is not logged in, prompt them to log in
-      alert('Please log in to proceed with the payment.');
+      // Si el usuario no ha iniciado sesión, pedirle que inicie sesión
+      alert('Por favor, inicia sesión para continuar con el pago.');
       return;
     }
 
-    // Get the user's email and name
+    // Obtener el correo electrónico y el nombre del usuario
     var userEmail = user.email;
     var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
-    // If the user is logged in, proceed with payment
-    var paymentMethod = 'card'; // Use card as payment method
-    var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
+    // Si el usuario ha iniciado sesión, proceder con el pago
+    var paymentMethod = 'card'; // Utilizar tarjeta como método de pago
+    var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Reemplazar con el ID de precio real
     
-    // Create payment method with Stripe
+    // Crear método de pago con Stripe
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumberElement,
@@ -158,14 +159,14 @@ permalink: /payment_form/
       },
     }).then(function(result) {
       if (result.error) {
-        // Error creating payment method
+        // Error al crear método de pago
         console.error(result.error.message);
-        alert('Failed to create payment method: ' + result.error.message);
+        alert('Error al crear método de pago: ' + result.error.message);
       } else {
-        // Payment method created successfully, proceed with payment
+        // Método de pago creado con éxito, proceder con el pago
         var paymentMethodId = result.paymentMethod.id;
         
-        // Make AJAX request to Netlify Function endpoint
+        // Hacer solicitud AJAX al punto final de la Función de Netlify
         fetch('https://gastrali.netlify.app/.netlify/functions/server', {
           method: 'POST',
           headers: {
@@ -180,18 +181,18 @@ permalink: /payment_form/
         })
         .then(response => {
           if (!response.ok) {
-            throw new Error('Failed to create subscription');
+            throw new Error('Error al crear suscripción');
           }
           return response.json();
         })
         .then(data => {
-          // Handle successful subscription creation
-          alert('Subscription created successfully!');
+          // Manejar la creación exitosa de la suscripción
+          alert('¡Suscripción creada con éxito!');
         })
         .catch(error => {
-          // Handle errors
-          console.error('Error creating subscription:', error);
-          alert('Failed to create subscription. Please try again later.');
+          // Manejar errores
+          console.error('Error al crear suscripción:', error);
+          alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
         });
       }
     });
