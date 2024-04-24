@@ -116,6 +116,9 @@ permalink: /payment_form/
       return;
     }
 
+    // Get the user's email
+    var userEmail = user.email;
+
     // If the user is logged in, proceed with payment
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
@@ -127,7 +130,7 @@ permalink: /payment_form/
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: email,
+        email: userEmail,
         payment_method: paymentMethod,
         priceId: priceId
       })
