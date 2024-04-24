@@ -63,6 +63,12 @@ permalink: /payment_form/
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
+    /* Adjust layout for expiry and CVC elements */
+    .inline-elements {
+      display: flex;
+      gap: 10px;
+    }
   </style>
 </head>
 <body>
@@ -72,8 +78,10 @@ permalink: /payment_form/
 
   <form id="payment-form">
     <div id="card-number-element" class="stripe-element"></div>
-    <div id="card-expiry-element" class="stripe-element"></div>
-    <div id="card-cvc-element" class="stripe-element"></div>
+    <div class="inline-elements">
+      <div id="card-expiry-element" class="stripe-element"></div>
+      <div id="card-cvc-element" class="stripe-element"></div>
+    </div>
     <button id="card-button" type="submit">Pay Now</button>
   </form>
 </div>
