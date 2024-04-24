@@ -55,6 +55,14 @@ permalink: /payment_form/
     button:hover {
       background-color: #0056b3;
     }
+
+    /* Custom styling for Stripe elements */
+    .stripe-element {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -63,9 +71,9 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
-    <input type="text" id="card-number" placeholder="Card Number">
-    <input type="text" id="card-expiry" placeholder="MM/YY">
-    <input type="text" id="card-cvc" placeholder="CVC">
+    <div id="card-number-element" class="stripe-element"></div>
+    <div id="card-expiry-element" class="stripe-element"></div>
+    <div id="card-cvc-element" class="stripe-element"></div>
     <button id="card-button" type="submit">Pay Now</button>
   </form>
 </div>
@@ -74,14 +82,33 @@ permalink: /payment_form/
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
+  // Custom styling for Stripe elements
+  var style = {
+    base: {
+      fontSize: '16px',
+      color: '#32325d',
+      '::placeholder': {
+        color: '#aab7c4',
+      },
+    },
+    invalid: {
+      color: '#fa755a',
+    },
+  };
+
+  var cardNumberElement = elements.create('cardNumber', { style: style });
+  cardNumberElement.mount('#card-number-element');
+
+  var cardExpiryElement = elements.create('cardExpiry', { style: style });
+  cardExpiryElement.mount('#card-expiry-element');
+
+  var cardCvcElement = elements.create('cardCvc', { style: style });
+  cardCvcElement.mount('#card-cvc-element');
+
   var cardButton = document.getElementById('card-button');
 
   cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
-
-    var cardNumber = document.getElementById('card-number').value;
-    var cardExpiry = document.getElementById('card-expiry').value;
-    var cardCvc = document.getElementById('card-cvc').value;
 
     // Use Netlify Identity to get user data
     var user = netlifyIdentity && netlifyIdentity.currentUser();
@@ -99,39 +126,51 @@ permalink: /payment_form/
     var paymentMethod = 'card'; // Use card as payment method
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
     
-    // Make AJAX request to Netlify Function endpoint
-    fetch('https://gastrali.netlify.app/.netlify/functions/server', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: userEmail,
+    // Create payment method with Stripe
+    stripe.createPaymentMethod({
+      type: 'card',
+      card: cardNumberElement,
+      billing_details: {
         name: userName,
-        payment_method: paymentMethod,
-        card: {
-          number: cardNumber,
-          exp_month: cardExpiry.split('/')[0],
-          exp_year: cardExpiry.split('/')[1],
-          cvc: cardCvc
-        },
-        priceId: priceId
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to create subscription');
+      },
+    }).then(function(result) {
+      if (result.error) {
+        // Error creating payment method
+        console.error(result.error.message);
+        alert('Failed to create payment method: ' + result.error.message);
+      } else {
+        // Payment method created successfully, proceed with payment
+        var paymentMethodId = result.paymentMethod.id;
+        
+        // Make AJAX request to Netlify Function endpoint
+        fetch('https://gastrali.netlify.app/.netlify/functions/server', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: userEmail,
+            name: userName,
+            payment_method: paymentMethodId,
+            priceId: priceId
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to create subscription');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Handle successful subscription creation
+          alert('Subscription created successfully!');
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error creating subscription:', error);
+          alert('Failed to create subscription. Please try again later.');
+        });
       }
-      return response.json();
-    })
-    .then(data => {
-      // Handle successful subscription creation
-      alert('Subscription created successfully!');
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error creating subscription:', error);
-      alert('Failed to create subscription. Please try again later.');
     });
   });
 </script>
