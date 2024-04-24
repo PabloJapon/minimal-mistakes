@@ -44,7 +44,7 @@ permalink: /payment_form/
     }
 
     button {
-      background-color: #007bff;
+      background-color: #6699ff;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -112,8 +112,10 @@ permalink: /payment_form/
 
   <button id="card-button" type="submit">Pagar Ahora</button>
 
-  {% assign plan = page.url | split: "?" | last | split: "=" | last %}
-  El usuario ha seleccionado el plan: {{ plan }}
+  {% assign plan = page.query.plan %}
+  {% if plan %}
+    El usuario ha seleccionado el plan: {{ plan }}
+  {% endif %}
 </div>
 
 <script>
