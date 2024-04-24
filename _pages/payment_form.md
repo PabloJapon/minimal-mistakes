@@ -80,7 +80,7 @@ permalink: /payment_form/
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 10px; /* Ajustar el tamaño de fuente de las etiquetas */
+      font-size: 12px; /* Ajustar el tamaño de fuente de las etiquetas */
     }
   </style>
 </head>
@@ -94,8 +94,8 @@ permalink: /payment_form/
     <div id="card-number-element" class="stripe-element"></div>
     <div class="inline-elements">
       <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-      <div id="card-expiry-element" class="stripe-element"></div>
       <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+      <div id="card-expiry-element" class="stripe-element"></div>
       <div id="card-cvc-element" class="stripe-element"></div>
     </div>
     <button id="card-button" type="submit">Pagar Ahora</button>
