@@ -1,6 +1,7 @@
 ---
 title: "Elige el plan ideal para ti"
 permalink: /precios/
+layout: splash
 ---
 
 # Elige tu plan ideal.
@@ -17,6 +18,7 @@ permalink: /precios/
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
+  margin-bottom: 20px; /* Espacio inferior entre cada plan */
 }
 
 .plan h2 {

@@ -114,7 +114,13 @@ permalink: /payment_form/
 
   {% assign plan = page.query.plan %}
   {% if plan %}
-    <p>El usuario ha seleccionado el plan: {{ plan }}</p>
+    <p id="selected-plan">El usuario ha seleccionado el plan: {{ plan }}</p>
+    <script>
+      console.log("Plan seleccionado:", "{{ plan }}");
+      console.log("Tipo de plan:", typeof "{{ plan }}");
+    </script>
+  {% else %}
+    <p>No se ha seleccionado ningún plan.</p>
   {% endif %}
 </div>
 
