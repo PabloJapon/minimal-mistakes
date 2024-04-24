@@ -8,7 +8,7 @@ permalink: /payment_form/
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Por favor introduzca sus datos de pago</title>
+  <title>Formulario de Pago Personalizado</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -72,11 +72,15 @@ permalink: /payment_form/
       font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
     }
 
-    .inline-elements, .inline-labels {
+    .inline-container {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 10px;
+      align-items: center;
+    }
+
+    .inline-elements, .inline-labels {
+      width: calc(50% - 5px); /* Establecer el ancho para ocupar el 50% del contenedor menos el espacio */
     }
   </style>
 </head>
@@ -85,17 +89,16 @@ permalink: /payment_form/
 <div class="container">
   <h1>Formulario de Pago Personalizado</h1>
 
-  <label for="card-number-element" class="element-label">Número de Tarjeta</label>
-  <div id="card-number-element" class="stripe-element"></div>
+  <div class="inline-container">
+    <div class="inline-elements">
+      <div id="card-expiry-element" class="stripe-element"></div>
+      <div id="card-cvc-element" class="stripe-element"></div>
+    </div>
 
-  <div class="inline-elements">
-    <div id="card-expiry-element" class="stripe-element"></div>
-    <div id="card-cvc-element" class="stripe-element"></div>
-  </div>
-
-  <div class="inline-labels">
-    <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-    <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+    <div class="inline-labels">
+      <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
+      <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+    </div>
   </div>
 
   <button id="card-button" type="submit">Pagar Ahora</button>
@@ -118,9 +121,6 @@ permalink: /payment_form/
       color: '#fa755a',
     },
   };
-
-  var cardNumberElement = elements.create('cardNumber', { style: style });
-  cardNumberElement.mount('#card-number-element');
 
   var cardExpiryElement = elements.create('cardExpiry', { style: style });
   cardExpiryElement.mount('#card-expiry-element');
@@ -149,51 +149,33 @@ permalink: /payment_form/
     var paymentMethod = 'card'; // Utilizar tarjeta como método de pago
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Reemplazar con el ID de precio real
     
-    // Crear método de pago con Stripe
-    stripe.createPaymentMethod({
-      type: 'card',
-      card: cardNumberElement,
-      billing_details: {
-        name: userName,
+    // Hacer solicitud AJAX al punto final de la Función de Netlify
+    fetch('https://gastrali.netlify.app/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
-    }).then(function(result) {
-      if (result.error) {
-        // Error al crear método de pago
-        console.error(result.error.message);
-        alert('Error al crear método de pago: ' + result.error.message);
-      } else {
-        // Método de pago creado con éxito, proceder con el pago
-        var paymentMethodId = result.paymentMethod.id;
-        
-        // Hacer solicitud AJAX al punto final de la Función de Netlify
-        fetch('https://gastrali.netlify.app/.netlify/functions/server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: userEmail,
-            name: userName,
-            payment_method: paymentMethodId,
-            priceId: priceId
-          })
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Error al crear suscripción');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Manejar la creación exitosa de la suscripción
-          alert('¡Suscripción creada con éxito!');
-        })
-        .catch(error => {
-          // Manejar errores
-          console.error('Error al crear suscripción:', error);
-          alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-        });
+      body: JSON.stringify({
+        email: userEmail,
+        name: userName,
+        payment_method: paymentMethod,
+        priceId: priceId
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error al crear suscripción');
       }
+      return response.json();
+    })
+    .then(data => {
+      // Manejar la creación exitosa de la suscripción
+      alert('¡Suscripción creada con éxito!');
+    })
+    .catch(error => {
+      // Manejar errores
+      console.error('Error al crear suscripción:', error);
+      alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
     });
   });
 </script>
