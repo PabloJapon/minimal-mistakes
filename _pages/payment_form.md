@@ -112,7 +112,7 @@ permalink: /payment_form/
 
   <button id="card-button" type="submit">Pagar Ahora</button>
 
-  {% assign plan = page.query.plan %}
+  {% assign plan = page.url | split: '=' | last %}
   {% if plan %}
     <p id="selected-plan">El usuario ha seleccionado el plan: {{ plan }}</p>
     <script>

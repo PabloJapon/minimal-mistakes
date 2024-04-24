@@ -18,7 +18,8 @@ layout: splash
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
-  margin-bottom: 20px; /* Espacio inferior entre cada plan */
+  margin-bottom: 60px; /* Espacio inferior entre cada plan */
+  margin-top: 60px;
 }
 
 .plan h2 {
