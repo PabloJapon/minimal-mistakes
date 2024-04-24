@@ -36,7 +36,25 @@ permalink: /payment_form/
     input[type="text"],
     input[type="email"],
     button {
-      display: none; /* Hide input fields */
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
 
     /* Custom styling for Stripe card element */
@@ -54,6 +72,8 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
+    <!-- Cardholder Name field -->
+    <input type="text" id="card-holder-name" placeholder="Cardholder Name">
     <!-- Email field hidden, will be populated with Netlify Identity email -->
     <input type="email" id="email" placeholder="Email Address">
     <div id="card-element"></div>
@@ -88,6 +108,7 @@ permalink: /payment_form/
     ev.preventDefault();
 
     // Collect form data
+    var cardHolderName = document.getElementById('card-holder-name').value;
     var email = getNetlifyIdentityEmail(); // Get email from Netlify Identity
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
@@ -100,6 +121,7 @@ permalink: /payment_form/
       },
       body: JSON.stringify({
         email: email,
+        cardHolderName: cardHolderName,
         payment_method: paymentMethod,
         priceId: priceId
       })
