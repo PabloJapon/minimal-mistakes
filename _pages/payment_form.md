@@ -80,10 +80,15 @@ permalink: /payment_form/
       font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
     }
 
-    .inline-elements, .inline-labels {
+    .inline-elements{
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+    .inline-labels {
+      display: flex;
+      align-items: center;
+      gap: 30px;
     }
   </style>
 </head>
