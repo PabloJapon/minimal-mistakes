@@ -17,6 +17,7 @@ layout: splash
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background: white;
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
@@ -33,6 +34,7 @@ layout: splash
   color: white;
   border: none;
   padding: 10px 20px;
+  margin: 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
