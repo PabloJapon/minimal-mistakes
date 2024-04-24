@@ -94,6 +94,12 @@ permalink: /payment_form/
 </head>
 <body>
 
+# Formulario de Pago
+
+{% assign plan = page.url | split: "?" | last | split: "=" | last %}
+
+El usuario ha seleccionado el plan: {{ plan }}
+
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
 
