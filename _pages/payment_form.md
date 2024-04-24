@@ -68,7 +68,7 @@ permalink: /payment_form/
 
     /* Ajustar diseño para los elementos de expiración y CVC */
     .inline-elements {
-      display: flex;
+      display: inline-flex; /* Cambiar de flex a inline-flex */
       flex-wrap: wrap; /* Envolver elementos si exceden el ancho del contenedor */
       gap: 10px;
     }
@@ -80,14 +80,14 @@ permalink: /payment_form/
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
+      font-size: 10px; /* Ajustar el tamaño de fuente de las etiquetas */
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Formulario de Pago Personalizado</h1>
+  <h1>Introduzca sus datos de pago</h1>
 
   <form id="payment-form">
     <label for="card-number-element" class="element-label">Número de Tarjeta</label>
