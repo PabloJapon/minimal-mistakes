@@ -76,6 +76,11 @@ permalink: /payment_form/
     .inline-elements .stripe-element {
       width: calc(50% - 5px); /* Set width to occupy 50% of container minus gap */
     }
+
+    .element-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
@@ -84,9 +89,12 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
+    <label for="card-number-element" class="element-label">Card Number</label>
     <div id="card-number-element" class="stripe-element"></div>
     <div class="inline-elements">
+      <label for="card-expiry-element" class="element-label">Expiration Date</label>
       <div id="card-expiry-element" class="stripe-element"></div>
+      <label for="card-cvc-element" class="element-label">Security Code</label>
       <div id="card-cvc-element" class="stripe-element"></div>
     </div>
     <button id="card-button" type="submit">Pay Now</button>
