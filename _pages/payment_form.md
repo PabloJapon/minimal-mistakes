@@ -82,7 +82,6 @@ permalink: /payment_form/
 
     .inline-elements, .inline-labels {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
     }
