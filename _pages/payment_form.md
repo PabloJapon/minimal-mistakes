@@ -55,14 +55,6 @@ permalink: /payment_form/
     button:hover {
       background-color: #0056b3;
     }
-
-    /* Custom styling for Stripe card element */
-    #card-element {
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
   </style>
 </head>
 <body>
@@ -71,7 +63,9 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
-    <div id="card-element"></div>
+    <input type="text" id="card-number" placeholder="Card Number">
+    <input type="text" id="card-expiry" placeholder="MM/YY">
+    <input type="text" id="card-cvc" placeholder="CVC">
     <button id="card-button" type="submit">Pay Now</button>
   </form>
 </div>
@@ -80,31 +74,14 @@ permalink: /payment_form/
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
-  // Custom styling for Stripe card element
-  var style = {
-    base: {
-      fontSize: '16px',
-      color: '#32325d',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-    },
-    invalid: {
-      color: '#fa755a',
-    },
-  };
-
-  var cardElement = elements.create('card', { style: style });
-  cardElement.mount('#card-element');
-
   var cardButton = document.getElementById('card-button');
 
   cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
 
-    // Collect form data
-    //var cardHolderName = document.getElementById('card-holder-name').value;
-    //var email = document.getElementById('email').value;
+    var cardNumber = document.getElementById('card-number').value;
+    var cardExpiry = document.getElementById('card-expiry').value;
+    var cardCvc = document.getElementById('card-cvc').value;
 
     // Use Netlify Identity to get user data
     var user = netlifyIdentity && netlifyIdentity.currentUser();
@@ -119,7 +96,7 @@ permalink: /payment_form/
     var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
     // If the user is logged in, proceed with payment
-    var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
+    var paymentMethod = 'card'; // Use card as payment method
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
     
     // Make AJAX request to Netlify Function endpoint
@@ -132,6 +109,12 @@ permalink: /payment_form/
         email: userEmail,
         name: userName,
         payment_method: paymentMethod,
+        card: {
+          number: cardNumber,
+          exp_month: cardExpiry.split('/')[0],
+          exp_year: cardExpiry.split('/')[1],
+          cvc: cardCvc
+        },
         priceId: priceId
       })
     })
