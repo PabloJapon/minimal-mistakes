@@ -15,6 +15,7 @@ exports.handler = async (event) => {
     // Create a customer
     const customer = await stripe.customers.create({
       email: body.email,
+      name: body.name,
       payment_method: body.payment_method,
       invoice_settings: {
         default_payment_method: body.payment_method

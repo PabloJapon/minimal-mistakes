@@ -15,7 +15,4 @@ permalink: /precios/
   [Elegir Plan](/checkout?plan=premium)
 
 
-<a href="https://gastrali.netlify.app/payment.html">Go to Payment Page</a>
-
-
 [Go to Payment Page MD](/payment_form/)

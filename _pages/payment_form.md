@@ -71,8 +71,6 @@ permalink: /payment_form/
   <h1>Custom Payment Form</h1>
 
   <form id="payment-form">
-    <input type="text" id="card-holder-name" placeholder="Cardholder Name">
-    <input type="email" id="email" placeholder="Email Address">
     <div id="card-element"></div>
     <button id="card-button" type="submit">Pay Now</button>
   </form>
@@ -105,8 +103,8 @@ permalink: /payment_form/
     ev.preventDefault();
 
     // Collect form data
-    var cardHolderName = document.getElementById('card-holder-name').value;
-    var email = document.getElementById('email').value;
+    //var cardHolderName = document.getElementById('card-holder-name').value;
+    //var email = document.getElementById('email').value;
 
     // Use Netlify Identity to get user data
     var user = netlifyIdentity && netlifyIdentity.currentUser();
