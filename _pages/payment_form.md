@@ -114,7 +114,7 @@ permalink: /payment_form/
 
   {% assign plan = page.query.plan %}
   {% if plan %}
-    El usuario ha seleccionado el plan: {{ plan }}
+    <p>El usuario ha seleccionado el plan: {{ plan }}</p>
   {% endif %}
 </div>
 

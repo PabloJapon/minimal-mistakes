@@ -8,8 +8,7 @@ permalink: /precios/
 <style>
 .plan-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-around;
 }
 
 .plan {
@@ -18,7 +17,6 @@ permalink: /precios/
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
-  margin-bottom: 20px; /* Espacio entre cada plan */
 }
 
 .plan h2 {
@@ -26,7 +24,7 @@ permalink: /precios/
 }
 
 .plan-button {
-  background-color: #4CAF50;
+  background-color: #6699ff; /* Cambio de color */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -39,7 +37,7 @@ permalink: /precios/
 }
 
 .plan-button:hover {
-  background-color: #45a049;
+  background-color: #4c80d9; /* Cambio de color en el hover */
 }
 </style>
 
@@ -62,6 +60,7 @@ permalink: /precios/
     <button class="plan-button" onclick="location.href='/payment_form/?plan=premium'">Elegir Plan</button>
   </div>
 </div>
+
 
 
 [Go to Payment Page MD](/payment_form/)
