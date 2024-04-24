@@ -47,21 +47,21 @@ layout: splash
 <div class="plan-container">
   <div class="plan">
     <h2>Básico</h2>
-    <h>0€</h>
+    <h3>0€</h3>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=basico'">Empieza</button>
     <p>Gratis. Para siempre</p>
   </div>
 
   <div class="plan">
     <h2>Estándar</h2>
-    <h>30€</h>
+    <h3>30€</h3>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=estandar'">Empieza</button>
     <p>Este pues mejor tu sabe</p>
   </div>
 
   <div class="plan">
     <h2>Premium</h2>
-    <h>50€</h>
+    <h3>50€</h3>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=premium'">Empieza</button>
     <p>Y este buenisimo del to</p>
   </div>
