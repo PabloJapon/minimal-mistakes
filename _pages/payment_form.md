@@ -8,7 +8,7 @@ permalink: /payment_form/
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Por favor introduzca sus datos de pago</title>
+  <title>Introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -88,14 +88,14 @@ permalink: /payment_form/
     .inline-labels {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 49px;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Formulario de Pago Personalizado</h1>
+  <h1>Introduzca sus datos de pago</h1>
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
