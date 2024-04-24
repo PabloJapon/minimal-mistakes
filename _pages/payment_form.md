@@ -65,6 +65,14 @@ permalink: /payment_form/
       border-radius: 5px;
       box-sizing: border-box;
     }
+    .stripe-element-50 {
+      width: 50%; /* Establecer el ancho para ocupar el 50% del contenedor */
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
 
     .element-label {
       font-weight: bold;
@@ -94,8 +102,8 @@ permalink: /payment_form/
   </div>
 
   <div class="inline-elements">
-    <div id="card-expiry-element" class="stripe-element"></div>
-    <div id="card-cvc-element" class="stripe-element"></div>
+    <div id="card-expiry-element" class="stripe-element-50"></div>
+    <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
   <button id="card-button" type="submit">Pagar Ahora</button>
