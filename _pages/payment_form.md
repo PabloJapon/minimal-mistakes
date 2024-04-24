@@ -10,6 +10,7 @@ permalink: /payment_form/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Payment Form</title>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> <!-- Include Netlify Identity script -->
   <style>
     body {
       font-family: Arial, sans-serif;
