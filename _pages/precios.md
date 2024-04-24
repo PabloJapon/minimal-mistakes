@@ -21,8 +21,8 @@ layout: splash
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .plan-button {
