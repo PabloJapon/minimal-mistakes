@@ -67,6 +67,11 @@ permalink: /payment_form/
     }
 
     /* Ajustar diseño para los elementos de expiración y CVC */
+    .inline-elements-labels {
+      display: flex;
+      flex-wrap: wrap; /* Envolver elementos si exceden el ancho del contenedor */
+      gap: 0px;
+    }
     .inline-elements {
       display: flex;
       flex-wrap: wrap; /* Envolver elementos si exceden el ancho del contenedor */
@@ -92,9 +97,10 @@ permalink: /payment_form/
   <form id="payment-form">
     <label for="card-number-element" class="element-label">Número de Tarjeta</label>
     <div id="card-number-element" class="stripe-element"></div>
-    <div class="inline-elements">
+    <div class="inline-elements-labels">
       <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
       <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+    <div class="inline-elements">
       <div id="card-expiry-element" class="stripe-element"></div>
       <div id="card-cvc-element" class="stripe-element"></div>
     </div>
