@@ -97,9 +97,6 @@ permalink: /payment_form/
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
 
-  {% assign plan = page.query.plan %}
-  El usuario ha seleccionado el plan: {{ plan }}
-
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
 
@@ -114,6 +111,9 @@ permalink: /payment_form/
   </div>
 
   <button id="card-button" type="submit">Pagar Ahora</button>
+
+  {% assign plan = page.url | split: "?" | last | split: "=" | last %}
+  El usuario ha seleccionado el plan: {{ plan }}
 </div>
 
 <script>
