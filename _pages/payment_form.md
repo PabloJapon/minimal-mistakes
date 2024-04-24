@@ -10,6 +10,7 @@ permalink: /payment_form/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Payment Form</title>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> <!-- Include Netlify Identity script -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -106,7 +107,7 @@ permalink: /payment_form/
 
     // Collect form data
     var cardHolderName = document.getElementById('card-holder-name').value;
-    var email = document.getElementById('email').value; // Assuming you have an input field for email
+    var email = document.getElementById('email').value; // Get email from input field
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
     
@@ -138,6 +139,15 @@ permalink: /payment_form/
       alert('Failed to create subscription. Please try again later.');
     });
   });
+
+  // Prefill email field with user's email from Netlify Identity
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', function(user) {
+      if (user && user.email) {
+        document.getElementById('email').value = user.email;
+      }
+    });
+  }
 </script>
 
 </body>
