@@ -58,7 +58,7 @@ permalink: /payment_form/
 
     /* Custom styling for Stripe elements */
     .stripe-element {
-      width: calc(50% - 5px); /* Set width to occupy 50% of container minus gap */
+      width: 100%; /* Set width to occupy 100% of container */
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -71,6 +71,10 @@ permalink: /payment_form/
       display: flex;
       flex-wrap: wrap; /* Wrap elements if they exceed container width */
       gap: 10px;
+    }
+
+    .inline-elements .stripe-element {
+      width: calc(50% - 5px); /* Set width to occupy 50% of container minus gap */
     }
   </style>
 </head>
