@@ -116,8 +116,9 @@ permalink: /payment_form/
       return;
     }
 
-    // Get the user's email
+    // Get the user's email and name
     var userEmail = user.email;
+    var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
     // If the user is logged in, proceed with payment
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
@@ -131,6 +132,7 @@ permalink: /payment_form/
       },
       body: JSON.stringify({
         email: userEmail,
+        name: userName,
         payment_method: paymentMethod,
         priceId: priceId
       })
