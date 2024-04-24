@@ -69,7 +69,7 @@ permalink: /payment_form/
     /* Ajustar diseño para los elementos de expiración y CVC */
     .inline-labels {
       display: inline-flex;
-      flex-direction: column; /* Stack elements vertically */
+      flex-wrap: wrap;
       gap: 10px;
     }
 
