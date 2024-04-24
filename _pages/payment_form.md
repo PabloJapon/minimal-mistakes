@@ -10,7 +10,6 @@ permalink: /payment_form/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Payment Form</title>
   <script src="https://js.stripe.com/v3/"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> <!-- Include Netlify Identity script -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -107,7 +106,17 @@ permalink: /payment_form/
 
     // Collect form data
     var cardHolderName = document.getElementById('card-holder-name').value;
-    var email = document.getElementById('email').value; // Assuming you have an input field for email
+    var email = document.getElementById('email').value;
+
+    // Use Netlify Identity to get user data
+    var user = netlifyIdentity && netlifyIdentity.currentUser();
+    if (!user) {
+      // If the user is not logged in, prompt them to log in
+      alert('Please log in to proceed with the payment.');
+      return;
+    }
+
+    // If the user is logged in, proceed with payment
     var paymentMethod = 'pm_card_visa'; // Replace with actual payment method ID
     var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Replace with actual price ID
     
