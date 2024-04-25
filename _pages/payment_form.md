@@ -4,13 +4,9 @@ permalink: /payment_form/
 ---
 
 <script>
-// Get the query parameter 'info'
+// Get the query parameter 'plan'
 const urlParams = new URLSearchParams(window.location.search);
 const plan = urlParams.get('plan');
-
-// Display information based on the value of 'info'
-document.write("<h1>Page 2</h1>");
-document.write("<p>Information passed: " + plan + "</p>");
 </script>
 
 <!DOCTYPE html>
@@ -106,6 +102,9 @@ document.write("<p>Information passed: " + plan + "</p>");
 
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
+  <p>Plan:</p>
+
+  <p id="plan"></p>
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
@@ -121,8 +120,6 @@ document.write("<p>Information passed: " + plan + "</p>");
   </div>
 
   <button id="card-button" type="submit">Pagar Ahora</button>
-
-  <p id="plan"></p>
   
 </div>
 
