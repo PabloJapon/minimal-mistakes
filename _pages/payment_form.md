@@ -154,11 +154,11 @@ permalink: /payment_form/
     border: none;
   }
   .progress-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid #ccc;
+    position: relative; /* Set position to relative */
+    top: -50%; /* Position vertically at -50% */
+    left: 50%; /* Position horizontally at 50% */
+    transform: translateX(-50%); /* Center horizontally */
+    border: 2px solid #fff; /* Match the button border color */
     border-radius: 50%;
     width: 40px;
     height: 40px;
