@@ -24,6 +24,22 @@ exports.handler = async (event) => {
       // If customer exists, use existing customer ID
       customerId = existingCustomer.data[0].id;
       console.log('Existing customer found. Customer ID:', customerId);
+
+      // Check if the customer has an active subscription
+      const existingSubscription = await stripe.subscriptions.list({
+        customer: customerId,
+        status: 'active',
+        limit: 1
+      });
+
+      if (existingSubscription.data.length > 0) {
+        // If customer has an active subscription, handle it accordingly
+        console.log('Customer already has an active subscription:', existingSubscription.data[0].id);
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Customer already has an active subscription' })
+        };
+      }
     } else {
       // If customer doesn't exist, create a new customer
       console.log('No existing customer found. Creating a new customer...');
