@@ -307,9 +307,15 @@ permalink: /payment_form/
           alert('¡Suscripción creada con éxito!');
         })
         .catch(error => {
-          // Manejar errores
+          // Handle errors
           console.error('Error al crear suscripción:', error);
-          alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
+          if (error.response && error.response.status === 400) {
+            // Handle error code 400 (Bad Request)
+            alert('Ya tienes una suscripción activa. No puedes suscribirte a más de un plan a la vez.');
+          } else {
+            // Handle other errors
+            alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
+          }
         });
       }
     });
