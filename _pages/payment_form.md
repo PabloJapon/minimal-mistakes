@@ -161,8 +161,8 @@ permalink: /payment_form/
     transform: translateX(-50%); /* Center horizontally */
     border: 2px solid transparent; /* Transparent border */
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     animation: spin 1s linear infinite;
     display: none; /* Initially hidden */
   }
@@ -314,6 +314,7 @@ permalink: /payment_form/
               // If server.js returns a success message or other data
               console.log('Server response:', data);
               // Update user metadata with subscription plan
+              console.log('User:', user);
               user.update({
                 data: { subscription_plan: plan }
               }).then(updatedUser => {
