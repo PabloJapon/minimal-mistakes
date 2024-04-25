@@ -117,6 +117,32 @@ permalink: /payment_form/
   <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
 
+<style>
+  /* Circular progress animation */
+  .progress-button {
+    position: relative;
+    overflow: hidden;
+    background: none;
+    border: none;
+  }
+  .progress-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    display: none; /* Initially hidden */
+  }
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+</style>
+
 <script>
   // Retrieve plan from URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -132,6 +158,34 @@ permalink: /payment_form/
 
   // Display the price of the selected plan
   document.getElementById('price').textContent = "Precio: " + prices[plan];
+  
+  // Get references to button and progress circle
+  const cardButton = document.getElementById('card-button');
+  const progressCircle = document.createElement('div');
+  progressCircle.classList.add('progress-circle');
+
+  // Add progress circle to the button
+  cardButton.appendChild(progressCircle);
+
+  // Add event listener to the payment button
+  cardButton.addEventListener('click', function(ev) {
+    ev.preventDefault();
+
+    // Hide button text
+    cardButton.textContent = '';
+    // Show progress circle
+    progressCircle.style.display = 'block';
+
+    // Simulate payment processing delay (replace this with your actual payment processing logic)
+    setTimeout(function() {
+      // Once payment processing is done, hide progress circle
+      progressCircle.style.display = 'none';
+      // Restore button text
+      cardButton.textContent = 'Pagar Ahora';
+
+      // You can proceed with the payment processing logic here
+    }, 2000); // Change 2000 to the actual delay time
+  });
 </script>
 
 <script>
