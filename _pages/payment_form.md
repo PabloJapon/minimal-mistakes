@@ -3,14 +3,6 @@ layout: default
 permalink: /payment_form/
 ---
 
-<script>
-  // Get the query parameter 'plan'
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan');
-  // Set the value of the plan into the HTML element with id 'plan'
-  document.getElementById('plan').textContent = plan;
-</script>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -126,10 +118,9 @@ permalink: /payment_form/
 </div>
 
 <script>
-  // Get the query parameter 'plan'
   const urlParams = new URLSearchParams(window.location.search);
   const plan = urlParams.get('plan');
-  // Set the value of the plan into the HTML element with id 'plan'
+  console.log("Plan:", plan); // Add this line for debugging
   document.getElementById('plan').textContent = plan;
 </script>
 
