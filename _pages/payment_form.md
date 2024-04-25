@@ -305,16 +305,17 @@ permalink: /payment_form/
           return response.json();
         })
         .then(data => {
+          console.log('Response status data:', data.status);
           // Handle the response from server.js
-          if (response.status === 400) {
+          if (data.status === 400) {
             // If server.js returns a status code 400
             console.log('Server returned status 400');
             alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-          } else if (response.status === 500) {
+          } else if (data.status === 500) {
             // If server.js returns a status code 500
             console.log('Server returned status 500');
             alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-          } else if (response.ok) {
+          } else if (data.ok) {
             // If server.js returns a success message or other data
             console.log('Server response:', data);
             alert('¡Suscripción creada con éxito!');
