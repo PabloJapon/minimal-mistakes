@@ -159,34 +159,8 @@ permalink: /payment_form/
   // Display the price of the selected plan
   document.getElementById('price').textContent = "Precio: " + prices[plan];
   
-  // Get references to button and progress circle
-  const cardButton = document.getElementById('card-button');
-  const progressCircle = document.createElement('div');
-  progressCircle.classList.add('progress-circle');
-
-  // Add progress circle to the button
-  cardButton.appendChild(progressCircle);
-
-  // Add event listener to the payment button
-  cardButton.addEventListener('click', function(ev) {
-    ev.preventDefault();
-
-    // Hide button text
-    cardButton.textContent = '';
-    // Show progress circle
-    progressCircle.style.display = 'block';
-
-    // Simulate payment processing delay (replace this with your actual payment processing logic)
-    setTimeout(function() {
-      // Once payment processing is done, hide progress circle
-      progressCircle.style.display = 'none';
-      // Restore button text
-      cardButton.textContent = 'Pagar Ahora';
-
-      // You can proceed with the payment processing logic here
-    }, 2000); // Change 2000 to the actual delay time
-  });
 </script>
+
 
 <script>
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
