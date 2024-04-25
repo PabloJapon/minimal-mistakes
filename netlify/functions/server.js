@@ -12,6 +12,9 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
 
+    // Log the incoming request body
+    console.log('Incoming request body:', body);
+
     // Check if user exists with the provided email
     const existingCustomer = await stripe.customers.list({ email: body.email, limit: 1 });
 
@@ -20,8 +23,11 @@ exports.handler = async (event) => {
     if (existingCustomer.data.length > 0) {
       // If customer exists, use existing customer ID
       customerId = existingCustomer.data[0].id;
+      console.log('Existing customer found. Customer ID:', customerId);
     } else {
       // If customer doesn't exist, create a new customer
+      console.log('No existing customer found. Creating a new customer...');
+
       const customer = await stripe.customers.create({
         email: body.email,
         name: body.name,
@@ -32,13 +38,18 @@ exports.handler = async (event) => {
       });
 
       customerId = customer.id;
+      console.log('New customer created. Customer ID:', customerId);
     }
 
     // Create a subscription for the customer using the customer ID
+    console.log('Creating subscription for customer:', customerId);
+
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: body.priceId }]
     });
+
+    console.log('Subscription created successfully:', subscription);
 
     // Subscription created successfully
     return {
