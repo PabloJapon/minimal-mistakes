@@ -309,9 +309,18 @@ permalink: /payment_form/
         .catch(error => {
           // Handle errors
           console.error('Error al crear suscripción:', error);
-          if (error.response && error.response.status === 400) {
-            // Handle error code 400 (Bad Request)
-            alert('Ya tienes una suscripción activa. No puedes suscribirte a más de un plan a la vez.');
+          if (error.response) {
+            console.log('Error status:', error.response.status); // Log the status
+            if (error.response.status === 400) {
+              // Parse the error response body
+              error.response.json().then(data => {
+                // Display the error message to the user
+                alert(data.error);
+              });
+            } else {
+              // Handle other errors
+              alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
+            }
           } else {
             // Handle other errors
             alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
