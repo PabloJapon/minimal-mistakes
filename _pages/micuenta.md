@@ -9,8 +9,8 @@ layout: splash
 <!-- Cierre de sesión -->
 <button onclick="logout()">Cerrar Sesión</button>
 
-<!-- Mostrar el plan de suscripción -->
-<p>Plan de Suscripción: <span id="subscriptionPlan"></span></p>
+<!-- Display subscription plan -->
+<p id="subscription-plan"></p>
 
 <script>
   // Netlify Identity script y manejo de eventos
@@ -24,11 +24,12 @@ layout: splash
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
 
-    // Mostrar el plan de suscripción si está disponible
-    const subscriptionPlanSpan = document.getElementById('subscriptionPlan');
-
-    if (subscriptionPlanSpan && user.user_metadata.subscription_plan) {
-      subscriptionPlanSpan.innerText = user.user_metadata.subscription_plan;
+    // Display subscription plan
+    const subscriptionPlan = user.app_metadata.subscription_plan;
+    if (subscriptionPlan) {
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
+      console.log('Subscription plan:', subscriptionPlan);
     }
   });
 
@@ -39,12 +40,6 @@ layout: splash
     const usernameSpan = document.getElementById('username');
     if (usernameSpan) {
       usernameSpan.innerText = '';
-    }
-
-    // Limpiar el plan de suscripción al cerrar sesión
-    const subscriptionPlanSpan = document.getElementById('subscriptionPlan');
-    if (subscriptionPlanSpan) {
-      subscriptionPlanSpan.innerText = '';
     }
   });
 
