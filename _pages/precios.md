@@ -67,6 +67,3 @@ layout: splash
   </div>
 </div>
 
-
-
-[Go to Payment Page MD](/payment_form/)
