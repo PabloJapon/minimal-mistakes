@@ -1,11 +1,4 @@
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-
-if (!stripeSecretKey) {
-  console.error('Error: Stripe secret key is missing!');
-} else {
-  console.log('Stripe secret key:', stripeSecretKey);
-}
-
 const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event) => {
@@ -44,6 +37,7 @@ exports.handler = async (event) => {
       // If customer doesn't exist, create a new customer
       console.log('No existing customer found. Creating a new customer...');
 
+      // Create a new customer with additional metadata (subscription_plan)
       const customer = await stripe.customers.create({
         email: body.email,
         name: body.name,
@@ -66,6 +60,20 @@ exports.handler = async (event) => {
     });
 
     console.log('Subscription created successfully:', subscription);
+
+    // Update the user's subscription plan in Netlify Identity metadata
+    const netlifyIdentity = require('netlify-identity-widget');
+    const user = await netlifyIdentity.refresh().user;
+
+    if (user) {
+      await netlifyIdentity.updateUser({
+        ...user,
+        user_metadata: {
+          ...user.user_metadata,
+          subscription_plan: body.plan
+        }
+      });
+    }
 
     // Subscription created successfully
     return {
