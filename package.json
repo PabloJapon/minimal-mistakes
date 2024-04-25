@@ -38,6 +38,7 @@
     "test": "test"
   },
   "dependencies": {
+    "netlify-identity-widget": "^1.9.2",
     "node-fetch": "^3.3.2",
     "stripe": "^15.3.0"
   }
