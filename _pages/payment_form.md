@@ -96,10 +96,10 @@ permalink: /payment_form/
 
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
-  <p>Plan:</p>
-
-  <!-- Insert plan value here -->
   <p id="plan"></p>
+  
+  <!-- Display the price of the selected plan -->
+  <p id="price"></p>
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
@@ -118,10 +118,20 @@ permalink: /payment_form/
 </div>
 
 <script>
+  // Retrieve plan from URL
   const urlParams = new URLSearchParams(window.location.search);
   const plan = urlParams.get('plan');
-  console.log("Plan:", plan); // Add this line for debugging
-  document.getElementById('plan').textContent = plan;
+  document.getElementById('plan').textContent = "Plan: " + plan;
+
+  // Define the price for each plan
+  const prices = {
+    basico: '$10',
+    estandar: '$20',
+    premium: '$30'
+  };
+
+  // Display the price of the selected plan
+  document.getElementById('price').textContent = "Precio: " + prices[plan];
 </script>
 
 <script>
@@ -170,7 +180,21 @@ permalink: /payment_form/
 
     // Si el usuario ha iniciado sesión, proceder con el pago
     var paymentMethod = 'card'; // Utilizar tarjeta como método de pago
-    var priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw'; // Reemplazar con el ID de precio real
+    var priceId;
+    switch (plan) {
+      case 'basico':
+        priceId = 'price_1On5B9E2UvP4xcDsTat7ZHhV';
+        break;
+      case 'estandar':
+        priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw';
+        break;
+      case 'premium':
+        priceId = 'price_1On5CAE2UvP4xcDso6epRdMs';
+        break;
+      default:
+        console.error('Unsupported plan or no plan specified');
+        return; // Exit early if plan is unsupported
+    }
     
     // Crear método de pago con Stripe
     stripe.createPaymentMethod({
