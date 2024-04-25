@@ -122,16 +122,8 @@ document.write("<p>Information passed: " + plan + "</p>");
 
   <button id="card-button" type="submit">Pagar Ahora</button>
 
-  {% assign plan = page.url | split: '=' | last %}
-  {% if plan %}
-    <p id="selected-plan">El usuario ha seleccionado el plan: {{ plan }}</p>
-    <script>
-      console.log("Plan seleccionado:", "{{ plan }}");
-      console.log("Tipo de plan:", typeof "{{ plan }}");
-    </script>
-  {% else %}
-    <p>No se ha seleccionado ningún plan.</p>
-  {% endif %}
+  <p>Information passed: " + plan + "</p>
+  
 </div>
 
 <script>
