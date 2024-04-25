@@ -122,7 +122,7 @@ document.write("<p>Information passed: " + plan + "</p>");
 
   <button id="card-button" type="submit">Pagar Ahora</button>
 
-  <p>Information passed: " + plan + "</p>
+  <p id="plan"></p>
   
 </div>
 
