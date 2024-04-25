@@ -4,9 +4,11 @@ permalink: /payment_form/
 ---
 
 <script>
-// Get the query parameter 'plan'
-const urlParams = new URLSearchParams(window.location.search);
-const plan = urlParams.get('plan');
+  // Get the query parameter 'plan'
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan');
+  // Set the value of the plan into the HTML element with id 'plan'
+  document.getElementById('plan').textContent = plan;
 </script>
 
 <!DOCTYPE html>
@@ -104,6 +106,7 @@ const plan = urlParams.get('plan');
   <h1>Introduzca sus datos de pago</h1>
   <p>Plan:</p>
 
+  <!-- Insert plan value here -->
   <p id="plan"></p>
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
@@ -120,8 +123,15 @@ const plan = urlParams.get('plan');
   </div>
 
   <button id="card-button" type="submit">Pagar Ahora</button>
-  
 </div>
+
+<script>
+  // Get the query parameter 'plan'
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan');
+  // Set the value of the plan into the HTML element with id 'plan'
+  document.getElementById('plan').textContent = plan;
+</script>
 
 <script>
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
