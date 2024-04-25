@@ -292,6 +292,10 @@ permalink: /payment_form/
           })
         })
         .then(response => {
+          
+          progressCircle.style.display = 'none';
+          document.getElementById('button-text').style.display = 'inline-block'; // Revert to original display style
+
           if (!response.ok) {
             throw new Error('Error al crear suscripción');
           }
