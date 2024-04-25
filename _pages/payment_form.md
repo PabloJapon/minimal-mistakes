@@ -153,21 +153,26 @@ permalink: /payment_form/
     background: none;
     border: none;
   }
+  /* Adjust the progress circle styles */
   .progress-circle {
     position: relative; /* Set position to relative */
     top: -50%; /* Position vertically at -50% */
     left: 50%; /* Position horizontally at 50% */
     transform: translateX(-50%); /* Center horizontally */
-    border: 2px solid #fff; /* Match the button border color */
+    border: 2px solid transparent; /* Transparent border */
     border-radius: 50%;
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
     display: none; /* Initially hidden */
   }
+
   @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    0% { border-color: transparent transparent transparent #fff; }
+    25% { border-color: #fff transparent transparent transparent; }
+    50% { border-color: transparent #fff transparent transparent; }
+    75% { border-color: transparent transparent #fff transparent; }
+    100% { border-color: transparent transparent transparent #fff; }
   }
 </style>
 
