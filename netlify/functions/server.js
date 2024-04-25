@@ -10,6 +10,8 @@ const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event) => {
   try {
+    console.log('Incoming request:', event);
+
     const body = JSON.parse(event.body);
 
     // Log the incoming request body
@@ -70,6 +72,7 @@ exports.handler = async (event) => {
     // Add metadata to the Netlify Identity user
     const netlifyIdentity = require('netlify-identity-widget');
     const user = await netlifyIdentity.currentUser();
+    console.log('Current user:', user);
     if (user) {
       const updatedUser = await netlifyIdentity.updateUser(user.id, {
         app_metadata: {
