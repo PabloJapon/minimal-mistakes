@@ -310,14 +310,17 @@ permalink: /payment_form/
           // Handle errors
           console.error('Error al crear suscripción:', error);
           console.log('Full error object:', error); // Log the full error object
-          // Parse the error response body
-          error.json().then(data => {
-            // Display the error message to the user
-            alert(data.error);
-          }).catch(err => {
-            // If parsing error response fails, display a generic error message
+          
+          if (error.response && error.response.status === 400) {
+            // If the error is due to a status code 400, display a specific error message
+            alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
+          } else if (error.response && error.response.status === 500) {
+            // If the error is due to a status code 500, display a specific error message
+            alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
+          } else {
+            // For other types of errors, display a generic error message
             alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-          });
+          }
             
         });
       }
