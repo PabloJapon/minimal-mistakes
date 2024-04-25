@@ -294,21 +294,27 @@ permalink: /payment_form/
           })
         })
         .then(response => {
-          progressCircle.style.display = 'none';
-          document.getElementById('button-text').style.display = 'inline-block'; // Revert to original display style
+          // Log the response status
+          console.log('Response status:', response.status);
 
-          if (!response.ok) {
-            throw new Error('Error al crear suscripción');
-          }
+          // Hide the progress circle and show the button text
+          progressCircle.style.display = 'none';
+          document.getElementById('button-text').style.display = 'inline-block';
+
+          // Parse JSON response
           return response.json();
         })
         .then(data => {
           // Handle the response from server.js
-          if (data.error) {
-            // If server.js returns an error message
-            console.error('Server error:', data.error);
-            alert('Error al crear suscripción: ' + data.error);
-          } else {
+          if (response.status === 400) {
+            // If server.js returns a status code 400
+            console.log('Server returned status 400');
+            alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
+          } else if (response.status === 500) {
+            // If server.js returns a status code 500
+            console.log('Server returned status 500');
+            alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
+          } else if (response.ok) {
             // If server.js returns a success message or other data
             console.log('Server response:', data);
             alert('¡Suscripción creada con éxito!');
