@@ -309,6 +309,7 @@ permalink: /payment_form/
         .catch(error => {
           // Handle errors
           console.error('Error al crear suscripción:', error);
+          console.log('Full error object:', error); // Log the full error object
           if (error.response) {
             console.log('Error status:', error.response.status); // Log the status
             if (error.response.status === 400) {
