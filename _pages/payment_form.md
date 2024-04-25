@@ -313,12 +313,15 @@ permalink: /payment_form/
           
           if (error.response && error.response.status === 400) {
             // If the error is due to a status code 400, display a specific error message
+            console.log('Error status:', error.response.status); // Log the status code
             alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
           } else if (error.response && error.response.status === 500) {
             // If the error is due to a status code 500, display a specific error message
+            console.log('Error status:', error.response.status); // Log the status code
             alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
           } else {
             // For other types of errors, display a generic error message
+            console.log('Error status:', error.response ? error.response.status : 'Unknown'); // Log the status code if available
             alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
           }
             
