@@ -3,6 +3,16 @@ layout: default
 permalink: /payment_form/
 ---
 
+<script>
+// Get the query parameter 'info'
+const urlParams = new URLSearchParams(window.location.search);
+const plan = urlParams.get('plan');
+
+// Display information based on the value of 'info'
+document.write("<h1>Page 2</h1>");
+document.write("<p>Information passed: " + plan + "</p>");
+</script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
