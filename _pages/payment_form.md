@@ -235,6 +235,8 @@ permalink: /payment_form/
     // Usar Netlify Identity para obtener los datos del usuario
     var user = netlifyIdentity && netlifyIdentity.currentUser();
     if (!user) {
+      progressCircle.style.display = 'none';
+      document.getElementById('button-text').style.display = 'inline-block';
       // Si el usuario no ha iniciado sesión, pedirle que inicie sesión
       alert('Por favor, inicia sesión para continuar con el pago.');
       return;
@@ -292,7 +294,6 @@ permalink: /payment_form/
           })
         })
         .then(response => {
-          
           progressCircle.style.display = 'none';
           document.getElementById('button-text').style.display = 'inline-block'; // Revert to original display style
 
