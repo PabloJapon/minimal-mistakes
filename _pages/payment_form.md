@@ -310,22 +310,15 @@ permalink: /payment_form/
           // Handle errors
           console.error('Error al crear suscripción:', error);
           console.log('Full error object:', error); // Log the full error object
-          if (error.response) {
-            console.log('Error status:', error.response.status); // Log the status
-            if (error.response.status === 400) {
-              // Parse the error response body
-              error.response.json().then(data => {
-                // Display the error message to the user
-                alert(data.error);
-              });
-            } else {
-              // Handle other errors
-              alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-            }
-          } else {
-            // Handle other errors
+          // Parse the error response body
+          error.json().then(data => {
+            // Display the error message to the user
+            alert(data.error);
+          }).catch(err => {
+            // If parsing error response fails, display a generic error message
             alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-          }
+          });
+            
         });
       }
     });
