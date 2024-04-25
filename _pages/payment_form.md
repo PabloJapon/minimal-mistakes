@@ -313,6 +313,14 @@ permalink: /payment_form/
             } else if (response.ok) {
               // If server.js returns a success message or other data
               console.log('Server response:', data);
+              // Update user metadata with subscription plan
+              user.update({
+                data: { subscription_plan: plan }
+              }).then(updatedUser => {
+                console.log('User metadata updated successfully:', updatedUser);
+              }).catch(error => {
+                console.error('Error updating user metadata:', error);
+              });
               alert('¡Suscripción creada con éxito!');
             }
           });

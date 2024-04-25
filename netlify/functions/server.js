@@ -69,21 +69,6 @@ exports.handler = async (event) => {
 
     console.log('Subscription created successfully:', subscription);
 
-    // Add metadata to the Netlify Identity user
-    const netlifyIdentity = require('netlify-identity-widget');
-    const user = await netlifyIdentity.currentUser();
-    console.log('Current user:', user);
-    if (user) {
-      const updatedUser = await netlifyIdentity.updateUser(user.id, {
-        app_metadata: {
-          subscription_plan: body.plan
-        }
-      });
-      console.log('User metadata updated successfully:', updatedUser);
-    } else {
-      console.log('No user found in Netlify Identity.');
-    }
-
     // Subscription created successfully
     return {
       statusCode: 200,
