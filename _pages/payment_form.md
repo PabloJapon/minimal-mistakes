@@ -303,28 +303,21 @@ permalink: /payment_form/
           return response.json();
         })
         .then(data => {
-          // Manejar la creación exitosa de la suscripción
-          alert('¡Suscripción creada con éxito!');
+          // Handle the response from server.js
+          if (data.error) {
+            // If server.js returns an error message
+            console.error('Server error:', data.error);
+            alert('Error al crear suscripción: ' + data.error);
+          } else {
+            // If server.js returns a success message or other data
+            console.log('Server response:', data);
+            alert('¡Suscripción creada con éxito!');
+          }
         })
         .catch(error => {
-          // Handle errors
+          // Handle other errors
           console.error('Error al crear suscripción:', error);
-          console.log('Full error object:', error); // Log the full error object
-          
-          if (error.response && error.response.status === 400) {
-            // If the error is due to a status code 400, display a specific error message
-            console.log('Error status:', error.response.status); // Log the status code
-            alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-          } else if (error.response && error.response.status === 500) {
-            // If the error is due to a status code 500, display a specific error message
-            console.log('Error status:', error.response.status); // Log the status code
-            alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-          } else {
-            // For other types of errors, display a generic error message
-            console.log('Error status:', error.response ? error.response.status : 'Unknown'); // Log the status code if available
-            alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-          }
-            
+          alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
         });
       }
     });
