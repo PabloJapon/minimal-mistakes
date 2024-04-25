@@ -125,9 +125,9 @@ permalink: /payment_form/
 
   // Define the price for each plan
   const prices = {
-    basico: '$10',
-    estandar: '$20',
-    premium: '$30'
+    basico: '$0',
+    estandar: '$30',
+    premium: '$50'
   };
 
   // Display the price of the selected plan
