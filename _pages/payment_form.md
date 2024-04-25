@@ -90,6 +90,31 @@ permalink: /payment_form/
       align-items: center;
       gap: 49px;
     }
+
+    .progress-button {
+      position: relative;
+      overflow: hidden;
+      background: none;
+      border: none;
+    }
+
+    .progress-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none; /* Initially hidden */
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -114,7 +139,10 @@ permalink: /payment_form/
     <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
-  <button id="card-button" type="submit">Pagar Ahora</button>
+  <button id="card-button" type="submit">
+    <span id="button-text">Pagar Ahora</span>
+    <div class="progress-circle"></div>
+  </button>
 </div>
 
 <style>
@@ -190,9 +218,14 @@ permalink: /payment_form/
   cardCvcElement.mount('#card-cvc-element');
 
   var cardButton = document.getElementById('card-button');
+  var progressCircle = document.querySelector('.progress-circle');
 
   cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
+
+    // Show the progress circle and hide the button text
+    progressCircle.style.display = 'block';
+    document.getElementById('button-text').style.display = 'none';
 
     // Usar Netlify Identity para obtener los datos del usuario
     var user = netlifyIdentity && netlifyIdentity.currentUser();
