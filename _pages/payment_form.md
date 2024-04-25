@@ -294,9 +294,6 @@ permalink: /payment_form/
           })
         })
         .then(response => {
-          // Log the response status
-          console.log('Response status:', response.status);
-
           // Hide the progress circle and show the button text
           progressCircle.style.display = 'none';
           document.getElementById('button-text').style.display = 'inline-block';
@@ -320,39 +317,9 @@ permalink: /payment_form/
             }
           });
         })
-        .then(data => {
-          console.log('Response status data:', response.status);
-          // Handle the response from server.js
-          if (response.status === 400) {
-            // If server.js returns a status code 400
-            console.log('Server returned status 400');
-            alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-          } else if (response.status === 500) {
-            // If server.js returns a status code 500
-            console.log('Server returned status 500');
-            alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-          } else if (response.ok) {
-            // If server.js returns a success message or other data
-            console.log('Server response:', data);
-            alert('¡Suscripción creada con éxito!');
-          }
-        })
         .catch(error => {
           // Handle other errors
-          console.error('Error al crear suscripción:', error);
-          if (error.response && error.response.status) {
-              console.log('Error status:', error.response.status);
-              if (error.response.status === 400) {
-                  console.log('Server returned status 400');
-                  alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-              } else if (error.response.status === 500) {
-                  console.log('Server returned status 500');
-                  alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-              }
-          } else {
-              console.log('Unknown error');
-              alert('Error al crear suscripción. Por favor, inténtalo de nuevo más tarde.');
-          }
+          console.error('Error inesperado al crear suscripción:', error);
         });
       }
     });
