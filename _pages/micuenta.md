@@ -67,10 +67,10 @@ layout: splash
       }
 
       // Get subscription ID from user metadata
-      const subscriptionId = user.user_metadata.subscription_plan;
+      const subscriptionPlan = user.user_metadata.subscription_plan;
 
       // Check if subscription ID exists
-      if (!subscriptionId) {
+      if (!subscriptionPlan) {
         alert('No se encontró ninguna suscripción asociada a tu cuenta.');
         return;
       }
@@ -82,15 +82,12 @@ layout: splash
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          action: 'cancel_subscription',
-          subscriptionId: subscriptionId
+          action: 'cancel_subscription'
         })
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // Handle cancellation response
+      .then(response => {
         if (response.ok) {
+          // Si la solicitud es exitosa, mostrar mensaje de éxito
           // Remove subscription_plan from user metadata
           user.update({
             data: { subscription_plan: null }
