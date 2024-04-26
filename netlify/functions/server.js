@@ -18,16 +18,21 @@ exports.handler = async (event) => {
     console.log('Incoming request body:', body);
 
     if (body.action === 'cancel_subscription') {
-      // Cancel subscription action
-      console.log('Cancelling subscription for customer:', body.customerId);
+      const subscriptionId = body.subscriptionId;
 
-      const subscription = await stripe.subscriptions.del(body.subscriptionId);
+      // Log the subscription ID
+      console.log('Subscription ID:', subscriptionId);
 
-      console.log('Subscription cancelled successfully:', subscription);
+      // Retrieve the subscription using the subscription ID
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
+      // Cancel the subscription using Stripe's API
+      await stripe.subscriptions.update(subscriptionId, { cancel_at_period_end: true });
+
+      // Subscription cancellation scheduled successfully
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: 'Subscription cancelled successfully' })
+        body: JSON.stringify({ message: 'Subscription cancellation scheduled successfully' })
       };
     } else {
       // Create subscription action
