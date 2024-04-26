@@ -6,20 +6,22 @@ layout: splash
 
 # ¡Bienvenido, <span id="username"></span>!
 
-<!-- Cierre de sesión -->
+<!-- Logout button -->
 <button onclick="logout()">Cerrar Sesión</button>
 
 <!-- Display subscription plan -->
 <p id="subscription-plan"></p>
 
+<!-- Unsubscribe button -->
+<button onclick="cancelSubscription()">Cancelar Suscripción</button>
+
 <script>
-  // Netlify Identity script y manejo de eventos
+  // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
-    // Acciones adicionales después del inicio de sesión si es necesario
+    // Additional actions after login if needed
 
-    // Muestra el mensaje de bienvenida y el nombre de usuario
+    // Display welcome message and username
     const usernameSpan = document.getElementById('username');
-
     if (usernameSpan) {
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
@@ -30,17 +32,16 @@ layout: splash
       const subscriptionPlanElement = document.getElementById('subscription-plan');
       subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
       console.log('Subscription plan:', subscriptionPlan);
-    }
-    else {
+    } else {
       console.log('User', user);
       console.log('sin plan de suscripción');
     }
   });
 
   netlifyIdentity.on('logout', () => {
-    // Acciones adicionales después del cierre de sesión si es necesario
+    // Additional actions after logout if needed
 
-    // Borra el nombre de usuario al cerrar sesión
+    // Clear username on logout
     const usernameSpan = document.getElementById('username');
     if (usernameSpan) {
       usernameSpan.innerText = '';
@@ -51,4 +52,56 @@ layout: splash
     netlifyIdentity.logout();
   }
 
+  function cancelSubscription() {
+    // Confirm cancellation
+    const confirmation = confirm('¿Estás seguro de que quieres cancelar tu suscripción?');
+
+    if (confirmation) {
+      // Get current user
+      const user = netlifyIdentity.currentUser();
+
+      // Check if user is logged in
+      if (!user) {
+        alert('Por favor, inicia sesión para cancelar tu suscripción.');
+        return;
+      }
+
+      // Get subscription ID from user metadata
+      const subscriptionId = user.user_metadata.subscription_id;
+
+      // Check if subscription ID exists
+      if (!subscriptionId) {
+        alert('No se encontró ninguna suscripción asociada a tu cuenta.');
+        return;
+      }
+
+      // Send request to cancel subscription
+      fetch('/.netlify/functions/server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'cancel_subscription',
+          subscriptionId: subscriptionId
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Handle cancellation response
+        if (response.ok) {
+          alert('¡Tu suscripción ha sido cancelada con éxito!');
+          // Refresh the page to reflect changes
+          window.location.reload();
+        } else {
+          alert('Error al cancelar la suscripción: ' + data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error al cancelar la suscripción:', error);
+        alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
+      });
+    }
+  }
 </script>
