@@ -49,7 +49,8 @@ exports.handler = async (event) => {
       const subscription = subscriptions.data[0];
 
       // Cancel the subscription using Stripe's API
-      await stripe.subscriptions.update(subscription.id, { cancel_at_period_end: false });
+      //await stripe.subscriptions.update(subscription.id, { cancel_at_period_end: true });
+      await stripe.subscriptions.cancel(subscription.id);
 
       // Subscription cancellation scheduled successfully
       return {
