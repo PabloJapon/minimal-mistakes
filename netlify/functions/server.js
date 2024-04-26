@@ -17,17 +17,39 @@ exports.handler = async (event) => {
     // Log the incoming request body
     console.log('Incoming request body:', body);
 
+    // Check if action is to cancel subscription
     if (body.action === 'cancel_subscription') {
-      const subscriptionId = body.subscriptionId;
+      const customerEmail = body.email;
 
-      // Log the subscription ID
-      console.log('Subscription ID:', subscriptionId);
+      // Retrieve the customer from Stripe using the email
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      const customer = customers.data[0];
 
-      // Retrieve the subscription using the subscription ID
-      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+      if (!customer) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Customer not found' })
+        };
+      }
+
+      // Retrieve the active subscription for the customer
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customer.id,
+        status: 'active',
+        limit: 1
+      });
+
+      if (subscriptions.data.length === 0) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'No active subscription found for the customer' })
+        };
+      }
+
+      const subscription = subscriptions.data[0];
 
       // Cancel the subscription using Stripe's API
-      await stripe.subscriptions.update(subscriptionId, { cancel_at_period_end: true });
+      await stripe.subscriptions.update(subscription.id, { cancel_at_period_end: true });
 
       // Subscription cancellation scheduled successfully
       return {
