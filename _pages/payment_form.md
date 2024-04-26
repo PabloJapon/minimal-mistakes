@@ -250,13 +250,13 @@ permalink: /payment_form/
     var paymentMethod = 'card'; // Utilizar tarjeta como método de pago
     var priceId;
     switch (plan) {
-      case 'basico':
+      case 'Gratis':
         priceId = 'price_1On5B9E2UvP4xcDsTat7ZHhV';
         break;
-      case 'estandar':
+      case 'Pro':
         priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw';
         break;
-      case 'premium':
+      case 'Premium':
         priceId = 'price_1On5CAE2UvP4xcDso6epRdMs';
         break;
       default:
