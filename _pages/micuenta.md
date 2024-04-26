@@ -87,11 +87,12 @@ layout: splash
       })
       .then(response => {
         if (response.ok) {
-          // Si la solicitud es exitosa, mostrar mensaje de éxito
           // Remove subscription_plan from user metadata
+          console.log('User', user);
           user.update({
             data: { subscription_plan: null }
           })
+          console.log('User', user);
           alert('¡Tu suscripción ha sido cancelada con éxito!');
           // Refresh the page to reflect changes
           window.location.reload();
