@@ -67,7 +67,7 @@ layout: splash
       }
 
       // Get subscription ID from user metadata
-      const subscriptionId = user.user_metadata.subscription_id;
+      const subscriptionId = user.user_metadata.subscription_plan;
 
       // Check if subscription ID exists
       if (!subscriptionId) {
@@ -91,6 +91,10 @@ layout: splash
         console.log(data);
         // Handle cancellation response
         if (response.ok) {
+          // Remove subscription_plan from user metadata
+          user.update({
+            data: { subscription_plan: null }
+          })
           alert('¡Tu suscripción ha sido cancelada con éxito!');
           // Refresh the page to reflect changes
           window.location.reload();
