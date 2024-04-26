@@ -184,9 +184,9 @@ permalink: /payment_form/
 
   // Define the price for each plan
   const prices = {
-    basico: '$0',
-    estandar: '$30',
-    premium: '$50'
+    Gratis: '$0',
+    Pro: '$30',
+    Premium: '$50'
   };
 
   // Display the price of the selected plan
@@ -319,10 +319,10 @@ permalink: /payment_form/
                 data: { subscription_plan: plan }
               }).then(updatedUser => {
                 console.log('User metadata updated successfully:', updatedUser);
+                alert('¡Suscripción creada con éxito!');
               }).catch(error => {
                 console.error('Error updating user metadata:', error);
               });
-              alert('¡Suscripción creada con éxito!');
             }
           });
         })

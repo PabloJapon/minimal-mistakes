@@ -31,6 +31,10 @@ layout: splash
       subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
       console.log('Subscription plan:', subscriptionPlan);
     }
+    else {
+      console.log('User', user);
+      console.log('sin plan de suscripción');
+    }
   });
 
   netlifyIdentity.on('logout', () => {
