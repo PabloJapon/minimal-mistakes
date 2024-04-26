@@ -25,7 +25,7 @@ layout: splash
     }
 
     // Display subscription plan
-    const subscriptionPlan = user.app_metadata.subscription_plan;
+    const subscriptionPlan = user.user_metadata.subscription_plan;
     if (subscriptionPlan) {
       const subscriptionPlanElement = document.getElementById('subscription-plan');
       subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
