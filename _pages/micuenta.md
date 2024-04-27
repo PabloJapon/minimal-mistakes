@@ -22,7 +22,7 @@ layout: splash
   margin-right: 12px;
 }
   .linea {
-  width: 600px; 
+  width: 770px; 
   border: 1px solid #ccc;
   
 }
@@ -43,7 +43,7 @@ Acciones
 
 <div class="plan">
   <h3>Cambiar de plan</h3>
-  <div class="linea">
+  <div class="linea"></div>
   <h3>Administrar formas de pago</h3>
   <h3>Editar datos del perfil</h3>
   <h3>Cambiar contraseña</h3>
