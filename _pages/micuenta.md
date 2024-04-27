@@ -23,7 +23,7 @@ layout: splash
 }
   .linea {
   width: 770px; 
-  border: 0.5px solid #ccc;
+  border: 0.1px solid #ccc;
   
 }
 
