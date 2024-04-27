@@ -21,10 +21,10 @@ layout: splash
   margin-left: 0px;
   margin-right: 12px;
 }
-  .linea {
-  width: 770px; 
-  border: 0.1px solid #ccc;
-  
+.linea {
+  width: 770px;
+  height: 1px;
+  background: linear-gradient(to right, #ccc 0%, #ccc 49.5%, transparent 50%, transparent 100%);
 }
 
 
