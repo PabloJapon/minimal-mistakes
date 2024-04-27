@@ -4,7 +4,7 @@ permalink: /miCuenta/
 layout: splash
 ---
 
-# ¡Bienvenido, <span id="username"></span>!
+<h1> ¡Bienvenido, <span id="username"></span>! </h1>
 
 
 <style>
@@ -16,8 +16,8 @@ layout: splash
   border-radius: 8px;
   background: white;
   text-align: left;
-  margin-bottom: 20px; /* Espacio inferior entre cada plan */
-  margin-top: 20px;
+  margin-bottom: 30px; /* Espacio inferior entre cada plan */
+  margin-top: 30px;
   margin-left: 0px;
   margin-right: 12px;
 }
@@ -27,11 +27,20 @@ layout: splash
 
 
 
-## Mi cuenta
+Mi cuenta 
 
 <div class="plan">
   <h2>Plan Estándar</h2>
   <h6>Próximo pago: 27 mayo 2024</h6>
+</div>
+
+Acciones
+
+<div class="plan">
+  <h3>Cambiar de plan</h3>
+  <h3>Administrar formas de pago</h3>
+  <h3>Editar datos del perfil</h3>
+  <h3>Cambiar contraseña</h3>
 </div>
 
 <!-- Logout button -->
