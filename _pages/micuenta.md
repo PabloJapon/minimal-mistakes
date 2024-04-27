@@ -22,9 +22,9 @@ layout: splash
   margin-right: 12px;
 }
 .linea {
-  width: 770px;
+  width: 750px;
   height: 1px;
-  background: linear-gradient(to right, #ccc 0%, #ccc 49.5%, transparent 50%, transparent 100%);
+  background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
 }
 
 
@@ -45,7 +45,9 @@ Acciones
   <h3>Cambiar de plan</h3>
   <div class="linea"></div>
   <h3>Administrar formas de pago</h3>
+  <div class="linea"></div>
   <h3>Editar datos del perfil</h3>
+  <div class="linea"></div>
   <h3>Cambiar contraseña</h3>
 </div>
 
