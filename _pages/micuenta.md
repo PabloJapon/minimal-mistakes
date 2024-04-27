@@ -25,6 +25,13 @@ layout: splash
 
 </style>
 
+# Mi cuenta
+
+<div class="plan">
+  <h2>Plan Estándar</h2>
+  <h4>Próximo pago: 27 mayo 2024</h4>
+</div>
+
 <!-- Logout button -->
 <button onclick="logout()">Cerrar Sesión</button>
 
