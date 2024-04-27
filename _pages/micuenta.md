@@ -10,15 +10,15 @@ layout: splash
 <style>
 
 .plan {
-  width: 1200px; /* Ancho deseado de cada plan */
+  width: 800px; /* Ancho deseado de cada plan */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
   text-align: left;
-  margin-bottom: 60px; /* Espacio inferior entre cada plan */
-  margin-top: 60px;
-  margin-left: 12px;
+  margin-bottom: 20px; /* Espacio inferior entre cada plan */
+  margin-top: 20px;
+  margin-left: 20px;
   margin-right: 12px;
 }
 
@@ -27,11 +27,11 @@ layout: splash
 
 
 
-# Mi cuenta
+## Mi cuenta
 
 <div class="plan">
   <h2>Plan Estándar</h2>
-  <h4>Próximo pago: 27 mayo 2024</h4>
+  <h6>Próximo pago: 27 mayo 2024</h6>
 </div>
 
 <!-- Logout button -->
