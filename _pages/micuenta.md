@@ -25,6 +25,8 @@ layout: splash
 
 </style>
 
+
+
 # Mi cuenta
 
 <div class="plan">
