@@ -16,7 +16,7 @@ layout: splash
   border-radius: 8px;
   background: white;
   text-align: left;
-  margin-bottom: 30px; /* Espacio inferior entre cada plan */
+  margin-bottom: 20px; /* Espacio inferior entre cada plan */
   margin-top: 0px;
   margin-left: 0px;
   margin-right: 12px;
@@ -25,8 +25,8 @@ layout: splash
   width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
-  margin-bottom: 30px; /* Espacio inferior entre cada plan */
-  margin-top: 30px;
+  margin-bottom: 20px; /* Espacio inferior entre cada plan */
+  margin-top: 20px;
 }
 
 
