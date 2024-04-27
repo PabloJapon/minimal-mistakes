@@ -18,7 +18,7 @@ layout: splash
   text-align: left;
   margin-bottom: 20px; /* Espacio inferior entre cada plan */
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 0px;
   margin-right: 12px;
 }
 
