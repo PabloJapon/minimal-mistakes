@@ -1,7 +1,7 @@
 ---
 title: "Mi Cuenta"
 permalink: /miCuenta/
-layout: single
+layout: default
 ---
 
 <h1> ¡Bienvenido, <span id="username"></span>! </h1>
