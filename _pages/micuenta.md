@@ -21,6 +21,11 @@ layout: splash
   margin-left: 0px;
   margin-right: 12px;
 }
+  .linea {
+  width: 600px; 
+  border: 1px solid #ccc;
+  
+}
 
 
 </style>
@@ -38,6 +43,7 @@ Acciones
 
 <div class="plan">
   <h3>Cambiar de plan</h3>
+  <div class="linea">
   <h3>Administrar formas de pago</h3>
   <h3>Editar datos del perfil</h3>
   <h3>Cambiar contraseña</h3>
