@@ -7,6 +7,12 @@ layout: splash
 # Elige tu plan ideal.
 
 <style>
+
+/* Aplicar un poco de margen superior al elemento <main> */
+main {
+    padding-top: 50px; /* Ajusta este valor según sea necesario para evitar el solapamiento */
+}
+  
 .plan-container {
   display: flex;
   justify-content: center;
