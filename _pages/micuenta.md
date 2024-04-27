@@ -25,6 +25,8 @@ layout: splash
   width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
+  margin-bottom: 30px; /* Espacio inferior entre cada plan */
+  margin-top: 30px;
 }
 
 
