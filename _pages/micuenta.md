@@ -6,6 +6,25 @@ layout: splash
 
 # ¡Bienvenido, <span id="username"></span>!
 
+
+<style>
+
+.plan {
+  width: 1200px; /* Ancho deseado de cada plan */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  text-align: left;
+  margin-bottom: 60px; /* Espacio inferior entre cada plan */
+  margin-top: 60px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+
+</style>
+
 <!-- Logout button -->
 <button onclick="logout()">Cerrar Sesión</button>
 
