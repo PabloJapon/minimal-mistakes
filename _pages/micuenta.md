@@ -71,7 +71,17 @@ Mi cuenta
 
 <div class="plan">
   <div class="plan-contenido">
-    <h2>Plan + subscriptionPlan </h2>
+    // Display subscription plan
+    const subscriptionPlan = user.user_metadata.subscription_plan;
+    if (subscriptionPlan) {
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
+      console.log('Subscription plan:', subscriptionPlan);
+    } else {
+      console.log('User', user);
+      console.log('sin plan de suscripción');
+    }
+  });
     <h6>Próximo pago: 27 mayo 2024</h6>
   </div>
 </div>
