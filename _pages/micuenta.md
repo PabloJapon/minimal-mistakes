@@ -71,7 +71,7 @@ Mi cuenta
 
 <div class="plan">
   <div class="plan-contenido">
-    <h2><span id="subscription-plan"></span><h2>
+    <h2><span id="subscription-plan"></span></h2>
     <h6>Próximo pago: 27 mayo 2024</h6>
   </div>
 </div>
