@@ -11,7 +11,7 @@ layout: single
 
 .plan {
   width: 800px; /* Ancho deseado de cada plan */
-  padding: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
@@ -30,8 +30,8 @@ padding-left: 20px; /* Añade un margen a la izquierda del contenido */
   width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
-  margin-bottom: 5px; /* Espacio inferior entre cada plan */
-  margin-top: 5px;
+  margin-bottom: 10px; /* Espacio inferior entre cada plan */
+  margin-top: 10px;
   margin-left: 20px;
 }
 
