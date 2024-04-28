@@ -23,7 +23,7 @@ layout: single
 }
 
 .plan-contenido {
-padding-left: 10px; /* Añade un margen a la izquierda del contenido */
+padding-left: 20px; /* Añade un margen a la izquierda del contenido */
 }
   
 .linea {
