@@ -42,7 +42,7 @@ img {
   padding: 5px 5px;
   width: 790px; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
-  color: #fff;
+  background: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
