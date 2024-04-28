@@ -33,8 +33,6 @@ layout: single
 img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
-  display: inline-block; /* Hace que la imagen sea mostrada en la misma línea que el texto */
-  vertical-align: middle; /* Alinea verticalmente la imagen con el texto */
 }
 
 
@@ -54,7 +52,7 @@ Mi cuenta
 Acciones
 
 <div class="plan">
-  <h3>Cambiar de plan</h3> <img src="/assets/images/angulo-derecho.svg" width="20" height="20">
+  <h3>Cambiar de plan</h3> <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="display: inline-block;">
   <div class="linea"></div>
   <h3>Administrar formas de pago</h3>
   <div class="linea"></div>
