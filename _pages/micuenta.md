@@ -28,6 +28,7 @@ layout: single
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
   margin-bottom: 5px; /* Espacio inferior entre cada plan */
   margin-top: 5px;
+  margin-right: 20px;
 }
 
 /* Estilo CSS para alinear la imagen a la derecha */
