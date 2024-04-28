@@ -26,8 +26,8 @@ layout: single
   width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
-  margin-bottom: 20px; /* Espacio inferior entre cada plan */
-  margin-top: 20px;
+  margin-bottom: 5px; /* Espacio inferior entre cada plan */
+  margin-top: 5px;
 }
 
 /* Estilo CSS para alinear la imagen a la derecha */
@@ -35,6 +35,8 @@ img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
   /*margin-top: 10.125px;*/
+  margin-bottom: 15px; /* Espacio inferior entre cada plan */
+  margin-top: 15px;
 }
 
 .boton {
