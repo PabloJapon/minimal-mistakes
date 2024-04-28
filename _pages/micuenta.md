@@ -56,7 +56,7 @@ img {
 }
 
 .boton:hover {
-  background-color: #c3c3c3;
+  background-color: #f4f4f4;
 }
   
 </style>
