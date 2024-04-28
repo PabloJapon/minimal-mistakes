@@ -127,7 +127,7 @@ Acciones
     const subscriptionPlan = user.user_metadata.subscription_plan;
     if (subscriptionPlan) {
       const subscriptionPlanElement = document.getElementById('subscription-plan');
-      subscriptionPlanElement.textContent = "Plan de Suscripción: " + subscriptionPlan;
+      subscriptionPlanElement.textContent = "Plan " + subscriptionPlan;
       console.log('Subscription plan:', subscriptionPlan);
     } else {
       console.log('User', user);
