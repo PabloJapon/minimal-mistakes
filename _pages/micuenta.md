@@ -60,7 +60,8 @@ img {
   outline: none; /* Quita el borde azul al hacer clic en el botón */
 }
 
-.boton:focus {
+.boton:focus, .boton:active {
+  background-color: #c3c3c3; /* Cambia el color de fondo al hacer foco o clic en el botón */
 outline: none; /* Quita el borde azul al hacer foco en el botón */
 }
 
