@@ -21,6 +21,10 @@ layout: single
   margin-left: 0px;
   margin-right: 12px;
 }
+
+.plan-contenido {
+padding-left: 10px; /* Añade un margen a la izquierda del contenido */
+}
   
 .linea {
   width: 750px;
@@ -66,8 +70,10 @@ img {
 Mi cuenta 
 
 <div class="plan">
-  <h2>Plan Estándar</h2>
-  <h6>Próximo pago: 27 mayo 2024</h6>
+  <div class="plan-contenido">
+    <h2>Plan Estándar</h2>
+    <h6>Próximo pago: 27 mayo 2024</h6>
+  </div>
 </div>
 
 
