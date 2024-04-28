@@ -36,7 +36,21 @@ img {
   margin-top: 10.125px;
 }
 
+.boton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
 
+.boton:hover {
+  background-color: #0056b3;
+}
+  
 </style>
 
 
@@ -55,7 +69,7 @@ Acciones
 <div class="plan">
   <h3 style="display: inline-block;">Cambiar de plan</h3> <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="display: inline-block;">
   <div class="linea"></div>
-  <h3>Administrar formas de pago</h3>
+  <button class="boton">Administrar formas de pago</button>
   <div class="linea"></div>
   <h3>Editar datos del perfil</h3>
   <div class="linea"></div>
