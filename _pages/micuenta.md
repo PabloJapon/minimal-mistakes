@@ -56,7 +56,7 @@ img {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  line-height: 50px; /* Centra verticalmente el texto */
+  line-height: 40px; /* Centra verticalmente el texto */
 }
 
 .boton:hover {
