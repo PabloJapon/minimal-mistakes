@@ -41,7 +41,7 @@ Mi cuenta
   <h6>Próximo pago: 27 mayo 2024</h6>
 </div>
 
-<img src="/assets/images/angulo-derecho.svg" 
+<img src="/assets/images/angulo-derecho.svg" width="300" height="200">
 
 Acciones
 
