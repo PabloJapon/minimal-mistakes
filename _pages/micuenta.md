@@ -40,7 +40,7 @@ img {
 .boton {
   display: inline-block;
   padding: 10px 20px;
-  width: 750px; /* Establece el ancho deseado para el botón */
+  width: 790px; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   color: #fff;
   border: none;
@@ -69,7 +69,7 @@ Mi cuenta
 Acciones
 
 <div class="plan">
-  <h3 style="display: inline-block;">Cambiar de plan</h3> <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="display: inline-block;">
+  <button class="boton" style="display: inline-block;">Cambiar de plan</button> <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="display: inline-block;">
   <div class="linea"></div>
   <button class="boton">Administrar formas de pago</button>
   <div class="linea"></div>
