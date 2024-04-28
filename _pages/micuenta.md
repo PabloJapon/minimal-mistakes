@@ -49,7 +49,7 @@ img {
   padding: 0px 0px;
   padding-left: 20px; /* Añade un margen a la izquierda del texto dentro del botón */
   padding-right: 20px; /* Añade un margen a la izquierda del texto dentro del botón */
-  width: 790px; /* Establece el ancho deseado para el botón */
+  width: 780px; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   background: white;
   border: none;
