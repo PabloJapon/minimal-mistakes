@@ -57,6 +57,7 @@ img {
   cursor: pointer;
   text-decoration: none;
   line-height: 40px; /* Centra verticalmente el texto */
+  outline: none; /* Quita el borde azul al hacer clic en el botón */
 }
 
 .boton:hover {
