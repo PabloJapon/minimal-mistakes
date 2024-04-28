@@ -77,11 +77,21 @@ Acciones
   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
-  <button class="boton">Administrar formas de pago</button>
+  <button class="boton">
+    Administrar formas de pago
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
   <div class="linea"></div>
-  <h3>Editar datos del perfil</h3>
+  <button class="boton">
+    Editar datos del perfil
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
   <div class="linea"></div>
-  <h3>Cambiar contraseña</h3>
+  <button class="boton">
+    Cambiar contraseña
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
+
 </div>
 
 <!-- Logout button -->
