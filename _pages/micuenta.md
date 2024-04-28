@@ -29,6 +29,12 @@ layout: single
   margin-top: 20px;
 }
 
+/* Estilo CSS para alinear la imagen a la derecha */
+  img {
+    float: right; /* Alinea la imagen a la derecha */
+    margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
+  }
+
 
 </style>
 
@@ -41,12 +47,12 @@ Mi cuenta
   <h6>Próximo pago: 27 mayo 2024</h6>
 </div>
 
-<img src="/assets/images/angulo-derecho.svg" width="300" height="200">
+
 
 Acciones
 
 <div class="plan">
-  <h3>Cambiar de plan</h3>
+  <h3>Cambiar de plan</h3> <img src="/assets/images/angulo-derecho.svg" width="20" height="20">
   <div class="linea"></div>
   <h3>Administrar formas de pago</h3>
   <div class="linea"></div>
