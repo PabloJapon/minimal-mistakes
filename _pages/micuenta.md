@@ -33,6 +33,7 @@ layout: single
 img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
+  margin-top: 10.125px;
 }
 
 
