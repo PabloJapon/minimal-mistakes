@@ -11,7 +11,7 @@ layout: single
 
 .plan {
   width: 800px; /* Ancho deseado de cada plan */
-  padding: 20px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
@@ -49,6 +49,7 @@ img {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  line-height: 50px; /* Centra verticalmente el texto */
 }
 
 .boton:hover {
