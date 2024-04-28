@@ -39,8 +39,8 @@ img {
 
 .boton {
   display: inline-block;
-  padding: 5px 5px;
-  width: 790px; /* Establece el ancho deseado para el botón */
+  padding: 0px 0px;
+  width: 750px; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   background: white;
   border: none;
