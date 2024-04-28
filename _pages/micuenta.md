@@ -60,6 +60,10 @@ img {
   outline: none; /* Quita el borde azul al hacer clic en el botón */
 }
 
+.boton:focus {
+outline: none; /* Quita el borde azul al hacer foco en el botón */
+}
+
 .boton:hover {
   background-color: #f4f4f4;
 }
