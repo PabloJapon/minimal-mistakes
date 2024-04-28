@@ -41,6 +41,8 @@ Mi cuenta
   <h6>Próximo pago: 27 mayo 2024</h6>
 </div>
 
+<img src="/assets/images/Captura.png" alt="Descripción de la imagen">
+
 Acciones
 
 <div class="plan">
