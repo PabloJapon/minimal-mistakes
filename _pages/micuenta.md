@@ -23,7 +23,7 @@ layout: single
 }
   
 .linea {
-  width: 740px;
+  width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
   margin-bottom: 5px; /* Espacio inferior entre cada plan */
