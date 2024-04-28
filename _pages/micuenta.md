@@ -42,6 +42,7 @@ img {
 .boton {
   display: inline-block;
   padding: 0px 0px;
+  padding-left: 10px; /* Añade un margen a la izquierda del texto dentro del botón */
   width: 750px; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   background: white;
