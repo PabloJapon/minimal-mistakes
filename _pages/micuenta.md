@@ -21,6 +21,7 @@ layout: single
   margin-left: 0px;
   margin-right: 12px;
 }
+  
 .linea {
   width: 750px;
   height: 1px;
@@ -39,7 +40,8 @@ img {
 .boton {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  width: 750px; /* Establece el ancho deseado para el botón */
+  text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -48,7 +50,7 @@ img {
 }
 
 .boton:hover {
-  background-color: #0056b3;
+  background-color: #c3c3c3;
 }
   
 </style>
