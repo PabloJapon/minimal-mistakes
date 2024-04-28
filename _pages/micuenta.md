@@ -69,7 +69,10 @@ Mi cuenta
 Acciones
 
 <div class="plan">
-  <button class="boton" style="display: inline-block;">Cambiar de plan</button> <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="display: inline-block;">
+    <button class="boton-largo">
+    Cambiar de plan
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
   <div class="linea"></div>
   <button class="boton">Administrar formas de pago</button>
   <div class="linea"></div>
