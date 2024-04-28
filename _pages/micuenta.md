@@ -34,7 +34,7 @@ img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
   display: inline-block; /* Hace que la imagen sea mostrada en la misma línea que el texto */
-
+  vertical-align: middle; /* Alinea verticalmente la imagen con el texto */
 }
 
 
