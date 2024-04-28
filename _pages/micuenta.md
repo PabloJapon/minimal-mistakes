@@ -40,8 +40,8 @@ img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
   /*margin-top: 10.125px;*/
-  margin-bottom: 15px; /* Espacio inferior entre cada plan */
-  margin-top: 15px;
+  margin-bottom: 10px; /* Espacio inferior entre cada plan */
+  margin-top: 10px;
 }
 
 .boton {
