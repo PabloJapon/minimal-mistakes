@@ -68,6 +68,7 @@ main {
   padding: 8px;
   background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
+    border-bottom: transparent; /* Borde inferior transparente */
 }
   
   .table-container tbody tr:nth-child(even) {
