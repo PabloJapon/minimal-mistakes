@@ -74,10 +74,6 @@ main {
   background-color: transparent !important; /* Fondo transparente */
 }
   
-/* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
-.table-container thead th {
-  border-bottom: #0000ff; /* Borde inferior transparente */
-}
   
   .table-container tbody tr:nth-child(even) {
   background-color: #e0e0e0; /* Cambia el color de fondo para las filas pares */
