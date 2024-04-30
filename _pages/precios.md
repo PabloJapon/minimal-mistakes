@@ -58,13 +58,14 @@ main {
    border: none; /* elimina los bordes de la tabla */
 }
 
-.table-container th, .table-container td {
+ .table-container td {
   padding: 8px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
   .table-container th {
+  padding: 8px;
   background-color: transparent; /* Fondo transparente */
   border: none; /* Sin bordes */
 }
