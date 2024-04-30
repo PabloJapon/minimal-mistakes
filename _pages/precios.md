@@ -66,7 +66,7 @@ main {
 
   .table-container th {
   padding: 8px;
-  background-color: transparent !important; /* Fondo transparente */
+  background-color: #0000ff !important; /* Fondo transparente */
   border: none; /* Sin bordes */
 }
   
@@ -141,7 +141,7 @@ main {
   <table>
     <thead>
       <tr>
-        <th style="width: 400px; background-color: #0000ff;"></th>
+        <th style="width: 400px; "></th>
         <th style="width: 200px;text-align: center;">Básico</th>
         <th style="width: 200px;text-align: center;">Estándar</th>
         <th style="width: 200px;text-align: center;">Pro</th>
