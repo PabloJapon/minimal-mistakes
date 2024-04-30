@@ -73,3 +73,53 @@ main {
   </div>
 </div>
 
+
+
+<h3> Compara los planes </h3>
+<style>
+
+.table-container {
+  margin-top: 60px; /* Ajusta el margen superior según sea necesario */
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+</style>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Plan</th>
+        <th>Precio</th>
+        <th>Características</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gratis</td>
+        <td>0€</td>
+        <td>Gratis. Para siempre</td>
+      </tr>
+      <tr>
+        <td>Pro</td>
+        <td>30€</td>
+        <td>Este pues mejor tu sabe</td>
+      </tr>
+      <tr>
+        <td>Premium</td>
+        <td>50€</td>
+        <td>Y este buenisimo del to</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
