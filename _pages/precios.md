@@ -90,8 +90,12 @@ main {
   padding: 8px;
   border: 1px solid #ccc;
   text-align: left;
+
+  .table-container tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Cambia el color de fondo para las filas pares */
 }
 </style>
+
 
 <div class="table-container">
   <table>
