@@ -91,6 +91,12 @@ main {
 .table-container tr:first-child td {
   border-top: none;
 }
+
+  /* Elimina la segunda línea horizontal */
+.table-container tr:nth-child(2) th,
+.table-container tr:nth-child(2) td {
+  border-top: none;
+}
 </style>
 
 <div class="plan-container">
