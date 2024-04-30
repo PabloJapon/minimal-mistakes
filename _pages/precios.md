@@ -106,22 +106,22 @@ main {
     </thead>
     <tbody>
       <tr>
-        <td>Platos ilimitados</td>
-        <td>v</td>
-        <td>v</td>
-        <td>v</td>
+        <td style="width: 40%;">Platos ilimitados</td>
+        <td style="width: 20%;text-align: center;">v</td>
+        <td style="width: 20%;text-align: center;">v</td>
+        <td style="width: 20%;text-align: center;">v</td>
       </tr>
       <tr>
-        <td>Parsonaliza tu marca</td>
-        <td>x</td>
-        <td>v</td>
-        <td>v</td>
+        <td style="width: 40%;">Parsonaliza tu marca</td>
+        <td style="width: 20%;text-align: center;">x</td>
+        <td style="width: 20%;text-align: center;">v</td>
+        <td style="width: 20%;text-align: center;">v</td>
       </tr>
       <tr>
-        <td>Consulta estadísticas</td>
-        <td>x</td>
-        <td>x</td>
-        <td>v</td>
+        <td style="width: 40%;">Consulta estadísticas</td>
+        <td style="width: 20%;text-align: center;">x</td>
+        <td style="width: 20%;text-align: center;">x</td>
+        <td style="width: 20%;text-align: center;">v</td>
       </tr>
     </tbody>
   </table>
