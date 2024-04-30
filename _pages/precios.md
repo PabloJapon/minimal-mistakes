@@ -48,6 +48,23 @@ main {
 .plan-button:hover {
   background-color: #4c80d9; /* Cambio de color en el hover */
 }
+
+  .table-container {
+  margin-top: 60px; /* Ajusta el margen superior según sea necesario */
+}
+
+.table-container table {
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+
+  .table-container tbody tr:nth-child(even) {
+  background-color: #f4f4f4; /* Cambia el color de fondo para las filas pares */
+}
 </style>
 
 <div class="plan-container">
@@ -76,26 +93,6 @@ main {
 
 
 <h3> Compara los planes </h3>
-<style>
-
-.table-container {
-  margin-top: 60px; /* Ajusta el margen superior según sea necesario */
-}
-
-.table-container table {
-  border-collapse: collapse;
-}
-
-.table-container th, .table-container td {
-  padding: 8px;
-  border: 1px solid #ccc;
-  text-align: left;
-
-  .table-container tbody tr:nth-child(even) {
-  background-color: #f4f4f4; /* Cambia el color de fondo para las filas pares */
-}
-</style>
-
 
 <div class="table-container">
   <table>
