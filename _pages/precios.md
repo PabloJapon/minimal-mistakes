@@ -78,6 +78,19 @@ main {
 .table-container td:last-child {
   border-right: none;
 }
+
+  
+/* Elimina la última línea horizontal */
+.table-container tr:last-child th,
+.table-container tr:last-child td {
+  border-bottom: none;
+}
+
+/* Elimina la primera línea horizontal */
+.table-container tr:first-child th,
+.table-container tr:first-child td {
+  border-top: none;
+}
 </style>
 
 <div class="plan-container">
