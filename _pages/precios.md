@@ -98,10 +98,10 @@ main {
   <table>
     <thead>
       <tr>
-        <th></th>
-        <th>Básico</th>
-        <th>Estándar</th>
-        <th>Pro</th>
+        <th style="width: 40%;"></th>
+        <th style="width: 20%;">Básico</th>
+        <th style="width: 20%;">Estándar</th>
+        <th style="width: 20%;">Pro</th>
       </tr>
     </thead>
     <tbody>
