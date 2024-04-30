@@ -66,7 +66,7 @@ main {
 
   .table-container th {
   padding: 8px;
-  background-color: ##0000ff !important; /* Fondo transparente */
+  background-color: #0000ff !important; /* Fondo transparente */
   border: none; /* Sin bordes */
 }
   
