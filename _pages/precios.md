@@ -69,9 +69,10 @@ main {
   background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
 }
-  /* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
+  
+/* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
 .table-container thead th {
-  border-bottom: transparent; /* Borde inferior transparente */
+  border-bottom: none; /* Borde inferior transparente */
 }
   
   .table-container tbody tr:nth-child(even) {
