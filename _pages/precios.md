@@ -144,7 +144,7 @@ main {
         <th style="width: 400px; "></th>
         <th style="width: 200px;text-align: center;">
           <h2>Básico</h2>
-          <div>Empieza</div>  
+          <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
         </th>
         <th style="width: 200px;text-align: center;">Estándar</th>
         <th style="width: 200px;text-align: center;">Pro</th>
