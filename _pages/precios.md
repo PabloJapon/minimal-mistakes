@@ -143,7 +143,7 @@ main {
       <tr>
         <th style="width: 400px; "></th>
         <th style="width: 200px;text-align: center;">
-          <div>Básico</div>
+          <h2>Básico</h2>
           <div>Empieza</div>  
         </th>
         <th style="width: 200px;text-align: center;">Estándar</th>
