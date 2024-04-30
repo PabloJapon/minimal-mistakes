@@ -55,6 +55,7 @@ main {
 
 .table-container table {
   border-collapse: collapse;
+   border: none; /* elimina los bordes de la tabla */
 }
 
 .table-container th, .table-container td {
@@ -65,6 +66,17 @@ main {
 
   .table-container tbody tr:nth-child(even) {
   background-color: #e0e0e0; /* Cambia el color de fondo para las filas pares */
+}
+
+/* Elimina los bordes de las celdas exteriores */
+.table-container th:first-child,
+.table-container td:first-child {
+  border-left: none;
+}
+
+.table-container th:last-child,
+.table-container td:last-child {
+  border-right: none;
 }
 </style>
 
