@@ -60,7 +60,7 @@ main {
 .table-container th, .table-container td {
   padding: 8px;
   border: 1px solid #ccc;
-  text-align: left;
+  text-align: left;}
 
   .table-container tbody tr:nth-child(even) {
   background-color: #f4f4f4; /* Cambia el color de fondo para las filas pares */
