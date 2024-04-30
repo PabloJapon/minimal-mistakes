@@ -68,6 +68,9 @@ main {
   padding: 8px;
   background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
+}
+  /* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
+.table-container thead th {
   border-bottom: transparent; /* Borde inferior transparente */
 }
   
@@ -138,8 +141,7 @@ main {
     <thead>
       <tr>
         <th style="width: 400px;"></th>
-        <th style="width: 200px;text-align: center;">Básico
-        aa</th>
+        <th style="width: 200px;text-align: center;">Básico</th>
         <th style="width: 200px;text-align: center;">Estándar</th>
         <th style="width: 200px;text-align: center;">Pro</th>
       </tr>
