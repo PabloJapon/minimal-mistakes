@@ -66,13 +66,13 @@ main {
 
   .table-container th {
   padding: 8px;
-  background-color: ##ffff00 !important; /* Fondo transparente */
+  background-color: ##0000ff !important; /* Fondo transparente */
   border: none; /* Sin bordes */
 }
   
 /* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
 .table-container thead th {
-  border-bottom: #ffff00; /* Borde inferior transparente */
+  border-bottom: #0000ff; /* Borde inferior transparente */
 }
   
   .table-container tbody tr:nth-child(even) {
