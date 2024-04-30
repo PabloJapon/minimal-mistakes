@@ -79,11 +79,11 @@ main {
 <style>
 
 .table-container {
-  margin-top: 200px; /* Ajusta el margen superior según sea necesario */
+  margin-top: 60px; /* Ajusta el margen superior según sea necesario */
 }
 
 .table-container table {
-  width: 100%;
+  width: 800px;
   border-collapse: collapse;
 }
 
