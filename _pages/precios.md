@@ -79,7 +79,7 @@ main {
 <style>
 
 .table-container {
-  margin-top: 60px; /* Ajusta el margen superior según sea necesario */
+  margin-top: 200px; /* Ajusta el margen superior según sea necesario */
 }
 
 .table-container table {
