@@ -92,7 +92,7 @@ main {
   text-align: left;
 
   .table-container tbody tr:nth-child(even) {
-  background-color: #f2f2f2; /* Cambia el color de fondo para las filas pares */
+  background-color: #f4f4f4; /* Cambia el color de fondo para las filas pares */
 }
 </style>
 
