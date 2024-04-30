@@ -141,7 +141,7 @@ main {
   <table>
     <thead>
       <tr>
-        <th style="width: 400px;"></th>
+        <th style="width: 400px; background-color: transparent;"></th>
         <th style="width: 200px;text-align: center;">Básico</th>
         <th style="width: 200px;text-align: center;">Estándar</th>
         <th style="width: 200px;text-align: center;">Pro</th>
