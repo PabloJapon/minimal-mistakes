@@ -98,26 +98,30 @@ main {
   <table>
     <thead>
       <tr>
-        <th>Plan</th>
-        <th>Precio</th>
-        <th>Características</th>
+        <th></th>
+        <th>Básico</th>
+        <th>Estándar</th>
+        <th>Pro</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Gratis</td>
-        <td>0€</td>
-        <td>Gratis. Para siempre</td>
+        <td>Platos ilimitados</td>
+        <td>v</td>
+        <td>v</td>
+        <td>v</td>
       </tr>
       <tr>
-        <td>Pro</td>
-        <td>30€</td>
-        <td>Este pues mejor tu sabe</td>
+        <td>Parsonaliza tu marca</td>
+        <td>x</td>
+        <td>v</td>
+        <td>v</td>
       </tr>
       <tr>
-        <td>Premium</td>
-        <td>50€</td>
-        <td>Y este buenisimo del to</td>
+        <td>Consulta estadísticas</td>
+        <td>x</td>
+        <td>x</td>
+        <td>v</td>
       </tr>
     </tbody>
   </table>
