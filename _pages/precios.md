@@ -4,7 +4,7 @@ permalink: /precios/
 layout: splash
 ---
 
-# Elige tu plan ideal.
+<h2> Elige tu plan ideal.</h2>
 
 <style>
 
