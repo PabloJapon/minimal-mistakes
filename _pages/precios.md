@@ -35,7 +35,7 @@ main {
   background-color: #6699ff; /* Cambio de color */
   color: white;
   border: none;
-  padding: 15px 50px;
+  padding: 10px 50px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
