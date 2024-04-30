@@ -31,6 +31,23 @@ main {
   margin-right: 12px;
 }
 
+.plan-button2 {
+  background-color: #6699ff; /* Cambio de color */
+  color: white;
+  border: none;
+  padding: 15px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.plan-button2:hover {
+  background-color: #4c80d9; /* Cambio de color en el hover */
+}
+
 .plan-button {
   background-color: #6699ff; /* Cambio de color */
   color: white;
@@ -48,7 +65,7 @@ main {
 .plan-button:hover {
   background-color: #4c80d9; /* Cambio de color en el hover */
 }
-
+  
   .table-container {
   margin-top: 60px; /* Ajusta el margen superior según sea necesario */
 }
@@ -144,10 +161,16 @@ main {
         <th style="width: 400px; "></th>
         <th style="width: 200px;text-align: center;">
           <h2>Básico</h2>
-          <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
+          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
         </th>
-        <th style="width: 200px;text-align: center;">Estándar</th>
-        <th style="width: 200px;text-align: center;">Pro</th>
+        <th style="width: 200px;text-align: center;">
+        <h2>Estándar</h2>
+          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>    
+        </th>
+        <th style="width: 200px;text-align: center;">
+          <h2>Pro</h2>
+          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
+        </th>
       </tr>
     </thead>
     <tbody>
