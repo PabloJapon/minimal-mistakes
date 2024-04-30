@@ -99,9 +99,9 @@ main {
     <thead>
       <tr>
         <th style="width: 40%;"></th>
-        <th style="width: 20%;">Básico</th>
-        <th style="width: 20%;">Estándar</th>
-        <th style="width: 20%;">Pro</th>
+        <th style="width: 20%;text-align: center;">Básico</th>
+        <th style="width: 20%;text-align: center;">Estándar</th>
+        <th style="width: 20%;text-align: center;">Pro</th>
       </tr>
     </thead>
     <tbody>
