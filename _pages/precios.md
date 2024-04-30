@@ -83,7 +83,7 @@ main {
 }
 
 .table-container table {
-  width: 1600px;
+  width: 600px;
   border-collapse: collapse;
 }
 
