@@ -68,7 +68,7 @@ main {
   padding: 8px;
   background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
-    border-bottom: transparent; /* Borde inferior transparente */
+  border-bottom: transparent; /* Borde inferior transparente */
 }
   
   .table-container tbody tr:nth-child(even) {
@@ -138,7 +138,8 @@ main {
     <thead>
       <tr>
         <th style="width: 400px;"></th>
-        <th style="width: 200px;text-align: center;">Básico</th>
+        <th style="width: 200px;text-align: center;">Básico
+        aa</th>
         <th style="width: 200px;text-align: center;">Estándar</th>
         <th style="width: 200px;text-align: center;">Pro</th>
       </tr>
