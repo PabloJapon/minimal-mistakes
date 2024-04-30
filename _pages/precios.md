@@ -64,7 +64,7 @@ main {
 }
 
   .table-container tbody tr:nth-child(even) {
-  background-color: #4f4f4f; /* Cambia el color de fondo para las filas pares */
+  background-color: #e0e0e0; /* Cambia el color de fondo para las filas pares */
 }
 </style>
 
