@@ -64,6 +64,11 @@ main {
   text-align: left;
 }
 
+  .table-container th {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin bordes */
+}
+  
   .table-container tbody tr:nth-child(even) {
   background-color: #e0e0e0; /* Cambia el color de fondo para las filas pares */
 }
