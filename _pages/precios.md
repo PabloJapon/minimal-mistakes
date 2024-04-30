@@ -66,8 +66,12 @@ main {
 
   .table-container th {
   padding: 8px;
-  background-color: #ffffff00 !important; /* Fondo transparente */
+  background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
+}
+
+.table-container thead th {
+  background-color: transparent !important; /* Fondo transparente */
 }
   
 /* Aplica un borde inferior transparente a los encabezados dentro de la fila de encabezados */
