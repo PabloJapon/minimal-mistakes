@@ -83,7 +83,6 @@ main {
 }
 
 .table-container table {
-  width: 600px;
   border-collapse: collapse;
 }
 
@@ -98,30 +97,30 @@ main {
   <table>
     <thead>
       <tr>
-        <th style="width: 100px;"></th>
-        <th style="width: 100px;text-align: center;">Básico</th>
-        <th style="width: 100px;text-align: center;">Estándar</th>
-        <th style="width: 100px;text-align: center;">Pro</th>
+        <th style="width: 400px;"></th>
+        <th style="width: 200px;text-align: center;">Básico</th>
+        <th style="width: 200px;text-align: center;">Estándar</th>
+        <th style="width: 200px;text-align: center;">Pro</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td style="width: 100px;">Platos ilimitados</td>
-        <td style="width: 100px;text-align: center;">v</td>
-        <td style="width: 100px;text-align: center;">v</td>
-        <td style="width: 100px;text-align: center;">v</td>
+        <td style="width: 400px;">Platos ilimitados</td>
+        <td style="width: 200px;text-align: center;">v</td>
+        <td style="width: 200px;text-align: center;">v</td>
+        <td style="width: 200px;text-align: center;">v</td>
       </tr>
       <tr>
-        <td style="width: 100px;">Parsonaliza tu marca</td>
-        <td style="width: 100px;text-align: center;">x</td>
-        <td style="width: 100px;text-align: center;">v</td>
-        <td style="width: 100px;text-align: center;">v</td>
+        <td style="width: 400px;">Parsonaliza tu marca</td>
+        <td style="width: 200px;text-align: center;">x</td>
+        <td style="width: 200px;text-align: center;">v</td>
+        <td style="width: 200px;text-align: center;">v</td>
       </tr>
       <tr>
-        <td style="width: 100px;">Consulta estadísticas</td>
-        <td style="width: 100px;text-align: center;">x</td>
-        <td style="width: 100px;text-align: center;">x</td>
-        <td style="width: 100px;text-align: center;">v</td>
+        <td style="width: 400px;">Consulta estadísticas</td>
+        <td style="width: 200px;text-align: center;">x</td>
+        <td style="width: 200px;text-align: center;">x</td>
+        <td style="width: 200px;text-align: center;">v</td>
       </tr>
     </tbody>
   </table>
