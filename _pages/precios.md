@@ -32,7 +32,7 @@ main {
 }
 
 .plan-button {
-  background-color: #c3c3c3; /* Cambio de color */
+  background-color: #6699ff; /* Cambio de color */
   color: white;
   border: none;
   padding: 15px 100px;
