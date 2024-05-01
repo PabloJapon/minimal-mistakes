@@ -55,6 +55,15 @@ Esto es el contenido principal de mi página de inicio.
     outline: none;
   }
 
+  .accordion:hover {
+  background-color: #f4f4f4;
+  }
+  .accordion:focus, .boton:active {
+    background-color: #f4f4f4; /* Cambia el color de fondo al hacer foco o clic en el botón */
+  outline: none; /* Quita el borde azul al hacer foco en el botón */
+  }
+
+
   .active, .accordion:hover {
     /*background-color: #ccc;*/
   }
