@@ -30,28 +30,39 @@ Esto es el contenido principal de mi página de inicio.
 </div>
 
 <style>
+  .faq {
+    width: 800px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    text-align: left;
+  }
+
   /* Estilo para los botones */
   .accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
+    padding: 0px 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 780px;
     text-align: left;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 40px;
     outline: none;
-    font-size: 15px;
-    transition: 0.4s;
   }
 
   .active, .accordion:hover {
-    background-color: #ccc;
+    /*background-color: #ccc;*/
   }
 
   /* Estilo para las secciones de respuestas */
   .panel {
     padding: 0 18px;
-    background-color: white;
+    /* background-color: white; */
     display: none;
     overflow: hidden;
   }
