@@ -49,7 +49,19 @@ Esto es el contenido principal de mi página de inicio.
     text-decoration: none;
     line-height: 40px;
     outline: none;
+    border-bottom: 1px solid #ccc; /* Línea separadora entre las preguntas */
   }
+
+  /* Añade una línea adicional arriba de la primera pregunta */
+  .accordion:first-child {
+    border-top: 1px solid #ccc;
+  }
+
+  /* Añade una línea adicional debajo de la última pregunta */
+  .accordion:last-child {
+    border-bottom: 1px solid #ccc;
+  }
+
 
   .accordion:hover {
     /* background-color: #f4f4f4; */
