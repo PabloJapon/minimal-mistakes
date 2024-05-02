@@ -57,31 +57,22 @@ Esto es el contenido principal de mi página de inicio.
     border-top: 1px solid #ccc;
   }
 
-  /* Añade una línea adicional debajo de la última pregunta */
-  .accordion:last-child {
-    border-bottom: 1px solid #ccc;
-  }
-
-
-  .accordion:hover {
-    /* background-color: #f4f4f4; */
-  }
-  .accordion:focus, .boton:active {
-    /* background-color: #f4f4f4 */; /* Cambia el color de fondo al hacer foco o clic en el botón */
-    outline: none; /* Quita el borde azul al hacer foco en el botón */
-  }
-
-
-  .active, .accordion:hover {
-    /*background-color: #ccc;*/
-  }
-
   /* Estilo para las secciones de respuestas */
   .panel {
     padding: 0 18px;
     /* background-color: white; */
-    display: none;
     overflow: hidden;
+    display: none;
+  }
+
+  /* Estilo para mostrar la respuesta */
+  .panel.active {
+    display: block;
+  }
+
+  /* Añade una línea adicional debajo de la última pregunta */
+  .accordion:last-child {
+    border-bottom: 1px solid #ccc;
   }
 </style>
 
