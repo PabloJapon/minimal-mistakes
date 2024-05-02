@@ -49,30 +49,39 @@ Esto es el contenido principal de mi página de inicio.
     text-decoration: none;
     line-height: 40px;
     outline: none;
-    border-bottom: 1px solid #ccc; /* Línea separadora entre las preguntas */
+    border-top: 1px solid #ccc; /* Línea separadora entre las preguntas */
   }
 
   /* Añade una línea adicional arriba de la primera pregunta */
   .accordion:first-child {
-    border-top: 1px solid #ccc;
+    /* border-top: 1px solid #ccc; */
+  }
+
+  /* Añade una línea adicional debajo de la última pregunta */
+  .accordion:last-child {
+    /* border-bottom: 1px solid #ccc; */
+  }
+
+
+  .accordion:hover {
+    /* background-color: #f4f4f4; */
+  }
+  .accordion:focus, .boton:active {
+    /* background-color: #f4f4f4 */; /* Cambia el color de fondo al hacer foco o clic en el botón */
+    outline: none; /* Quita el borde azul al hacer foco en el botón */
+  }
+
+
+  .active, .accordion:hover {
+    /*background-color: #ccc;*/
   }
 
   /* Estilo para las secciones de respuestas */
   .panel {
     padding: 0 18px;
     /* background-color: white; */
-    overflow: hidden;
     display: none;
-  }
-
-  /* Estilo para mostrar la respuesta */
-  .panel.active {
-    display: block;
-  }
-
-  /* Añade una línea adicional debajo de la última pregunta */
-  .accordion:last-child {
-    border-bottom: 1px solid #ccc;
+    overflow: hidden;
   }
 </style>
 
