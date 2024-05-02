@@ -53,23 +53,13 @@ Esto es el contenido principal de mi página de inicio.
     background-image: url('/assets/images/angulo-derecho.svg'); /* Agrega la imagen de chevron como fondo */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-position: right 20px center; /* Ajusta la posición de la imagen a la derecha */background-size: 20px;
-    transition: all 0.3s ease; /* Agrega una transición suave */
-}
-
-/* Define the animation */
-@keyframes rotate180 {
-  from {
-    transform: rotate(0deg);
+    transition: transform 0.3s ease; /* Agrega una transición suave para la rotación */
   }
-  to {
+
+  /* Aplica la rotación de la imagen cuando se hace clic */
+  .accordion.clicked {
     transform: rotate(180deg);
   }
-}
-
-/* Aplica la animación cuando se hace clic */
-.accordion.clicked {
-  animation: rotate180 0.3s ease;
-}
 
   .accordion:hover {
     /* background-color: #f4f4f4; */
