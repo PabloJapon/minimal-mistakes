@@ -33,9 +33,6 @@ Esto es el contenido principal de mi página de inicio.
   .faq {
     width: 800px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: white;
     text-align: left;
   }
 
@@ -46,7 +43,6 @@ Esto es el contenido principal de mi página de inicio.
     padding-right: 20px;
     width: 780px;
     text-align: left;
-    background: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -56,11 +52,11 @@ Esto es el contenido principal de mi página de inicio.
   }
 
   .accordion:hover {
-  background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
   }
   .accordion:focus, .boton:active {
-    background-color: #f4f4f4; /* Cambia el color de fondo al hacer foco o clic en el botón */
-  outline: none; /* Quita el borde azul al hacer foco en el botón */
+    /* background-color: #f4f4f4 */; /* Cambia el color de fondo al hacer foco o clic en el botón */
+    outline: none; /* Quita el borde azul al hacer foco en el botón */
   }
 
 
