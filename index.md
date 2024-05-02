@@ -32,14 +32,13 @@ Esto es el contenido principal de mi página de inicio.
 <style>
   .faq {
     width: 800px;
-    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ccc
   }
 
   /* Estilo para los botones */
   .accordion {
-    padding: 0px 0px;
+    padding: 20px 20px;
     padding-left: 20px;
     padding-right: 20px;
     width: 780px;
@@ -51,18 +50,10 @@ Esto es el contenido principal de mi página de inicio.
     line-height: 40px;
     outline: none;
     border-top: 1px solid #ccc; /* Línea separadora entre las preguntas */
+    background-image: url('/assets/images/angulo-derecho.svg'); /* Agrega la imagen de chevron como fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: right 20px center; /* Ajusta la posición de la imagen a la derecha */
   }
-
-  /* Añade una línea adicional arriba de la primera pregunta */
-  .accordion:first-child {
-    /* border-top: 1px solid #ccc; */
-  }
-
-  /* Añade una línea adicional debajo de la última pregunta */
-  .accordion:last-child {
-    /* border-bottom: 1px solid #ccc; */
-  }
-
 
   .accordion:hover {
     /* background-color: #f4f4f4; */
