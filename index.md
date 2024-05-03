@@ -16,7 +16,9 @@ Esto es el contenido principal de mi página de inicio.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=1&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
 
 <div class="faq">
-  <button class="accordion">¿Pregunta 1?</button>
+  <button class="accordion">¿Pregunta 1?
+   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
   <div class="panel">
     <p>Respuesta a la pregunta 1.</p>
   </div>
@@ -50,9 +52,9 @@ Esto es el contenido principal de mi página de inicio.
     line-height: 40px;
     outline: none;
     border-top: 1px solid #ccc; /* Línea separadora entre las preguntas */
-    background-image: url('/assets/images/angulo-derecho.svg'); /* Agrega la imagen de chevron como fondo */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-position: right 20px center; /* Ajusta la posición de la imagen a la derecha */background-size: 20px;
+   /* background-image: url('/assets/images/angulo-derecho.svg');*/ /* Agrega la imagen de chevron como fondo */
+    /*background-repeat: no-repeat; /* Evita que la imagen se repita */
+   /* background-position: right 20px center; /* Ajusta la posición de la imagen a la derecha *//*background-size: 20px;
     transition: transform 0.3s ease; /* Agrega una transición suave para la rotación */
   }
 
@@ -81,6 +83,16 @@ Esto es el contenido principal de mi página de inicio.
     display: none;
     overflow: hidden;
   }
+
+  /* Estilo CSS para alinear la imagen a la derecha */
+img {
+  float: right; /* Alinea la imagen a la derecha */
+  margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
+  /*margin-top: 10.125px;*/
+  margin-bottom: 10px; /* Espacio inferior entre cada plan */
+  margin-top: 10px;
+}
+
 </style>
 
 <script>
