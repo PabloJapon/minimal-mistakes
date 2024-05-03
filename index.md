@@ -62,14 +62,11 @@ Esto es el contenido principal de mi página de inicio.
     margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
     margin-bottom: 10px; /* Espacio inferior entre cada plan */
     margin-top: 10px;
-  }
-
-  .accordion img {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Agrega transición para la rotación */
   }
 
   /* Asegura que la rotación de la imagen se aplique correctamente */
-  #faq .accordion.clicked img {
+  .accordion.clicked img {
     transform: rotate(180deg);
   }
 
