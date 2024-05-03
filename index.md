@@ -17,7 +17,7 @@ Esto es el contenido principal de mi página de inicio.
 
 <div id="faq" class="faq">
   <button class="accordion">¿Pregunta 1?
-   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);">
   </button>
   <div class="panel">
     <p>Respuesta a la pregunta 1.</p>
