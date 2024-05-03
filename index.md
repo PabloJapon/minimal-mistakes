@@ -116,5 +116,13 @@ Esto es el contenido principal de mi página de inicio.
         panel.style.display = "block";
       }
     });
+      // Agregar evento animationend a cada imagen
+    var images = item.querySelectorAll("img");
+    images.forEach(function(image) {
+      image.addEventListener("animationend", function() {
+        // Remover la clase "clicked" después de que la animación haya terminado
+        this.classList.remove("clicked");
+      });
+    });
   });
 </script>
