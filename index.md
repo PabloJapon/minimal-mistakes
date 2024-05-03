@@ -61,9 +61,9 @@ Esto es el contenido principal de mi página de inicio.
   }
 
   /* Aplica la rotación de la imagen cuando se hace clic */
-  /*.accordion.clicked {
+  .accordion.clicked {
     transform: rotate(180deg);
-  }*/
+  }
 
   .accordion:hover {
     /* background-color: #f4f4f4; */
