@@ -77,12 +77,6 @@ Esto es el contenido principal de mi página de inicio.
     margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
     margin-bottom: 10px; /* Espacio inferior entre cada plan */
     margin-top: 10px;
-    transition: transform 0.3s ease; /* Agrega transición para la rotación */
-  }
-
-  /* Asegura que la rotación de la imagen se aplique correctamente */
-  .accordion.clicked img {
-    transform: rotate(180deg);
   }
 
   .accordion:hover {
@@ -115,7 +109,6 @@ Esto es el contenido principal de mi página de inicio.
     item.addEventListener("click", function() {
       this.classList.toggle("active");
       this.querySelector("img").classList.toggle("clicked");
-
       var panel = this.nextElementSibling;
       if (panel.style.display === "block") {
         panel.style.display = "none";
