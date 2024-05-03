@@ -17,7 +17,7 @@ Esto es el contenido principal de mi página de inicio.
 
 <div id="faq" class="faq">
   <button class="accordion">¿Pregunta 1?
-   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);">
+   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
   </button>
   <div class="panel">
     <p>Respuesta a la pregunta 1.</p>
@@ -54,6 +54,21 @@ Esto es el contenido principal de mi página de inicio.
     line-height: 40px;
     outline: none;
     border-top: 1px solid #ccc;
+  }
+
+  /* Define the animation */
+  @keyframes rotate180 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+
+  /* Aplica la animación cuando se hace clic */
+  .butImagen.clicked {
+    animation: rotate180 0.3s ease;
   }
 
   /* Estilo CSS para alinear la imagen a la derecha */
