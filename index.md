@@ -66,6 +66,10 @@ Esto es el contenido principal de mi página de inicio.
     }
   }
 
+  .butImagen{
+    transition: all 0.3s ease; /* Agrega una transición suave */
+  }
+
   /* Aplica la animación cuando se hace clic */
   .butImagen.clicked {
     animation: rotate180 0.3s ease;
