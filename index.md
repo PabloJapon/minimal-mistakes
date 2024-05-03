@@ -61,7 +61,15 @@ Esto es el contenido principal de mi página de inicio.
   }
 
   /* Aplica la rotación de la imagen cuando se hace clic */
-  .accordion.clicked {
+  /*.accordion.clicked {
+    transform: rotate(180deg);
+  }*/
+
+    .accordion img {
+    transition: transform 0.3s ease;
+  }
+
+  .accordion.clicked img {
     transform: rotate(180deg);
   }
 
@@ -99,29 +107,19 @@ img {
 
 
   <script>
-  var acc = document.getElementsByClassName("accordion");
-  var i;
+    var acc = document.querySelectorAll(".accordion");
 
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      // Toggle the "active" class for the accordion button
+  acc.forEach(function(item) {
+    item.addEventListener("click", function() {
       this.classList.toggle("active");
+      this.querySelector("img").classList.toggle("clicked");
 
-      // Find the image inside the accordion button
-      var img = this.querySelector('img');
-
-      // Toggle the "clicked" class for the image
-      img.classList.toggle("clicked");
-
-      // Find the panel associated with the accordion button
       var panel = this.nextElementSibling;
-
-      // Toggle the display of the panel
       if (panel.style.display === "block") {
         panel.style.display = "none";
       } else {
         panel.style.display = "block";
       }
     });
-  }
+  });
 </script>
