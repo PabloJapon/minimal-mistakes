@@ -55,17 +55,28 @@ header:
   }
 
   .faq {
-    width: 800px;
+    /* width: 800px; */
     text-align: left;
     border-bottom: 1px solid #ccc
   }
+
+  .faq1_question {
+      border-top: 1px solid var(--gray-200);
+      cursor: pointer;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      padding-bottom: 1rem;
+      display: flex;
+  }
+
 
   /* Estilo para los botones */
   .accordion {
     padding: 20px 20px;
     padding-left: 20px;
     padding-right: 20px;
-    width: 780px;
+    /* width: 780px; */
     text-align: left;
     border: none;
     border-radius: 5px;
