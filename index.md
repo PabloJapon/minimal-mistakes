@@ -13,16 +13,16 @@ intro:
 Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
 </div>
 
-<div>
-  <button class="btn btn--primary.btn--large" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
+<div style="text-align:center;">
+  <button class="btn btn--primary .btn--x-large" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
 </div>
 
-<video width="900" height="544" style="border-radius: 8px;" autoplay loop muted>
+<video width="900" height="544" style="border-radius: 8px; 
+    max-width: 900px;
+    max-height: 100%;
+    width: 100%;" autoplay loop muted>
   <source src="/assets/videos/your-video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
 </video>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=1&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
 
 <div id="faq" class="faq">
   <button class="accordion">¿Pregunta 1?
