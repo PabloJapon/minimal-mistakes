@@ -10,36 +10,35 @@ intro:
 ---
 
 <div style="text-align:center;">
-Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
+  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
 </div>
 
 <div style="text-align:center;">
   <button class="btn btn--primary .btn--x-large" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
 </div>
 
-<video width="900" height="544" style="border-radius: 8px; 
-    max-width: 900px;
-    max-height: 100%;
-    width: 100%;" autoplay loop muted>
-  <source src="/assets/videos/your-video.mp4" type="video/mp4">
-</video>
+<div style="margin: 0 auto; text-align:center;">
+  <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+    <source src="/assets/videos/your-video.mp4" type="video/mp4">
+  </video>
 
-<div id="faq" class="faq">
-  <button class="accordion">¿Pregunta 1?
-   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
-  </button>
-  <div class="panel">
-    <p>Respuesta a la pregunta 1.</p>
+  <div id="faq" class="faq" style="margin-top: 20px;">
+    <button class="accordion">¿Pregunta 1?
+     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
+    </button>
+    <div class="panel">
+      <p>Respuesta a la pregunta 1.</p>
+    </div>
+
+    <button class="accordion">¿Pregunta 2?
+     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+    </button>
+    <div class="panel">
+      <p>Respuesta a la pregunta 2.</p>
+    </div>
+
+    <!-- Agrega más botones y respuestas aquí según sea necesario -->
   </div>
-
-  <button class="accordion">¿Pregunta 2?
-   <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
-  </button>
-  <div class="panel">
-    <p>Respuesta a la pregunta 2.</p>
-  </div>
-
-  <!-- Agrega más botones y respuestas aquí según sea necesario -->
 </div>
 
 <style>
@@ -113,7 +112,6 @@ Descubre la herramienta digital personalizable que unifica TODAS las funciones q
   }
 
 </style>
-
 
 <script>
   var acc = document.querySelectorAll(".accordion");
