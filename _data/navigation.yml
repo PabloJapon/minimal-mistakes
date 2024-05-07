@@ -11,5 +11,3 @@ main:
   - title: "Log Out"
     url: /miCuenta/
     id: logout-link
-  #- title: "Portal de Clientes"
-  #  url: https://billing.stripe.com/p/login/test_4gweYa3TA6Cf3PabII

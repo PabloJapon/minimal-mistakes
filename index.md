@@ -17,7 +17,7 @@ Descubre la herramienta digital personalizable que unifica TODAS las funciones q
   <button class="btn btn--primary.btn--large" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
 </div>
 
-<video width="320" height="240" controls autoplay loop>
+<video width="900" height="544" style="border-radius: 8px;" autoplay loop muted>
   <source src="/assets/videos/your-video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>

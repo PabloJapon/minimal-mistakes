@@ -44,6 +44,7 @@
 
 @mixin clearfix {
   clear: both;
+  padding-top: 2em;
 
   &::after {
     clear: both;
