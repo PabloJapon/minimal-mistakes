@@ -4,17 +4,14 @@ layout: splash
 header:
   overlay_image: /assets/images/service.jpg
   overlay_filter: rgba(102,153,255,0.5)
-#excerpt: "Descripción corta"
-intro: 
-  - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
 ---
 
 <div style="text-align:center;">
-  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento:
+  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
 </div>
 
 <div style="text-align:center;">
-  <button class="btn btn--primary .btn--x-large" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
+  <button class="plan-button" id="login-link" onclick="openNetlifyIdentity()">COMENZAR</button>
 </div>
 
 <div style="margin: 0 auto; text-align:center;">
@@ -22,7 +19,7 @@ intro:
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
   </video>
 
-  <div id="faq" class="faq" style="margin-top: 20px; width: 800px; text-align: left; border-bottom: 1px solid #ccc;">
+  <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
     <button class="accordion">¿Pregunta 1?
      <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
     </button>
@@ -41,7 +38,28 @@ intro:
   </div>
 </div>
 
+
 <style>
+  .plan-button {
+    background-color: #6699ff;
+    color: white;
+    border: none;
+    padding: 15px 80px;
+    margin: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .faq {
+    width: 800px;
+    text-align: left;
+    border-bottom: 1px solid #ccc
+  }
+
   /* Estilo para los botones */
   .accordion {
     padding: 20px 20px;
