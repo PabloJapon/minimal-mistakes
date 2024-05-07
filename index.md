@@ -10,7 +10,7 @@ intro:
 ---
 
 <div style="text-align:center;">
-  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
+  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento:
 </div>
 
 <div style="text-align:center;">
@@ -22,7 +22,7 @@ intro:
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
   </video>
 
-  <div id="faq" class="faq" style="margin-top: 20px;">
+  <div id="faq" class="faq" style="margin-top: 20px; width: 800px; text-align: left; border-bottom: 1px solid #ccc;">
     <button class="accordion">¿Pregunta 1?
      <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
     </button>
@@ -42,12 +42,6 @@ intro:
 </div>
 
 <style>
-  .faq {
-    width: 800px;
-    text-align: left;
-    border-bottom: 1px solid #ccc
-  }
-
   /* Estilo para los botones */
   .accordion {
     padding: 20px 20px;
