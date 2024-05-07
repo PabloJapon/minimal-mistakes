@@ -1,9 +1,5 @@
 # main links
 main:
-  - title: "Página Guía"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  - title: "Documentación"
-    url: /year-archive-grid/
   - title: "Productos"
     url: /productos/
   - title: "Descargas"
