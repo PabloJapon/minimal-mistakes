@@ -1,17 +1,21 @@
 ---
-title: "Slogan descriptivo"
+title: "El software que comunica clientes, camareros y cocina"
 layout: splash
 header:
   overlay_image: /assets/images/service.jpg
   overlay_filter: rgba(102,153,255,0.5)
-excerpt: "Descripción corta"
+#excerpt: "Descripción corta"
 intro: 
   - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
 ---
 
 # Bienvenido a mi sitio
 
-Esto es el contenido principal de mi página de inicio.
+Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
+
+<div>
+  <button class="btn btn--primary" id="login-link" onclick="openNetlifyIdentity()">Comenzar</button>
+</div>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4xd4k43obXE?controls=1&showinfo=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
 
