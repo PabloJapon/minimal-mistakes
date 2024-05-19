@@ -18,9 +18,13 @@ header:
   <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
   </video>
+</div>
 
+<div style="text-align:center;">
   Preguntas frecuentes
+</div>
 
+<div style="margin: 0 auto; text-align:center;">
   <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
     <button class="accordion">¿Pregunta 1?
      <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
