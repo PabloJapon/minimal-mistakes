@@ -19,6 +19,8 @@ header:
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
   </video>
 
+  Preguntas frecuentes
+
   <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
     <button class="accordion">¿Pregunta 1?
      <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
@@ -55,7 +57,11 @@ header:
   }
 
   .faq {
-    /* width: 800px; */
+    width: 100%;
+    max-width: 41rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4em;
     text-align: left;
     border-bottom: 1px solid #ccc
   }
@@ -73,13 +79,12 @@ header:
 
   /* Estilo para los botones */
   .accordion {
+    width: 100%;
     padding: 20px 20px;
     padding-left: 20px;
     padding-right: 20px;
-    /* width: 780px; */
     text-align: left;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     line-height: 40px;
@@ -128,7 +133,7 @@ header:
 
   /* Estilo para las secciones de respuestas */
   .panel {
-    padding: 0 18px;
+    padding: 20px 18px;
     /* background-color: white; */
     display: none;
     overflow: hidden;
