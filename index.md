@@ -115,9 +115,15 @@ header:
     .active, .accordion:hover {}
 
     .panel {
-      padding: 20px 18px;
-      display: none;
+      padding: 0 18px;
+      max-height: 0;
       overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .panel.open {
+      max-height: 200px; /* Adjust based on content height */
+      padding: 20px 18px;
     }
   </style>
 
@@ -129,10 +135,10 @@ header:
         this.classList.toggle("active");
         this.querySelector("img").classList.toggle("rotated");
         var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-          panel.style.display = "none";
+        if (panel.classList.contains("open")) {
+          panel.classList.remove("open");
         } else {
-          panel.style.display = "block";
+          panel.classList.add("open");
         }
       });
     });
