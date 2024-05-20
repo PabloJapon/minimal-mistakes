@@ -7,165 +7,133 @@ header:
 ---
 
 <div style="text-align:center;">
-  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
-</div>
-
-<div style="text-align:center;">
-  <button class="plan-button" id="login-link" onclick="openNetlifyIdentity()">COMENZAR</button>
-</div>
-
-<div style="margin: 0 auto; text-align:center;">
-  <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
-    <source src="/assets/videos/your-video.mp4" type="video/mp4">
-  </video>
-</div>
-
-<div style="text-align:center;">
-  Preguntas frecuentes
-</div>
-
-<div style="margin: 0 auto; text-align:center;">
-  <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
-    <button class="accordion">¿Pregunta 1?
-     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
-    </button>
-    <div class="panel">
-      <p>Respuesta a la pregunta 1.</p>
-    </div>
-
-    <button class="accordion">¿Pregunta 2?
-     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
-    </button>
-    <div class="panel">
-      <p>Respuesta a la pregunta 2.</p>
-    </div>
-
-    <!-- Agrega más botones y respuestas aquí según sea necesario -->
+    Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
   </div>
-</div>
 
+  <div style="text-align:center;">
+    <button class="plan-button" id="login-link" onclick="openNetlifyIdentity()">COMENZAR</button>
+  </div>
 
-<style>
-  .plan-button {
-    background-color: #6699ff;
-    color: white;
-    border: none;
-    padding: 15px 80px;
-    margin: 40px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 22px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  <div style="margin: 0 auto; text-align:center;">
+    <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+      <source src="/assets/videos/your-video.mp4" type="video/mp4">
+    </video>
+  </div>
 
-  .faq {
-    width: 100%;
-    max-width: 41rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 4em;
-    text-align: left;
-    border-bottom: 1px solid #ccc
-  }
+  <div style="text-align:center;">
+    Preguntas frecuentes
+  </div>
 
-  .faq1_question {
-      border-top: 1px solid var(--gray-200);
+  <div style="margin: 0 auto; text-align:center;">
+    <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
+      <button class="accordion">¿Pregunta 1?
+       <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
+      </button>
+      <div class="panel">
+        <p>Respuesta a la pregunta 1.</p>
+      </div>
+
+      <button class="accordion">¿Pregunta 2?
+       <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+      </button>
+      <div class="panel">
+        <p>Respuesta a la pregunta 2.</p>
+      </div>
+
+      <!-- Agrega más botones y respuestas aquí según sea necesario -->
+    </div>
+  </div>
+
+  <style>
+    .plan-button {
+      background-color: #6699ff;
+      color: white;
+      border: none;
+      padding: 15px 80px;
+      margin: 40px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 22px;
+      border-radius: 5px;
       cursor: pointer;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 1.5rem;
-      padding-bottom: 1rem;
-      display: flex;
-  }
-
-
-  /* Estilo para los botones */
-  .accordion {
-    width: 100%;
-    padding: 20px 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: left;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    line-height: 40px;
-    outline: none;
-    border-top: 1px solid #ccc;
-  }
-
-  /* Define the animation */
-  @keyframes rotate180 {
-    from {
-      transform: rotate(0deg);
     }
-    to {
+
+    .faq {
+      width: 100%;
+      max-width: 41rem;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 4em;
+      text-align: left;
+      border-bottom: 1px solid #ccc
+    }
+
+    .faq1_question {
+        border-top: 1px solid var(--gray-200);
+        cursor: pointer;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        display: flex;
+    }
+
+    .accordion {
+      width: 100%;
+      padding: 20px 20px;
+      text-align: left;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 40px;
+      outline: none;
+      border-top: 1px solid #ccc;
+    }
+
+    .butImagen {
+      transition: transform 0.3s ease;
+    }
+
+    .butImagen.rotated {
       transform: rotate(180deg);
     }
-  }
 
-  .butImagen{
-    transition: all 0.3s ease; /* Agrega una transición suave */
-  }
+    img {
+      float: right;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
 
-  /* Aplica la animación cuando se hace clic */
-  .butImagen.clicked {
-    animation: rotate180 0.3s ease;
-  }
+    .accordion:hover {}
 
-  /* Estilo CSS para alinear la imagen a la derecha */
-  img {
-    float: right; /* Alinea la imagen a la derecha */
-    margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
-    margin-bottom: 10px; /* Espacio inferior entre cada plan */
-    margin-top: 10px;
-  }
+    .accordion:focus, .accordion:active {
+      outline: none;
+    }
 
-  .accordion:hover {
-    /* background-color: #f4f4f4; */
-  }
-  .accordion:focus, .boton:active {
-    /* background-color: #f4f4f4 */; 
-    outline: none; /* Quita el borde azul al hacer foco en el botón */
-  }
+    .active, .accordion:hover {}
 
-  .active, .accordion:hover {
-    /*background-color: #ccc;*/
-  }
+    .panel {
+      padding: 20px 18px;
+      display: none;
+      overflow: hidden;
+    }
+  </style>
 
-  /* Estilo para las secciones de respuestas */
-  .panel {
-    padding: 20px 18px;
-    /* background-color: white; */
-    display: none;
-    overflow: hidden;
-  }
+  <script>
+    var acc = document.querySelectorAll(".accordion");
 
-</style>
-
-<script>
-  var acc = document.querySelectorAll(".accordion");
-
-  acc.forEach(function(item) {
-    item.addEventListener("click", function() {
-      this.classList.toggle("active");
-      this.querySelector("img").classList.toggle("clicked");
-      var panel = this.nextElementSibling;
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
-      // Agregar evento animationend a cada imagen
-    var images = item.querySelectorAll("img");
-    images.forEach(function(image) {
-      image.addEventListener("animationend", function() {
-        // Remover la clase "clicked" después de que la animación haya terminado
-        this.classList.remove("clicked");
+    acc.forEach(function(item) {
+      item.addEventListener("click", function() {
+        this.classList.toggle("active");
+        this.querySelector("img").classList.toggle("rotated");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
       });
     });
-  });
-</script>
+  </script>
