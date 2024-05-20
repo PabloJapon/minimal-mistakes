@@ -20,21 +20,21 @@ header:
     </video>
   </div>
 
-  <div style="text-align:center;">
+  <div style="text-align:center;margin: 2em;">
     Preguntas frecuentes
   </div>
 
   <div style="margin: 0 auto; text-align:center;">
     <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
       <button class="accordion">¿Pregunta 1?
-       <img src="/assets/images/angulo-derecho.svg" width="20" height="20" class="butImagen" style="vertical-align: middle;">
+       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
       </button>
       <div class="panel">
         <p>Respuesta a la pregunta 1.</p>
       </div>
 
       <button class="accordion">¿Pregunta 2?
-       <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
       </button>
       <div class="panel">
         <p>Respuesta a la pregunta 2.</p>
