@@ -34,7 +34,7 @@ header:
       </div>
 
       <button class="accordion">¿Pregunta 2?
-       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
+       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
       </button>
       <div class="panel">
         <p>Respuesta a la pregunta 2.</p>
