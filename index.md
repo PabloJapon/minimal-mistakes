@@ -116,15 +116,15 @@ header:
 
   .panel {
     padding: 0 18px;
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    transition: height 0.3s ease;
   }
 
   .panel.open {
-    max-height: 200px; /* Adjust based on content height */
-    padding: 20px 18px;
+    height: auto;
   }
+
 </style>
 
 <script>
@@ -134,11 +134,12 @@ header:
     item.addEventListener("click", function() {
       this.classList.toggle("active");
       this.querySelector("img").classList.toggle("rotated");
+
       var panel = this.nextElementSibling;
-      if (panel.classList.contains("open")) {
-        panel.classList.remove("open");
+      if (panel.style.height) {
+        panel.style.height = null;
       } else {
-        panel.classList.add("open");
+        panel.style.height = panel.scrollHeight + "px";
       }
     });
   });
