@@ -26,6 +26,7 @@
         <div class="account-menu">
           <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()">Mi Cuenta</button>
           <div id="account-menu" class="account-dropdown" style="display: none;">
+            <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-menu-image">
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
             <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
@@ -125,5 +126,11 @@
   }
   .account-dropdown a:hover {
     background-color: #f1f1f1;
+  }
+  .account-menu-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
   }
 </style>
