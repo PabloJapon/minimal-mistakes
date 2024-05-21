@@ -2,8 +2,8 @@
 title: "El software que comunica clientes, camareros y cocina"
 layout: splash
 header:
-  overlay_image: /assets/images/service.jpg
-  overlay_filter: rgba(102,153,255,0.5)
+  overlay_image: /assets/images/page-header-teaser.png
+  #overlay_filter: rgba(102,153,255,0.5)
 ---
 
 <div style="text-align:center;">
