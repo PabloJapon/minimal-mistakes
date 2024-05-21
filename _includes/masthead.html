@@ -24,12 +24,16 @@
 
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
-          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()">Mi Cuenta</button>
-          <div id="account-menu" class="account-dropdown" style="display: none;">
-            <div class="account-menu-image-wrapper">
-              <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-menu-image">
-              <span class="account-menu-letter">L</span>
+          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()">
+            <div class="account-button-content">
+              <div class="account-button-image-wrapper">
+                <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-button-image">
+                <span class="account-button-letter">L</span>
+              </div>
+              <span>Mi Cuenta</span>
             </div>
+          </button>
+          <div id="account-menu" class="account-dropdown" style="display: none;">
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
             <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
@@ -131,6 +135,29 @@
   .account-dropdown a:hover {
     background-color: #f1f1f1;
   }
+  .account-button-content {
+    display: flex;
+    align-items: center;
+  }
+  .account-button-image-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  .account-button-image {
+    width: 100%;
+    height: auto;
+  }
+  .account-button-letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+  }
   .account-menu-image-wrapper {
     position: relative;
     text-align: center;
@@ -139,6 +166,7 @@
   .account-menu-image {
     width: 100px;
     height: 100px;
+    margin-bottom: 10px;
   }
   .account-menu-letter {
     position: absolute;
