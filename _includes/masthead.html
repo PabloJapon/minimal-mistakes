@@ -26,7 +26,10 @@
         <div class="account-menu">
           <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()">Mi Cuenta</button>
           <div id="account-menu" class="account-dropdown" style="display: none;">
-            <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-menu-image">
+            <div class="account-menu-image-wrapper">
+              <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-menu-image">
+              <span class="account-menu-letter">L</span>
+            </div>
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
             <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
@@ -117,6 +120,7 @@
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    right: 0; /* Alinea el menú desplegable a la derecha */
   }
   .account-dropdown a {
     color: black;
@@ -127,10 +131,22 @@
   .account-dropdown a:hover {
     background-color: #f1f1f1;
   }
+  .account-menu-image-wrapper {
+    position: relative;
+    text-align: center;
+    margin: 10px;
+  }
   .account-menu-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+  }
+  .account-menu-letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
   }
 </style>
