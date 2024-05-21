@@ -26,7 +26,7 @@
           {%- endfor -%}
         </ul>
         
-        <!-- Botón de prueba -->
+        <!-- Botón Iniciar sesión -->
         <button class="btn btn--secondary" id="login-link" onclick="openNetlifyIdentity()">Iniciar Sesión</button>
 
         {% if site.search == true %}
@@ -73,13 +73,13 @@
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 
-    // Ocultar o mostrar el botón de prueba según si el usuario ha iniciado sesión
-    const pruebaBoton = document.getElementById('login-link');
-    if (pruebaBoton) {
-      pruebaBoton.style.display = isLoggedIn ? 'none' : 'block';
+    // Ocultar o mostrar el botón de iniciar sesión según si el usuario ha iniciado sesión
+    const loginButton = document.getElementById('login-link');
+    if (loginButton) {
+      loginButton.style.display = isLoggedIn ? 'none' : 'block';
     }
 
-    // Ocultar o mostrar la pestaña "Cerrar Sesión" según si el usuario ha iniciado sesión
+    // Ocultar o mostrar el enlace "Mi Cuenta" según si el usuario ha iniciado sesión
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) {
       logoutLink.style.display = isLoggedIn ? 'block' : 'none';
@@ -89,10 +89,3 @@
   // Llamada inicial para configurar la visibilidad del botón al cargar la página
   handleAuthenticationChange();
 </script>
-
-
-
-
-
-
-
