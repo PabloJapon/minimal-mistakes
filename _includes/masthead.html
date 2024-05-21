@@ -24,22 +24,22 @@
 
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
-          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: block; color: #393e46; background-color: #fff;">
+          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: none; color: #393e46; background-color: #fff;">
             <div class="account-button-content" style="display: flex;align-items: center;flex-direction: row;">
               <div class="account-button-image-wrapper" style="margin-right: 10px;">
-                <img src="/assets/images/CirculoAmarillo.svg" alt="Circulo Amarillo" class="account-button-image">
-                <span class="account-button-letter">L</span>
+                <img src="/assets/images/CirculoAmarillo.svg" alt="User Initial" class="account-button-image">
+                <span class="account-button-letter" id="account-button-letter">L</span>
               </div>
               <div style="display: flex;flex-direction: column;align-items: flex-start;">
-                <span>Mi Cuenta</span>
-                <span style="font-style: italic;font-size: 14px;font-weight: normal;">Plan actual</span>
+                <span id="username" style="font-size: 14px;text-transform: uppercase;">Mi Cuenta</span>
+                <span class="account-subtitle" style="font-style: italic;font-size: 14px;font-weight: normal;">Plan actual</span>
               </div>
             </div>
           </button>
           <div id="account-menu" class="account-dropdown" style="display: none;">
             <div class="account-menu-image-wrapper">
-              <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-menu-image">
-              <span class="account-menu-letter">L</span>
+              <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="User Initial" class="account-menu-image">
+              <span class="account-menu-letter" id="account-menu-letter">L</span>
             </div>
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
@@ -87,6 +87,15 @@
   netlifyIdentity.on('login', user => {
     console.log('Usuario inició sesión', user);
     handleAuthenticationChange();
+    // Display welcome message and username
+    const usernameSpan = document.getElementById('username');
+    if (usernameSpan) {
+      usernameSpan.innerText = user.user_metadata.full_name || user.email;
+    }
+    // Set the initial letter
+    const initialLetter = (user.user_metadata.full_name || user.email)[0].toUpperCase();
+    document.getElementById('account-button-letter').innerText = initialLetter;
+    document.getElementById('account-menu-letter').innerText = initialLetter;
   });
 
   netlifyIdentity.on('logout', () => {
