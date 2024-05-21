@@ -24,13 +24,14 @@
 
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
-          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: block;color: #393e46;background-color: #fff;">
+          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: block; color: #393e46; background-color: #fff;">
             <div class="account-button-content">
               <div class="account-button-image-wrapper">
                 <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-button-image">
                 <span class="account-button-letter">L</span>
               </div>
               <span>Mi Cuenta</span>
+              <span style="display: block; font-style: italic;">Plan actual</span> <!-- Subtítulo en cursiva -->
             </div>
           </button>
           <div id="account-menu" class="account-dropdown" style="display: none;">
@@ -141,12 +142,18 @@
   }
   .account-button-content {
     display: flex;
+    flex-direction: column; /* Cambia a columna para colocar "Plan actual" debajo de "Mi Cuenta" */
     align-items: center;
+  }
+  .account-subtitle {
+    font-size: 0.8em; /* Ajusta el tamaño de la fuente del subtítulo según tus necesidades */
+    color: #393e46; /* Ajusta el color del subtítulo */
+    margin-top: 4px; /* Ajusta el espacio entre "Mi Cuenta" y "Plan actual" */
   }
   .account-button-image-wrapper {
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 38px;
+    height: 38px;
     margin-right: 8px;
   }
   .account-button-image {
@@ -159,7 +166,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: white;
   }
@@ -179,7 +186,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     color: white;
   }
