@@ -25,14 +25,14 @@
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
           <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: block; color: #393e46; background-color: #fff;">
-            <div class="account-button-content" style="display: flex; align-items: center;">
+            <div class="account-button-content" style="display: flex;align-items: center;flex-direction: row;">
               <div class="account-button-image-wrapper" style="margin-right: 10px;">
-                <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="Circulo Amarillo" class="account-button-image">
+                <img src="/assets/images/CirculoAmarillo.svg" alt="Circulo Amarillo" class="account-button-image">
                 <span class="account-button-letter">L</span>
               </div>
-              <div style="display: flex; flex-direction: column;">
+              <div style="display: flex;flex-direction: column;align-items: flex-start;">
                 <span>Mi Cuenta</span>
-                <span style="font-style: italic;">Plan actual</span> <!-- Subtítulo en cursiva -->
+                <span style="font-style: italic;font-size: 14px;font-weight: normal;">Plan actual</span>
               </div>
             </div>
           </button>
