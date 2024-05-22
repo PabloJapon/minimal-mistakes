@@ -34,16 +34,17 @@
                 <span id="username" style="font-size: 14px;text-transform: uppercase;">Mi Cuenta</span>
                 <span class="account-subtitle" style="font-style: italic;font-size: 14px;font-weight: normal;">Plan actual</span>
               </div>
-              <div class="account-button-image-wrapper" style="margin-left: 10px;">
-                <img src="/assets/images/angulo-hacia-abajo.png" alt="User Initial" class="account-button-image">
+              <div class="account-button-image-wrapper">
+                <img src="/assets/images/angulo-hacia-abajo.png" alt="User Initial" class="account-button-image" style="width: 13px; margin-top: 10px; margin-right: 10px;">
               </div>
             </div>
           </button>
-          <div id="account-menu" class="account-dropdown" style="display: none;">
+          <div id="account-menu" class="account-dropdown" style="display: none; width: 16em;">
             <div class="account-menu-image-wrapper">
               <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="User Initial" class="account-menu-image">
               <span class="account-menu-letter" id="account-menu-letter">L</span>
             </div>
+            <p>¡Hola, <span id="username">User</span>!</p>
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
             <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
@@ -186,11 +187,10 @@
   .account-menu-image-wrapper {
     position: relative;
     text-align: center;
-    margin: 10px auto; /* Añade margen y centra el contenedor */
   }
   .account-menu-image {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     margin: 2em;
     float: none;
   }
@@ -199,7 +199,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     color: white;
   }
