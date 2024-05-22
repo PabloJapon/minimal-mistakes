@@ -24,14 +24,14 @@
 
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
-          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: block;color: rgb(57, 62, 70);background-color: rgb(255, 255, 255);/* border-radius: 0; */outline: none;">
+          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: none;color: rgb(57, 62, 70);background-color: rgb(255, 255, 255);outline: none;">
             <div class="account-button-content" style="display: flex;align-items: center;flex-direction: row;">
               <div class="account-button-image-wrapper" style="margin-right: 10px;">
                 <img src="/assets/images/CirculoAmarillo.svg" alt="User Initial" class="account-button-image">
                 <span class="account-button-letter" id="account-button-letter">L</span>
               </div>
               <div style="display: flex;flex-direction: column;align-items: flex-start;">
-                <span id="username" style="font-size: 14px;text-transform: uppercase;">Mi Cuenta</span>
+                <span id="account-username-button" style="font-size: 14px;text-transform: uppercase;">Mi Cuenta</span>
                 <span class="account-subtitle" style="font-style: italic;font-size: 14px;font-weight: normal;">Plan actual</span>
               </div>
               <div class="account-button-image-wrapper">
@@ -39,12 +39,12 @@
               </div>
             </div>
           </button>
-          <div id="account-menu" class="account-dropdown" style="display: none; width: 16em;">
+          <div id="account-menu-dropdown" class="account-dropdown" style="display: none; width: 15em;">
             <div class="account-menu-image-wrapper">
               <img src="{{ '/assets/images/CirculoAmarillo.svg' | relative_url }}" alt="User Initial" class="account-menu-image">
               <span class="account-menu-letter" id="account-menu-letter">L</span>
             </div>
-            <p>¡Hola, <span id="username">User</span>!</p>
+            <p style="display: flex;justify-content: center;margin: 1em">¡Hola, <span id="account-username">User</span>!</p>
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
             <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
@@ -80,21 +80,32 @@
   }
 
   function toggleAccountMenu() {
-    const accountMenu = document.getElementById('account-menu');
+    const accountMenu = document.getElementById('account-menu-dropdown');
     if (accountMenu) {
       const isDisplayed = accountMenu.style.display === 'block';
       accountMenu.style.display = isDisplayed ? 'none' : 'block';
     }
   }
 
+  // Cerrar el menú al hacer clic fuera de él
+  window.addEventListener('click', function(event) {
+    const accountMenu = document.getElementById('account-menu-dropdown');
+    if (accountMenu && !document.getElementById('account-button').contains(event.target) && !accountMenu.contains(event.target)) {
+      accountMenu.style.display = 'none';
+    }
+  });
+
   // Netlify Identity script y manejo de eventos
   netlifyIdentity.on('login', user => {
     console.log('Usuario inició sesión', user);
     handleAuthenticationChange();
     // Display welcome message and username
-    const usernameSpan = document.getElementById('username');
-    if (usernameSpan) {
-      usernameSpan.innerText = user.user_metadata.full_name || user.email;
+    const usernameButtonSpan = document.getElementById('account-username-button');
+    const usernameMenuSpan = document.getElementById('account-username');
+    if (usernameButtonSpan && usernameMenuSpan) {
+      const username = user.user_metadata.full_name || user.email;
+      usernameButtonSpan.innerText = username;
+      usernameMenuSpan.innerText = username;
     }
     // Set the initial letter
     const initialLetter = (user.user_metadata.full_name || user.email)[0].toUpperCase();
@@ -120,7 +131,7 @@
 
     // Ocultar o mostrar el botón "Mi Cuenta" y el menú desplegable según si el usuario ha iniciado sesión
     const accountButton = document.getElementById('account-button');
-    const accountMenu = document.getElementById('account-menu');
+    const accountMenu = document.getElementById('account-menu-dropdown');
     if (accountButton) {
       accountButton.style.display = isLoggedIn ? 'block' : 'none';
     }
@@ -176,6 +187,7 @@
     margin-top: 0em;
   }
   .account-button-letter {
+    margin-top: 0.15em;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -191,7 +203,7 @@
   .account-menu-image {
     width: 140px;
     height: 140px;
-    margin: 2em;
+    margin: 1em 2em 0em;
     float: none;
   }
   .account-menu-letter {
