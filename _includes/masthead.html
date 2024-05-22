@@ -100,12 +100,9 @@
     console.log('Usuario inició sesión', user);
     handleAuthenticationChange();
     // Display welcome message and username
-    const usernameButtonSpan = document.getElementById('account-username-button');
-    const usernameMenuSpan = document.getElementById('account-username');
-    if (usernameButtonSpan && usernameMenuSpan) {
-      const username = user.user_metadata.full_name || user.email;
-      usernameButtonSpan.innerText = username;
-      usernameMenuSpan.innerText = username;
+    const usernameSpan = document.getElementById('account-username');
+    if (usernameSpan) {
+      usernameSpan.innerText = ' ' + (user.user_metadata.full_name || user.email);
     }
     // Set the initial letter
     const initialLetter = (user.user_metadata.full_name || user.email)[0].toUpperCase();
