@@ -113,6 +113,8 @@ Acciones
 <!-- Unsubscribe button -->
 <button onclick="cancelSubscription()">Cancelar Suscripción</button>
 
+<a href="/misFacturas/" class="button">Ver mis facturas</a>
+
 <script>
   // Function to update next invoice date in HTML
   function updateNextInvoiceDate(nextInvoiceDate) {
