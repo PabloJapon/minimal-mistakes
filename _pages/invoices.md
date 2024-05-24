@@ -18,9 +18,14 @@ layout: single
 <script>
 // Function to fetch and display invoices
 function fetchAndDisplayInvoices() {
+  console.log('Fetching invoices...');
   fetch('/.netlify/functions/get_invoices')
-    .then(response => response.json())
+    .then(response => {
+      console.log('Response:', response);
+      return response.json();
+    })
     .then(data => {
+      console.log('Fetched data:', data);
       const invoicesList = document.getElementById('invoices-list');
       if (data && data.invoices) {
         data.invoices.forEach(invoice => {
@@ -42,6 +47,7 @@ function fetchAndDisplayInvoices() {
 
 // Function to download invoice in PDF format
 function downloadInvoice(invoiceId) {
+  console.log('Downloading invoice:', invoiceId);
   window.open(`/.netlify/functions/download_invoice?invoice_id=${invoiceId}`, '_blank');
 }
 
