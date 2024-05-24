@@ -24,7 +24,7 @@
 
         <!-- Botón Mi Cuenta -->
         <div class="account-menu">
-          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="display: none;color: rgb(57, 62, 70);background-color: rgb(255, 255, 255);outline: none;">
+          <button class="btn btn--secondary" id="account-button" onclick="toggleAccountMenu()" style="color: rgb(57, 62, 70);background-color: rgb(255, 255, 255);outline: none;">
             <div class="account-button-content" style="display: flex;align-items: center;flex-direction: row;">
               <div class="account-button-image-wrapper" style="margin-right: 10px;">
                 <img src="/assets/images/CirculoAmarillo.svg" alt="User Initial" class="account-button-image">
@@ -47,7 +47,7 @@
             <p style="display: flex; justify-content: center; margin: 1em">¡Hola,<span id="account-username" style="margin-left: 0.2em;">User</span>!</p>
             <a href="/miCuenta/">Perfil</a>
             <a href="/miCuenta/settings">Configuración</a>
-            <a href="#" onclick="netlifyIdentity.logout(); return false;">Cerrar Sesión</a>
+            <a href="#" onclick="return false;">Cerrar Sesión</a>
           </div>
         </div>
 
