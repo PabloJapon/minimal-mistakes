@@ -76,7 +76,7 @@ Mi cuenta
 <div class="plan">
   <div class="plan-contenido">
     <h2><span id="subscription-plan"></span></h2>
-    <h6 id="next-invoice-date">Próximo pago: </h6>
+    <h6><span id="next-invoice-date"></span></h6>
   </div>
 </div>
 
@@ -124,8 +124,35 @@ Acciones
       // Format the next invoice date as desired (e.g., using Intl.DateTimeFormat)
       const formattedDate = new Date(nextInvoiceDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
       nextInvoiceDateElement.textContent = 'Próximo pago: ' + formattedDate;
+      console.log('Next invoice date:', formattedDate); // Log the next invoice date
     }
   }
+  
+  // Function to fetch next invoice date
+  function fetchNextInvoiceDate(email) {
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'next_invoice_date',
+        email: email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.nextInvoiceDate) {
+        updateNextInvoiceDate(data.nextInvoiceDate);
+      } else {
+        console.error('Next invoice date not found in response:', data);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching next invoice date:', error);
+    });
+  }
+
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     // Additional actions after login if needed
@@ -146,6 +173,9 @@ Acciones
       console.log('User', user);
       console.log('sin plan de suscripción');
     }
+
+    // Fetch next invoice date
+    fetchNextInvoiceDate(user.email);
   });
 
   netlifyIdentity.on('logout', () => {
