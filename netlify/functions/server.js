@@ -7,6 +7,19 @@ if (!stripeSecretKey) {
 }
 
 const stripe = require('stripe')(stripeSecretKey);
+const pdfkit = require('pdfkit');
+const fs = require('fs');
+
+// Function to generate PDF invoice
+const generatePdfInvoice = (invoiceData) => {
+  const doc = new pdfkit();
+  // Customize PDF content based on invoice data
+  doc.text(`Invoice #: ${invoiceData.number}`);
+  doc.text(`Amount Due: ${invoiceData.amount_due}`);
+  // Add more invoice details as needed
+  doc.end();
+  return doc;
+};
 
 exports.handler = async (event) => {
   try {
@@ -87,6 +100,32 @@ exports.handler = async (event) => {
       };
     }
 
+    // Check if action is to get invoices
+    if (body.action === 'get_invoices') {
+      console.log('Request to get invoices received.');
+      const customerEmail = body.email;
+      console.log('Customer email:', customerEmail);
+
+      // Retrieve the customer from Stripe using the email
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      const customer = customers.data[0];
+
+      if (!customer) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Customer not found' })
+        };
+      }
+
+      // Retrieve invoices for the customer
+      const invoices = await stripe.invoices.list({ customer: customer.id });
+
+      // Return the list of invoices
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ invoices: invoices.data })
+      };
+    }
 
     // Check if action is to cancel subscription
     if (body.action === 'cancel_subscription') {
