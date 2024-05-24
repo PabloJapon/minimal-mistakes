@@ -80,14 +80,12 @@ Mi cuenta
   </div>
 </div>
 
-
-
 Acciones
 
 <div class="plan">
   <button class="boton">
-  Cambiar de plan
-  <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+    Cambiar de plan
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
   <button class="boton">
@@ -104,7 +102,6 @@ Acciones
     Cambiar contraseña
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
-
 </div>
 
 <!-- Logout button -->
@@ -121,13 +118,12 @@ Acciones
   function updateNextInvoiceDate(nextInvoiceDate) {
     const nextInvoiceDateElement = document.getElementById('next-invoice-date');
     if (nextInvoiceDateElement) {
-      // Format the next invoice date as desired (e.g., using Intl.DateTimeFormat)
       const formattedDate = new Date(nextInvoiceDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
       nextInvoiceDateElement.textContent = 'Próximo pago: ' + formattedDate;
       console.log('Next invoice date:', formattedDate); // Log the next invoice date
     }
   }
-  
+
   // Function to fetch next invoice date
   function fetchNextInvoiceDate(email) {
     fetch('/.netlify/functions/server', {
@@ -135,10 +131,7 @@ Acciones
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        action: 'next_invoice_date',
-        email: email
-      })
+      body: JSON.stringify({ action: 'next_invoice_date', email: email })
     })
     .then(response => response.json())
     .then(data => {
@@ -153,17 +146,12 @@ Acciones
     });
   }
 
-  // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
-    // Additional actions after login if needed
-
-    // Display welcome message and username
     const usernameSpan = document.getElementById('username');
     if (usernameSpan) {
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
 
-    // Display subscription plan
     const subscriptionPlan = user.user_metadata.subscription_plan;
     if (subscriptionPlan) {
       const subscriptionPlanElement = document.getElementById('subscription-plan');
@@ -174,14 +162,10 @@ Acciones
       console.log('sin plan de suscripción');
     }
 
-    // Fetch next invoice date
     fetchNextInvoiceDate(user.email);
   });
 
   netlifyIdentity.on('logout', () => {
-    // Additional actions after logout if needed
-
-    // Clear username on logout
     const usernameSpan = document.getElementById('username');
     if (usernameSpan) {
       usernameSpan.innerText = '';
@@ -193,48 +177,32 @@ Acciones
   }
 
   function cancelSubscription() {
-    // Confirm cancellation
     const confirmation = confirm('¿Estás seguro de que quieres cancelar tu suscripción?');
-
     if (confirmation) {
-      // Get current user
       const user = netlifyIdentity.currentUser();
-
-      // Check if user is logged in
       if (!user) {
         alert('Por favor, inicia sesión para cancelar tu suscripción.');
         return;
       }
 
-      // Get subscription ID from user metadata
       const subscriptionPlan = user.user_metadata.subscription_plan;
-
-      // Check if subscription ID exists
       if (!subscriptionPlan) {
         alert('No se encontró ninguna suscripción asociada a tu cuenta.');
         return;
       }
 
-      // Send request to cancel subscription
       fetch('/.netlify/functions/server', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          action: 'cancel_subscription'
-        })
+        body: JSON.stringify({ action: 'cancel_subscription', email: user.email })
       })
-      .then(response => {
+      .then(response => response.json())
+      .then(data => {
         if (response.ok) {
-          // Remove subscription_plan from user metadata
-          console.log('User', user);
-          user.update({
-            data: { subscription_plan: null }
-          })
-          console.log('User', user);
+          user.update({ data: { subscription_plan: null } });
           alert('¡Tu suscripción ha sido cancelada con éxito!');
-          // Refresh the page to reflect changes
           window.location.reload();
         } else {
           alert('Error al cancelar la suscripción: ' + data.error);

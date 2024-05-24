@@ -21,7 +21,6 @@ exports.handler = async (event) => {
     if (body.action === 'next_invoice_date') {
       const customerEmail = body.email;
 
-      // Retrieve the customer from Stripe using the email
       const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
       const customer = customers.data[0];
 
@@ -32,10 +31,9 @@ exports.handler = async (event) => {
         };
       }
 
-      // Retrieve the upcoming invoice for the customer
       const invoices = await stripe.invoices.list({
         customer: customer.id,
-        status: 'upcoming',
+        status: 'open',
         limit: 1
       });
 
@@ -47,9 +45,7 @@ exports.handler = async (event) => {
       }
 
       const upcomingInvoice = invoices.data[0];
-
-      // Extract the next invoice date from the upcoming invoice
-      const nextInvoiceDate = upcomingInvoice && upcomingInvoice.next_payment_attempt;
+      const nextInvoiceDate = upcomingInvoice.next_payment_attempt;
 
       if (!nextInvoiceDate) {
         return {
@@ -58,7 +54,6 @@ exports.handler = async (event) => {
         };
       }
 
-      // Next invoice date retrieved successfully
       return {
         statusCode: 200,
         body: JSON.stringify({ nextInvoiceDate })
