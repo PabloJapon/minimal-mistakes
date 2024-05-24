@@ -4,9 +4,6 @@ permalink: /miCuenta/
 layout: single
 ---
 
-<h1> ¡Bienvenido, <span id="username"></span>! </h1>
-
-
 <style>
 
 .plan {
@@ -79,7 +76,7 @@ Mi cuenta
 <div class="plan">
   <div class="plan-contenido">
     <h2><span id="subscription-plan"></span></h2>
-    <h6>Próximo pago: 27 mayo 2024</h6>
+    <h6 id="next-invoice-date">Próximo pago: </h6>
   </div>
 </div>
 
@@ -120,6 +117,15 @@ Acciones
 <button onclick="cancelSubscription()">Cancelar Suscripción</button>
 
 <script>
+  // Function to update next invoice date in HTML
+  function updateNextInvoiceDate(nextInvoiceDate) {
+    const nextInvoiceDateElement = document.getElementById('next-invoice-date');
+    if (nextInvoiceDateElement) {
+      // Format the next invoice date as desired (e.g., using Intl.DateTimeFormat)
+      const formattedDate = new Date(nextInvoiceDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+      nextInvoiceDateElement.textContent = 'Próximo pago: ' + formattedDate;
+    }
+  }
   // Netlify Identity script and event handling
   netlifyIdentity.on('login', user => {
     // Additional actions after login if needed
