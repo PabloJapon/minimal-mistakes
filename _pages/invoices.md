@@ -21,7 +21,7 @@ function fetchAndDisplayInvoices() {
   console.log('Fetching invoices...');
   fetch('/.netlify/functions/get_invoices')
     .then(response => {
-      console.log('Response:', response);
+      console.log('Response status:', response.status);
       return response.json();
     })
     .then(data => {
