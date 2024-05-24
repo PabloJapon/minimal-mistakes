@@ -20,45 +20,59 @@ exports.handler = async (event) => {
     // Check if action is to retrieve next invoice date
     if (body.action === 'next_invoice_date') {
       const customerEmail = body.email;
-
+    
       const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
       const customer = customers.data[0];
-
+    
       if (!customer) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'Customer not found' })
         };
       }
-
-      const invoices = await stripe.invoices.list({
+    
+      const subscriptions = await stripe.subscriptions.list({
         customer: customer.id,
-        status: 'open',
+        status: 'active',
         limit: 1
       });
-
-      if (invoices.data.length === 0) {
+    
+      if (subscriptions.data.length === 0) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'No active subscription found for the customer' })
+        };
+      }
+    
+      const subscription = subscriptions.data[0];
+    
+      // Fetch the upcoming invoice
+      const upcomingInvoice = await stripe.invoices.retrieveUpcoming({
+        customer: customer.id,
+        subscription: subscription.id
+      });
+    
+      if (!upcomingInvoice) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'No upcoming invoice found for the customer' })
         };
       }
-
-      const upcomingInvoice = invoices.data[0];
+    
       const nextInvoiceDate = upcomingInvoice.next_payment_attempt;
-
+    
       if (!nextInvoiceDate) {
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'Next invoice date not found' })
         };
       }
-
+    
       return {
         statusCode: 200,
         body: JSON.stringify({ nextInvoiceDate })
       };
-    } 
+    }
 
     // Check if action is to cancel subscription
     if (body.action === 'cancel_subscription') {
