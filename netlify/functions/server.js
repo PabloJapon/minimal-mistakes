@@ -68,7 +68,8 @@ exports.handler = async (event) => {
         };
       }
 
-      const nextInvoiceDate = upcomingInvoice.next_payment_attempt;
+      const nextInvoiceDateTimestamp = upcomingInvoice.next_payment_attempt;
+      const nextInvoiceDate = new Date(nextInvoiceDateTimestamp * 1000).toLocaleString();
       console.log('Next invoice date:', nextInvoiceDate);
 
       if (!nextInvoiceDate) {
