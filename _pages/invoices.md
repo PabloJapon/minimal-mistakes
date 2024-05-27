@@ -44,6 +44,19 @@ th {
 </table>
 
 <script>
+// Function to format amount
+function formatAmount(amount) {
+  return (amount / 100).toFixed(2).replace('.', ',') + ' €';
+}
+
+// Function to translate status
+function translateStatus(status) {
+  if (status === 'paid') {
+    return 'Pagada';
+  }
+  return status;
+}
+
 // Function to fetch and display invoices
 function fetchAndDisplayInvoices(email) {
   fetch('/.netlify/functions/server', {
@@ -62,11 +75,13 @@ function fetchAndDisplayInvoices(email) {
       const invoicesTableBody = document.querySelector('#invoices-table tbody');
       if (data && data.invoices) {
         data.invoices.forEach(invoice => {
+          const formattedAmount = formatAmount(invoice.amount_due);
+          const translatedStatus = translateStatus(invoice.status);
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${invoice.number}</td>
-            <td>${invoice.amount_due}</td>
-            <td>${invoice.status}</td>
+            <td>${formattedAmount}</td>
+            <td>${translatedStatus}</td>
             <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">Descargar</button></td>
           `;
           invoicesTableBody.appendChild(row);
