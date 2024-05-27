@@ -85,8 +85,10 @@ function fetchAndDisplayInvoices(email) {
           const formattedAmount = formatAmount(invoice.amount_due);
           const translatedStatus = translateStatus(invoice.status);
           const formattedCreationDate = formatCreationDate(invoice.created);
+          const description = getDescription(invoice); // Get description from invoice lines
           const row = document.createElement('tr');
           row.innerHTML = `
+            <td>${description}</td>
             <td>${invoice.number}</td>
             <td>${formattedAmount}</td>
             <td>${translatedStatus}</td>
@@ -103,6 +105,16 @@ function fetchAndDisplayInvoices(email) {
       console.error('Error fetching invoices:', error);
     });
 }
+
+// Function to get description from invoice lines
+function getDescription(invoice) {
+  if (invoice.lines && invoice.lines.data.length > 0) {
+    // Assuming the description is available in the first line item
+    return invoice.lines.data[0].description || '';
+  }
+  return ''; // Return empty string if description is not available
+}
+
 
 // Function to download invoice in PDF format
 function downloadInvoice(invoicePdfUrl) {
