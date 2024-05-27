@@ -32,6 +32,7 @@ th {
 <table id="invoices-table">
   <thead>
     <tr>
+      <th>Concepto</th>
       <th>Numero de factura</th>
       <th>Importe</th>
       <th>Estado</th>
@@ -110,6 +111,7 @@ function fetchAndDisplayInvoices(email) {
 function getDescription(invoice) {
   if (invoice.lines && invoice.lines.data.length > 0) {
     // Assuming the description is available in the first line item
+    console.log('Fetched data lines:', invoice.lines);
     return invoice.lines.data[0].description || '';
   }
   return ''; // Return empty string if description is not available
