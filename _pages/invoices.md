@@ -35,6 +35,7 @@ th {
       <th>Numero de factura</th>
       <th>Importe</th>
       <th>Estado</th>
+      <th>Creación</th>
       <th>Acción</th>
     </tr>
   </thead>
@@ -57,6 +58,12 @@ function translateStatus(status) {
   return status;
 }
 
+// Function to format creation date
+function formatCreationDate(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleDateString();
+}
+
 // Function to fetch and display invoices
 function fetchAndDisplayInvoices(email) {
   fetch('/.netlify/functions/server', {
@@ -77,11 +84,13 @@ function fetchAndDisplayInvoices(email) {
         data.invoices.forEach(invoice => {
           const formattedAmount = formatAmount(invoice.amount_due);
           const translatedStatus = translateStatus(invoice.status);
+          const formattedCreationDate = formatCreationDate(invoice.created);
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${invoice.number}</td>
             <td>${formattedAmount}</td>
             <td>${translatedStatus}</td>
+            <td>${formattedCreationDate}</td>
             <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">Descargar</button></td>
           `;
           invoicesTableBody.appendChild(row);
