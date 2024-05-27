@@ -29,7 +29,13 @@ Mi cuenta
 // Function to fetch and display invoices
 function fetchAndDisplayInvoices() {
   console.log('Fetching invoices...');
-  fetch('/.netlify/functions/get_invoices')
+  fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'get_invoices', email: email })
+    })
     .then(response => {
       console.log('Response status:', response.status);
       return response.json();
