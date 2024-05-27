@@ -27,8 +27,7 @@ Mi cuenta
 
 <script>
 // Function to fetch and display invoices
-function fetchAndDisplayInvoices() {
-  console.log('Fetching invoices...');
+function fetchAndDisplayInvoices(email) {
   fetch('/.netlify/functions/server', {
       method: 'POST',
       headers: {
