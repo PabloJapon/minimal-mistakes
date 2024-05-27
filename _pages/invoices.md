@@ -115,8 +115,7 @@ function getDescription(invoice) {
     
     // Diccionario de traducción
     const translationDict = {
-      'App Pro': 'Aplicación Pro', // Traduce 'App Pro' a 'Aplicación Pro'
-      'at €': 'a €', // Traduce 'at €' a 'a €'
+      'at €': '€', // Traduce 'at €' a 'a €'
       'month': 'mes' // Traduce 'month' a 'mes'
       // Agrega más traducciones según sea necesario
     };
