@@ -107,16 +107,29 @@ function fetchAndDisplayInvoices(email) {
     });
 }
 
-// Function to get description from invoice lines
+// Función para obtener la descripción de las líneas de factura
 function getDescription(invoice) {
   if (invoice.lines && invoice.lines.data.length > 0) {
-    // Assuming the description is available in the first line item
-    console.log('Fetched data lines:', invoice.lines);
-    return invoice.lines.data[0].description || '';
+    // Suponiendo que la descripción está disponible en el primer ítem de línea
+    let description = invoice.lines.data[0].description || '';
+    
+    // Diccionario de traducción
+    const translationDict = {
+      'App Pro': 'Aplicación Pro', // Traduce 'App Pro' a 'Aplicación Pro'
+      'at €': 'a €', // Traduce 'at €' a 'a €'
+      'month': 'mes' // Traduce 'month' a 'mes'
+      // Agrega más traducciones según sea necesario
+    };
+    
+    // Realiza la traducción
+    for (const [key, value] of Object.entries(translationDict)) {
+      description = description.replace(new RegExp(key, 'g'), value);
+    }
+    
+    return description;
   }
-  return ''; // Return empty string if description is not available
+  return ''; // Devuelve una cadena vacía si la descripción no está disponible
 }
-
 
 // Function to download invoice in PDF format
 function downloadInvoice(invoicePdfUrl) {
