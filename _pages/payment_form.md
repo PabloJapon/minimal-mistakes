@@ -20,7 +20,7 @@ permalink: /payment_form/
 
     .container {
       max-width: 400px;
-      margin: 50px auto;
+      margin: 50px auto; /* Ajustar margen según sea necesario */
       padding: 20px;
       background-color: #fff;
       border-radius: 10px;
@@ -59,12 +59,6 @@ permalink: /payment_form/
       box-sizing: border-box;
     }
 
-    .element-label {
-      font-weight: bold;
-      margin-bottom: 5px;
-      font-size: 14px;
-    }
-
     .progress-button {
       position: relative;
       overflow: hidden;
@@ -82,7 +76,7 @@ permalink: /payment_form/
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
-      display: none;
+      display: none; /* Initially hidden */
     }
 
     @keyframes spin {
@@ -108,37 +102,6 @@ permalink: /payment_form/
   </button>
 </div>
 
-<style>
-  /* Circular progress animation */
-  .progress-button {
-    position: relative;
-    overflow: hidden;
-    background: none;
-    border: none;
-  }
-  /* Adjust the progress circle styles */
-  .progress-circle {
-    position: relative; /* Set position to relative */
-    top: -50%; /* Position vertically at -50% */
-    left: 50%; /* Position horizontally at 50% */
-    transform: translateX(-50%); /* Center horizontally */
-    border: 2px solid transparent; /* Transparent border */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    display: none; /* Initially hidden */
-  }
-
-  @keyframes spin {
-    0% { border-color: transparent transparent transparent #fff; }
-    25% { border-color: #fff transparent transparent transparent; }
-    50% { border-color: transparent #fff transparent transparent; }
-    75% { border-color: transparent transparent #fff transparent; }
-    100% { border-color: transparent transparent transparent #fff; }
-  }
-</style>
-
 <script>
   // Retrieve plan from URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -156,125 +119,61 @@ permalink: /payment_form/
   document.getElementById('price').textContent = "Precio: " + prices[plan];
 
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  var elements = stripe.elements();
+
+  // Create payment element
+  var paymentElement = elements.create('payment');
+  paymentElement.mount('#payment-element');
 
   var cardButton = document.getElementById('card-button');
   var progressCircle = document.querySelector('.progress-circle');
 
-  // Fetch the client secret from the server
-  fetch('/.netlify/functions/server', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: userEmail,
-      name: userName,
-      payment_method: paymentMethodId,
-      priceId: priceId
-    })
-  }).then(response => {
-    return response.json();
-  }).then(data => {
-    const clientSecret = data.clientSecret;
-
-    // Opciones para el diseño del acordeón
-    const options = {
-      layout: {
-        type: 'accordion',
-        defaultCollapsed: false,
-        radios: true,
-        spacedAccordionItems: false
-      }
-    };
-
-    var elements = stripe.elements({ clientSecret });
-    var paymentElement = elements.create('payment', options);
-    paymentElement.mount('#payment-element');
-
-    cardButton.addEventListener('click', function(ev) {
+  cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
-
-    // Get current user's email
-    var user = netlifyIdentity && netlifyIdentity.currentUser();
-    var userEmail = user ? user.email : '';
-    var userName = user && user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
     // Show the progress circle and hide the button text
     progressCircle.style.display = 'block';
     document.getElementById('button-text').style.display = 'none';
 
-    if (!user) {
+    // Make AJAX request to Netlify Function endpoint
+    fetch('https://gastrali.netlify.app/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        plan: plan,
+        payment_method: 'card', // Use card as the payment method
+        payment_element: paymentElement
+      })
+    })
+    .then(response => {
+      // Hide the progress circle and show the button text
       progressCircle.style.display = 'none';
       document.getElementById('button-text').style.display = 'inline-block';
-      alert('Por favor, inicia sesión para continuar con el pago.');
-      return;
-    }
 
-    stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: 'https://your-website.com/confirmation',
-        payment_method_data: {
-          billing_details: {
-            name: userName,
-            email: userEmail
-          }
-        }
-      }
-    }).then(function(result) {
-        if (result.error) {
-          console.error(result.error.message);
-          alert('Error al crear método de pago: ' + result.error.message);
-          progressCircle.style.display = 'none';
-          document.getElementById('button-text').style.display = 'inline-block';
-        } else {
-          fetch('https://gastrali.netlify.app/.netlify/functions/server', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: userEmail,
-              name: userName,
-              payment_method: result.paymentIntent.payment_method,
-              priceId: data.priceId
-            })
-          })
-          .then(response => {
-            // Hide the progress circle and show the button text
-            progressCircle.style.display = 'none';
-            document.getElementById('button-text').style.display = 'inline-block';
-
-            // Parse JSON response
-            return response.json().then(data => {
-              console.log('Response status data:', response.status);
-              // Handle the response from server.js
-              if (response.status === 400) {
-                // If server.js returns a status code 400
-                console.log('Server returned status 400');
-                alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-              } else if (response.status === 500) {
-                // If server.js returns a status code 500
-                console.log('Server returned status 500');
-                alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-              } else if (response.ok) {
-                // If server.js returns a success message or other data
-                console.log('Server response:', data);
-                // Update user metadata with subscription plan
-                console.log('User:', user);
-                user.update({
-                  data: { subscription_plan: plan }
-                }).then(updatedUser => {
-                  console.log('User metadata updated successfully:', updatedUser);
-                  alert('¡Suscripción creada con éxito!');
-                }).catch(error => {
-                  console.error('Error updating user metadata:', error);
-                });
-              }
-            });
-          })
+      // Parse JSON response
+      return response.json().then(data => {
+        console.log('Response status data:', response.status);
+        // Handle the response from server.js
+        if (response.status === 400) {
+          // If server.js returns a status code 400
+          console.log('Server returned status 400');
+          alert('Error creating subscription. The customer already has an active subscription.');
+        } else if (response.status === 500) {
+          // If server.js returns a status code 500
+          console.log('Server returned status 500');
+          alert('Error creating subscription. Internal server error. Please try again later.');
+        } else if (response.ok) {
+          // If server.js returns a success message or other data
+          console.log('Server response:', data);
+          alert('Subscription created successfully!');
         }
       });
+    })
+    .catch(error => {
+      // Handle other errors
+      console.error('Unexpected error creating subscription:', error);
     });
   });
 </script>
