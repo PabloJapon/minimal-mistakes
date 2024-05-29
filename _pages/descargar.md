@@ -20,6 +20,9 @@ layout: splash
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .plan-button2 {
@@ -43,12 +46,12 @@ layout: splash
   background-color: #6699ff; /* Cambio de color */
   color: white;
   border: none;
-  padding: 15px 100px;
+  padding: 15px 80px;
   margin: 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
 }
