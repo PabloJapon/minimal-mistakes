@@ -15,14 +15,10 @@ layout: splash
 .plan {
   width: 400px; /* Ancho deseado de cada plan */
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: white;
+  border-left: 1px solid #ccc;
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
-  margin-left: 12px;
-  margin-right: 12px;
 }
 
 .plan-button2 {
@@ -122,68 +118,23 @@ layout: splash
 </style>
 
 <div class="plan-container">
-  <div class="plan">
+<div class="plan" style="border-left: 0px;">
     <h2>App camareros/clientes</h2>
-    <p>Gratis. Para siempre</p>
+    <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
   </div>
 
   <div class="plan">
     <h2>Software para cocinas</h2>
-    <p>Este pues mejor tu sabe</p>
+    <p>Este es el software que debes instalar en una pantalla de la cocina para que tus cocineros vean las comandas</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
   </div>
 
   <div class="plan">
     <h2>Software para responsable</h2>
-    <p>Y este buenisimo del to</p>
+    <p>Este es el software que instalará el responsable designado, con el que podrá personalizar la app, crear y editar el menú y consultar las estadísticas y datos</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
   </div>
 </div>
 
-
-
-<h3> Compara los planes </h3>
-
-<div class="table-container">
-  <table>
-    <thead>
-      <tr>
-        <th style="width: 400px; "></th>
-        <th style="width: 200px;text-align: center;">
-          <h2>Básico</h2>
-          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
-        </th>
-        <th style="width: 200px;text-align: center;">
-        <h2>Estándar</h2>
-          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>    
-        </th>
-        <th style="width: 200px;text-align: center;">
-          <h2>Pro</h2>
-          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>  
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="width: 400px;">Platos ilimitados</td>
-        <td style="width: 200px;text-align: center;">v</td>
-        <td style="width: 200px;text-align: center;">v</td>
-        <td style="width: 200px;text-align: center;">v</td>
-      </tr>
-      <tr>
-        <td style="width: 400px;">Parsonaliza tu marca</td>
-        <td style="width: 200px;text-align: center;">x</td>
-        <td style="width: 200px;text-align: center;">v</td>
-        <td style="width: 200px;text-align: center;">v</td>
-      </tr>
-      <tr>
-        <td style="width: 400px;">Consulta estadísticas</td>
-        <td style="width: 200px;text-align: center;">x</td>
-        <td style="width: 200px;text-align: center;">x</td>
-        <td style="width: 200px;text-align: center;">v</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
