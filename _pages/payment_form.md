@@ -124,105 +124,103 @@ permalink: /payment_form/
   // Display the price of the selected plan
   document.getElementById('price').textContent = "Precio: " + prices[plan];
 
-  // Stripe initialization
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
-  var elements = stripe.elements();
-
-  // Payment Element
-  var paymentElement = elements.create('payment');
-  paymentElement.mount('#payment-element');
 
   var cardButton = document.getElementById('card-button');
   var progressCircle = document.querySelector('.progress-circle');
 
-  cardButton.addEventListener('click', function(ev) {
-    ev.preventDefault();
+  // Fetch the client secret from the server
+  fetch('/create-payment-intent', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      plan: plan
+    })
+  }).then(response => {
+    return response.json();
+  }).then(data => {
+    const clientSecret = data.clientSecret;
 
-    // Show the progress circle and hide the button text
-    progressCircle.style.display = 'block';
-    document.getElementById('button-text').style.display = 'none';
+    var elements = stripe.elements({
+      clientSecret: clientSecret
+    });
 
-    // Use Netlify Identity to get user data
-    var user = netlifyIdentity && netlifyIdentity.currentUser();
-    if (!user) {
-      progressCircle.style.display = 'none';
-      document.getElementById('button-text').style.display = 'inline-block';
-      // Prompt user to log in if not logged in
-      alert('Por favor, inicia sesión para continuar con el pago.');
-      return;
-    }
+    var paymentElement = elements.create('payment');
+    paymentElement.mount('#payment-element');
 
-    // Get user email and name
-    var userEmail = user.email;
-    var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
+    cardButton.addEventListener('click', function(ev) {
+      ev.preventDefault();
 
-    // Determine price ID based on plan
-    var priceId;
-    switch (plan) {
-      case 'Gratis':
-        priceId = 'price_1On5B9E2UvP4xcDsTat7ZHhV';
-        break;
-      case 'Pro':
-        priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw';
-        break;
-      case 'Premium':
-        priceId = 'price_1On5CAE2UvP4xcDso6epRdMs';
-        break;
-      default:
-        console.error('Unsupported plan or no plan specified');
+      // Show the progress circle and hide the button text
+      progressCircle.style.display = 'block';
+      document.getElementById('button-text').style.display = 'none';
+
+      var user = netlifyIdentity && netlifyIdentity.currentUser();
+      if (!user) {
+        progressCircle.style.display = 'none';
+        document.getElementById('button-text').style.display = 'inline-block';
+        alert('Por favor, inicia sesión para continuar con el pago.');
         return;
-    }
+      }
 
-    // Create payment method with Stripe
-    stripe.createPaymentMethod({
-      type: 'card',
-      card: paymentElement,
-      billing_details: {
-        name: userName,
-      },
-    }).then(function(result) {
-      if (result.error) {
-        console.error(result.error.message);
-        alert('Error al crear método de pago: ' + result.error.message);
-      } else {
-        var paymentMethodId = result.paymentMethod.id;
-        
-        fetch('https://gastrali.netlify.app/.netlify/functions/server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: userEmail,
-            name: userName,
-            payment_method: paymentMethodId,
-            priceId: priceId
-          })
-        })
-        .then(response => {
+      var userEmail = user.email;
+      var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
+
+      stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: 'https://your-website.com/confirmation',
+          payment_method_data: {
+            billing_details: {
+              name: userName,
+              email: userEmail
+            }
+          }
+        }
+      }).then(function(result) {
+        if (result.error) {
+          console.error(result.error.message);
+          alert('Error al crear método de pago: ' + result.error.message);
           progressCircle.style.display = 'none';
           document.getElementById('button-text').style.display = 'inline-block';
+        } else {
+          fetch('https://gastrali.netlify.app/.netlify/functions/server', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: userEmail,
+              name: userName,
+              payment_method: result.paymentIntent.payment_method,
+              priceId: data.priceId
+            })
+          }).then(response => {
+            return response.json().then(data => {
+              progressCircle.style.display = 'none';
+              document.getElementById('button-text').style.display = 'inline-block';
 
-          return response.json().then(data => {
-            if (response.status === 400) {
-              alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-            } else if (response.status === 500) {
-              alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-            } else if (response.ok) {
-              user.update({
-                data: { subscription_plan: plan }
-              }).then(updatedUser => {
-                alert('¡Suscripción creada con éxito!');
-              }).catch(error => {
-                console.error('Error updating user metadata:', error);
-              });
-            }
+              if (response.status === 400) {
+                alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
+              } else if (response.status === 500) {
+                alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
+              } else if (response.ok) {
+                user.update({
+                  data: { subscription_plan: plan }
+                }).then(updatedUser => {
+                  alert('¡Suscripción creada con éxito!');
+                }).catch(error => {
+                  console.error('Error updating user metadata:', error);
+                });
+              }
+            });
+          }).catch(error => {
+            console.error('Error inesperado al crear suscripción:', error);
           });
-        })
-        .catch(error => {
-          console.error('Error inesperado al crear suscripción:', error);
-        });
-      }
+        }
+      });
     });
   });
 </script>
