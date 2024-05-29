@@ -30,6 +30,39 @@ exports.handler = async (event) => {
     // Log the incoming request body
     console.log('Incoming request body:', body);
 
+    // Check if action is to create payment intent
+    if (body.action === 'create_payment_intent') {
+      const { plan } = body;
+
+      // Define the price ID for each plan
+      const priceIds = {
+        Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
+        Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
+        Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
+      };
+
+      if (!priceIds[plan]) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Invalid plan' })
+        };
+      }
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: 1000, // replace with the actual amount in cents
+        currency: 'usd',
+        payment_method_types: ['card'],
+      });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          clientSecret: paymentIntent.client_secret,
+          priceId: priceIds[plan]
+        })
+      };
+    }
+
     // Check if action is to retrieve next invoice date
     if (body.action === 'next_invoice_date') {
       console.log('Request to retrieve next invoice date received.');
@@ -159,7 +192,6 @@ exports.handler = async (event) => {
       const subscription = subscriptions.data[0];
 
       // Cancel the subscription using Stripe's API
-      //await stripe.subscriptions.update(subscription.id, { cancel_at_period_end: true });
       await stripe.subscriptions.cancel(subscription.id);
 
       // Subscription cancellation scheduled successfully
@@ -167,69 +199,56 @@ exports.handler = async (event) => {
         statusCode: 200,
         body: JSON.stringify({ message: 'Subscription cancellation scheduled successfully' })
       };
-    } else {
-      // Create subscription action
+    }
 
-      // Check if user exists with the provided email
-      const existingCustomer = await stripe.customers.list({ email: body.email, limit: 1 });
+    // Default action: Create a subscription
+    const existingCustomer = await stripe.customers.list({ email: body.email, limit: 1 });
 
-      let customerId;
+    let customerId;
 
-      if (existingCustomer.data.length > 0) {
-        // If customer exists, use existing customer ID
-        customerId = existingCustomer.data[0].id;
-        console.log('Existing customer found. Customer ID:', customerId);
+    if (existingCustomer.data.length > 0) {
+      customerId = existingCustomer.data[0].id;
+      console.log('Existing customer found. Customer ID:', customerId);
 
-        // Check if the customer has an active subscription
-        const existingSubscription = await stripe.subscriptions.list({
-          customer: customerId,
-          status: 'active',
-          limit: 1
-        });
-
-        if (existingSubscription.data.length > 0) {
-          // If customer has an active subscription, handle it accordingly
-          console.log('Customer already has an active subscription:', existingSubscription.data[0].id);
-          return {
-            statusCode: 400,
-            body: JSON.stringify({ error: 'Customer already has an active subscription' })
-          };
-        }
-      } else {
-        // If customer doesn't exist, create a new customer
-        console.log('No existing customer found. Creating a new customer...');
-
-        const customer = await stripe.customers.create({
-          email: body.email,
-          name: body.name,
-          payment_method: body.payment_method,
-          invoice_settings: {
-            default_payment_method: body.payment_method
-          }
-        });
-
-        customerId = customer.id;
-        console.log('New customer created. Customer ID:', customerId);
-      }
-
-      // Create a subscription for the customer using the customer ID
-      console.log('Creating subscription for customer:', customerId);
-
-      const subscription = await stripe.subscriptions.create({
+      const existingSubscription = await stripe.subscriptions.list({
         customer: customerId,
-        items: [{ price: body.priceId }]
+        status: 'active',
+        limit: 1
       });
 
-      console.log('Subscription created successfully:', subscription);
+      if (existingSubscription.data.length > 0) {
+        console.log('Customer already has an active subscription:', existingSubscription.data[0].id);
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Customer already has an active subscription' })
+        };
+      }
+    } else {
+      const customer = await stripe.customers.create({
+        email: body.email,
+        name: body.name,
+        payment_method: body.payment_method,
+        invoice_settings: {
+          default_payment_method: body.payment_method
+        }
+      });
 
-      // Subscription created successfully
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ subscription })
-      };
+      customerId = customer.id;
+      console.log('New customer created. Customer ID:', customerId);
     }
+
+    const subscription = await stripe.subscriptions.create({
+      customer: customerId,
+      items: [{ price: body.priceId }]
+    });
+
+    console.log('Subscription created successfully:', subscription);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ subscription })
+    };
   } catch (error) {
-    // Handle errors
     console.error('Error:', error);
     return {
       statusCode: 500,

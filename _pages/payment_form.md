@@ -130,25 +130,26 @@ permalink: /payment_form/
   var progressCircle = document.querySelector('.progress-circle');
 
   // Fetch the client secret from the server
-  fetch('/create-payment-intent', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      plan: plan
-    })
-  }).then(response => {
-    return response.json();
-  }).then(data => {
-    const clientSecret = data.clientSecret;
+  fetch('/.netlify/functions/server', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    action: 'create_payment_intent',
+    plan: plan
+  })
+}).then(response => {
+  return response.json();
+}).then(data => {
+  const clientSecret = data.clientSecret;
 
-    var elements = stripe.elements({
-      clientSecret: clientSecret
-    });
+  var elements = stripe.elements({
+    clientSecret: clientSecret
+  });
 
-    var paymentElement = elements.create('payment');
-    paymentElement.mount('#payment-element');
+  var paymentElement = elements.create('payment');
+  paymentElement.mount('#payment-element');
 
     cardButton.addEventListener('click', function(ev) {
       ev.preventDefault();
