@@ -1,6 +1,6 @@
 ---
 permalink: /precios/
-layout: splash
+layout: default
 ---
 
 <h2> Elige tu plan ideal.</h2>

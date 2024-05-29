@@ -3,7 +3,7 @@ permalink: /descargar/
 layout: splash
 ---
 
-<h2> Descarga los softwares de Gastrali para</h2>
+<h2 style="display: grid;justify-content: center;"> Descarga los softwares de Gastrali para</h2>
 
 <style>
   
