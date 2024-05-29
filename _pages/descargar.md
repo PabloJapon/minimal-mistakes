@@ -1,6 +1,6 @@
 ---
 permalink: /descargar/
-layout: default
+layout: splash
 ---
 
 <h2> Descarga los softwares de Gastrali para</h2>
