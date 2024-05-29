@@ -9,7 +9,7 @@ layout: splash
 
 /* Aplicar un poco de margen superior al elemento <main> */
 main {
-    padding-top: 200px; /* Ajusta este valor según sea necesario para evitar el solapamiento */
+    padding-top: 1000px; /* Ajusta este valor según sea necesario para evitar el solapamiento */
 }
   
 .plan-container {
