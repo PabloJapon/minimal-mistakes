@@ -192,35 +192,36 @@ permalink: /payment_form/
     paymentElement.mount('#payment-element');
 
     cardButton.addEventListener('click', function(ev) {
-      ev.preventDefault();
+    ev.preventDefault();
 
-      // Show the progress circle and hide the button text
-      progressCircle.style.display = 'block';
-      document.getElementById('button-text').style.display = 'none';
+    // Get current user's email
+    var user = netlifyIdentity && netlifyIdentity.currentUser();
+    var userEmail = user ? user.email : '';
+    var userName = user && user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
-      var user = netlifyIdentity && netlifyIdentity.currentUser();
-      if (!user) {
-        progressCircle.style.display = 'none';
-        document.getElementById('button-text').style.display = 'inline-block';
-        alert('Por favor, inicia sesión para continuar con el pago.');
-        return;
-      }
+    // Show the progress circle and hide the button text
+    progressCircle.style.display = 'block';
+    document.getElementById('button-text').style.display = 'none';
 
-      var userEmail = user.email;
-      var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
+    if (!user) {
+      progressCircle.style.display = 'none';
+      document.getElementById('button-text').style.display = 'inline-block';
+      alert('Por favor, inicia sesión para continuar con el pago.');
+      return;
+    }
 
-      stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: 'https://your-website.com/confirmation',
-          payment_method_data: {
-            billing_details: {
-              name: userName,
-              email: userEmail
-            }
+    stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: 'https://your-website.com/confirmation',
+        payment_method_data: {
+          billing_details: {
+            name: userName,
+            email: userEmail
           }
         }
-      }).then(function(result) {
+      }
+    }).then(function(result) {
         if (result.error) {
           console.error(result.error.message);
           alert('Error al crear método de pago: ' + result.error.message);
