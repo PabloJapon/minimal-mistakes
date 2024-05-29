@@ -2,8 +2,8 @@
 main:
   - title: "Productos"
     url: /productos/
-  - title: "Descargas"
-    url: /descargas/
+  - title: "Descargar"
+    url: /descargar/
   - title: "Precios"
     url: /precios/
   - title: "Tutoriales"
