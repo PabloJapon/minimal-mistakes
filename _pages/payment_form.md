@@ -131,25 +131,32 @@ permalink: /payment_form/
 
   // Fetch the client secret from the server
   fetch('/.netlify/functions/server', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    action: 'create_payment_intent',
-    plan: plan
-  })
-}).then(response => {
-  return response.json();
-}).then(data => {
-  const clientSecret = data.clientSecret;
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      action: 'create_payment_intent',
+      plan: plan
+    })
+  }).then(response => {
+    return response.json();
+  }).then(data => {
+    const clientSecret = data.clientSecret;
 
-  var elements = stripe.elements({
-    clientSecret: clientSecret
-  });
+    // Opciones para el diseño del acordeón
+    const options = {
+      layout: {
+        type: 'accordion',
+        defaultCollapsed: false,
+        radios: true,
+        spacedAccordionItems: false
+      }
+    };
 
-  var paymentElement = elements.create('payment');
-  paymentElement.mount('#payment-element');
+    var elements = stripe.elements({ clientSecret });
+    var paymentElement = elements.create('payment', options);
+    paymentElement.mount('#payment-element');
 
     cardButton.addEventListener('click', function(ev) {
       ev.preventDefault();
