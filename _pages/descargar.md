@@ -6,11 +6,6 @@ layout: splash
 <h2> Descarga los softwares de Gastrali para</h2>
 
 <style>
-
-/* Aplicar un poco de margen superior al elemento <main> */
-main {
-    padding-top: 1000px; /* Ajusta este valor según sea necesario para evitar el solapamiento */
-}
   
 .plan-container {
   display: flex;
@@ -128,24 +123,21 @@ main {
 
 <div class="plan-container">
   <div class="plan">
-    <h2>Gratis</h2>
-    <h3>0€</h3>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
+    <h2>App camareros/clientes</h2>
     <p>Gratis. Para siempre</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
   </div>
 
   <div class="plan">
-    <h2>Pro</h2>
-    <h3>30€</h3>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Empieza</button>
+    <h2>Software para cocinas</h2>
     <p>Este pues mejor tu sabe</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
   </div>
 
   <div class="plan">
-    <h2>Premium</h2>
-    <h3>50€</h3>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Empieza</button>
+    <h2>Software para responsable</h2>
     <p>Y este buenisimo del to</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
   </div>
 </div>
 

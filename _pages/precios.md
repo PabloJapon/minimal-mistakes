@@ -1,5 +1,4 @@
 ---
-title: "Elige el plan ideal para ti"
 permalink: /precios/
 layout: splash
 ---
@@ -7,11 +6,6 @@ layout: splash
 <h2> Elige tu plan ideal.</h2>
 
 <style>
-
-/* Aplicar un poco de margen superior al elemento <main> */
-main {
-    padding-top: 200px; /* Ajusta este valor según sea necesario para evitar el solapamiento */
-}
   
 .plan-container {
   display: flex;
@@ -73,6 +67,9 @@ main {
 .table-container table {
   border-collapse: collapse;
    border: none; /* elimina los bordes de la tabla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
  .table-container td {
