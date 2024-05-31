@@ -115,6 +115,10 @@ Acciones
 
 <a href="/misFacturas/" class="button">Ver mis facturas</a>
 
+<a href="/create_account_stripe/" class="button">Crear cuenta de Stripe para recibir pagos de clientes (Cuenta conectada)</a>
+
+
+
 <script>
   // Function to update next invoice date in HTML
   function updateNextInvoiceDate(nextInvoiceDate) {
