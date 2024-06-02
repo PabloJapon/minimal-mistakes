@@ -7,6 +7,21 @@ header:
 ---
 
 
+<div style="text-align:center;">
+  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
+</div>
+
+<div style="text-align:center;">
+  <button class="plan-button" id="login-link" onclick="openNetlifyIdentity()">COMENZAR</button>
+</div>
+
+<div style="margin: 0 auto; text-align:center;">
+  <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+    <source src="/assets/videos/your-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+
 <div class="plan-container">
 <div class="plan" style="border-left: 0px;">
     <h2>App camareros/clientes</h2>
@@ -27,19 +42,6 @@ header:
   </div>
 </div>
 
-<div style="text-align:center;">
-  Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
-</div>
-
-<div style="text-align:center;">
-  <button class="plan-button" id="login-link" onclick="openNetlifyIdentity()">COMENZAR</button>
-</div>
-
-<div style="margin: 0 auto; text-align:center;">
-  <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
-    <source src="/assets/videos/your-video.mp4" type="video/mp4">
-  </video>
-</div>
 
 <div style="text-align:center;margin: 2em;">
   Preguntas frecuentes
