@@ -6,6 +6,27 @@ header:
   #overlay_filter: rgba(102,153,255,0.5)
 ---
 
+
+<div class="plan-container">
+<div class="plan" style="border-left: 0px;">
+    <h2>App camareros/clientes</h2>
+    <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
+  </div>
+
+  <div class="plan">
+    <h2>Software para cocinas</h2>
+    <p>Este es el software que debes instalar en una pantalla de la cocina para que tus cocineros vean las comandas</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
+  </div>
+
+  <div class="plan">
+    <h2>Software para responsable</h2>
+    <p>Este es el software que instalará el responsable designado, con el que podrá personalizar la app, crear y editar el menú y consultar las estadísticas y datos</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
+  </div>
+</div>
+
 <div style="text-align:center;">
   Descubre la herramienta digital personalizable que unifica TODAS las funciones que necesita tu establecimiento: carta digital, pedidos automáticos, pagos, comandas y análisis de datos
 </div>
@@ -146,25 +167,7 @@ header:
 </style>
 
 
-<div class="plan-container">
-<div class="plan" style="border-left: 0px;">
-    <h2>App camareros/clientes</h2>
-    <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
-  </div>
 
-  <div class="plan">
-    <h2>Software para cocinas</h2>
-    <p>Este es el software que debes instalar en una pantalla de la cocina para que tus cocineros vean las comandas</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
-  </div>
-
-  <div class="plan">
-    <h2>Software para responsable</h2>
-    <p>Este es el software que instalará el responsable designado, con el que podrá personalizar la app, crear y editar el menú y consultar las estadísticas y datos</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
-  </div>
-</div>
 
 <script>
   var acc = document.querySelectorAll(".accordion");
