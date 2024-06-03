@@ -8,7 +8,7 @@ permalink: /client_payment/
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enter Payment Details</title>
+  <title>Introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -55,7 +55,7 @@ permalink: /client_payment/
     button:hover {
       background-color: #0056b3;
     }
-        
+
     /* Estilo personalizado para los elementos de Stripe */
     .stripe-element {
       width: 100%; /* Establecer el ancho para ocupar el 100% del contenedor */
@@ -90,31 +90,6 @@ permalink: /client_payment/
       align-items: center;
       gap: 49px;
     }
-
-    .progress-button {
-      position: relative;
-      overflow: hidden;
-      background: none;
-      border: none;
-    }
-
-    .progress-circle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 2px solid #ccc;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      display: none; /* Initially hidden */
-    }
-
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
   </style>
 </head>
 <body>
@@ -138,57 +113,23 @@ permalink: /client_payment/
     <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
-  <button id="card-button" type="submit">
-    <span id="button-text">Pagar Ahora</span>
-    <div class="progress-circle"></div>
-  </button>
+  <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
-
-<style>
-  /* Circular progress animation */
-  .progress-button {
-    position: relative;
-    overflow: hidden;
-    background: none;
-    border: none;
-  }
-  /* Adjust the progress circle styles */
-  .progress-circle {
-    position: relative; /* Set position to relative */
-    top: -50%; /* Position vertically at -50% */
-    left: 50%; /* Position horizontally at 50% */
-    transform: translateX(-50%); /* Center horizontally */
-    border: 2px solid transparent; /* Transparent border */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    display: none; /* Initially hidden */
-  }
-
-  @keyframes spin {
-    0% { border-color: transparent transparent transparent #fff; }
-    25% { border-color: #fff transparent transparent transparent; }
-    50% { border-color: transparent #fff transparent transparent; }
-    75% { border-color: transparent transparent #fff transparent; }
-    100% { border-color: transparent transparent transparent #fff; }
-  }
-</style>
 
 <script>
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
   var cardNumber = elements.create('cardNumber');
-  cardNumber.mount('#card-number');
+  cardNumber.mount('#card-number-element');
 
   var cardExpiry = elements.create('cardExpiry');
-  cardExpiry.mount('#card-expiry');
+  cardExpiry.mount('#card-expiry-element');
 
   var cardCvc = elements.create('cardCvc');
-  cardCvc.mount('#card-cvc');
+  cardCvc.mount('#card-cvc-element');
 
-  var payButton = document.getElementById('pay-button');
+  var payButton = document.getElementById('card-button');
 
   payButton.addEventListener('click', function() {
     stripe.createPaymentMethod({

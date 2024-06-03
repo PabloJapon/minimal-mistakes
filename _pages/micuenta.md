@@ -1,12 +1,12 @@
 ---
 title: "Mi Cuenta"
 permalink: /miCuenta/
-layout: single
+layout: splash
 ---
 
 <style>
 .plan {
-  width: 800px; /* Ancho deseado de cada plan */
+  width: 100%; /* Ancho deseado de cada plan */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -20,10 +20,10 @@ layout: single
 
 .plan-contenido {
   padding-left: 20px; /* Añade un margen a la izquierda del contenido */
+
 }
   
 .linea {
-  width: 750px;
   height: 1px;
   background: linear-gradient(to right, #ccc 0%, #ccc 100%, transparent 50%, transparent 100%);
   margin-bottom: 10px; /* Espacio inferior entre cada plan */

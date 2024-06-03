@@ -1,7 +1,7 @@
 ---
 title: "Mis Facturas"
 permalink: /misFacturas/
-layout: single
+layout: splash
 ---
 
 <style>
