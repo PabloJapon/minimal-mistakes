@@ -21,20 +21,38 @@ const generatePdfInvoice = (invoiceData) => {
   return doc;
 };
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   try {
-    console.log('Incoming request:', event);
-
     const body = JSON.parse(event.body);
 
-    // Log the incoming request body
-    console.log('Incoming request body:', body);
+    if (body.action === 'create_connected_account') {
+      const { email, business_name } = body;
 
-    // Check if action is to create payment intent
+      const account = await stripe.accounts.create({
+        type: 'standard',
+        email,
+        business_profile: {
+          name: business_name,
+          url: 'https://example.com',  // replace with your website
+        }
+      });
+
+      const accountLink = await stripe.accountLinks.create({
+        account: account.id,
+        refresh_url: 'https://yourdomain.com/reauth',
+        return_url: 'https://yourdomain.com/return',
+        type: 'account_onboarding',
+      });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ url: accountLink.url }),
+      };
+    }
+
     if (body.action === 'create_payment_intent') {
       const { plan } = body;
 
-      // Define the price ID for each plan
       const priceIds = {
         Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
         Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
@@ -63,18 +81,13 @@ exports.handler = async (event) => {
       };
     }
 
-    // Check if action is to retrieve next invoice date
     if (body.action === 'next_invoice_date') {
-      console.log('Request to retrieve next invoice date received.');
       const customerEmail = body.email;
-      console.log('Customer email:', customerEmail);
 
       const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
       const customer = customers.data[0];
-      console.log('Customer data:', customer);
 
       if (!customer) {
-        console.log('Customer not found.');
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'Customer not found' })
@@ -86,10 +99,8 @@ exports.handler = async (event) => {
         status: 'active',
         limit: 1
       });
-      console.log('Subscriptions data:', subscriptions.data);
 
       if (subscriptions.data.length === 0) {
-        console.log('No active subscription found for the customer.');
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'No active subscription found for the customer' })
@@ -97,49 +108,24 @@ exports.handler = async (event) => {
       }
 
       const subscription = subscriptions.data[0];
-      console.log('Subscription data:', subscription);
 
-      // Fetch the upcoming invoice
       const upcomingInvoice = await stripe.invoices.retrieveUpcoming({
         customer: customer.id,
         subscription: subscription.id
       });
-      console.log('Upcoming invoice data:', upcomingInvoice);
-
-      if (!upcomingInvoice) {
-        console.log('No upcoming invoice found for the customer.');
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ error: 'No upcoming invoice found for the customer' })
-        };
-      }
 
       const nextInvoiceDateTimestamp = upcomingInvoice.next_payment_attempt;
       const nextInvoiceDate = new Date(nextInvoiceDateTimestamp * 1000).toLocaleString();
-      console.log('Next invoice date:', nextInvoiceDate);
 
-      if (!nextInvoiceDate) {
-        console.log('Next invoice date not found.');
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ error: 'Next invoice date not found' })
-        };
-      }
-
-      console.log('Request processed successfully.');
       return {
         statusCode: 200,
         body: JSON.stringify({ nextInvoiceDate })
       };
     }
 
-    // Check if action is to get invoices
     if (body.action === 'get_invoices') {
-      console.log('Request to get invoices received.');
       const customerEmail = body.email;
-      console.log('Customer email:', customerEmail);
 
-      // Retrieve the customer from Stripe using the email
       const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
       const customer = customers.data[0];
 
@@ -150,21 +136,17 @@ exports.handler = async (event) => {
         };
       }
 
-      // Retrieve invoices for the customer
       const invoices = await stripe.invoices.list({ customer: customer.id });
 
-      // Return the list of invoices
       return {
         statusCode: 200,
         body: JSON.stringify({ invoices: invoices.data })
       };
     }
 
-    // Check if action is to cancel subscription
     if (body.action === 'cancel_subscription') {
       const customerEmail = body.email;
 
-      // Retrieve the customer from Stripe using the email
       const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
       const customer = customers.data[0];
 
@@ -175,7 +157,6 @@ exports.handler = async (event) => {
         };
       }
 
-      // Retrieve the active subscription for the customer
       const subscriptions = await stripe.subscriptions.list({
         customer: customer.id,
         status: 'active',
@@ -191,24 +172,20 @@ exports.handler = async (event) => {
 
       const subscription = subscriptions.data[0];
 
-      // Cancel the subscription using Stripe's API
       await stripe.subscriptions.cancel(subscription.id);
 
-      // Subscription cancellation scheduled successfully
       return {
         statusCode: 200,
         body: JSON.stringify({ message: 'Subscription cancellation scheduled successfully' })
       };
     }
 
-    // Default action: Create a subscription
     const existingCustomer = await stripe.customers.list({ email: body.email, limit: 1 });
 
     let customerId;
 
     if (existingCustomer.data.length > 0) {
       customerId = existingCustomer.data[0].id;
-      console.log('Existing customer found. Customer ID:', customerId);
 
       const existingSubscription = await stripe.subscriptions.list({
         customer: customerId,
@@ -217,7 +194,6 @@ exports.handler = async (event) => {
       });
 
       if (existingSubscription.data.length > 0) {
-        console.log('Customer already has an active subscription:', existingSubscription.data[0].id);
         return {
           statusCode: 400,
           body: JSON.stringify({ error: 'Customer already has an active subscription' })
@@ -234,15 +210,12 @@ exports.handler = async (event) => {
       });
 
       customerId = customer.id;
-      console.log('New customer created. Customer ID:', customerId);
     }
 
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: body.priceId }]
     });
-
-    console.log('Subscription created successfully:', subscription);
 
     return {
       statusCode: 200,
