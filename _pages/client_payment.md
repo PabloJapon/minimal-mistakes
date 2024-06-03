@@ -145,7 +145,7 @@ permalink: /client_payment/
         var amount = 5000; // Fixed amount of €50 in cents
         var sellerAccountId = document.getElementById('seller-account-id').value;
 
-        fetch('/client_payment_server', {
+        fetch('/.netlify/functions/client_payment_server', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
