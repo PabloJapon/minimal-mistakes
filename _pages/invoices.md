@@ -107,27 +107,27 @@ function fetchAndDisplayInvoices(email) {
     });
 }
 
-// Función para obtener la descripción de las líneas de factura
+// Function to get description from invoice lines
 function getDescription(invoice) {
   if (invoice.lines && invoice.lines.data.length > 0) {
-    // Suponiendo que la descripción está disponible en el primer ítem de línea
+    // Assuming the description is available in the first line item
     let description = invoice.lines.data[0].description || '';
-    
-    // Diccionario de traducción
+
+    // Translation dictionary
     const translationDict = {
-      'at €': '€', // Traduce 'at €' a 'a €'
-      'month': 'mes' // Traduce 'month' a 'mes'
-      // Agrega más traducciones según sea necesario
+      'at €': '€', // Translate 'at €' to '€'
+      'month': 'mes' // Translate 'month' to 'mes'
+      // Add more translations as needed
     };
-    
-    // Realiza la traducción
+
+    // Perform translation
     for (const [key, value] of Object.entries(translationDict)) {
       description = description.replace(new RegExp(key, 'g'), value);
     }
-    
+
     return description;
   }
-  return ''; // Devuelve una cadena vacía si la descripción no está disponible
+  return ''; // Return an empty string if description is not available
 }
 
 // Function to download invoice in PDF format
@@ -138,23 +138,27 @@ function downloadInvoice(invoicePdfUrl) {
 
 // Fetch and display invoices when the page loads
 netlifyIdentity.on('login', user => {
-    const usernameSpan = document.getElementById('username');
-    if (usernameSpan) {
-      usernameSpan.innerText = user.user_metadata.full_name || user.email;
-    }
+  const usernameSpan = document.getElementById('username');
+  if (usernameSpan) {
+    usernameSpan.innerText = user.user_metadata.full_name || user.email;
+  } else {
+    console.warn('Username span element not found.');
+  }
 
+  const subscriptionPlanElement = document.getElementById('subscription-plan');
+  if (subscriptionPlanElement) {
     const subscriptionPlan = user.user_metadata.subscription_plan;
     if (subscriptionPlan) {
-      const subscriptionPlanElement = document.getElementById('subscription-plan');
       subscriptionPlanElement.textContent = "Plan " + subscriptionPlan;
       console.log('Subscription plan:', subscriptionPlan);
     } else {
       console.log('User', user);
       console.log('sin plan de suscripción');
     }
-    
-    fetchAndDisplayInvoices(user.email);
-  });
+  } else {
+    console.warn('Subscription plan element not found.');
+  }
 
-
+  fetchAndDisplayInvoices(user.email);
+});
 </script>

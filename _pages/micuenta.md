@@ -163,7 +163,7 @@ Acciones
         const stripeButton = document.createElement('a');
         stripeButton.classList.add('button');
         stripeButton.textContent = 'Administrar cosas en Stripe';
-        stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
+        stripeButton.href = 'https://dashboard.stripe.com/'; // Link to manage Stripe account
         stripeButton.target = '_blank'; // Open in new tab
         const stripeDiv = document.getElementById('stripe-button');
         if (stripeDiv) {
