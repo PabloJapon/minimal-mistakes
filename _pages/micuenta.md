@@ -19,7 +19,7 @@ layout: single
 }
 
 .plan-contenido {
-padding-left: 20px; /* Añade un margen a la izquierda del contenido */
+  padding-left: 20px; /* Añade un margen a la izquierda del contenido */
 }
   
 .linea {
@@ -35,7 +35,6 @@ padding-left: 20px; /* Añade un margen a la izquierda del contenido */
 img {
   float: right; /* Alinea la imagen a la derecha */
   margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del texto */
-  /*margin-top: 10.125px;*/
   margin-bottom: 10px; /* Espacio inferior entre cada plan */
   margin-top: 10px;
 }
@@ -57,14 +56,13 @@ img {
 }
 
 .boton:hover {
-background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 .boton:focus, .boton:active {
   background-color: #c3c3c3; /* Cambia el color de fondo al hacer foco o clic en el botón */
-outline: none; /* Quita el borde azul al hacer foco en el botón */
+  outline: none; /* Quita el borde azul al hacer foco en el botón */
 }
 </style>
-
 
 Mi cuenta 
 
@@ -147,6 +145,49 @@ Acciones
     });
   }
 
+  // Check if user has a connected account
+  function fetchCheckConnectedAccount(email) {
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'check_connected_account', email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Response from check_connected_account:', data);
+      if (data && data.hasConnectedAccount) {
+        console.log('User has a connected Stripe account.');
+        // Show button to manage things on stripe.com
+        const stripeButton = document.createElement('a');
+        stripeButton.classList.add('button');
+        stripeButton.textContent = 'Administrar cosas en Stripe';
+        stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
+        stripeButton.target = '_blank'; // Open in new tab
+        const stripeDiv = document.getElementById('stripe-button');
+        if (stripeDiv) {
+          stripeDiv.appendChild(stripeButton);
+        }
+      } else {
+        console.log('User does not have a connected Stripe account.');
+        // Show button to create a connected account
+        const createAccountButton = document.createElement('a');
+        createAccountButton.classList.add('button');
+        createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
+        createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
+        const stripeDiv = document.getElementById('stripe-button');
+        if (stripeDiv) {
+          stripeDiv.appendChild(createAccountButton);
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error checking connected account:', error);
+    });
+  }
+
+  // Netlify identity
   netlifyIdentity.on('login', user => {
     const usernameSpan = document.getElementById('username');
     if (usernameSpan) {
@@ -164,6 +205,7 @@ Acciones
     }
 
     fetchNextInvoiceDate(user.email);
+    fetchCheckConnectedAccount(user.email); // Fetch connected account status on login
   });
 
   netlifyIdentity.on('logout', () => {
@@ -177,6 +219,7 @@ Acciones
     netlifyIdentity.logout();
   }
 
+  // Cancel subscription
   function cancelSubscription() {
     const confirmation = confirm('¿Estás seguro de que quieres cancelar tu suscripción?');
     if (confirmation) {
@@ -212,46 +255,6 @@ Acciones
       .catch(error => {
         console.error('Error al cancelar la suscripción:', error);
         alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
-      });
-
-      // Check if user has a connected account
-      fetch('/.netlify/functions/server', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ action: 'check_connected_account', email: user.email })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Response from check_connected_account:', data);
-        if (data && data.hasConnectedAccount) {
-          console.log('User has a connected Stripe account.');
-          // Show button to manage things on stripe.com
-          const stripeButton = document.createElement('a');
-          stripeButton.classList.add('button');
-          stripeButton.textContent = 'Administrar cosas en Stripe';
-          stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
-          stripeButton.target = '_blank'; // Open in new tab
-          const stripeDiv = document.getElementById('stripe-button');
-          if (stripeDiv) {
-            stripeDiv.appendChild(stripeButton);
-          }
-        } else {
-          console.log('User does not have a connected Stripe account.');
-          // Show button to create a connected account
-          const createAccountButton = document.createElement('a');
-          createAccountButton.classList.add('button');
-          createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
-          createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
-          const stripeDiv = document.getElementById('stripe-button');
-          if (stripeDiv) {
-            stripeDiv.appendChild(createAccountButton);
-          }
-        }
-      })
-      .catch(error => {
-        console.error('Error checking connected account:', error);
       });
     }
   }
