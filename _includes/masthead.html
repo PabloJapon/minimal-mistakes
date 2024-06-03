@@ -108,8 +108,13 @@
       const subscriptionPlan = user.user_metadata.subscription_plan;
       usernameButtonSpan.innerText = username;
       usernameMenuSpan.innerText = username;
-      planUser.innerText = "Plan " + subscriptionPlan;
+      if (subscriptionPlan) {
+        planUser.innerText = "Plan " + subscriptionPlan;
+      } else {
+        planUser.innerText = "Sin plan";
+      }
     }
+
     // Set the initial letter
     const initialLetter = (user.user_metadata.full_name || user.email)[0].toUpperCase();
     document.getElementById('account-button-letter').innerText = initialLetter;

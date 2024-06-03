@@ -137,5 +137,24 @@ function downloadInvoice(invoicePdfUrl) {
 }
 
 // Fetch and display invoices when the page loads
-fetchAndDisplayInvoices();
+netlifyIdentity.on('login', user => {
+    const usernameSpan = document.getElementById('username');
+    if (usernameSpan) {
+      usernameSpan.innerText = user.user_metadata.full_name || user.email;
+    }
+
+    const subscriptionPlan = user.user_metadata.subscription_plan;
+    if (subscriptionPlan) {
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.textContent = "Plan " + subscriptionPlan;
+      console.log('Subscription plan:', subscriptionPlan);
+    } else {
+      console.log('User', user);
+      console.log('sin plan de suscripción');
+    }
+    
+    fetchAndDisplayInvoices(user.email);
+  });
+
+
 </script>
