@@ -256,4 +256,4 @@ Acciones
       console.error('Error checking connected account:', error);
     });
   }
-}
+<script>
