@@ -182,9 +182,7 @@ Acciones
         }
       }
     })
-    .catch(error => {
-      console.error('Error checking connected account:', error);
-    });
+    .catch(error => console.error('Error checking connected account:', error));
   }
 
   // Netlify identity
