@@ -4,7 +4,7 @@ permalink: /client_payment/
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,27 +55,125 @@ permalink: /client_payment/
     button:hover {
       background-color: #0056b3;
     }
+        
+    /* Estilo personalizado para los elementos de Stripe */
+    .stripe-element {
+      width: 100%; /* Establecer el ancho para ocupar el 100% del contenedor */
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .stripe-element-50 {
+      width: 50%; /* Establecer el ancho para ocupar el 50% del contenedor */
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .element-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
+    }
+
+    .inline-elements{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .inline-labels {
+      display: flex;
+      align-items: center;
+      gap: 49px;
+    }
+
+    .progress-button {
+      position: relative;
+      overflow: hidden;
+      background: none;
+      border: none;
+    }
+
+    .progress-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none; /* Initially hidden */
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Enter Payment Details</h1>
+  <h1>Introduzca sus datos de pago</h1>
   
   <!-- Hidden input for the seller account ID -->
   <input type="hidden" id="seller-account-id" value="acct_1PNXgvE7aK3gOt9K">
 
-  <label for="card-number">Card Number</label>
-  <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-  
-  <label for="card-expiry">Expiration Date</label>
-  <input type="text" id="card-expiry" placeholder="MM/YY">
+  <label for="card-number-element" class="element-label">Número de Tarjeta</label>
+  <div id="card-number-element" class="stripe-element"></div>
 
-  <label for="card-cvc">CVC</label>
-  <input type="text" id="card-cvc" placeholder="123">
+  <div class="inline-labels">
+    <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
+    <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+  </div>
 
-  <button id="pay-button">Pay Now</button>
+  <div class="inline-elements">
+    <div id="card-expiry-element" class="stripe-element-50"></div>
+    <div id="card-cvc-element" class="stripe-element-50"></div>
+  </div>
+
+  <button id="card-button" type="submit">
+    <span id="button-text">Pagar Ahora</span>
+    <div class="progress-circle"></div>
+  </button>
 </div>
+
+<style>
+  /* Circular progress animation */
+  .progress-button {
+    position: relative;
+    overflow: hidden;
+    background: none;
+    border: none;
+  }
+  /* Adjust the progress circle styles */
+  .progress-circle {
+    position: relative; /* Set position to relative */
+    top: -50%; /* Position vertically at -50% */
+    left: 50%; /* Position horizontally at 50% */
+    transform: translateX(-50%); /* Center horizontally */
+    border: 2px solid transparent; /* Transparent border */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: none; /* Initially hidden */
+  }
+
+  @keyframes spin {
+    0% { border-color: transparent transparent transparent #fff; }
+    25% { border-color: #fff transparent transparent transparent; }
+    50% { border-color: transparent #fff transparent transparent; }
+    75% { border-color: transparent transparent #fff transparent; }
+    100% { border-color: transparent transparent transparent #fff; }
+  }
+</style>
 
 <script>
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
