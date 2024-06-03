@@ -12,6 +12,13 @@ exports.handler = async (event) => {
 
     const { email, business_name } = JSON.parse(event.body);
 
+    if (!email || !business_name) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Email and business name are required' })
+        };
+    }
+
     try {
         // Create the Express account
         const account = await stripe.accounts.create({
@@ -27,6 +34,8 @@ exports.handler = async (event) => {
             }
         });
 
+        console.log('Created account:', account);
+
         // Create the Account Link
         const accountLink = await stripe.accountLinks.create({
             account: account.id,
@@ -35,15 +44,18 @@ exports.handler = async (event) => {
             type: 'account_onboarding'
         });
 
+        console.log('Created account link:', accountLink);
+
         return {
             statusCode: 200,
             body: JSON.stringify({ url: accountLink.url })
         };
     } catch (error) {
         console.error('Error creating connected account:', error);
+
         return {
-            statusCode: 500,
-            body: JSON.stringify({ error: 'Internal Server Error' })
+            statusCode: error.statusCode || 500,
+            body: JSON.stringify({ error: error.message })
         };
     }
 };
