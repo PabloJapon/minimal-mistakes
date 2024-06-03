@@ -128,6 +128,10 @@
     location.href = '/';
   });
 
+  function logout() {
+    netlifyIdentity.logout();
+  }
+
   function handleAuthenticationChange() {
     const isLoggedIn = netlifyIdentity.currentUser() !== null;
 

@@ -114,7 +114,6 @@ Acciones
 <!-- Conditional button based on connected Stripe account -->
 <div id="stripe-button"></div>
 
-
 <script>
   // Function to update next invoice date in HTML
   function updateNextInvoiceDate(nextInvoiceDate) {
@@ -214,46 +213,46 @@ Acciones
         console.error('Error al cancelar la suscripción:', error);
         alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
       });
+
+      // Check if user has a connected account
+      fetch('/.netlify/functions/server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'check_connected_account', email: user.email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Response from check_connected_account:', data);
+        if (data && data.hasConnectedAccount) {
+          console.log('User has a connected Stripe account.');
+          // Show button to manage things on stripe.com
+          const stripeButton = document.createElement('a');
+          stripeButton.classList.add('button');
+          stripeButton.textContent = 'Administrar cosas en Stripe';
+          stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
+          stripeButton.target = '_blank'; // Open in new tab
+          const stripeDiv = document.getElementById('stripe-button');
+          if (stripeDiv) {
+            stripeDiv.appendChild(stripeButton);
+          }
+        } else {
+          console.log('User does not have a connected Stripe account.');
+          // Show button to create a connected account
+          const createAccountButton = document.createElement('a');
+          createAccountButton.classList.add('button');
+          createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
+          createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
+          const stripeDiv = document.getElementById('stripe-button');
+          if (stripeDiv) {
+            stripeDiv.appendChild(createAccountButton);
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error checking connected account:', error);
+      });
     }
-    
-    // Check if user has a connected account
-    fetch('/.netlify/functions/server', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ action: 'check_connected_account', email: user.email })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Response from check_connected_account:', data);
-      if (data && data.hasConnectedAccount) {
-        console.log('User has a connected Stripe account.');
-        // Show button to manage things on stripe.com
-        const stripeButton = document.createElement('a');
-        stripeButton.classList.add('button');
-        stripeButton.textContent = 'Administrar cosas en Stripe';
-        stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
-        stripeButton.target = '_blank'; // Open in new tab
-        const stripeDiv = document.getElementById('stripe-button');
-        if (stripeDiv) {
-          stripeDiv.appendChild(stripeButton);
-        }
-      } else {
-        console.log('User does not have a connected Stripe account.');
-        // Show button to create a connected account
-        const createAccountButton = document.createElement('a');
-        createAccountButton.classList.add('button');
-        createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
-        createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
-        const stripeDiv = document.getElementById('stripe-button');
-        if (stripeDiv) {
-          stripeDiv.appendChild(createAccountButton);
-        }
-      }
-    })
-    .catch(error => {
-      console.error('Error checking connected account:', error);
-    });
   }
-<script>
+</script>
