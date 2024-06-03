@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
         email,
         business_profile: {
           name: business_name,
-          url: 'https://example.com',  // replace with your website
+          url: 'https://gastrali.com',  // replace with your website
         }
       });
 
