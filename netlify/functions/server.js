@@ -50,6 +50,20 @@ exports.handler = async (event, context) => {
       };
     }
 
+    if (body.action === 'check_connected_account') {
+      const { email } = body;
+
+      const connectedAccounts = await stripe.accounts.list({
+        email: email,
+        limit: 1
+      });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ hasConnectedAccount: connectedAccounts.data.length > 0 })
+      };
+    }
+
     if (body.action === 'create_payment_intent') {
       const { plan } = body;
 

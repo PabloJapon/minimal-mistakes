@@ -5,7 +5,6 @@ layout: single
 ---
 
 <style>
-
 .plan {
   width: 800px; /* Ancho deseado de cada plan */
   padding: 10px;
@@ -64,11 +63,7 @@ background-color: #f4f4f4;
   background-color: #c3c3c3; /* Cambia el color de fondo al hacer foco o clic en el botón */
 outline: none; /* Quita el borde azul al hacer foco en el botón */
 }
-
-
-  
 </style>
-
 
 
 Mi cuenta 
@@ -113,9 +108,12 @@ Acciones
 <!-- Unsubscribe button -->
 <button onclick="cancelSubscription()">Cancelar Suscripción</button>
 
+<!-- Link to view invoices -->
 <a href="/misFacturas/" class="button">Ver mis facturas</a>
 
-<a href="/create_account_stripe/" class="button">Crear cuenta de Stripe para recibir pagos de clientes (Cuenta conectada)</a>
+<!-- Conditional button based on connected Stripe account -->
+<div id="stripe-button"></div>
+
 
 
 
@@ -219,5 +217,42 @@ Acciones
         alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
       });
     }
+    
+    // Check if user has a connected account
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'check_connected_account', email: user.email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.hasConnectedAccount) {
+        // Show button to manage things on stripe.com
+        const stripeButton = document.createElement('a');
+        stripeButton.classList.add('button');
+        stripeButton.textContent = 'Administrar cosas en Stripe';
+        stripeButton.href = 'https://stripe.com'; // Link to manage Stripe account
+        stripeButton.target = '_blank'; // Open in new tab
+        const stripeDiv = document.getElementById('stripe-button');
+        if (stripeDiv) {
+          stripeDiv.appendChild(stripeButton);
+        }
+      } else {
+        // Show button to create a connected account
+        const createAccountButton = document.createElement('a');
+        createAccountButton.classList.add('button');
+        createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
+        createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
+        const stripeDiv = document.getElementById('stripe-button');
+        if (stripeDiv) {
+          stripeDiv.appendChild(createAccountButton);
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error checking connected account:', error);
+    });
   }
 </script>
