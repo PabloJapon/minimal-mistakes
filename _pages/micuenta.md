@@ -115,8 +115,6 @@ Acciones
 <div id="stripe-button"></div>
 
 
-
-
 <script>
   // Function to update next invoice date in HTML
   function updateNextInvoiceDate(nextInvoiceDate) {
@@ -228,7 +226,9 @@ Acciones
     })
     .then(response => response.json())
     .then(data => {
+      console.log('Response from check_connected_account:', data);
       if (data && data.hasConnectedAccount) {
+        console.log('User has a connected Stripe account.');
         // Show button to manage things on stripe.com
         const stripeButton = document.createElement('a');
         stripeButton.classList.add('button');
@@ -240,6 +240,7 @@ Acciones
           stripeDiv.appendChild(stripeButton);
         }
       } else {
+        console.log('User does not have a connected Stripe account.');
         // Show button to create a connected account
         const createAccountButton = document.createElement('a');
         createAccountButton.classList.add('button');
@@ -255,4 +256,4 @@ Acciones
       console.error('Error checking connected account:', error);
     });
   }
-</script>
+}
