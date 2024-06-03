@@ -1,3 +1,5 @@
+// create-account.js
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('connected-account-form');
 
@@ -18,11 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             const data = await response.json();
-            console.log('Connected account created:', data.account);
-            // Optionally, redirect the user or show a success message
+            
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                console.error('Error creating connected account:', data.error);
+            }
         } catch (error) {
             console.error('Error creating connected account:', error);
-            // Optionally, display an error message to the user
         }
     });
 });

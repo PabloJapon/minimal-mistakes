@@ -1,28 +1,49 @@
+// create-connected-account.js
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-exports.handler = async (event, context) => {
-    try {
-        const { email, business_name } = JSON.parse(event.body);
+exports.handler = async (event) => {
+    if (event.httpMethod !== 'POST') {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
 
-        // Create the connected account
+    const { email, business_name } = JSON.parse(event.body);
+
+    try {
+        // Create the Express account
         const account = await stripe.accounts.create({
             type: 'express',
             email: email,
             business_profile: {
                 name: business_name,
+                url: 'https://your-platform-url.com'
             },
+            capabilities: {
+                card_payments: { requested: true },
+                transfers: { requested: true }
+            }
         });
 
-        // Return the account ID or any other information you need
+        // Create the Account Link
+        const accountLink = await stripe.accountLinks.create({
+            account: account.id,
+            refresh_url: 'https://your-platform-url.com/reauth',
+            return_url: 'https://your-platform-url.com/return',
+            type: 'account_onboarding'
+        });
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ account }),
+            body: JSON.stringify({ url: accountLink.url })
         };
     } catch (error) {
         console.error('Error creating connected account:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Internal Server Error' }),
+            body: JSON.stringify({ error: 'Internal Server Error' })
         };
     }
 };
