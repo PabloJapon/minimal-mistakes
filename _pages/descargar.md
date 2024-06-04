@@ -6,15 +6,6 @@ layout: splash
 
 <h2 style="text-align: center; margin-top: 4em;"> Descarga los softwares de Gastrali para</h2>
 
-<div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-</div>
-
 <style>
   
 .plan-container {
@@ -136,18 +127,21 @@ layout: splash
     <h2>App camareros/clientes</h2>
     <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
+    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="">
   </div>
 
   <div class="plan">
     <h2>Software para cocinas</h2>
     <p>Este es el software que debes instalar en una pantalla de la cocina para que tus cocineros vean las comandas</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
+    <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="">
   </div>
 
   <div class="plan">
     <h2>Software para responsable</h2>
     <p>Este es el software que instalará el responsable designado, con el que podrá personalizar la app, crear y editar el menú y consultar las estadísticas y datos</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
+    <img src="/assets/images/unsplash-gallery-image-3.jpg" alt="">
   </div>
 </div>
 

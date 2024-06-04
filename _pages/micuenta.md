@@ -64,7 +64,7 @@ img {
 }
 </style>
 
-Mi cuenta 
+<p style="margin-top: 4em;margin-left: 20%;">Mi cuenta</p>
 
 <div class="plan">
   <div class="plan-contenido">
@@ -73,7 +73,7 @@ Mi cuenta
   </div>
 </div>
 
-Acciones
+<p style="margin-top: 2em;margin-left: 20%;">Acciones</p>
 
 <div class="plan">
   <button class="boton">
