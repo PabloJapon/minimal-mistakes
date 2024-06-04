@@ -7,13 +7,15 @@ layout: splash
 <style>
 /* Your CSS styles */
 table {
-  width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
 }
 
 table, th, td {
   border: 1px solid black;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 th, td {
@@ -26,7 +28,8 @@ th {
 }
 </style>
 
-# Mis Facturas
+
+<h2 style="display: grid;justify-content: center;"> Mis Facturas</h2>
 
 <!-- Display invoices list -->
 <table id="invoices-table">

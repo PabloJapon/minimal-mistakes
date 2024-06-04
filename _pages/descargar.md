@@ -1,4 +1,5 @@
 ---
+title: "Descargar"
 permalink: /descargar/
 layout: splash
 ---
