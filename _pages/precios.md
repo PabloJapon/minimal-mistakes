@@ -3,7 +3,7 @@ permalink: /precios/
 layout: default
 ---
 
-<h2> Elige tu plan ideal.</h2>
+<h2 style="margin-top: 5em;text-align: center;"> Elige tu plan ideal</h2>
 
 <style>
   
@@ -150,7 +150,8 @@ layout: default
 
 
 
-<h3> Compara los planes </h3>
+<h3 style="text-align: center;"> Compara los planes </h3>
+
 
 <div class="table-container">
   <table>

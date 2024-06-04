@@ -4,7 +4,16 @@ permalink: /descargar/
 layout: splash
 ---
 
-<h2 style="display: grid;justify-content: center;"> Descarga los softwares de Gastrali para</h2>
+<h2 style="text-align: center; margin-top: 4em;"> Descarga los softwares de Gastrali para</h2>
+
+<div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
 
 <style>
   
