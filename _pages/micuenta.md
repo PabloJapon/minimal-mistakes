@@ -6,7 +6,7 @@ layout: splash
 
 <style>
 .plan {
-  width: 100%; /* Ancho deseado de cada plan */
+  width: 60%; /* Ancho deseado de cada plan */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -14,8 +14,8 @@ layout: splash
   text-align: left;
   margin-bottom: 20px; /* Espacio inferior entre cada plan */
   margin-top: 0px;
-  margin-left: 0px;
-  margin-right: 12px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .plan-contenido {
@@ -44,7 +44,7 @@ img {
   padding: 0px 0px;
   padding-left: 20px; /* Añade un margen a la izquierda del texto dentro del botón */
   padding-right: 20px; /* Añade un margen a la izquierda del texto dentro del botón */
-  width: 780px; /* Establece el ancho deseado para el botón */
+  width: 100%; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
   background: white;
   border: none;
