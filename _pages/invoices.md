@@ -28,8 +28,7 @@ th {
 }
 </style>
 
-
-<h2 style="display: grid;justify-content: center;"> Mis Facturas</h2>
+<h2 style="margin-top: 4em;text-align: center;"> Mis Facturas</h2>
 
 <!-- Display invoices list -->
 <table id="invoices-table">
