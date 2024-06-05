@@ -101,6 +101,8 @@ permalink: /client_payment/
   <input type="hidden" id="seller-account-id" value="acct_1PNXgvE7aK3gOt9K">
   <!-- Hidden input for the return URL -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
+  <!-- Hidden input for the amount -->
+  <input type="hidden" id="amount">
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
@@ -119,6 +121,25 @@ permalink: /client_payment/
 </div>
 
 <script>
+  // Function to get query parameters
+  function getQueryParams() {
+    const params = {};
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    for (const [key, value] of urlParams.entries()) {
+      params[key] = value;
+    }
+    return params;
+  }
+
+  // Get the amount parameter from the URL
+  const queryParams = getQueryParams();
+  const amount = queryParams['amount'];
+
+  // Set the amount in the hidden input field
+  document.getElementById('amount').value = amount;
+
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
@@ -144,7 +165,7 @@ permalink: /client_payment/
       } else {
         // Send payment method and amount to server
         var paymentMethod = result.paymentMethod.id;
-        var amount = 5000; // Fixed amount of €50 in cents
+        var amount = document.getElementById('amount').value;
         var sellerAccountId = document.getElementById('seller-account-id').value;
         var returnUrl = document.getElementById('return-url').value;
 
