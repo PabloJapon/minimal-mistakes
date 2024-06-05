@@ -149,7 +149,15 @@ permalink: /client_payment/
 
   // Set the amount in the hidden input field and display it
   document.getElementById('amount').value = amount;
-  document.getElementById('amount-display').textContent = `Cantidad: €${amount}`;
+
+  // Convert the amount to a decimal
+  const amountDecimal = (amount / 100).toFixed(2);
+
+  // Format the amount with a comma as the decimal separator
+  const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
+
+  // Set the formatted amount in the text content
+  document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
