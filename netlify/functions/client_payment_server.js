@@ -10,13 +10,13 @@ const stripe = require('stripe')(stripeSecretKey);
 exports.handler = async (event, context) => {
     try {
         // Parse the incoming request body
-        const { payment_method, amount, seller_account_id } = JSON.parse(event.body);
+        const { payment_method, amount, seller_account_id, return_url } = JSON.parse(event.body);
         
         // Validate input
-        if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id) {
+        if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url) {
             return {
                 statusCode: 400,
-                body: JSON.stringify({ error: 'Invalid input. Please provide valid payment method, amount, and seller account ID.' }),
+                body: JSON.stringify({ error: 'Invalid input. Please provide valid payment method, amount, seller account ID, and return URL.' }),
             };
         }
 
@@ -30,6 +30,7 @@ exports.handler = async (event, context) => {
             transfer_data: {
                 destination: seller_account_id, // Seller's account ID
             },
+            return_url: return_url, // URL to which the customer will be redirected after payment
         });
 
         // Log payment details for monitoring and debugging
@@ -40,7 +41,7 @@ exports.handler = async (event, context) => {
         // Return a success response
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Payment processed successfully.' }),
+            body: JSON.stringify({ message: 'Payment processed successfully.', paymentIntent: paymentIntent }),
         };
     } catch (error) {
         // Log and return an error response if any error occurs

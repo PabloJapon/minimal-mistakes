@@ -58,7 +58,7 @@ permalink: /client_payment/
 
     /* Estilo personalizado para los elementos de Stripe */
     .stripe-element {
-      width: 100%; /* Establecer el ancho para ocupar el 100% del contenedor */
+      width: 100%;
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -66,7 +66,7 @@ permalink: /client_payment/
       box-sizing: border-box;
     }
     .stripe-element-50 {
-      width: 50%; /* Establecer el ancho para ocupar el 50% del contenedor */
+      width: 50%;
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -77,10 +77,10 @@ permalink: /client_payment/
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
+      font-size: 14px;
     }
 
-    .inline-elements{
+    .inline-elements {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -99,6 +99,8 @@ permalink: /client_payment/
   
   <!-- Hidden input for the seller account ID -->
   <input type="hidden" id="seller-account-id" value="acct_1PNXgvE7aK3gOt9K">
+  <!-- Hidden input for the return URL -->
+  <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
 
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
@@ -144,6 +146,7 @@ permalink: /client_payment/
         var paymentMethod = result.paymentMethod.id;
         var amount = 5000; // Fixed amount of €50 in cents
         var sellerAccountId = document.getElementById('seller-account-id').value;
+        var returnUrl = document.getElementById('return-url').value;
 
         fetch('/.netlify/functions/client_payment_server', {
           method: 'POST',
@@ -153,13 +156,20 @@ permalink: /client_payment/
           body: JSON.stringify({
             payment_method: paymentMethod,
             amount: amount,
-            seller_account_id: sellerAccountId
+            seller_account_id: sellerAccountId,
+            return_url: returnUrl
           }),
         }).then(function(response) {
           return response.json();
         }).then(function(data) {
           console.log(data);
-          alert(data.message);
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            alert(data.message);
+            // Redirect to the return URL if the payment was successful
+            window.location.href = returnUrl;
+          }
         }).catch(function(error) {
           console.error('Error:', error);
           alert('Error processing payment. Please try again later.');
