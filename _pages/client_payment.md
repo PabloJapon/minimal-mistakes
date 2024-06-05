@@ -20,7 +20,7 @@ permalink: /client_payment/
 
     .container {
       max-width: 400px;
-      margin: 50px auto; 
+      margin: 50px auto;
       padding: 20px;
       background-color: #fff;
       border-radius: 10px;
@@ -96,7 +96,9 @@ permalink: /client_payment/
 
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
-  
+
+  <p id="amount-display">Cantidad: </p> <!-- Placeholder for amount -->
+
   <!-- Hidden input for the seller account ID -->
   <input type="hidden" id="seller-account-id" value="acct_1PNXgvE7aK3gOt9K">
   <!-- Hidden input for the return URL -->
@@ -133,12 +135,21 @@ permalink: /client_payment/
     return params;
   }
 
+  // Decode Base64 function
+  function decodeBase64(base64) {
+    return decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+
   // Get the amount parameter from the URL
   const queryParams = getQueryParams();
-  const amount = queryParams['amount'];
+  const encryptedAmount = queryParams['amount'];
+  const amount = decodeBase64(encryptedAmount);
 
-  // Set the amount in the hidden input field
+  // Set the amount in the hidden input field and display it
   document.getElementById('amount').value = amount;
+  document.getElementById('amount-display').textContent = `Cantidad: €${amount}`;
 
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
