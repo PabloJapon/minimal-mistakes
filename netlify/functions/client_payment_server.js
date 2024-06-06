@@ -31,6 +31,7 @@ exports.handler = async (event, context) => {
                 destination: seller_account_id, // Seller's account ID
             },
             return_url: return_url, // URL to which the customer will be redirected after payment
+            receipt_email: 'forbiddenplaces96@gmail.com',
         });
 
         // Log payment details for monitoring and debugging

@@ -207,7 +207,8 @@ exports.handler = async (event, context) => {
         payment_method: body.payment_method,
         invoice_settings: {
           default_payment_method: body.payment_method
-        }
+        },
+        preferred_locales: ['es']
       });
 
       customerId = customer.id;
