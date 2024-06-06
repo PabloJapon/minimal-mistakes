@@ -34,12 +34,12 @@ th {
 <table id="invoices-table">
   <thead>
     <tr>
-      <th id="th-description"></th>
-      <th id="th-invoice-number"></th>
-      <th id="th-amount"></th>
-      <th id="th-status"></th>
-      <th id="th-date-of-issue"></th>
-      <th id="th-action"></th>
+      <th>Concepto</th>
+      <th>Numero de factura</th>
+      <th>Importe</th>
+      <th>Estado</th>
+      <th>Creación</th>
+      <th>Acción</th>
     </tr>
   </thead>
   <tbody>
@@ -48,25 +48,6 @@ th {
 </table>
 
 <script>
-// Translation dictionary for Spanish
-const translationDict = {
-  'Invoice': 'Factura',
-  'Invoice number': 'Número de factura',
-  'Amount': 'Importe',
-  'Status': 'Estado',
-  'Date of issue': 'Fecha de emisión',
-  'Date due': 'Fecha de vencimiento',
-  'Description': 'Descripción',
-  'Pay online': 'Pagar en línea',
-  'Download': 'Descargar',
-  // Add more translations as needed
-};
-
-// Function to translate text
-function translate(text) {
-  return translationDict[text] || text; // If translation is not found, return original text
-}
-
 // Function to format amount
 function formatAmount(amount) {
   return (amount / 100).toFixed(2).replace('.', ',') + ' €';
@@ -110,12 +91,12 @@ function fetchAndDisplayInvoices(email) {
           const description = getDescription(invoice); // Get description from invoice lines
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${description}</td>
+            <td>${descripcion}</td>
             <td>${invoice.number}</td>
             <td>${formattedAmount}</td>
             <td>${translatedStatus}</td>
             <td>${formattedCreationDate}</td>
-            <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">${translate('Download')}</button></td>
+            <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">Descargar</button></td>
           `;
           invoicesTableBody.appendChild(row);
         });
@@ -134,15 +115,15 @@ function getDescription(invoice) {
     // Assuming the description is available in the first line item
     let description = invoice.lines.data[0].description || '';
 
-    // Translation dictionary for description
-    const descriptionTranslationDict = {
+    // Translation dictionary
+    const translationDict = {
       'at €': '€', // Translate 'at €' to '€'
       'month': 'mes' // Translate 'month' to 'mes'
       // Add more translations as needed
     };
 
-    // Perform translation for description
-    for (const [key, value] of Object.entries(descriptionTranslationDict)) {
+    // Perform translation
+    for (const [key, value] of Object.entries(translationDict)) {
       description = description.replace(new RegExp(key, 'g'), value);
     }
 
@@ -159,6 +140,27 @@ function downloadInvoice(invoicePdfUrl) {
 
 // Fetch and display invoices when the page loads
 netlifyIdentity.on('login', user => {
+  const usernameSpan = document.getElementById('username');
+  if (usernameSpan) {
+    usernameSpan.innerText = user.user_metadata.full_name || user.email;
+  } else {
+    console.warn('Username span element not found.');
+  }
+
+  const subscriptionPlanElement = document.getElementById('subscription-plan');
+  if (subscriptionPlanElement) {
+    const subscriptionPlan = user.user_metadata.subscription_plan;
+    if (subscriptionPlan) {
+      subscriptionPlanElement.textContent = "Plan " + subscriptionPlan;
+      console.log('Subscription plan:', subscriptionPlan);
+    } else {
+      console.log('User', user);
+      console.log('sin plan de suscripción');
+    }
+  } else {
+    console.warn('Subscription plan element not found.');
+  }
+
   fetchAndDisplayInvoices(user.email);
 });
 </script>
