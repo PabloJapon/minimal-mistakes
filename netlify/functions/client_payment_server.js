@@ -27,9 +27,7 @@ exports.handler = async (event, context) => {
             payment_method: payment_method,
             confirm: true,
             confirmation_method: 'manual',
-            transfer_data: {
-                destination: seller_account_id, // Seller's account ID
-            },
+            stripeAccount: seller_account_id, // Seller's account ID
             return_url: return_url, // URL to which the customer will be redirected after payment
             receipt_email: 'forbiddenplaces96@gmail.com',
         });
