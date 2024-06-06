@@ -28,7 +28,7 @@ header:
       <h2>Actualiza tu menú automáticamente y en cualquier momento</h2>
       <p> Personalízalo usando las imágenes, colores e iconos que más te representen. Y si un día no puedes servir un plato, no te preocupes, desactivalo para que no aparezca en el menú!</p>
     </div>
-    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="">
+    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="" style="max-width: 40%;">
   </div>
 
   <div class="plan">
@@ -37,6 +37,7 @@ header:
       <p>Cuando un cliente realice un pedido, este irá directamente a las pantallas de la cocina, donde los cocineros tan solo haciendo un click, harán saber al camarero cuando puede ir a recogerlo</p>
     </div>
     <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="">
+    <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="" style="max-width: 40%;">
   </div>
 </div>
 
@@ -79,8 +80,7 @@ header:
   text-align: center;
   margin-bottom: 60px;
   margin-top: 60px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
 }
   .plan-button {
     background-color: #6699ff;
