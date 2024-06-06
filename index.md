@@ -24,21 +24,15 @@ header:
 
 <div class="plan-container">
 <div class="plan" style="border-left: 0px;">
-    <h2>App camareros/clientes</h2>
-    <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
+    <h2>Actualiza tu menú automáticamente y en cualquier momento</h2>
+    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="">
+    <p> Personalízalo usando las imágenes, colores e iconos que más te representen. Y si un día no puedes servir un plato, no te preocupes, desactivalo para que no aparezca en el menú!</p>
   </div>
 
   <div class="plan">
-    <h2>Software para cocinas</h2>
-    <p>Este es el software que debes instalar en una pantalla de la cocina para que tus cocineros vean las comandas</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'">Descargar</button>
-  </div>
-
-  <div class="plan">
-    <h2>Software para responsable</h2>
-    <p>Este es el software que instalará el responsable designado, con el que podrá personalizar la app, crear y editar el menú y consultar las estadísticas y datos</p>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'">Descargar</button>
+    <h2>Máxima sincronización, no pierdas más tiempo!</h2>
+    <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="">
+    <p>Cuando un cliente realice un pedido, este irá directamente a las pantallas de la cocina, donde los cocineros tan solo haciendo un click, harán saber al camarero cuando puede ir a recogerlo</p>
   </div>
 </div>
 
@@ -71,20 +65,18 @@ header:
   
 .plan-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
 }
 
 .plan {
-  width: 400px; /* Ancho deseado de cada plan */
-  padding: 20px;
-  border-left: 1px solid #ccc;
+  padding: 20px; */
   text-align: center;
-  margin-bottom: 60px; /* Espacio inferior entre cada plan */
+  margin-bottom: 60px;
   margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
   .plan-button {
     background-color: #6699ff;
