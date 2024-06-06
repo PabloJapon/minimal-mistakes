@@ -91,7 +91,7 @@ function fetchAndDisplayInvoices(email) {
           const description = getDescription(invoice); // Get description from invoice lines
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${descripcion}</td>
+            <td>${description}</td>
             <td>${invoice.number}</td>
             <td>${formattedAmount}</td>
             <td>${translatedStatus}</td>

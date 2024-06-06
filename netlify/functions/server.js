@@ -10,17 +10,6 @@ const stripe = require('stripe')(stripeSecretKey);
 const pdfkit = require('pdfkit');
 const fs = require('fs');
 
-// Function to generate PDF invoice
-const generatePdfInvoice = (invoiceData) => {
-  const doc = new pdfkit();
-  // Customize PDF content based on invoice data
-  doc.text(`Invoice #: ${invoiceData.number}`);
-  doc.text(`Amount Due: ${invoiceData.amount_due}`);
-  // Add more invoice details as needed
-  doc.end();
-  return doc;
-};
-
 exports.handler = async (event, context) => {
   try {
     const body = JSON.parse(event.body);
