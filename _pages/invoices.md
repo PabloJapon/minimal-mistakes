@@ -69,45 +69,61 @@ function formatCreationDate(timestamp) {
 
 // Function to fetch and display invoices
 function fetchAndDisplayInvoices(email) {
-  fetch('/.netlify/functions/server', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ action: 'get_invoices', email: email })
+    fetch('/.netlify/functions/server', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'get_invoices', email: email })
     })
     .then(response => {
-      console.log('Response status:', response.status);
-      return response.json();
+        console.log('Response status:', response.status);
+        return response.json();
     })
     .then(data => {
-      console.log('Fetched data:', data);
-      const invoicesTableBody = document.querySelector('#invoices-table tbody');
-      if (data && data.invoices) {
-        data.invoices.forEach(invoice => {
-          const formattedAmount = formatAmount(invoice.amount_due);
-          const translatedStatus = translateStatus(invoice.status);
-          const formattedCreationDate = formatCreationDate(invoice.created);
-          const description = getDescription(invoice); // Get description from invoice lines
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${description}</td>
-            <td>${invoice.number}</td>
-            <td>${formattedAmount}</td>
-            <td>${translatedStatus}</td>
-            <td>${formattedCreationDate}</td>
-            <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">Descargar</button></td>
-          `;
-          invoicesTableBody.appendChild(row);
-        });
-      } else {
-        console.error('Error fetching invoices:', data);
-      }
+        console.log('Fetched data:', data);
+        const invoicesTableBody = document.querySelector('#invoices-table tbody');
+        if (data && data.invoices) {
+            data.invoices.forEach(invoice => {
+                const formattedAmount = formatAmount(invoice.amount_due);
+                const translatedStatus = translateStatus(invoice.status);
+                const formattedCreationDate = formatCreationDate(invoice.created);
+                const description = getDescription(invoice); // Get description from invoice lines
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${translateToSpanish(description)}</td>
+                    <td>${invoice.number}</td>
+                    <td>${formattedAmount}</td>
+                    <td>${translatedStatus}</td>
+                    <td>${formattedCreationDate}</td>
+                    <td><button onclick="downloadInvoice('${invoice.invoice_pdf}')">Descargar</button></td>
+                `;
+                invoicesTableBody.appendChild(row);
+            });
+        }
     })
     .catch(error => {
-      console.error('Error fetching invoices:', error);
+        console.error('Error fetching invoices:', error);
     });
 }
+
+// Translation function (replace English text with Spanish)
+function translateToSpanish(text) {
+    // This is a simplified example, you may need a more sophisticated translation mechanism
+    const translations = {
+        'Amount': 'Importe',
+        'Due Date': 'Fecha de Vencimiento',
+        // Add more translations as needed
+    };
+    return translations[text] || text; // Return translated text or original if not found
+}
+
+// Function to download invoice in PDF format
+function downloadInvoice(invoicePdfUrl) {
+  console.log('Downloading invoice:', invoicePdfUrl);
+  window.open(invoicePdfUrl, '_blank');
+}
+
 
 // Function to get description from invoice lines
 function getDescription(invoice) {
@@ -130,12 +146,6 @@ function getDescription(invoice) {
     return description;
   }
   return ''; // Return an empty string if description is not available
-}
-
-// Function to download invoice in PDF format
-function downloadInvoice(invoicePdfUrl) {
-  console.log('Downloading invoice:', invoicePdfUrl);
-  window.open(invoicePdfUrl, '_blank');
 }
 
 // Fetch and display invoices when the page loads
