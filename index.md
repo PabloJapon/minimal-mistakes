@@ -23,16 +23,18 @@ header:
 
 
 <div class="plan-container">
-<div class="plan" style="border-left: 0px;">
+  <div class="plan" style="border-left: 0px;">
     <h2>Actualiza tu menú automáticamente y en cualquier momento</h2>
-    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="">
     <p> Personalízalo usando las imágenes, colores e iconos que más te representen. Y si un día no puedes servir un plato, no te preocupes, desactivalo para que no aparezca en el menú!</p>
+    <img src="/assets/images/unsplash-gallery-image-1.jpg" alt="">
   </div>
 
   <div class="plan">
-    <h2>Máxima sincronización, no pierdas más tiempo!</h2>
+    <div class="plan">
+      <h2>Máxima sincronización, no pierdas más tiempo!</h2>
+      <p>Cuando un cliente realice un pedido, este irá directamente a las pantallas de la cocina, donde los cocineros tan solo haciendo un click, harán saber al camarero cuando puede ir a recogerlo</p>
+    </div>
     <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="">
-    <p>Cuando un cliente realice un pedido, este irá directamente a las pantallas de la cocina, donde los cocineros tan solo haciendo un click, harán saber al camarero cuando puede ir a recogerlo</p>
   </div>
 </div>
 
