@@ -2,14 +2,22 @@ exports.handler = async (event, context) => {
     const fetch = (await import('node-fetch')).default;
     
     try {
-      const { email, password } = JSON.parse(event.body);
-      console.log(`Received email: ${email}`);
+      const { grant_type, username, password } = JSON.parse(event.body);
+      console.log(`Received grant_type: ${grant_type}`);
+      console.log(`Received username: ${username}`);
       console.log(`Received password: ${password}`);
+  
+      if (!username || !password) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Username or password is missing' }),
+        };
+      }
   
       const response = await fetch('https://gastrali.netlify.app/.netlify/identity/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ grant_type: 'password', username: email, password: password })
+        body: JSON.stringify({ grant_type, username, password })
       });
   
       const responseBody = await response.text();
