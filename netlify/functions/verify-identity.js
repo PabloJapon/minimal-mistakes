@@ -14,14 +14,18 @@ exports.handler = async (event, context) => {
       };
     }
 
+    const requestBody = {
+      grant_type: 'password',
+      username: username,
+      password: password
+    };
+
+    console.log(`Request body: ${JSON.stringify(requestBody)}`);
+
     const response = await fetch('https://gastrali.netlify.app/.netlify/identity/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        grant_type: 'password',
-        username,
-        password
-      })
+      body: JSON.stringify(requestBody)
     });
 
     const responseBody = await response.text();
@@ -48,5 +52,3 @@ exports.handler = async (event, context) => {
     };
   }
 };
-
-  
