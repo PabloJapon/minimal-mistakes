@@ -36,6 +36,13 @@
   justify-content: space-between;
   margin: 0em 3em;
 
+  .footer-heading {
+    font-family: $global-font-family;
+    font-size: $type-size-6;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+  }
+
   &.page__footer-follow {
     ul {
       margin: 0;
@@ -48,7 +55,7 @@
     li {
       font-family: $global-font-family;
       font-size: $type-size-6;
-      text-transform: uppercase;
+      text-transform: none; /* Reset text-transform for list items */
     }
 
     li + li:before {
@@ -79,7 +86,7 @@
     li {
       font-family: $global-font-family;
       font-size: $type-size-6;
-      text-transform: uppercase;
+      text-transform: none; /* Reset text-transform for list items */
     }
 
     li + li:before {
