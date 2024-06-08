@@ -5,7 +5,6 @@
 .page__footer {
   display: flex;
   justify-content: center;
-  margin-top: 3em;
   padding: 2em;
   color: $muted-text-color;
   background-color: $footer-background-color;
@@ -34,7 +33,8 @@
 .footer-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  margin: 0em 3em;
 
   &.page__footer-follow {
     ul {
