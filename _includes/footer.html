@@ -1,10 +1,15 @@
 <div class="page__footer">
 
-  <!-- Image Logo -->
-  <img src="/assets/images/CapturaN2.png" alt="Footer Image" style="max-width: 12em;">
+  <!-- Container for logo and copyright -->
+  <div class="footer-section">
+    <img src="/assets/images/CapturaN2.png" alt="Footer Image" style="max-width: 12em;">
+    <div class="page__footer-copyright">
+      &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}.
+    </div>
+  </div>
 
-  <!-- Footer container for general links -->
-  <div class="page__footer-follow">
+  <!-- Container for general links -->
+  <div class="footer-section page__footer-follow">
     <ul class="general-links">
       {% if site.data.ui-text[site.locale].follow_label %}
         <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
@@ -27,18 +32,12 @@
     </ul>
   </div>
 
-  <!-- Footer container for social media links -->
-  <div class="page__footer-social">
+  <!-- Container for social media links -->
+  <div class="footer-section page__footer-social">
     <ul class="social-icons">
       <li><a href="https://www.instagram.com/gastrali.app?igsh=Mnl0OGw1NjFwYml6" rel="nofollow noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
       <li><a href="https://www.youtube.com/channel/UCgOM7Qcw4gNAI5ueo5_vRmA" rel="nofollow noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
     </ul>
   </div>
 
-  <!-- Footer copyright -->
-  <div class="page__footer-copyright">
-    &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}.
-  </div>
-
 </div>
-
