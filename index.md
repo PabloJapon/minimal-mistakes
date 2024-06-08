@@ -45,7 +45,7 @@ header:
   Preguntas frecuentes
 </div>
 
-<div style="margin: 0 auto; text-align:center;">
+<div style="margin: 4em auto; text-align:center;">
   <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
     <button class="accordion">¿Pregunta 1?
       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
