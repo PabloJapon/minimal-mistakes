@@ -1,7 +1,7 @@
 <div class="page__footer">
 
   <!-- Container for logo and copyright -->
-  <div class="footer-section">
+  <div class="footer-section" style="margin: 0em 7em 0em 2em;">
     <img src="/assets/images/CapturaN2.png" alt="Footer Image" style="max-width: 12em;">
     <div class="page__footer-copyright">
       &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}.
@@ -11,18 +11,6 @@
   <!-- Container for general links -->
   <div class="footer-section page__footer-follow">
     <ul class="general-links">
-      {% if site.data.ui-text[site.locale].follow_label %}
-        <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
-      {% endif %}
-
-      {% if site.footer.links %}
-        {% for link in site.footer.links %}
-          {% if link.label and link.url %}
-            <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer">{{ link.label }}</a></li>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-      <!-- Additional static links -->
       <li><a href="/contact/" rel="nofollow noopener noreferrer">Contacta con nosotros</a></li>
       <li><a href="/TerminosYCondiciones/" rel="nofollow noopener noreferrer">Términos y Condiciones</a></li>
       <li><a href="/PoliticaDePrivacidad/" rel="nofollow noopener noreferrer">Politica De Privacidad</a></li>
