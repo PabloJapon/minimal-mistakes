@@ -21,6 +21,12 @@ layout: splash
   // Function to send data to server
   async function sendData(username) {
     try {
+      if (username === "notUserLoggedIn") {
+        // If user is not logged in, display a message instead of sending data
+        document.getElementById('loginMessage').textContent = "Inicia sesión para usar el software responsable";
+        return;
+      }
+      
       const response = await fetch("/.netlify/functions/verificar-sesion", {
         method: "POST",
         body: JSON.stringify({ message: username }),
@@ -56,3 +62,6 @@ layout: splash
     }
   });
 </script>
+
+<!-- Message element to display login prompt -->
+<p id="loginMessage"></p>
