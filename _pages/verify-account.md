@@ -5,25 +5,29 @@ layout: splash
 ---
 
 <p id="username" style="display: none;"></p> <!-- Hidden element to store username -->
+<p id="plan" style="display: none;"></p> <!-- Hidden element to store plan -->
 
 <script>
   // Netlify identity
   let usernameSpan;
+  let plan;
 
-  // Function to update username
-  function updateUsername(user) {
+  // Function to update username and plan
+  function updateUserData(user) {
     const usernameElement = document.getElementById('username');
-    if (usernameElement) {
+    const planElement = document.getElementById('plan');
+    if (usernameElement && planElement) {
       usernameElement.textContent = user.user_metadata.full_name || user.email;
+      planElement.textContent = user.user_metadata.plan || ''; // Assuming plan is stored in user metadata
     }
   }
 
   // Function to send data to server
-  async function sendData(username) {
+  async function sendData(username, plan) {
     try {
       const response = await fetch("/.netlify/functions/verificar-sesion", {
         method: "POST",
-        body: JSON.stringify({ message: username }),
+        body: JSON.stringify({ username, plan }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -42,15 +46,16 @@ layout: splash
 
   // Event listener for login event
   netlifyIdentity.on('login', user => {
-    updateUsername(user);
-    sendData(user.user_metadata.full_name || user.email); // Send username to server
+    updateUserData(user);
+    sendData(user.user_metadata.full_name || user.email, user.user_metadata.plan); // Send username and plan to server
   });
 
   // Initial data send when the page loads
   window.addEventListener('DOMContentLoaded', () => {
     const usernameElement = document.getElementById('username');
-    if (usernameElement.textContent.trim() !== '') {
-      sendData(usernameElement.textContent);
+    const planElement = document.getElementById('plan');
+    if (usernameElement.textContent.trim() !== '' && planElement.textContent.trim() !== '') {
+      sendData(usernameElement.textContent, planElement.textContent);
     }
   });
 </script>
