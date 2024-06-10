@@ -10,7 +10,7 @@ layout: splash
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ value: 1 })
+    body: JSON.stringify({ value: "Hello" })
   })
   .then(response => response.json())
   .then(data => console.log(data))
