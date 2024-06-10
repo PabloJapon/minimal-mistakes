@@ -60,7 +60,7 @@ layout: splash
     const usernameElement = document.getElementById('username');
     if (usernameElement.textContent.trim() !== '') {
       // Assume a default plan if none is provided
-      sendData(usernameElement.textContent, 'plan');
+      sendData(usernameElement.textContent, plan);
     } else {
       sendData("notUserLoggedIn", 'no_plan'); // Send default message if no user logged in
     }
