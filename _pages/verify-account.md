@@ -23,6 +23,7 @@ layout: splash
     try {
       if (!username) {
         // If user is not logged in, display a message instead of sending data
+        console.log("User not logged in");
         document.getElementById('loginMessage').textContent = "Inicia sesión para usar el software responsable";
         return;
       }
