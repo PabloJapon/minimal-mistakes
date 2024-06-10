@@ -4,20 +4,26 @@ permalink: /verifyAccount/
 layout: splash
 ---
 
+<p id="username" style="display: none;"></p> <!-- Hidden element to store username -->
+
 <script>
   // Netlify identity
   let usernameSpan;
 
-  netlifyIdentity.on('login', user => {
-    usernameSpan = document.getElementById('username').textContent;
-    sendData();
-  });
+  // Function to update username
+  function updateUsername(user) {
+    const usernameElement = document.getElementById('username');
+    if (usernameElement) {
+      usernameElement.textContent = user.user_metadata.full_name || user.email;
+    }
+  }
 
-  async function sendData() {
+  // Function to send data to server
+  async function sendData(username) {
     try {
       const response = await fetch("/.netlify/functions/verificar-sesion", {
         method: "POST",
-        body: JSON.stringify({ message: usernameSpan }),
+        body: JSON.stringify({ message: username }),
         headers: {
           "Content-Type": "application/json"
         }
@@ -33,4 +39,18 @@ layout: splash
       console.error("Error:", error);
     }
   }
+
+  // Event listener for login event
+  netlifyIdentity.on('login', user => {
+    updateUsername(user);
+    sendData(user.user_metadata.full_name || user.email); // Send username to server
+  });
+
+  // Initial data send when the page loads
+  window.addEventListener('DOMContentLoaded', () => {
+    const usernameElement = document.getElementById('username');
+    if (usernameElement.textContent.trim() !== '') {
+      sendData(usernameElement.textContent);
+    }
+  });
 </script>
