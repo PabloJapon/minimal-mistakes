@@ -8,7 +8,10 @@ exports.handler = async (event, context) => {
             const requestBody = JSON.parse(event.body);
             console.log("Request body:", requestBody);
 
-            storedInputData = requestBody.message; // Store the inputData from the POST request
+            storedInputData = {
+                message: requestBody.message,
+                subscription_plan: requestBody.subscription_plan
+            }; // Store the inputData from the POST request
             console.log("Input data stored:", storedInputData);
 
             const responseData = { 
