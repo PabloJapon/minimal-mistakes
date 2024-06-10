@@ -21,7 +21,7 @@ layout: splash
   // Function to send data to server
   async function sendData(username, plan) {
     try {
-      if (username === "notUserLoggedIn") {
+      if (!username) {
         // If user is not logged in, display a message instead of sending data
         document.getElementById('loginMessage').textContent = "Inicia sesión para usar el software responsable";
         return;
@@ -49,21 +49,10 @@ layout: splash
 
   // Event listener for login event
   netlifyIdentity.on('login', user => {
-    const username = user.user_metadata.full_name || user.email;
-    const plan = user.user_metadata.subscription_plan;
+    const username = user ? (user.user_metadata.full_name || user.email) : null;
+    const plan = user ? user.user_metadata.subscription_plan : null;
     updateUsername(user);
     sendData(username, plan); // Send username and plan to server
-  });
-
-  // Initial data send when the page loads
-  window.addEventListener('DOMContentLoaded', () => {
-    const usernameElement = document.getElementById('username');
-    if (usernameElement.textContent.trim() !== '') {
-      // Assume a default plan if none is provided
-      sendData(usernameElement.textContent, plan);
-    } else {
-      sendData("notUserLoggedIn", 'no_plan'); // Send default message if no user logged in
-    }
   });
 </script>
 
