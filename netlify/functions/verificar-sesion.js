@@ -1,3 +1,5 @@
+let storedInputData = null;
+
 exports.handler = async (event, context) => {
     try {
         console.log("Received request:", event);
@@ -6,10 +8,13 @@ exports.handler = async (event, context) => {
             const requestBody = JSON.parse(event.body);
             console.log("Request body:", requestBody);
 
-            const inputData = requestBody.message; // Extract the message field
-            console.log("Input data:", inputData);
+            storedInputData = requestBody.message; // Store the inputData from the POST request
+            console.log("Input data stored:", storedInputData);
 
-            const responseData = { message: "Data received successfully", inputData: inputData };
+            const responseData = { 
+                message: "Data received successfully", 
+                inputData: storedInputData // Include the stored inputData in the response
+            };
             console.log("Response data:", responseData);
 
             return {
@@ -18,11 +23,22 @@ exports.handler = async (event, context) => {
             };
         } else if (event.httpMethod === "GET") {
             // Handle GET request (sending data to Unity)
-            const responseData = { message: "Hello from server" };
-            return {
-                statusCode: 200,
-                body: JSON.stringify(responseData)
-            };
+            if (storedInputData !== null) {
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify({ 
+                        message: "Data retrieved successfully from previous POST request",
+                        inputData: storedInputData // Include the stored inputData in the response to the GET request
+                    })
+                };
+            } else {
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify({ 
+                        message: "No data available from previous POST request"
+                    })
+                };
+            }
         } else {
             return {
                 statusCode: 405,
