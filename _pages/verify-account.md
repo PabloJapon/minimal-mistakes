@@ -23,7 +23,7 @@ layout: splash
     try {
       const response = await fetch("/.netlify/functions/verificar-sesion", {
         method: "POST",
-        body: JSON.stringify({ message: username, "venga" }),
+        body: JSON.stringify({ message: username }),
         headers: {
           "Content-Type": "application/json"
         }
