@@ -5,7 +5,7 @@ exports.handler = async (event, context) => {
         const requestBody = JSON.parse(event.body);
         console.log("Request body:", requestBody);
 
-        const inputData = JSON.stringify(requestBody.data); // Stringify the input data
+        const inputData = requestBody.message; // Extract the message field
         console.log("Input data:", inputData);
 
         // Do something with inputData...
