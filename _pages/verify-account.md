@@ -38,6 +38,7 @@ layout: splash
       if (response.ok) {
         const responseData = await response.json();
         console.log("Response from server:", responseData);
+        document.getElementById('loginMessage').textContent = "Usuario verificado. Ya puedes volver a tu software responsable";
       } else {
         console.error("Failed to send data to server.");
       }
