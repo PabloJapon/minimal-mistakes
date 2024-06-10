@@ -51,6 +51,8 @@ layout: splash
     const usernameElement = document.getElementById('username');
     if (usernameElement.textContent.trim() !== '') {
       sendData(usernameElement.textContent);
+    } else {
+      sendData("notUserLoggedIn"); // Send default message if no user logged in
     }
   });
 </script>
