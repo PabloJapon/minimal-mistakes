@@ -4,7 +4,16 @@ permalink: /descargar/
 layout: splash
 ---
 
-<h2 style="text-align: center; margin-top: 4em;"> Descarga los softwares de Gastrali para</h2>
+<h2 style="text-align: center; margin-top: 4em;">Descarga los softwares de Gastrali para 
+  <div class="dropdown" style="display: inline-block;">
+    <button class="dropbtn" id="dropdownButton">Windows</button>
+    <div class="dropdown-content">
+      <a href="#" onclick="selectOS('Windows')">Windows</a>
+      <a href="#" onclick="selectOS('Linux')">Linux</a>
+      <a href="#" onclick="selectOS('Mac')">Mac</a>
+    </div>
+  </div>
+</h2>
 
 <style>
 img {
@@ -193,13 +202,8 @@ img {
   </div>
 </div>
 
-<div style="text-align: center; margin-top: 4em;">
-  <div class="dropdown">
-    <button class="dropbtn">Selecciona tu sistema operativo</button>
-    <div class="dropdown-content">
-      <a href="/path/to/windows/download">Windows</a>
-      <a href="/path/to/linux/download">Linux</a>
-      <a href="/path/to/mac/download">Mac</a>
-    </div>
-  </div>
-</div>
+<script>
+function selectOS(os) {
+  document.getElementById('dropdownButton').textContent = os;
+}
+</script>
