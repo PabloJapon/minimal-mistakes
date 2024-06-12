@@ -7,6 +7,13 @@ layout: splash
 <h2 style="text-align: center; margin-top: 4em;"> Descarga los softwares de Gastrali para</h2>
 
 <style>
+
+img {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
   
 .plan-container {
   display: flex;
