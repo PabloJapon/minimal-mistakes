@@ -6,6 +6,13 @@ layout: default
 <h2 style="margin-top: 5em;text-align: center;"> Elige tu plan ideal</h2>
 
 <style>
+
+img {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
   
 .plan-container {
   display: flex;

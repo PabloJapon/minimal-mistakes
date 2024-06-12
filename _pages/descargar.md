@@ -7,7 +7,6 @@ layout: splash
 <h2 style="text-align: center; margin-top: 4em;"> Descarga los softwares de Gastrali para</h2>
 
 <style>
-
 img {
   float: right;
   margin-left: 10px;
@@ -68,22 +67,22 @@ img {
   background-color: #4c80d9; /* Cambio de color en el hover */
 }
   
-  .table-container {
+.table-container {
   margin-top: 60px; /* Ajusta el margen superior según sea necesario */
 }
 
 .table-container table {
   border-collapse: collapse;
-   border: none; /* elimina los bordes de la tabla */
+  border: none; /* elimina los bordes de la tabla */
 }
 
- .table-container td {
+.table-container td {
   padding: 8px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
-  .table-container th {
+.table-container th {
   padding: 8px;
   background-color: transparent !important; /* Fondo transparente */
   border: none; /* Sin bordes */
@@ -92,9 +91,8 @@ img {
 .table-container thead th {
   background-color: transparent !important; /* Fondo transparente */
 }
-  
-  
-  .table-container tbody tr:nth-child(even) {
+
+.table-container tbody tr:nth-child(even) {
   background-color: #e0e0e0; /* Cambia el color de fondo para las filas pares */
 }
 
@@ -109,7 +107,6 @@ img {
   border-right: none;
 }
 
-  
 /* Elimina la última línea horizontal */
 .table-container tr:last-child th,
 .table-container tr:last-child td {
@@ -122,15 +119,59 @@ img {
   border-top: none;
 }
 
-  /* Elimina la segunda línea horizontal */
+/* Elimina la segunda línea horizontal */
 .table-container tr:nth-child(2) th,
 .table-container tr:nth-child(2) td {
   border-top: none;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #6699ff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+}
+
+.dropdown-content a:hover {
+  background-color: #4c80d9;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #4c80d9;
+}
+
+.dropbtn {
+  background-color: #6699ff;
+  color: white;
+  padding: 10px 50px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
 </style>
 
 <div class="plan-container">
-<div class="plan" style="border-left: 0px;">
+  <div class="plan" style="border-left: 0px;">
     <h2>App camareros/clientes</h2>
     <p>Esta App móvil sirve para que los camareros supervisen las comandas, y puedan comunicarse con cocineros y clientes</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Ir a Playstore</button>
@@ -152,4 +193,13 @@ img {
   </div>
 </div>
 
-
+<div style="text-align: center; margin-top: 4em;">
+  <div class="dropdown">
+    <button class="dropbtn">Selecciona tu sistema operativo</button>
+    <div class="dropdown-content">
+      <a href="/path/to/windows/download">Windows</a>
+      <a href="/path/to/linux/download">Linux</a>
+      <a href="/path/to/mac/download">Mac</a>
+    </div>
+  </div>
+</div>
