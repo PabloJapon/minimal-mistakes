@@ -52,9 +52,8 @@ header:
       <h2>Sin líos!</h2>
       <p>Tienes varios menús? No te preocupes, añádelos todos y tú decides cuándo se muestra cada uno.</p>
     </div>
-    <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+    <video width="900" height="544" style="border-radius: 40px; width: 100%; height: auto; padding: 1em;" autoplay loop muted>
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
-  </div>
 </div>
 
 
@@ -93,8 +92,6 @@ header:
 
 .plan {
   padding: 20px;
-  margin-bottom: 60px;
-  margin-top: 60px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
