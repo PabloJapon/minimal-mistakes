@@ -6,7 +6,10 @@ layout: splash
 
 <h2 style="text-align: center; margin-top: 4em;">Descarga los softwares de Gastrali para 
   <div class="dropdown" style="display: inline-block;">
-    <button class="dropbtn" id="dropdownButton">Windows<img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle; margin-left: 10px;"></button>
+    <button class="dropbtn" id="dropdownButton">
+      <span id="osText">Windows</span>
+      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle; margin-left: 10px;">
+    </button>
     <div class="dropdown-content">
       <a href="#" onclick="selectOS('Windows')">Windows</a>
       <a href="#" onclick="selectOS('Linux')">Linux</a>
@@ -211,6 +214,6 @@ img {
 
 <script>
 function selectOS(os) {
-  document.getElementById('dropdownButton').textContent = os;
+  document.getElementById('osText').textContent = os;
 }
 </script>
