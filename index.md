@@ -54,6 +54,7 @@ header:
     </div>
     <video width="900" height="544" style="border-radius: 40px; width: 100%; height: auto; padding: 1em;" autoplay loop muted>
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
+  </div>
 </div>
 
 
@@ -63,6 +64,7 @@ header:
 
 <div style="margin: 4em auto; text-align:center;">
   <div id="faq" class="faq" style="margin-top: 20px; margin: 0 auto;">
+
     <button class="accordion">¿Pregunta 1?
       <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
     </button>
@@ -76,8 +78,21 @@ header:
     <div class="panel">
       <p>Respuesta a la pregunta 2.</p>
     </div>
+    
+    <button class="accordion">¿Pregunta 3?
+      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
+    </button>
+    <div class="panel">
+      <p>Respuesta a la pregunta 3.</p>
+    </div>
 
-    <!-- Agrega más botones y respuestas aquí según sea necesario -->
+    <button class="accordion">¿Pregunta 4?
+      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" class="butImagen" style="vertical-align: middle;">
+    </button>
+    <div class="panel">
+      <p>Respuesta a la pregunta 4.</p>
+    </div>
+
   </div>
 </div>
 
