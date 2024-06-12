@@ -16,7 +16,7 @@ header:
 </div>
 
 <div style="margin: 0 auto; text-align:center;">
-  <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+  <video style="border-radius: 20px; width: 100%; height: auto;" autoplay loop muted>
     <source src="/assets/videos/your-video.mp4" type="video/mp4">
   </video>
 </div>
