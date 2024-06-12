@@ -6,13 +6,11 @@ layout: splash
 
 <h2 style="text-align: center; margin-top: 4em;">Descarga los softwares de Gastrali para 
   <div class="dropdown" style="display: inline-block;">
-    <button class="dropbtn" id="dropdownButton">Windows</button>
+    <button class="dropbtn" id="dropdownButton">Windows<img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle; margin-left: 10px;"></button>
     <div class="dropdown-content">
       <a href="#" onclick="selectOS('Windows')">Windows</a>
       <a href="#" onclick="selectOS('Linux')">Linux</a>
       <a href="#" onclick="selectOS('Mac')">Mac</a>
-      
-      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
     </div>
   </div>
 </h2>
@@ -173,11 +171,18 @@ img {
 .dropbtn {
   background-color: #6699ff;
   color: white;
-  padding: 10px 50px;
+  padding: 10px 30px 10px 50px; /* Increased padding to accommodate the image */
   margin-left: 0.2em;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dropbtn img {
+  margin-left: 10px;
+  vertical-align: middle;
 }
 </style>
 
