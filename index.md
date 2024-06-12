@@ -38,6 +38,23 @@ header:
     </div>
     <img src="/assets/images/unsplash-gallery-image-2.jpg" alt="" style="border-radius: 35px;padding: 1em">
   </div>
+  
+  <div class="plan" style="border-left: 0px;">
+    <img src="/assets/images/unsplash-gallery-image-3.jpg" alt="" style="border-radius: 35px;padding: 1em">
+    <div class="plan" style="display: flex;flex-direction: column;">
+      <h2>Saca el mayor provecho a tus datos</h2>
+      <p> Consulta estadísticas de todo tipo: a qué horas generas más dinero, cual fue el plato más pedido la semana pasada, ¿tienen tus postres el precio óptimo?</p>
+    </div>
+  </div>
+  
+  <div class="plan">
+    <div class="plan" style="display: flex;flex-direction: column;">
+      <h2>Sin líos!</h2>
+      <p>Tienes varios menús? No te preocupes, añádelos todos y tú decides cuándo se muestra cada uno.</p>
+    </div>
+    <video width="900" height="544" style="border-radius: 8px; max-width: 900px; max-height: 100%; width: 100%;" autoplay loop muted>
+    <source src="/assets/videos/your-video.mp4" type="video/mp4">
+  </div>
 </div>
 
 
