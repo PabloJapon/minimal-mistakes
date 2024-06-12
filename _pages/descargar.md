@@ -11,8 +11,9 @@ layout: splash
       <a href="#" onclick="selectOS('Windows')">Windows</a>
       <a href="#" onclick="selectOS('Linux')">Linux</a>
       <a href="#" onclick="selectOS('Mac')">Mac</a>
+      
+      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
     </div>
-    <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
   </div>
 </h2>
 
