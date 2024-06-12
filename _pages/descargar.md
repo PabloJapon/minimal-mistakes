@@ -12,6 +12,7 @@ layout: splash
       <a href="#" onclick="selectOS('Linux')">Linux</a>
       <a href="#" onclick="selectOS('Mac')">Mac</a>
     </div>
+    <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle;">
   </div>
 </h2>
 
@@ -172,7 +173,7 @@ img {
   background-color: #6699ff;
   color: white;
   padding: 10px 50px;
-  font-size: 16px;
+  margin-left: 0.2em;
   border: none;
   cursor: pointer;
   border-radius: 5px;
