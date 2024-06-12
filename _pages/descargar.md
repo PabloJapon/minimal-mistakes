@@ -8,7 +8,7 @@ layout: splash
   <div class="dropdown" style="display: inline-block;">
     <button class="dropbtn" id="dropdownButton">
       <span id="osText">Windows</span>
-      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle; margin-left: 10px;">
+      <img src="/assets/images/angulo-hacia-abajo.png" width="20" height="20" style="vertical-align: middle; margin-left: 20px;">
     </button>
     <div class="dropdown-content">
       <a href="#" onclick="selectOS('Windows')">Windows</a>
