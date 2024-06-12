@@ -184,7 +184,7 @@ img {
 }
 
 .dropbtn img {
-  margin-left: 10px;
+  margin-left: 20px;
   vertical-align: middle;
 }
 </style>

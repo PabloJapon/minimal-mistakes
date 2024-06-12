@@ -5,6 +5,12 @@ permalink: /contacto/
 
 <!-- markdownlint-disable MD033 -->
 <style>
+img {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
   form {
     max-width: 600px;
     margin: 0 auto;
@@ -29,13 +35,17 @@ permalink: /contacto/
     border-radius: 4px;
   }
   button {
-    padding: 0.7em;
-    color: #fff;
-    background-color: #007BFF;
+    background-color: #6699ff;
+    color: white;
     border: none;
-    border-radius: 4px;
+    padding: 15px 100px;
+    margin: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
   }
   button:hover {
     background-color: #0056b3;
