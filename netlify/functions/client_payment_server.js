@@ -20,9 +20,15 @@ exports.handler = async (event, context) => {
             };
         }
 
+        // Log input parameters
+        console.log('Received payment method:', payment_method);
+        console.log('Received amount:', amount);
+        console.log('Received seller account ID:', seller_account_id);
+        console.log('Received return URL:', return_url);
+
         // Create a payment intent with Stripe
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount,
+            amount: parseInt(amount), // Ensure amount is an integer
             currency: 'eur',
             payment_method: payment_method,
             confirm: true,
@@ -32,10 +38,8 @@ exports.handler = async (event, context) => {
             receipt_email: 'forbiddenplaces96@gmail.com',
         });
 
-        // Log payment details for monitoring and debugging
-        console.log('Payment Method:', payment_method);
-        console.log('Amount:', amount);
-        console.log('Seller Account ID:', seller_account_id);
+        // Log payment intent details for monitoring and debugging
+        console.log('Payment Intent created:', paymentIntent);
 
         // Return a success response
         return {
