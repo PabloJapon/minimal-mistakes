@@ -20,23 +20,36 @@ exports.handler = async (event, context) => {
             };
         }
 
+        // Ensure amount is an integer
+        const parsedAmount = parseInt(amount);
+        if (isNaN(parsedAmount)) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Invalid amount. Please provide a valid amount.' }),
+            };
+        }
+
         // Log input parameters
         console.log('Received payment method:', payment_method);
-        console.log('Received amount:', amount);
+        console.log('Received amount:', parsedAmount);
         console.log('Received seller account ID:', seller_account_id);
         console.log('Received return URL:', return_url);
 
-        // Create a payment intent with Stripe
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: parseInt(amount), // Ensure amount is an integer
+        // Log payload to be sent to Stripe
+        const paymentIntentData = {
+            amount: parsedAmount,
             currency: 'eur',
             payment_method: payment_method,
             confirm: true,
             confirmation_method: 'manual',
-            stripeAccount: seller_account_id, // Seller's account ID
-            return_url: return_url, // URL to which the customer will be redirected after payment
+            stripeAccount: seller_account_id,
+            return_url: return_url,
             receipt_email: 'forbiddenplaces96@gmail.com',
-        });
+        };
+        console.log('Payment Intent Payload:', paymentIntentData);
+
+        // Create a payment intent with Stripe
+        const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
 
         // Log payment intent details for monitoring and debugging
         console.log('Payment Intent created:', paymentIntent);
