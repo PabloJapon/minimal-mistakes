@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
     }
 
     // Ensure amount is an integer
-    const parsedAmount = parseInt(amount);
+    const parsedAmount = parseInt(amount, 10);
     if (isNaN(parsedAmount)) {
       return {
         statusCode: 400,
@@ -35,8 +35,8 @@ exports.handler = async (event, context) => {
     console.log('Received seller account ID:', seller_account_id);
     console.log('Received return URL:', return_url);
 
-    // Create a payment intent with Stripe
-    const paymentIntent = await stripe.paymentIntents.create({
+    // Log payload to be sent to Stripe
+    const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
       payment_method: payment_method,
@@ -44,7 +44,11 @@ exports.handler = async (event, context) => {
       confirmation_method: 'manual',
       return_url: return_url,
       receipt_email: 'forbiddenplaces96@gmail.com',
-    }, {
+    };
+    console.log('Payment Intent Payload:', paymentIntentData);
+
+    // Create a payment intent with Stripe
+    const paymentIntent = await stripe.paymentIntents.create(paymentIntentData, {
       stripeAccount: seller_account_id
     });
 
@@ -58,10 +62,16 @@ exports.handler = async (event, context) => {
     };
   } catch (error) {
     // Log and return an error response if any error occurs
-    console.error('Error:', error);
+    console.error('Error creating payment intent:', error);
+
+    // Extract and log specific error details if available
+    if (error.raw && error.raw.message) {
+      console.error('Stripe Error:', error.raw.message);
+    }
+
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'An error occurred while processing the payment.' }),
+      body: JSON.stringify({ error: 'An error occurred while processing the payment.', details: error.raw ? error.raw.message : error.message }),
     };
   }
 };
