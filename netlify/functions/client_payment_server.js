@@ -9,10 +9,8 @@ const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event, context) => {
     try {
-        // Parse the incoming request body
         const { payment_method, amount, seller_account_id, return_url } = JSON.parse(event.body);
-        
-        // Validate input
+
         if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url) {
             return {
                 statusCode: 400,
@@ -20,7 +18,6 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Ensure amount is an integer
         const parsedAmount = parseInt(amount);
         if (isNaN(parsedAmount)) {
             return {
@@ -29,13 +26,11 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Log input parameters
         console.log('Received payment method:', payment_method);
         console.log('Received amount:', parsedAmount);
         console.log('Received seller account ID:', seller_account_id);
         console.log('Received return URL:', return_url);
 
-        // Log payload to be sent to Stripe
         const paymentIntentData = {
             amount: parsedAmount,
             currency: 'eur',
@@ -48,23 +43,19 @@ exports.handler = async (event, context) => {
         };
         console.log('Payment Intent Payload:', paymentIntentData);
 
-        // Create a payment intent with Stripe
         const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
 
-        // Log payment intent details for monitoring and debugging
         console.log('Payment Intent created:', paymentIntent);
 
-        // Return a success response
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Payment processed successfully.', paymentIntent: paymentIntent }),
         };
     } catch (error) {
-        // Log and return an error response if any error occurs
-        console.error('Error:', error);
+        console.error('Error details:', error.raw ? error.raw : error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'An error occurred while processing the payment.' }),
+            body: JSON.stringify({ error: 'An error occurred while processing the payment.', details: error.raw ? error.raw : error }),
         };
     }
 };
