@@ -159,7 +159,7 @@ permalink: /client_payment/
   // Set the formatted amount in the text content
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
-  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  var stripe = Stripe('pk_test_...'); // Replace with your actual Stripe public key
   var elements = stripe.elements();
 
   var cardNumber = elements.create('cardNumber');
@@ -182,7 +182,7 @@ permalink: /client_payment/
       billing_details: {
         // Include any other billing details you might collect from the user
       }
-    }, { stripeAccount: sellerAccountId }).then(function(result) {
+    }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
@@ -192,7 +192,7 @@ permalink: /client_payment/
         var amount = document.getElementById('amount').value;
         var returnUrl = document.getElementById('return-url').value;
 
-        fetch('/.netlify/functions/client_payment_server', {
+        fetch('/.netlify/functions/client_payment_server', { // Adjust URL as per your server setup
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
