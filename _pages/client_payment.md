@@ -177,6 +177,9 @@ permalink: /client_payment/
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumber,
+      billing_details: {
+        // Include any other billing details you might collect from the user
+      }
     }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);

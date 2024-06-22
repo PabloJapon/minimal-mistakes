@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
     
     // Validate input
     if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url) {
+      console.error('Invalid input:', { payment_method, amount, seller_account_id, return_url });
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid input. Please provide valid payment method, amount, seller account ID, and return URL.' }),
@@ -23,6 +24,7 @@ exports.handler = async (event, context) => {
     // Ensure amount is an integer
     const parsedAmount = parseInt(amount, 10);
     if (isNaN(parsedAmount)) {
+      console.error('Invalid amount:', amount);
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid amount. Please provide a valid amount.' }),
