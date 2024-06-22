@@ -97,33 +97,34 @@ permalink: /client_payment/
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
 
-  <p id="amount-display">Cantidad: </p> <!-- Placeholder for amount -->
+  <!-- Placeholder para mostrar la cantidad -->
+  <p id="amount-display">Cantidad: </p>
 
-  <!-- Hidden input for the seller account ID -->
+  <!-- Campos ocultos para datos adicionales -->
   <input type="hidden" id="seller-account-id" value="acct_1PNXgvE7aK3gOt9K">
-  <!-- Hidden input for the return URL -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
-  <!-- Hidden input for the amount -->
   <input type="hidden" id="amount">
 
+  <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
 
+  <!-- Elementos para la fecha de expiración y código de seguridad -->
   <div class="inline-labels">
     <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
     <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
   </div>
-
   <div class="inline-elements">
     <div id="card-expiry-element" class="stripe-element-50"></div>
     <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
+  <!-- Botón de Pagar -->
   <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
 
 <script>
-  // Function to get query parameters
+  // Función para obtener parámetros de la consulta en la URL
   function getQueryParams() {
     const params = {};
     const queryString = window.location.search;
@@ -135,64 +136,58 @@ permalink: /client_payment/
     return params;
   }
 
-  // Decode Base64 function
+  // Función para decodificar Base64
   function decodeBase64(base64) {
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
   }
 
-  // Get the amount parameter from the URL
+  // Obtener el parámetro 'amount' de la URL y decodificarlo
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
   const amount = decodeBase64(encryptedAmount);
 
-  // Set the amount in the hidden input field and display it
+  // Establecer el monto en el campo de entrada oculto y mostrarlo
   document.getElementById('amount').value = amount;
-
-  // Convert the amount to a decimal
   const amountDecimal = (amount / 100).toFixed(2);
-
-  // Format the amount with a comma as the decimal separator
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
-
-  // Set the formatted amount in the text content
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
-  var stripe = Stripe('pk_test_...'); // Replace with your actual Stripe public key
+  // Inicializar Stripe y los elementos de Stripe
+  var stripe = Stripe('pk_test_...');
   var elements = stripe.elements();
-
   var cardNumber = elements.create('cardNumber');
   cardNumber.mount('#card-number-element');
-
   var cardExpiry = elements.create('cardExpiry');
   cardExpiry.mount('#card-expiry-element');
-
   var cardCvc = elements.create('cardCvc');
   cardCvc.mount('#card-cvc-element');
 
+  // Manejar el evento click del botón de Pagar
   var payButton = document.getElementById('card-button');
-
   payButton.addEventListener('click', function() {
+    // Obtener el ID de la cuenta de vendedor
     const sellerAccountId = document.getElementById('seller-account-id').value;
 
+    // Crear un método de pago con Stripe
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumber,
       billing_details: {
-        // Include any other billing details you might collect from the user
+        // Aquí podrías incluir detalles adicionales de facturación si los recopilas
       }
     }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
       } else {
-        // Send payment method and amount to server
+        // Si el método de pago se crea correctamente, enviar los datos al servidor
         var paymentMethod = result.paymentMethod.id;
         var amount = document.getElementById('amount').value;
         var returnUrl = document.getElementById('return-url').value;
 
-        fetch('/.netlify/functions/client_payment_server', { // Adjust URL as per your server setup
+        fetch('/.netlify/functions/client_payment_server', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -211,12 +206,12 @@ permalink: /client_payment/
             alert('Error: ' + data.error);
           } else {
             alert(data.message);
-            // Redirect to the return URL if the payment was successful
+            // Redirigir a la URL de retorno si el pago fue exitoso
             window.location.href = returnUrl;
           }
         }).catch(function(error) {
           console.error('Error:', error);
-          alert('Error processing payment. Please try again later.');
+          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
         });
       }
     });
