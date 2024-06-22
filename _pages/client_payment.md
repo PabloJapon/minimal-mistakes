@@ -155,7 +155,7 @@ permalink: /client_payment/
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
   // Inicializar Stripe y los elementos de Stripe
-  var stripe = Stripe('pk_test_...');
+  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
   var cardNumber = elements.create('cardNumber');
   cardNumber.mount('#card-number-element');
