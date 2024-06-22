@@ -41,7 +41,9 @@ exports.handler = async (event, context) => {
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
-      payment_method: payment_method,
+      automatic_payment_methods: {
+        enabled: true,
+      },
       confirm: true,
       confirmation_method: 'manual',
       return_url: return_url,
