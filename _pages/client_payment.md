@@ -174,13 +174,15 @@ permalink: /client_payment/
   var payButton = document.getElementById('card-button');
 
   payButton.addEventListener('click', function() {
+    const sellerAccountId = document.getElementById('seller-account-id').value;
+
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumber,
       billing_details: {
         // Include any other billing details you might collect from the user
       }
-    }).then(function(result) {
+    }, { stripeAccount: sellerAccountId }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
@@ -188,7 +190,6 @@ permalink: /client_payment/
         // Send payment method and amount to server
         var paymentMethod = result.paymentMethod.id;
         var amount = document.getElementById('amount').value;
-        var sellerAccountId = document.getElementById('seller-account-id').value;
         var returnUrl = document.getElementById('return-url').value;
 
         fetch('/.netlify/functions/client_payment_server', {
