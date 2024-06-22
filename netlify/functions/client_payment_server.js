@@ -5,7 +5,6 @@ if (!stripeSecretKey) {
 } else {
   console.log('Stripe secret key:', stripeSecretKey);
 }
-
 const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event, context) => {
@@ -42,10 +41,9 @@ exports.handler = async (event, context) => {
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
-      payment_method_types: ['card'],
-      payment_method: payment_method,
-      confirm: true,
-      return_url: return_url,
+      automatic_payment_methods: {
+        enabled: true,
+      },
       receipt_email: 'forbiddenplaces96@gmail.com',
     };
     console.log('Payment Intent Payload:', paymentIntentData);
