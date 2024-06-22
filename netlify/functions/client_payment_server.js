@@ -44,6 +44,7 @@ exports.handler = async (event, context) => {
       automatic_payment_methods: {
         enabled: true,
       },
+      confirm: true,
       return_url: return_url,
       receipt_email: 'forbiddenplaces96@gmail.com',
     };
