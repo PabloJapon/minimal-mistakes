@@ -195,21 +195,25 @@ img {
     return result;
   }
 
-  // Function to add or update new field in user metadata
-  function addNewFieldToUserMetadata(user, newField) {
-    const newValue = generateRandomID(6); // Generate a random ID with 6 characters
-    const updatedMetadata = {
-      ...user.user_metadata,
-      [newField]: newValue
-    };
+  // Function to add or update ID in user metadata
+  function addIDToUserMetadata(user) {
+    if (!user.user_metadata.id) { // Check if the ID already exists
+      const newID = generateRandomID(6); // Generate a random ID with 6 characters
+      const updatedMetadata = {
+        ...user.user_metadata,
+        id: newID
+      };
 
-    user.update({
-      data: updatedMetadata
-    }).then(() => {
-      console.log('User metadata updated successfully with new ID:', updatedMetadata);
-    }).catch(error => {
-      console.error('Error updating user metadata:', error);
-    });
+      user.update({
+        data: updatedMetadata
+      }).then(() => {
+        console.log('User metadata updated successfully with new ID:', updatedMetadata);
+      }).catch(error => {
+        console.error('Error updating user metadata:', error);
+      });
+    } else {
+      console.log('User already has an ID:', user.user_metadata.id);
+    }
   }
 
   // Netlify identity
@@ -232,8 +236,8 @@ img {
     fetchNextInvoiceDate(user.email);
     fetchCheckConnectedAccount(user.email); // Fetch connected account status on login
 
-    // Add or update new field in user metadata
-    addNewFieldToUserMetadata(user, 'new_id');
+    // Add or update ID in user metadata
+    addIDToUserMetadata(user);
   });
 
   netlifyIdentity.on('logout', () => {
