@@ -20,7 +20,6 @@ layout: splash
 
 .plan-contenido {
   padding-left: 20px; /* Añade un margen a la izquierda del contenido */
-
 }
   
 .linea {
@@ -185,8 +184,20 @@ img {
     .catch(error => console.error('Error checking connected account:', error));
   }
 
+  // Function to generate a random alphanumeric ID
+  function generateRandomID(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   // Function to add or update new field in user metadata
-  function addNewFieldToUserMetadata(user, newField, newValue) {
+  function addNewFieldToUserMetadata(user, newField) {
+    const newValue = generateRandomID(6); // Generate a random ID with 6 characters
     const updatedMetadata = {
       ...user.user_metadata,
       [newField]: newValue
@@ -195,7 +206,7 @@ img {
     user.update({
       data: updatedMetadata
     }).then(() => {
-      console.log('User metadata updated successfully:', updatedMetadata);
+      console.log('User metadata updated successfully with new ID:', updatedMetadata);
     }).catch(error => {
       console.error('Error updating user metadata:', error);
     });
@@ -222,7 +233,7 @@ img {
     fetchCheckConnectedAccount(user.email); // Fetch connected account status on login
 
     // Add or update new field in user metadata
-    addNewFieldToUserMetadata(user, 'new_id', 'your_new_id_value');
+    addNewFieldToUserMetadata(user, 'new_id');
   });
 
   netlifyIdentity.on('logout', () => {
