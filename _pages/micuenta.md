@@ -185,6 +185,22 @@ img {
     .catch(error => console.error('Error checking connected account:', error));
   }
 
+  // Function to add or update new field in user metadata
+  function addNewFieldToUserMetadata(user, newField, newValue) {
+    const updatedMetadata = {
+      ...user.user_metadata,
+      [newField]: newValue
+    };
+
+    user.update({
+      data: updatedMetadata
+    }).then(() => {
+      console.log('User metadata updated successfully:', updatedMetadata);
+    }).catch(error => {
+      console.error('Error updating user metadata:', error);
+    });
+  }
+
   // Netlify identity
   netlifyIdentity.on('login', user => {
     const usernameSpan = document.getElementById('username');
@@ -204,6 +220,9 @@ img {
 
     fetchNextInvoiceDate(user.email);
     fetchCheckConnectedAccount(user.email); // Fetch connected account status on login
+
+    // Add or update new field in user metadata
+    addNewFieldToUserMetadata(user, 'new_id', 'your_new_id_value');
   });
 
   netlifyIdentity.on('logout', () => {
