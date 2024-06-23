@@ -10,7 +10,8 @@ exports.handler = async (event, context) => {
 
             storedInputData = {
                 message: requestBody.message,
-                subscription_plan: requestBody.subscription_plan
+                subscription_plan: requestBody.subscription_plan,
+                id: requestBody.id // Store the ID from the POST request
             }; // Store the inputData from the POST request
             console.log("Input data stored:", storedInputData);
 
