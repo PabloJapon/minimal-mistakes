@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Form Submission Successful</title>
+  <title>Mensaje enviado correctamente</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
     /* Style for the overlay */
     .overlay {
       position: fixed;
@@ -25,6 +32,47 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .success-container h1 {
+      color: #333;
+      margin-bottom: 1em;
+    }
+
+    .success-container p {
+      color: #666;
+      margin-bottom: 1.5em;
+    }
+
+    /* Button style */
+    .success-container a {
+      background-color: #e31c24;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .success-container a:hover {
+      background-color: #9b1b20;
+    }
+
+    /* Style for the iframe */
+    .content {
+      position: relative;
+      z-index: 1; /* Ensure it's below the overlay */
+      width: 100%;
+      height: calc(100vh - 40px); /* Adjust as needed to fit below the overlay */
+      overflow: hidden; /* Hide scrollbars */
+    }
+
+    .content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -33,14 +81,16 @@
   <div class="overlay">
     <!-- Success message container -->
     <div class="success-container">
-      <h1>Contact Form Submission Successful</h1>
+      <h1>Mensaje enviado correctamente</h1>
       <p>Gracias por ponerse en contacto con nosotros. Hemos recibido su mensaje y nos pondremos en contacto con usted lo antes posible.</p>
       <!-- Button to return to the homepage -->
-      <a href="index.html">Return to Homepage</a>
+      <a href="https://gastrali.com/">Cerrar</a>
     </div>
   </div>
-  <!-- The rest of your website content goes here -->
-  <!-- This content will be below the overlay and potentially dimmed -->
-  <iframe src="index.md" frameborder="0" style="width: 100%; height: 100vh;"></iframe>
+  
+  <!-- Content below the overlay -->
+  <div class="content">
+    <iframe src="https://gastrali.com/" frameborder="0"></iframe>
+  </div>
 </body>
 </html>
