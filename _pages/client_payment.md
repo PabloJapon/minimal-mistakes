@@ -124,20 +124,25 @@ permalink: /client_payment/
 </div>
 
 <script>
+  console.log('Script iniciado');
+
   // Función para obtener parámetros de la consulta en la URL
   function getQueryParams() {
+    console.log('Obteniendo parámetros de la URL');
     const params = {};
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
     for (const [key, value] of urlParams.entries()) {
       params[key] = value;
+      console.log(`Parámetro encontrado: ${key} = ${value}`);
     }
     return params;
   }
 
   // Función para decodificar Base64
   function decodeBase64(base64) {
+    console.log('Decodificando Base64');
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
@@ -146,13 +151,16 @@ permalink: /client_payment/
   // Obtener el parámetro 'amount' de la URL y decodificarlo
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
+  console.log(`Cantidad encriptada: ${encryptedAmount}`);
   const amount = decodeBase64(encryptedAmount);
+  console.log(`Cantidad decodificada: ${amount}`);
 
   // Establecer el monto en el campo de entrada oculto y mostrarlo
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
+  console.log(`Cantidad mostrada: ${formattedAmount} €`);
 
   // Inicializar Stripe y los elementos de Stripe
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
@@ -163,57 +171,62 @@ permalink: /client_payment/
   cardExpiry.mount('#card-expiry-element');
   var cardCvc = elements.create('cardCvc');
   cardCvc.mount('#card-cvc-element');
+  console.log('Elementos de Stripe inicializados');
 
   // Manejar el evento click del botón de Pagar
   var payButton = document.getElementById('card-button');
   payButton.addEventListener('click', function() {
-  const sellerAccountId = document.getElementById('seller-account-id').value;
+    console.log('Botón de pagar clicado');
+    const sellerAccountId = document.getElementById('seller-account-id').value;
+    console.log(`Seller Account ID: ${sellerAccountId}`);
 
-  stripe.createPaymentMethod({
-    type: 'card',
-    card: cardNumber,
-    billing_details: {
-      // Additional billing details if required
-    }
-  }, {
-    stripeAccount: sellerAccountId // Attach the payment method to the seller's account
-  }).then(function(result) {
-    if (result.error) {
-      console.error(result.error.message);
-      alert('Error: ' + result.error.message);
-    } else {
-      var paymentMethod = result.paymentMethod.id;
-      var amount = document.getElementById('amount').value;
-      var returnUrl = document.getElementById('return-url').value;
+    stripe.createPaymentMethod({
+      type: 'card',
+      card: cardNumber,
+      billing_details: {
+        // Additional billing details if required
+      }
+    }, {
+      stripeAccount: sellerAccountId // Attach the payment method to the seller's account
+    }).then(function(result) {
+      if (result.error) {
+        console.error(result.error.message);
+        alert('Error: ' + result.error.message);
+      } else {
+        console.log('Método de pago creado exitosamente');
+        var paymentMethod = result.paymentMethod.id;
+        console.log(`Payment Method ID: ${paymentMethod}`);
+        var amount = document.getElementById('amount').value;
+        var returnUrl = document.getElementById('return-url').value;
 
-      fetch('/.netlify/functions/client_payment_server', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          payment_method: paymentMethod,
-          amount: amount,
-          seller_account_id: sellerAccountId,
-          return_url: returnUrl
-        }),
-      }).then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        console.log(data);
-        if (data.error) {
-          alert('Error: ' + data.error);
-        } else {
-          alert(data.message);
-          window.location.href = returnUrl;
-        }
-      }).catch(function(error) {
-        console.error('Error:', error);
-        alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
-      });
-    }
+        fetch('/.netlify/functions/client_payment_server', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payment_method: paymentMethod,
+            amount: amount,
+            seller_account_id: sellerAccountId,
+            return_url: returnUrl
+          }),
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data);
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            alert(data.message);
+            window.location.href = returnUrl;
+          }
+        }).catch(function(error) {
+          console.error('Error:', error);
+          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
+        });
+      }
+    });
   });
-});
 </script>
 
 </body>
