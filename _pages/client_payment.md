@@ -167,55 +167,53 @@ permalink: /client_payment/
   // Manejar el evento click del botón de Pagar
   var payButton = document.getElementById('card-button');
   payButton.addEventListener('click', function() {
-    // Obtener el ID de la cuenta de vendedor
-    const sellerAccountId = document.getElementById('seller-account-id').value;
+  const sellerAccountId = document.getElementById('seller-account-id').value;
 
-    // Crear un método de pago con Stripe
-    stripe.createPaymentMethod({
-      type: 'card',
-      card: cardNumber,
-      billing_details: {
-        // Aquí podrías incluir detalles adicionales de facturación si los recopilas
-      }
-    }).then(function(result) {
-      if (result.error) {
-        console.error(result.error.message);
-        alert('Error: ' + result.error.message);
-      } else {
-        // Si el método de pago se crea correctamente, enviar los datos al servidor
-        var paymentMethod = result.paymentMethod.id;
-        var amount = document.getElementById('amount').value;
-        var returnUrl = document.getElementById('return-url').value;
+  stripe.createPaymentMethod({
+    type: 'card',
+    card: cardNumber,
+    billing_details: {
+      // Additional billing details if required
+    }
+  }, {
+    stripeAccount: sellerAccountId // Attach the payment method to the seller's account
+  }).then(function(result) {
+    if (result.error) {
+      console.error(result.error.message);
+      alert('Error: ' + result.error.message);
+    } else {
+      var paymentMethod = result.paymentMethod.id;
+      var amount = document.getElementById('amount').value;
+      var returnUrl = document.getElementById('return-url').value;
 
-        fetch('/.netlify/functions/client_payment_server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            payment_method: paymentMethod,
-            amount: amount,
-            seller_account_id: sellerAccountId,
-            return_url: returnUrl
-          }),
-        }).then(function(response) {
-          return response.json();
-        }).then(function(data) {
-          console.log(data);
-          if (data.error) {
-            alert('Error: ' + data.error);
-          } else {
-            alert(data.message);
-            // Redirigir a la URL de retorno si el pago fue exitoso
-            window.location.href = returnUrl;
-          }
-        }).catch(function(error) {
-          console.error('Error:', error);
-          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
-        });
-      }
-    });
+      fetch('/.netlify/functions/client_payment_server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          payment_method: paymentMethod,
+          amount: amount,
+          seller_account_id: sellerAccountId,
+          return_url: returnUrl
+        }),
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        console.log(data);
+        if (data.error) {
+          alert('Error: ' + data.error);
+        } else {
+          alert(data.message);
+          window.location.href = returnUrl;
+        }
+      }).catch(function(error) {
+        console.error('Error:', error);
+        alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
+      });
+    }
   });
+});
 </script>
 
 </body>
