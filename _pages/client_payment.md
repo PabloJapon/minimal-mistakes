@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /client_payment/
----
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -71,24 +66,24 @@ permalink: /client_payment/
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-sizing: border-box;
+      box-sizing: border-box.
     }
 
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 14px;
+      font-size: 14px.
     }
 
     .inline-elements {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: center.
+      gap: 10px.
     }
     .inline-labels {
-      display: flex;
-      align-items: center;
-      gap: 49px;
+      display: flex.
+      align-items: center.
+      gap: 49px.
     }
   </style>
 </head>
@@ -124,11 +119,8 @@ permalink: /client_payment/
 </div>
 
 <script>
-  console.log('Script iniciado');
-
   // Función para obtener parámetros de la consulta en la URL
   function getQueryParams() {
-    console.log('Obteniendo parámetros de la URL');
     const params = {};
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -142,7 +134,7 @@ permalink: /client_payment/
 
   // Función para decodificar Base64
   function decodeBase64(base64) {
-    console.log('Decodificando Base64');
+    console.log(`Decodificando Base64: ${base64}`);
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
@@ -153,7 +145,6 @@ permalink: /client_payment/
   const encryptedAmount = queryParams['amount'];
   console.log(`Cantidad encriptada: ${encryptedAmount}`);
   const amount = decodeBase64(encryptedAmount);
-  console.log(`Cantidad decodificada: ${amount}`);
 
   // Establecer el monto en el campo de entrada oculto y mostrarlo
   document.getElementById('amount').value = amount;
@@ -184,10 +175,10 @@ permalink: /client_payment/
       type: 'card',
       card: cardNumber,
       billing_details: {
-        // Additional billing details if required
+        // Aquí podrías incluir detalles adicionales de facturación si los recopilas
       }
     }, {
-      stripeAccount: sellerAccountId // Attach the payment method to the seller's account
+      stripeAccount: sellerAccountId
     }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);
