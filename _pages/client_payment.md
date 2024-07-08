@@ -1,9 +1,7 @@
 ---
-title: "Client Payment"
+layout: default
 permalink: /client_payment/
-layout: splash
 ---
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -46,7 +44,7 @@ layout: splash
     }
 
     button {
-      background-color: #6699ff;
+      background-color: #e31c24;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -73,24 +71,24 @@ layout: splash
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-sizing: border-box.
+      box-sizing: border-box;
     }
 
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 14px.
+      font-size: 14px;
     }
 
     .inline-elements {
       display: flex;
-      align-items: center.
-      gap: 10px.
+      align-items: center;
+      gap: 10px;
     }
     .inline-labels {
-      display: flex.
-      align-items: center.
-      gap: 49px.
+      display: flex;
+      align-items: center;
+      gap: 49px;
     }
   </style>
 </head>
@@ -134,14 +132,12 @@ layout: splash
 
     for (const [key, value] of urlParams.entries()) {
       params[key] = value;
-      console.log(`Parámetro encontrado: ${key} = ${value}`);
     }
     return params;
   }
 
   // Función para decodificar Base64
   function decodeBase64(base64) {
-    console.log(`Decodificando Base64: ${base64}`);
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
@@ -150,7 +146,6 @@ layout: splash
   // Obtener el parámetro 'amount' de la URL y decodificarlo
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
-  console.log(`Cantidad encriptada: ${encryptedAmount}`);
   const amount = decodeBase64(encryptedAmount);
 
   // Establecer el monto en el campo de entrada oculto y mostrarlo
@@ -158,7 +153,6 @@ layout: splash
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
-  console.log(`Cantidad mostrada: ${formattedAmount} €`);
 
   // Inicializar Stripe y los elementos de Stripe
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
@@ -169,31 +163,27 @@ layout: splash
   cardExpiry.mount('#card-expiry-element');
   var cardCvc = elements.create('cardCvc');
   cardCvc.mount('#card-cvc-element');
-  console.log('Elementos de Stripe inicializados');
 
   // Manejar el evento click del botón de Pagar
   var payButton = document.getElementById('card-button');
   payButton.addEventListener('click', function() {
-    console.log('Botón de pagar clicado');
+    // Obtener el ID de la cuenta de vendedor
     const sellerAccountId = document.getElementById('seller-account-id').value;
-    console.log(`Seller Account ID: ${sellerAccountId}`);
 
+    // Crear un método de pago con Stripe
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumber,
       billing_details: {
         // Aquí podrías incluir detalles adicionales de facturación si los recopilas
       }
-    }, {
-      stripeAccount: sellerAccountId
     }).then(function(result) {
       if (result.error) {
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
       } else {
-        console.log('Método de pago creado exitosamente');
+        // Si el método de pago se crea correctamente, enviar los datos al servidor
         var paymentMethod = result.paymentMethod.id;
-        console.log(`Payment Method ID: ${paymentMethod}`);
         var amount = document.getElementById('amount').value;
         var returnUrl = document.getElementById('return-url').value;
 
@@ -216,6 +206,7 @@ layout: splash
             alert('Error: ' + data.error);
           } else {
             alert(data.message);
+            // Redirigir a la URL de retorno si el pago fue exitoso
             window.location.href = returnUrl;
           }
         }).catch(function(error) {
