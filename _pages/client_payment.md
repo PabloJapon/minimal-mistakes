@@ -1,3 +1,10 @@
+---
+title: "Client Payment"
+permalink: /client_payment/
+layout: splash
+---
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
