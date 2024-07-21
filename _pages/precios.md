@@ -21,7 +21,7 @@ img {
 }
 
 .plan {
-  width: 400px; /* Ancho deseado de cada plan */
+  width: 380px; /* Ancho deseado de cada plan */
   padding: 60px 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -29,8 +29,8 @@ img {
   text-align: center;
   margin-bottom: 60px; /* Espacio inferior entre cada plan */
   margin-top: 60px;
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: 14px;
+  margin-right: 14px;
 }
 
 .plan-button2 {
