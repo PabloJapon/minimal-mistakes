@@ -137,21 +137,21 @@ img {
     <h2 style="margin-bottom: 2em;">Gratis</h2>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
-    <p>Gratis. Para siempre</p>
+    <p style="text-align: left; margin-left: 2em;">Gratis. Para siempre</p>
   </div>
 
   <div class="plan" style="border: 2px solid #ffc368;">
-    <h2 style="margin-bottom: 2em;">Gratis</h2>
+    <h2 style="margin-bottom: 2em;">Pro</h2>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
-    <p>Este pues mejor tu sabe</p>
+    <p style="text-align: left; margin-left: 2em;">Este pues mejor tu sabe</p>
   </div>
 
   <div class="plan" style="border: 2px solid #081655; background: #081655">
-    <h2 style="margin-bottom: 2em;">Gratis</h2>
-    <h1 style="font-weight: normal;">0€</h1>
+    <h2 style="margin-bottom: 2em; color:white;">Premium</h2>
+    <h1 style="font-weight: normal; color:white;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
-    <p>Y este buenisimo del to</p>
+    <p style="text-align: left; margin-left: 2em; color:white;">Y este buenisimo del to</p>
   </div>
 </div>
 
