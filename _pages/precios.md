@@ -3,7 +3,7 @@ permalink: /precios/
 layout: default
 ---
 
-<h2 style="margin-top: 5em; text-align: center;">Elige tu plan ideal</h2>
+<h1 style="margin-top: 5em; text-align: center;">Elige tu plan ideal</h1>
 
 <style>
 img {
