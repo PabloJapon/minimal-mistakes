@@ -22,7 +22,7 @@ img {
 
 .plan {
   width: 400px; /* Ancho deseado de cada plan */
-  padding: 20px;
+  padding: 60px 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
@@ -55,7 +55,7 @@ img {
   color: white;
   border: none;
   padding: 15px 100px;
-  margin: 40px;
+  margin: 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -134,23 +134,23 @@ img {
 
 <div class="plan-container">
   <div class="plan" style="border: 2px solid #6699ff;">
-    <h2>Gratis</h2>
-    <h1>0€</h1>
+    <h2 style="margin-bottom: 2em;">Gratis</h2>
+    <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
     <p>Gratis. Para siempre</p>
   </div>
 
   <div class="plan" style="border: 2px solid #ffc368;">
-    <h2>Pro</h2>
-    <h1>30€</h1>
+    <h2 style="margin-bottom: 2em;">Gratis</h2>
+    <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
     <p>Este pues mejor tu sabe</p>
   </div>
 
-  <div class="plan" style="border: 2px solid #081655;">
-    <h2>Premium</h2>
-    <h1>50€</h1>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368; background: #081655;">Empieza</button>
+  <div class="plan" style="border: 2px solid #081655; background: #081655">
+    <h2 style="margin-bottom: 2em;">Gratis</h2>
+    <h1 style="font-weight: normal;">0€</h1>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
     <p>Y este buenisimo del to</p>
   </div>
 </div>
