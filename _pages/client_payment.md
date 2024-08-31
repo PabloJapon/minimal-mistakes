@@ -206,7 +206,7 @@ permalink: /client_payment/
           payment_method: paymentMethod,
           amount: amount,
           seller_account_id: sellerAccountId,
-          return_url: returnUrl
+          return_url: returnUrl,
           receipt_email: document.getElementById('email').value
         }),
       }).then(function(response) {
