@@ -105,6 +105,10 @@ permalink: /client_payment/
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
   <input type="hidden" id="amount">
 
+  <!-- Campo de correo electrónico -->
+  <label for="email" class="element-label">Correo Electrónico</label>
+  <input type="email" id="email" placeholder="tuemail@example.com" required>
+
   <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
@@ -155,13 +159,7 @@ permalink: /client_payment/
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
   // Inicializar Stripe y los elementos de Stripe
-  // Retrieve the seller account ID from the hidden field
-  const sellerAccountId = document.getElementById('seller-account-id').value;
-
-  // Initialize Stripe for the connected account
-  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo', {
-    stripeAccount: sellerAccountId
-  });
+  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
   var cardNumber = elements.create('cardNumber');
   cardNumber.mount('#card-number-element');
@@ -173,67 +171,67 @@ permalink: /client_payment/
   // Manejar el evento click del botón de Pagar
   var payButton = document.getElementById('card-button');
   payButton.addEventListener('click', function() {
-    // Obtener el ID de la cuenta de vendedor
-    const sellerAccountId = document.getElementById('seller-account-id').value;
+    const email = document.getElementById('email').value;
 
     // Crear un método de pago con Stripe
     stripe.createPaymentMethod({
-    type: 'card',
-    card: cardNumber,
-    billing_details: {
-      // Aquí podrías incluir detalles adicionales de facturación si los recopilas
-    }
-  }).then(function(result) {
-    if (result.error) {
-      console.error(result.error.message);
-      alert('Error: ' + result.error.message);
-    } else {
-      var paymentMethod = result.paymentMethod.id;
-      var amount = document.getElementById('amount').value;
-      var returnUrl = document.getElementById('return-url').value;
-      
-      // Send payment method to the server to create PaymentIntent
-      fetch('/.netlify/functions/client_payment_server', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          payment_method: paymentMethod,
-          amount: amount,
-          seller_account_id: sellerAccountId,
-          return_url: returnUrl
-        }),
-      }).then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        if (data.error) {
-          alert('Error: ' + data.error);
-        } else {
-          // Proceed to confirm the payment with the received client_secret
-          confirmPayment(data.clientSecret, returnUrl);
-        }
-      }).catch(function(error) {
-        console.error('Error:', error);
-        alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
-      });
-    }
-  });
-
-  function confirmPayment(clientSecret, returnUrl) {
-    stripe.confirmCardPayment(clientSecret).then(function(result) {
+      type: 'card',
+      card: cardNumber,
+      billing_details: {
+        email: email, // Add the email to billing details
+      }
+    }).then(function(result) {
       if (result.error) {
-        // Show error to the customer
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
       } else {
-        // The payment has succeeded
-        alert('Payment successful!');
-        window.location.href = returnUrl; // Redirect to success URL
+        var paymentMethod = result.paymentMethod.id;
+        var amount = document.getElementById('amount').value;
+        var returnUrl = document.getElementById('return-url').value;
+
+        // Send payment method to the server to create PaymentIntent
+        fetch('/.netlify/functions/client_payment_server', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payment_method: paymentMethod,
+            amount: amount,
+            seller_account_id: document.getElementById('seller-account-id').value,
+            return_url: returnUrl,
+            receipt_email: email // Send the email to the server
+          }),
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            // Proceed to confirm the payment with the received client_secret
+            confirmPayment(data.clientSecret, returnUrl);
+          }
+        }).catch(function(error) {
+          console.error('Error:', error);
+          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
+        });
       }
     });
-  }
-});
+
+    function confirmPayment(clientSecret, returnUrl) {
+      stripe.confirmCardPayment(clientSecret).then(function(result) {
+        if (result.error) {
+          // Show error to the customer
+          console.error(result.error.message);
+          alert('Error: ' + result.error.message);
+        } else {
+          // The payment has succeeded
+          alert('Payment successful!');
+          window.location.href = returnUrl; // Redirect to success URL
+        }
+      });
+    }
+  });
 </script>
 
 </body>
