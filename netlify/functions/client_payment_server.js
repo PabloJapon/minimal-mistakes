@@ -38,7 +38,6 @@ exports.handler = async (event, context) => {
       currency: 'eur',
       receipt_email: 'forbiddenplaces96@gmail.com', // Correo electrónico para el recibo
       payment_method: payment_method, // Método de pago proporcionado por el cliente
-      confirm: true, // Confirmar automáticamente el intento de pago
       confirmation_method: 'automatic', // Método de confirmación automático
     };
     console.log('Payload del intento de pago:', paymentIntentData);
@@ -54,7 +53,10 @@ exports.handler = async (event, context) => {
     // Retornar una respuesta de éxito
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Pago procesado exitosamente.', paymentIntent: paymentIntent }),
+      body: JSON.stringify({ 
+        message: 'Pago procesado exitosamente.', 
+        clientSecret: paymentIntent.client_secret // Send client_secret to client for confirmation
+      }),
     };
   } catch (error) {
     // Registrar y devolver una respuesta de error si ocurre algún problema

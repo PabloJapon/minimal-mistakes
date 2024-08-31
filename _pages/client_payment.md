@@ -172,50 +172,62 @@ permalink: /client_payment/
 
     // Crear un método de pago con Stripe
     stripe.createPaymentMethod({
-      type: 'card',
-      card: cardNumber,
-      billing_details: {
-        // Aquí podrías incluir detalles adicionales de facturación si los recopilas
-      }
-    }).then(function(result) {
+    type: 'card',
+    card: cardNumber,
+    billing_details: {
+      // Aquí podrías incluir detalles adicionales de facturación si los recopilas
+    }
+  }).then(function(result) {
+    if (result.error) {
+      console.error(result.error.message);
+      alert('Error: ' + result.error.message);
+    } else {
+      var paymentMethod = result.paymentMethod.id;
+      var amount = document.getElementById('amount').value;
+      var returnUrl = document.getElementById('return-url').value;
+      
+      // Send payment method to the server to create PaymentIntent
+      fetch('/.netlify/functions/client_payment_server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          payment_method: paymentMethod,
+          amount: amount,
+          seller_account_id: sellerAccountId,
+          return_url: returnUrl
+        }),
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        if (data.error) {
+          alert('Error: ' + data.error);
+        } else {
+          // Proceed to confirm the payment with the received client_secret
+          confirmPayment(data.clientSecret, returnUrl);
+        }
+      }).catch(function(error) {
+        console.error('Error:', error);
+        alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
+      });
+    }
+  });
+
+  function confirmPayment(clientSecret, returnUrl) {
+    stripe.confirmCardPayment(clientSecret).then(function(result) {
       if (result.error) {
+        // Show error to the customer
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
       } else {
-        // Si el método de pago se crea correctamente, enviar los datos al servidor
-        var paymentMethod = result.paymentMethod.id;
-        var amount = document.getElementById('amount').value;
-        var returnUrl = document.getElementById('return-url').value;
-
-        fetch('/.netlify/functions/client_payment_server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            payment_method: paymentMethod,
-            amount: amount,
-            seller_account_id: sellerAccountId,
-            return_url: returnUrl
-          }),
-        }).then(function(response) {
-          return response.json();
-        }).then(function(data) {
-          console.log(data);
-          if (data.error) {
-            alert('Error: ' + data.error);
-          } else {
-            alert(data.message);
-            // Redirigir a la URL de retorno si el pago fue exitoso
-            window.location.href = returnUrl;
-          }
-        }).catch(function(error) {
-          console.error('Error:', error);
-          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
-        });
+        // The payment has succeeded
+        alert('Payment successful!');
+        window.location.href = returnUrl; // Redirect to success URL
       }
     });
-  });
+  }
+});
 </script>
 
 </body>
