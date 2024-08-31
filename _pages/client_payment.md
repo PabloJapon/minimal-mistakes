@@ -44,7 +44,7 @@ permalink: /client_payment/
     }
 
     button {
-      background-color: #e31c24;
+      background-color: #6699ff;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -121,7 +121,7 @@ permalink: /client_payment/
 
   <!-- Campo de correo electrónico -->
   <label for="email" class="element-label">Correo Electrónico</label>
-  <input type="email" id="email" placeholder="tuemail@example.com" required>
+  <input type="email" id="email" placeholder="tuemail@ejemplo.com" required="" style="font-size: 14px;background-color: white;box-shadow: none;">
 
   <!-- Botón de Pagar -->
   <button id="card-button" type="submit">Pagar Ahora</button>
