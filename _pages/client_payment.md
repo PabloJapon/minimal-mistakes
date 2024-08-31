@@ -119,6 +119,10 @@ permalink: /client_payment/
     <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
+  <!-- Campo de correo electrónico -->
+  <label for="email" class="element-label">Correo Electrónico</label>
+  <input type="email" id="email" placeholder="tuemail@example.com" required>
+
   <!-- Botón de Pagar -->
   <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
@@ -203,6 +207,7 @@ permalink: /client_payment/
           amount: amount,
           seller_account_id: sellerAccountId,
           return_url: returnUrl
+          receipt_email: document.getElementById('email').value
         }),
       }).then(function(response) {
         return response.json();
