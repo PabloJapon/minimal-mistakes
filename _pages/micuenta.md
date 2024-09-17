@@ -10,6 +10,7 @@ layout: splash
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  color: rgb(34, 40, 49);
   background: white;
   text-align: left;
   margin-bottom: 20px; /* Espacio inferior entre cada plan */
