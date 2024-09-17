@@ -2,3 +2,6 @@
   from = "/.well-known/*"
   to = "/.well-known/:splat"
   status = 200
+[build]
+  node_version = "18.x"
+
