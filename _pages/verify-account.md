@@ -6,6 +6,9 @@ layout: splash
 
 <p id="username" style="display: none;"></p> <!-- Hidden element to store username -->
 
+<!-- Add some top margin to the message element to avoid being hidden behind the masthead -->
+<p id="loginMessage" style="margin-top: 100px;"></p> <!-- Adjust the 100px value as needed -->
+
 <script>
   // Function to generate a random alphanumeric ID
   function generateRandomID(length) {
