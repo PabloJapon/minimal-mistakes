@@ -172,6 +172,10 @@ header:
   cursor: pointer;
 }
 
+.plan-button:hover {
+  background-color: #4c80d9; /* Cambio de color en el hover */
+}
+
 .faq {
   width: 100%;
   max-width: 41rem;
@@ -193,15 +197,24 @@ header:
 }
 
 .accordion {
+  background-color: transparent !important;
+  outline: 0 !important;
   width: 100%;
-  padding: 20px 20px;
+  padding: 20px;
   text-align: left;
   border: none;
   cursor: pointer;
-  text-decoration: none;
   line-height: 40px;
+  background-color: transparent;
+  color: black; /* Ensure it's the same color as the rest of the text */
   outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-top: 1px solid #ccc;
+  font-family: inherit; /* Inherit the same font as the rest of the text */
+  font-size: 17px; /* Set the same size as the answer text */
+  font-weight: normal; /* Ensure consistent font weight */
 }
 
 .butImagen {
