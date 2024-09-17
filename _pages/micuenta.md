@@ -10,7 +10,6 @@ layout: splash
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  color: rgb(34, 40, 49);
   background: white;
   text-align: left;
   margin-bottom: 20px; /* Espacio inferior entre cada plan */
@@ -46,6 +45,7 @@ img {
   padding-right: 20px; /* Añade un margen a la izquierda del texto dentro del botón */
   width: 100%; /* Establece el ancho deseado para el botón */
   text-align: left; /* Alinea el texto a la izquierda dentro del botón */
+  color: #222831;
   background: white;
   border: none;
   border-radius: 5px;
@@ -56,11 +56,7 @@ img {
 }
 
 .boton:hover {
-  background-color: #4c80d9;
-}
-.boton:focus, .boton:active {
-  background-color: #c3c3c3; /* Cambia el color de fondo al hacer foco o clic en el botón */
-  outline: none; /* Quita el borde azul al hacer foco en el botón */
+  background-color: #c3c3c3;
 }
 </style>
 
