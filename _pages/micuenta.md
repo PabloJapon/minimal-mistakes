@@ -273,9 +273,16 @@ img {
     .then(response => response.json())
     .then(data => {
       if (data && data.message) { // Check if `data.message` exists
-        user.update({ data: { subscription_plan: null } });
-        alert('¡Tu suscripción ha sido cancelada con éxito!');
-        window.location.reload();
+        // Update user metadata to set subscription_plan to "Sin Plan"
+        user.update({ data: { subscription_plan: "Sin Plan" } })
+          .then(() => {
+            alert('¡Tu suscripción ha sido cancelada con éxito!');
+            window.location.reload();
+          })
+          .catch(error => {
+            console.error('Error updating user metadata:', error);
+            alert('¡La suscripción ha sido cancelada, pero no se pudo actualizar el plan! Por favor, inténtalo de nuevo más tarde.');
+          });
       } else {
         alert('Error al cancelar la suscripción: ' + (data.error || 'Error desconocido'));
       }
