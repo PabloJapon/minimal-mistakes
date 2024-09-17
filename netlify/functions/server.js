@@ -12,6 +12,14 @@ const fs = require('fs');
 
 exports.handler = async (event, context) => {
   try {
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing event body' })
+      };
+    }
+    console.log('Event Body:', event.body);
+    
     const body = JSON.parse(event.body);
 
     if (body.action === 'create_connected_account') {
