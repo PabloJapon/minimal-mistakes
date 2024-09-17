@@ -56,7 +56,11 @@ layout: splash
         document.getElementById('loginMessage').textContent = "Inicia sesión para usar el software responsable";
         return;
       }
-      
+
+      // Update message to show data is being sent
+      document.getElementById('loginMessage').textContent = "Enviando datos...";
+
+      // Send POST request to server
       const response = await fetch("/.netlify/functions/verificar-sesion", {
         method: "POST",
         body: JSON.stringify({ message: username, subscription_plan: plan, id: id }),
@@ -68,12 +72,18 @@ layout: splash
       if (response.ok) {
         const responseData = await response.json();
         console.log("Response from server:", responseData);
-        document.getElementById('loginMessage').textContent = "Usuario verificado. Ya puedes volver a tu software responsable";
+
+        // Show success message once the server confirms
+        document.getElementById('loginMessage').textContent = "Ya puedes cerrar esta ventana, inicio de sesión válido.";
       } else {
+        // If the response is not OK, show error message
         console.error("Failed to send data to server.");
+        document.getElementById('loginMessage').textContent = "Error al verificar. Inténtalo de nuevo.";
       }
     } catch (error) {
+      // Catch any network errors or other unexpected errors
       console.error("Error:", error);
+      document.getElementById('loginMessage').textContent = "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
     }
   }
 
@@ -88,5 +98,5 @@ layout: splash
   });
 </script>
 
-<!-- Message element to display login prompt -->
+<!-- Message element to display login prompt or success message -->
 <p id="loginMessage"></p>
