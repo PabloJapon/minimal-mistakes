@@ -55,7 +55,7 @@ img {
 }
 
 .boton:hover {
-  background-color: #f4f4f4;
+  background-color: #4c80d9;
 }
 .boton:focus, .boton:active {
   background-color: #c3c3c3; /* Cambia el color de fondo al hacer foco o clic en el botón */
