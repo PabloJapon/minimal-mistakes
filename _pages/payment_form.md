@@ -320,6 +320,8 @@ permalink: /payment_form/
               }).then(updatedUser => {
                 console.log('User metadata updated successfully:', updatedUser);
                 alert('¡Suscripción creada con éxito!');
+                // Redirect to /micuenta/ page
+                window.location.href = '/miCuenta/';
               }).catch(error => {
                 console.error('Error updating user metadata:', error);
               });
