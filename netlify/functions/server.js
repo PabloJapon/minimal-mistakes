@@ -11,13 +11,30 @@ const pdfkit = require('pdfkit');
 const fs = require('fs');
 
 exports.handler = async (event, context) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*', // You can replace '*' with 'https://gastrali.com' to restrict to your domain
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,  // Include CORS headers
+      body: JSON.stringify({ message: 'CORS preflight successful' })
+    };
+  }
+
   try {
     if (!event.body) {
       return {
         statusCode: 400,
+        headers,  // Include CORS headers
         body: JSON.stringify({ error: 'Missing event body' })
       };
     }
+
     console.log('Event Body:', event.body);
     
     const body = JSON.parse(event.body);
@@ -43,6 +60,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({ url: accountLink.url }),
       };
     }
@@ -55,6 +73,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({ hasConnectedAccount: !!connectedAccount })
       };
     }
@@ -71,6 +90,7 @@ exports.handler = async (event, context) => {
       if (!priceIds[plan]) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'Invalid plan' })
         };
       }
@@ -83,6 +103,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({
           clientSecret: paymentIntent.client_secret,
           priceId: priceIds[plan]
@@ -99,6 +120,7 @@ exports.handler = async (event, context) => {
       if (!customer) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'Customer not found' })
         };
       }
@@ -112,6 +134,7 @@ exports.handler = async (event, context) => {
       if (subscriptions.data.length === 0) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'No active subscription found for the customer' })
         };
       }
@@ -128,6 +151,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({ nextInvoiceDate })
       };
     }
@@ -141,6 +165,7 @@ exports.handler = async (event, context) => {
       if (!customer) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'Customer not found' })
         };
       }
@@ -149,6 +174,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({ invoices: invoices.data })
       };
     }
@@ -162,6 +188,7 @@ exports.handler = async (event, context) => {
       if (!customer) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'Customer not found' })
         };
       }
@@ -175,6 +202,7 @@ exports.handler = async (event, context) => {
       if (subscriptions.data.length === 0) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'No active subscription found for the customer' })
         };
       }
@@ -185,6 +213,7 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 200,
+        headers,  // Include CORS headers
         body: JSON.stringify({ message: 'Subscription cancellation scheduled successfully' })
       };
     }
@@ -205,6 +234,7 @@ exports.handler = async (event, context) => {
       if (existingSubscription.data.length > 0) {
         return {
           statusCode: 400,
+          headers,  // Include CORS headers
           body: JSON.stringify({ error: 'Customer already has an active subscription' })
         };
       }
@@ -229,12 +259,14 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
+      headers,  // Include CORS headers
       body: JSON.stringify({ subscription })
     };
   } catch (error) {
     console.error('Error:', error);
     return {
       statusCode: 500,
+      headers,  // Include CORS headers
       body: JSON.stringify({ error: error.message })
     };
   }
