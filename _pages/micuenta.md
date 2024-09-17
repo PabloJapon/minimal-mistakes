@@ -248,43 +248,42 @@ img {
     netlifyIdentity.logout();
   }
 
-  // Cancel subscription
   function cancelSubscription() {
-    const confirmation = confirm('¿Estás seguro de que quieres cancelar tu suscripción?');
-    if (confirmation) {
-      const user = netlifyIdentity.currentUser();
-      if (!user) {
-        alert('Por favor, inicia sesión para cancelar tu suscripción.');
-        return;
-      }
-
-      const subscriptionPlan = user.user_metadata.subscription_plan;
-      if (!subscriptionPlan) {
-        alert('No se encontró ninguna suscripción asociada a tu cuenta.');
-        return;
-      }
-
-      fetch('/.netlify/functions/server', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ action: 'cancel_subscription', email: user.email })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (response.ok) {
-          user.update({ data: { subscription_plan: null } });
-          alert('¡Tu suscripción ha sido cancelada con éxito!');
-          window.location.reload();
-        } else {
-          alert('Error al cancelar la suscripción: ' + data.error);
-        }
-      })
-      .catch(error => {
-        console.error('Error al cancelar la suscripción:', error);
-        alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
-      });
+  const confirmation = confirm('¿Estás seguro de que quieres cancelar tu suscripción?');
+  if (confirmation) {
+    const user = netlifyIdentity.currentUser();
+    if (!user) {
+      alert('Por favor, inicia sesión para cancelar tu suscripción.');
+      return;
     }
+
+    const subscriptionPlan = user.user_metadata.subscription_plan;
+    if (!subscriptionPlan) {
+      alert('No se encontró ninguna suscripción asociada a tu cuenta.');
+      return;
+    }
+
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'cancel_subscription', email: user.email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.message) { // Check if `data.message` exists
+        user.update({ data: { subscription_plan: null } });
+        alert('¡Tu suscripción ha sido cancelada con éxito!');
+        window.location.reload();
+      } else {
+        alert('Error al cancelar la suscripción: ' + (data.error || 'Error desconocido'));
+      }
+    })
+    .catch(error => {
+      console.error('Error al cancelar la suscripción:', error);
+      alert('Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde.');
+    });
   }
+}
 </script>
