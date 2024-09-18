@@ -128,7 +128,7 @@ permalink: /client_payment/
 </div>
 
 <script>
-  // Función para obtener parámetros de la consulta en la URL
+  // Function to get query parameters from the URL
   function getQueryParams() {
     const params = {};
     const queryString = window.location.search;
@@ -140,29 +140,28 @@ permalink: /client_payment/
     return params;
   }
 
-  // Función para decodificar Base64
+  // Function to decode Base64
   function decodeBase64(base64) {
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
   }
 
-  // Obtener el parámetro 'amount' de la URL y decodificarlo
+  // Retrieve parameters from URL
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
-  const amount = decodeBase64(encryptedAmount);
+  const id = queryParams['id']; // Extract 'id' from URL
+  console.log(id);
 
-  // Establecer el monto en el campo de entrada oculto y mostrarlo
+  // Decode the 'amount' and display it
+  const amount = decodeBase64(encryptedAmount);
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
-  // Inicializar Stripe y los elementos de Stripe
-  // Retrieve the seller account ID from the hidden field
-  const sellerAccountId = document.getElementById('seller-account-id').value;
-
   // Initialize Stripe for the connected account
+  const sellerAccountId = document.getElementById('seller-account-id').value;
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo', {
     stripeAccount: sellerAccountId
   });
@@ -174,72 +173,69 @@ permalink: /client_payment/
   var cardCvc = elements.create('cardCvc');
   cardCvc.mount('#card-cvc-element');
 
-  // Manejar el evento click del botón de Pagar
+  // Handle the payment button click event
   var payButton = document.getElementById('card-button');
   payButton.addEventListener('click', function() {
-    // Obtener el ID de la cuenta de vendedor
-    const sellerAccountId = document.getElementById('seller-account-id').value;
-
-    // Crear un método de pago con Stripe
+    // Create payment method with Stripe
     stripe.createPaymentMethod({
-    type: 'card',
-    card: cardNumber,
-    billing_details: {
-      // Aquí podrías incluir detalles adicionales de facturación si los recopilas
-    }
-  }).then(function(result) {
-    if (result.error) {
-      console.error(result.error.message);
-      alert('Error: ' + result.error.message);
-    } else {
-      var paymentMethod = result.paymentMethod.id;
-      var amount = document.getElementById('amount').value;
-      var returnUrl = document.getElementById('return-url').value;
-      
-      // Send payment method to the server to create PaymentIntent
-      fetch('/.netlify/functions/client_payment_server', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          payment_method: paymentMethod,
-          amount: amount,
-          seller_account_id: sellerAccountId,
-          return_url: returnUrl,
-          receipt_email: document.getElementById('email').value
-        }),
-      }).then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        if (data.error) {
-          alert('Error: ' + data.error);
-        } else {
-          // Proceed to confirm the payment with the received client_secret
-          confirmPayment(data.clientSecret, returnUrl);
-        }
-      }).catch(function(error) {
-        console.error('Error:', error);
-        alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
-      });
-    }
-  });
-
-  function confirmPayment(clientSecret, returnUrl) {
-    stripe.confirmCardPayment(clientSecret).then(function(result) {
+      type: 'card',
+      card: cardNumber,
+      billing_details: {
+        // Include billing details if needed
+      }
+    }).then(function(result) {
       if (result.error) {
-        // Show error to the customer
         console.error(result.error.message);
         alert('Error: ' + result.error.message);
       } else {
-        // The payment has succeeded
-        alert('Payment successful!');
-        window.location.href = returnUrl; // Redirect to success URL
+        var paymentMethod = result.paymentMethod.id;
+        var amount = document.getElementById('amount').value;
+        var returnUrl = document.getElementById('return-url').value;
+
+        // Send payment details and 'id' to the server
+        fetch('/.netlify/functions/client_payment_server', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payment_method: paymentMethod,
+            amount: amount,
+            seller_account_id: sellerAccountId,
+            return_url: returnUrl,
+            receipt_email: document.getElementById('email').value,
+            id: id // Include the 'id' in the request
+          }),
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            // Confirm the payment with the received client_secret
+            confirmPayment(data.clientSecret, returnUrl);
+          }
+        }).catch(function(error) {
+          console.error('Error:', error);
+          alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
+        });
       }
     });
-  }
-});
+
+    function confirmPayment(clientSecret, returnUrl) {
+      stripe.confirmCardPayment(clientSecret).then(function(result) {
+        if (result.error) {
+          console.error(result.error.message);
+          alert('Error: ' + result.error.message);
+        } else {
+          alert('Payment successful!');
+          window.location.href = returnUrl; // Redirect to the success URL
+        }
+      });
+    }
+  });
 </script>
+
 
 </body>
 </html>
