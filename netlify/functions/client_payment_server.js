@@ -15,12 +15,12 @@ exports.handler = async (event, context) => {
       console.error('Invalid input:', { payment_method, amount, seller_account_id, return_url });
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid input. Provide a valid payment method, amount, seller account ID, and return URL.' }),
+        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and return URL.' }),
       };
     }
 
     const parsedAmount = parseInt(amount, 10);
-    if (isNaN(parsedAmount)) {
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
       console.error('Invalid amount:', amount);
       return {
         statusCode: 400,
@@ -35,8 +35,8 @@ exports.handler = async (event, context) => {
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
-      receipt_email: receipt_email, // Use provided email
-      payment_method: payment_method,
+      receipt_email, // Use provided email
+      payment_method,
       confirmation_method: 'automatic',
     };
 
@@ -57,18 +57,13 @@ exports.handler = async (event, context) => {
     };
   } catch (error) {
     console.error('Error creating payment intent:', error);
-    if (error.raw && error.raw.message) {
-      console.error('Stripe error:', error.raw.message);
-      if (error.raw.param) {
-        console.error('Error in parameter:', error.raw.param);
-      }
-    }
+    const errorMessage = error.raw ? error.raw.message : error.message;
 
     return {
       statusCode: 500,
       body: JSON.stringify({
         error: 'An error occurred while processing the payment.',
-        details: error.raw ? error.raw.message : error.message,
+        details: errorMessage,
       }),
     };
   }
