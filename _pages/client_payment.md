@@ -150,11 +150,16 @@ permalink: /client_payment/
   // Retrieve parameters from URL
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
-  const id = queryParams['id']; // Extract 'id' from URL
-  console.log(id);
+  const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
+
+  // Decode the 'amount' and 'id'
+  const amount = decodeBase64(encryptedAmount);
+  const id = decodeBase64(encryptedId); // Decode the 'id'
+
+  // Log the decoded 'id' to the console for debugging
+  console.log('Decoded ID from URL:', id);
 
   // Decode the 'amount' and display it
-  const amount = decodeBase64(encryptedAmount);
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
@@ -192,7 +197,7 @@ permalink: /client_payment/
         var amount = document.getElementById('amount').value;
         var returnUrl = document.getElementById('return-url').value;
 
-        // Send payment details and 'id' to the server
+        // Send payment details and decoded 'id' to the server
         fetch('/.netlify/functions/client_payment_server', {
           method: 'POST',
           headers: {
@@ -204,7 +209,7 @@ permalink: /client_payment/
             seller_account_id: sellerAccountId,
             return_url: returnUrl,
             receipt_email: document.getElementById('email').value,
-            id: id // Include the 'id' in the request
+            id: id // Send the decoded 'id' to the server
           }),
         }).then(function(response) {
           return response.json();
@@ -235,6 +240,7 @@ permalink: /client_payment/
     }
   });
 </script>
+
 
 
 </body>
