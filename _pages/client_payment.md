@@ -103,8 +103,6 @@ permalink: /client_payment/
   <!-- Campos ocultos para datos adicionales -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
   <input type="hidden" id="amount">
-  <input type="hidden" id="table-number" value="4"> <!-- Static table number for testing -->
-
 
   <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
@@ -153,30 +151,30 @@ permalink: /client_payment/
   const encryptedAmount = queryParams['amount'];
   const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
 
-  // Decode the 'amount', 'id', and 'id_customer'
+  // Decode the 'amount' and 'id'
   const amount = decodeBase64(encryptedAmount);
-  const id = decodeBase64(encryptedId);
+  const id = decodeBase64(encryptedId); // Decode the 'id'
 
-  // Log the decoded values to the console for debugging
+  // Log the decoded 'id' to the console for debugging
   console.log('Decoded ID from URL:', id);
 
   // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
-  document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
+  document.getElementById('amount-display').textContent = Cantidad: ${formattedAmount} €;
 
   async function getSellerAccountId(id) {
-    console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
+  console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
 
     try {
-      const response = await fetch(`https://pablogastrali.pythonanywhere.com/personalizacion?id=${id}`);
+      const response = await fetch(https://pablogastrali.pythonanywhere.com/personalizacion?id=${id});
       
       console.log('Response Status:', response.status); // Log the response status
 
       // Check if the response is OK (status code 200)
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        throw new Error(Network response was not ok: ${response.statusText});
       }
       
       const data = await response.json();
@@ -186,7 +184,7 @@ permalink: /client_payment/
       // Check if data is an array and has at least one item
       if (Array.isArray(data) && data.length > 0) {
         console.log('Seller Account ID Found:', data[0].id_connect); // Log the ID being returned
-        return data[0].id_connect; // Make sure this correctly points to `id_connect`
+        return data[0].id_connect; // Make sure this correctly points to id_connect
       } else {
         throw new Error('Seller account ID not found');
       }
@@ -195,6 +193,7 @@ permalink: /client_payment/
       alert('Error fetching seller account ID. Please try again later.');
     }
   }
+
 
   // Get the seller account ID from the database
   getSellerAccountId(id).then(sellerAccountId => {
@@ -241,24 +240,23 @@ permalink: /client_payment/
             body: JSON.stringify({
               payment_method: paymentMethod,
               amount: amount,
-              seller_account_id: sellerAccountId,
+              seller_account_id: sellerAccountId, // Use retrieved seller account ID
               return_url: returnUrl,
               receipt_email: document.getElementById('email').value,
-              id: id,
-              table_number: document.getElementById('table-number').value // Use table number instead of id_customer
+              id: id // Send the decoded 'id' to the server
             }),
           }).then(function(response) {
             return response.json();
           }).then(function(data) {
-            console.log('Server response:', data);
             if (data.error) {
               alert('Error: ' + data.error);
             } else {
+              // Confirm the payment with the received client_secret
               confirmPayment(data.clientSecret, returnUrl);
             }
           }).catch(function(error) {
             console.error('Error:', error);
-            alert('Error processing payment. Please try again.');
+            alert('Error procesando el pago. Por favor, inténtelo de nuevo más tarde.');
           });
         }
       });

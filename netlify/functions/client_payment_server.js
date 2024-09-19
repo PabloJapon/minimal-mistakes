@@ -1,5 +1,4 @@
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET; // Your webhook secret
 
 if (!stripeSecretKey) {
   console.error('Error: Stripe secret key is missing!');
@@ -7,17 +6,16 @@ if (!stripeSecretKey) {
 
 const stripe = require('stripe')(stripeSecretKey);
 
-// Function to create a payment intent
-exports.createPaymentIntent = async (event, context) => {
+exports.handler = async (event, context) => {
   try {
-    const { payment_method, amount, seller_account_id, receipt_email, table_number } = JSON.parse(event.body);
+    const { payment_method, amount, seller_account_id, return_url, receipt_email } = JSON.parse(event.body);
 
     // Validate input
-    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !payment_method.startsWith('pm_') || !table_number) {
-      console.error('Invalid input:', { payment_method, amount, seller_account_id, table_number });
+    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url || !payment_method.startsWith('pm_')) {
+      console.error('Invalid input:', { payment_method, amount, seller_account_id, return_url });
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and table number.' }),
+        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and return URL.' }),
       };
     }
 
@@ -33,17 +31,13 @@ exports.createPaymentIntent = async (event, context) => {
     // Log critical info for debugging
     console.log('Seller Account ID:', seller_account_id);
     console.log('Payment Method ID:', payment_method);
-    console.log('Table Number:', table_number);
 
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
       receipt_email, // Use provided email
       payment_method,
-      confirmation_method: 'manual', // Set to manual to handle confirmation securely
-      metadata: {
-        table_number: table_number, // Include table_number in metadata
-      },
+      confirmation_method: 'automatic',
     };
 
     console.log('Payment Intent Payload:', paymentIntentData);
@@ -57,7 +51,7 @@ exports.createPaymentIntent = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: 'Payment processed successfully. Waiting for confirmation...',
+        message: 'Payment processed successfully.',
         clientSecret: paymentIntent.client_secret,
       }),
     };
@@ -73,42 +67,4 @@ exports.createPaymentIntent = async (event, context) => {
       }),
     };
   }
-};
-
-// Webhook endpoint to handle Stripe events
-exports.webhookHandler = async (event, context) => {
-  const sig = event.headers['stripe-signature'];
-  let stripeEvent;
-
-  try {
-    stripeEvent = stripe.webhooks.constructEvent(event.body, sig, stripeWebhookSecret);
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err.message);
-    return {
-      statusCode: 400,
-      body: `Webhook Error: ${err.message}`,
-    };
-  }
-
-  // Handle different types of webhook events
-  if (stripeEvent.type === 'payment_intent.succeeded') {
-    const paymentIntent = stripeEvent.data.object;
-    console.log('PaymentIntent was successful!', paymentIntent.id);
-
-    // Retrieve table_number from metadata
-    const tableNumber = paymentIntent.metadata.table_number;
-    console.log('Payment was made for table number:', tableNumber);
-
-    // Here you can use tableNumber to update Unity or perform other actions
-  } else if (stripeEvent.type === 'payment_intent.payment_failed') {
-    const paymentIntent = stripeEvent.data.object;
-    console.error('PaymentIntent failed:', paymentIntent.id);
-    
-    // Handle payment failure and log for debugging
-  }
-
-  return {
-    statusCode: 200,
-    body: 'Webhook received and processed successfully',
-  };
-};
+}
