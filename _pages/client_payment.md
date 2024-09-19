@@ -164,13 +164,27 @@ permalink: /client_payment/
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
-  // Function to fetch seller-account-id from your database using the decoded 'id'
   async function getSellerAccountId(id) {
+  console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
+
     try {
       const response = await fetch(`https://pablogastrali.pythonanywhere.com/personalizacion?id=${id}`);
+      
+      console.log('Response Status:', response.status); // Log the response status
+
+      // Check if the response is OK (status code 200)
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      
       const data = await response.json();
-      if (data && data.id_connect) {
-        return data.id_connect; // Return seller-account-id (id_connect)
+      
+      console.log('Response Data:', data); // Log the response data
+
+      // Check if data is an array and has at least one item
+      if (Array.isArray(data) && data.length > 0) {
+        console.log('Seller Account ID Found:', data[0].id_connect); // Log the ID being returned
+        return data[0].id_connect; // Make sure this correctly points to `id_connect`
       } else {
         throw new Error('Seller account ID not found');
       }
@@ -179,6 +193,7 @@ permalink: /client_payment/
       alert('Error fetching seller account ID. Please try again later.');
     }
   }
+
 
   // Get the seller account ID from the database
   getSellerAccountId(id).then(sellerAccountId => {
