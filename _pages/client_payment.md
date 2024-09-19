@@ -103,7 +103,8 @@ permalink: /client_payment/
   <!-- Campos ocultos para datos adicionales -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
   <input type="hidden" id="amount">
-  <input type="hidden" id="id-customer"> <!-- Hidden field for customer ID -->
+  <input type="hidden" id="table-number" value="4"> <!-- Static table number for testing -->
+
 
   <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
@@ -151,25 +152,19 @@ permalink: /client_payment/
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
   const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
-  const encryptedIdCustomer = queryParams['id_customer']; // Extract the encoded 'id_customer' from URL
 
   // Decode the 'amount', 'id', and 'id_customer'
   const amount = decodeBase64(encryptedAmount);
   const id = decodeBase64(encryptedId);
-  const idCustomer = decodeBase64(encryptedIdCustomer);
 
   // Log the decoded values to the console for debugging
   console.log('Decoded ID from URL:', id);
-  console.log('Decoded Customer ID from URL:', idCustomer);
 
   // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
-
-  // Set the customer ID in the hidden field
-  document.getElementById('id-customer').value = idCustomer;
 
   async function getSellerAccountId(id) {
     console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
@@ -240,34 +235,32 @@ permalink: /client_payment/
 
           // Send payment details and decoded 'id' to the server
           fetch('/.netlify/functions/client_payment_server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            payment_method: paymentMethod,
-            amount: amount,
-            seller_account_id: sellerAccountId,
-            return_url: returnUrl,
-            receipt_email: document.getElementById('email').value,
-            id: id,
-            id_customer: idCustomer
-          }),
-        }).then(function(response) {
-          return response.json();
-        }).then(function(data) {
-          console.log('Server response:', data); // Debugging line to check if clientSecret is received
-
-          if (data.error) {
-            alert('Error: ' + data.error);
-          } else {
-            // Confirm the payment with the received client_secret
-            confirmPayment(data.clientSecret, returnUrl); // Check if clientSecret is correct here
-          }
-        }).catch(function(error) {
-          console.error('Error:', error);
-          alert('Error processing payment. Please try again.');
-        });
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              payment_method: paymentMethod,
+              amount: amount,
+              seller_account_id: sellerAccountId,
+              return_url: returnUrl,
+              receipt_email: document.getElementById('email').value,
+              id: id,
+              table_number: document.getElementById('table-number').value // Use table number instead of id_customer
+            }),
+          }).then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            console.log('Server response:', data);
+            if (data.error) {
+              alert('Error: ' + data.error);
+            } else {
+              confirmPayment(data.clientSecret, returnUrl);
+            }
+          }).catch(function(error) {
+            console.error('Error:', error);
+            alert('Error processing payment. Please try again.');
+          });
         }
       });
 

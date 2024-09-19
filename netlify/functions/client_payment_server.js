@@ -10,14 +10,14 @@ const stripe = require('stripe')(stripeSecretKey);
 // Function to create a payment intent
 exports.createPaymentIntent = async (event, context) => {
   try {
-    const { payment_method, amount, seller_account_id, receipt_email, id_customer } = JSON.parse(event.body);
+    const { payment_method, amount, seller_account_id, receipt_email, table_number } = JSON.parse(event.body);
 
     // Validate input
-    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !payment_method.startsWith('pm_') || !id_customer) {
-      console.error('Invalid input:', { payment_method, amount, seller_account_id, id_customer });
+    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !payment_method.startsWith('pm_') || !table_number) {
+      console.error('Invalid input:', { payment_method, amount, seller_account_id, table_number });
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and customer ID.' }),
+        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and table number.' }),
       };
     }
 
@@ -33,7 +33,7 @@ exports.createPaymentIntent = async (event, context) => {
     // Log critical info for debugging
     console.log('Seller Account ID:', seller_account_id);
     console.log('Payment Method ID:', payment_method);
-    console.log('Customer ID:', id_customer);
+    console.log('Table Number:', table_number);
 
     const paymentIntentData = {
       amount: parsedAmount,
@@ -42,7 +42,7 @@ exports.createPaymentIntent = async (event, context) => {
       payment_method,
       confirmation_method: 'manual', // Set to manual to handle confirmation securely
       metadata: {
-        customer_id: id_customer, // Include customer_id in metadata
+        table_number: table_number, // Include table_number in metadata
       },
     };
 
@@ -95,11 +95,11 @@ exports.webhookHandler = async (event, context) => {
     const paymentIntent = stripeEvent.data.object;
     console.log('PaymentIntent was successful!', paymentIntent.id);
 
-    // Retrieve customer_id from metadata
-    const customerId = paymentIntent.metadata.customer_id;
-    console.log('Payment was made by customer ID:', customerId);
+    // Retrieve table_number from metadata
+    const tableNumber = paymentIntent.metadata.table_number;
+    console.log('Payment was made for table number:', tableNumber);
 
-    // Here you can use customerId to send a confirmation email or perform other actions
+    // Here you can use tableNumber to update Unity or perform other actions
   } else if (stripeEvent.type === 'payment_intent.payment_failed') {
     const paymentIntent = stripeEvent.data.object;
     console.error('PaymentIntent failed:', paymentIntent.id);
