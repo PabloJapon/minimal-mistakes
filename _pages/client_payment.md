@@ -268,9 +268,7 @@ permalink: /client_payment/
             alert('Error: ' + result.error.message);
           } else {
             alert('Payment successful!');
-            
-            // Append the payment status to the return URL
-            window.location.href = returnUrl + "?payment_status=success"; // Add payment_status query param
+            window.location.href = returnUrl; // Redirect to the success URL
           }
         });
       }
