@@ -1,3 +1,8 @@
+---
+layout: default
+permalink: /client_payment/
+---
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,6 +56,7 @@
       background-color: #0056b3;
     }
 
+    /* Estilo personalizado para los elementos de Stripe */
     .stripe-element {
       width: 100%;
       margin-bottom: 15px;
@@ -59,7 +65,6 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
-
     .stripe-element-50 {
       width: 50%;
       margin-bottom: 15px;
@@ -80,7 +85,6 @@
       align-items: center;
       gap: 10px;
     }
-
     .inline-labels {
       display: flex;
       align-items: center;
@@ -93,15 +97,19 @@
 <div class="container">
   <h1>Introduzca sus datos de pago</h1>
 
+  <!-- Placeholder para mostrar la cantidad -->
   <p id="amount-display">Cantidad: </p>
 
+  <!-- Campos ocultos para datos adicionales -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
   <input type="hidden" id="amount">
-  <input type="hidden" id="id-customer">
+  <input type="hidden" id="id-customer"> <!-- Hidden field for customer ID -->
 
+  <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
   <div id="card-number-element" class="stripe-element"></div>
 
+  <!-- Elementos para la fecha de expiración y código de seguridad -->
   <div class="inline-labels">
     <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
     <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
@@ -111,49 +119,79 @@
     <div id="card-cvc-element" class="stripe-element-50"></div>
   </div>
 
+  <!-- Campo de correo electrónico -->
   <label for="email" class="element-label">Correo Electrónico</label>
-  <input type="email" id="email" placeholder="tuemail@ejemplo.com" required>
+  <input type="email" id="email" placeholder="tuemail@ejemplo.com" required="" style="font-size: 14px;background-color: white;box-shadow: none;">
 
+  <!-- Botón de Pagar -->
   <button id="card-button" type="submit">Pagar Ahora</button>
 </div>
 
 <script>
+  // Function to get query parameters from the URL
   function getQueryParams() {
     const params = {};
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+
     for (const [key, value] of urlParams.entries()) {
       params[key] = value;
     }
     return params;
   }
 
+  // Function to decode Base64
   function decodeBase64(base64) {
     return decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
   }
 
+  // Retrieve parameters from URL
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
-  const encryptedId = queryParams['id'];
-  const encryptedIdCustomer = queryParams['id_customer'];
+  const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
+  const encryptedIdCustomer = queryParams['id_customer']; // Extract the encoded 'id_customer' from URL
 
+  // Decode the 'amount', 'id', and 'id_customer'
   const amount = decodeBase64(encryptedAmount);
   const id = decodeBase64(encryptedId);
   const idCustomer = decodeBase64(encryptedIdCustomer);
 
+  // Log the decoded values to the console for debugging
+  console.log('Decoded ID from URL:', id);
+  console.log('Decoded Customer ID from URL:', idCustomer);
+
+  // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
-  document.getElementById('amount-display').textContent = `Cantidad: ${amountDecimal} €`;
+  const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
+  document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
+
+  // Set the customer ID in the hidden field
   document.getElementById('id-customer').value = idCustomer;
 
   async function getSellerAccountId(id) {
+    console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
+
     try {
       const response = await fetch(`https://pablogastrali.pythonanywhere.com/personalizacion?id=${id}`);
+      
+      console.log('Response Status:', response.status); // Log the response status
+
+      // Check if the response is OK (status code 200)
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      
       const data = await response.json();
+      
+      console.log('Response Data:', data); // Log the response data
+
+      // Check if data is an array and has at least one item
       if (Array.isArray(data) && data.length > 0) {
-        return data[0].id_connect;
+        console.log('Seller Account ID Found:', data[0].id_connect); // Log the ID being returned
+        return data[0].id_connect; // Make sure this correctly points to `id_connect`
       } else {
         throw new Error('Seller account ID not found');
       }
@@ -163,13 +201,15 @@
     }
   }
 
+  // Get the seller account ID from the database
   getSellerAccountId(id).then(sellerAccountId => {
     if (!sellerAccountId) return;
 
+    // Initialize Stripe with the retrieved seller-account-id
     var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo', {
       stripeAccount: sellerAccountId
     });
-
+    
     var elements = stripe.elements();
     var cardNumber = elements.create('cardNumber');
     cardNumber.mount('#card-number-element');
@@ -178,12 +218,16 @@
     var cardCvc = elements.create('cardCvc');
     cardCvc.mount('#card-cvc-element');
 
+    // Handle the payment button click event
     var payButton = document.getElementById('card-button');
     payButton.addEventListener('click', function() {
+      // Create payment method with Stripe
       stripe.createPaymentMethod({
         type: 'card',
         card: cardNumber,
-        billing_details: {}
+        billing_details: {
+          // Include billing details if needed
+        }
       }).then(function(result) {
         if (result.error) {
           console.error(result.error.message);
@@ -192,33 +236,38 @@
           var paymentMethod = result.paymentMethod.id;
           var amount = document.getElementById('amount').value;
           var returnUrl = document.getElementById('return-url').value;
-          var idCustomer = document.getElementById('id-customer').value;
+          var idCustomer = document.getElementById('id-customer').value; // Retrieve customer ID
 
+          // Send payment details and decoded 'id' to the server
           fetch('/.netlify/functions/client_payment_server', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              payment_method: paymentMethod,
-              amount: amount,
-              seller_account_id: sellerAccountId,
-              return_url: returnUrl,
-              receipt_email: document.getElementById('email').value,
-              id: id,
-              id_customer: idCustomer
-            })
-          }).then(function(response) {
-            return response.json();
-          }).then(function(data) {
-            console.log('Server response:', data);
-            if (data.error) {
-              alert('Error: ' + data.error);
-            } else {
-              confirmPayment(data.clientSecret, returnUrl);
-            }
-          }).catch(function(error) {
-            console.error('Error:', error);
-            alert('Error procesando el pago.');
-          });
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payment_method: paymentMethod,
+            amount: amount,
+            seller_account_id: sellerAccountId,
+            return_url: returnUrl,
+            receipt_email: document.getElementById('email').value,
+            id: id,
+            id_customer: idCustomer
+          }),
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log('Server response:', data); // Debugging line to check if clientSecret is received
+
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            // Confirm the payment with the received client_secret
+            confirmPayment(data.clientSecret, returnUrl); // Check if clientSecret is correct here
+          }
+        }).catch(function(error) {
+          console.error('Error:', error);
+          alert('Error processing payment. Please try again.');
+        });
         }
       });
 
@@ -229,12 +278,13 @@
             alert('Error: ' + result.error.message);
           } else {
             alert('Payment successful!');
-            window.location.href = returnUrl;
+            window.location.href = returnUrl; // Redirect to the success URL
           }
         });
       }
     });
   });
+
 </script>
 
 </body>
