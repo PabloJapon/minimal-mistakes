@@ -10,14 +10,14 @@ const stripe = require('stripe')(stripeSecretKey);
 // Function to create a payment intent
 exports.createPaymentIntent = async (event, context) => {
   try {
-    const { payment_method, amount, seller_account_id, receipt_email } = JSON.parse(event.body);
+    const { payment_method, amount, seller_account_id, receipt_email, id_customer } = JSON.parse(event.body);
 
     // Validate input
-    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !payment_method.startsWith('pm_')) {
-      console.error('Invalid input:', { payment_method, amount, seller_account_id });
+    if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !payment_method.startsWith('pm_') || !id_customer) {
+      console.error('Invalid input:', { payment_method, amount, seller_account_id, id_customer });
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID.' }),
+        body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and customer ID.' }),
       };
     }
 
@@ -33,6 +33,7 @@ exports.createPaymentIntent = async (event, context) => {
     // Log critical info for debugging
     console.log('Seller Account ID:', seller_account_id);
     console.log('Payment Method ID:', payment_method);
+    console.log('Customer ID:', id_customer);
 
     const paymentIntentData = {
       amount: parsedAmount,
@@ -40,6 +41,9 @@ exports.createPaymentIntent = async (event, context) => {
       receipt_email, // Use provided email
       payment_method,
       confirmation_method: 'manual', // Set to manual to handle confirmation securely
+      metadata: {
+        customer_id: id_customer, // Include customer_id in metadata
+      },
     };
 
     console.log('Payment Intent Payload:', paymentIntentData);
@@ -91,9 +95,11 @@ exports.webhookHandler = async (event, context) => {
     const paymentIntent = stripeEvent.data.object;
     console.log('PaymentIntent was successful!', paymentIntent.id);
 
-    // Here you should update your database or notify your system of the successful payment.
-    // Example:
-    // await updatePaymentStatus(paymentIntent.id, 'success');
+    // Retrieve customer_id from metadata
+    const customerId = paymentIntent.metadata.customer_id;
+    console.log('Payment was made by customer ID:', customerId);
+
+    // Here you can use customerId to send a confirmation email or perform other actions
   } else if (stripeEvent.type === 'payment_intent.payment_failed') {
     const paymentIntent = stripeEvent.data.object;
     console.error('PaymentIntent failed:', paymentIntent.id);

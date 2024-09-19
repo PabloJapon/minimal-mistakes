@@ -103,6 +103,7 @@ permalink: /client_payment/
   <!-- Campos ocultos para datos adicionales -->
   <input type="hidden" id="return-url" value="https://yourwebsite.com/payment-success">
   <input type="hidden" id="amount">
+  <input type="hidden" id="id-customer"> <!-- Hidden field for customer ID -->
 
   <!-- Elemento para el número de tarjeta -->
   <label for="card-number-element" class="element-label">Número de Tarjeta</label>
@@ -150,13 +151,16 @@ permalink: /client_payment/
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
   const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
+  const encryptedIdCustomer = queryParams['id_customer']; // Extract the encoded 'id_customer' from URL
 
-  // Decode the 'amount' and 'id'
+  // Decode the 'amount', 'id', and 'id_customer'
   const amount = decodeBase64(encryptedAmount);
-  const id = decodeBase64(encryptedId); // Decode the 'id'
+  const id = decodeBase64(encryptedId);
+  const idCustomer = decodeBase64(encryptedIdCustomer);
 
-  // Log the decoded 'id' to the console for debugging
+  // Log the decoded values to the console for debugging
   console.log('Decoded ID from URL:', id);
+  console.log('Decoded Customer ID from URL:', idCustomer);
 
   // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
@@ -164,8 +168,11 @@ permalink: /client_payment/
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
   document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
+  // Set the customer ID in the hidden field
+  document.getElementById('id-customer').value = idCustomer;
+
   async function getSellerAccountId(id) {
-  console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
+    console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
 
     try {
       const response = await fetch(`https://pablogastrali.pythonanywhere.com/personalizacion?id=${id}`);
@@ -193,7 +200,6 @@ permalink: /client_payment/
       alert('Error fetching seller account ID. Please try again later.');
     }
   }
-
 
   // Get the seller account ID from the database
   getSellerAccountId(id).then(sellerAccountId => {
@@ -230,6 +236,7 @@ permalink: /client_payment/
           var paymentMethod = result.paymentMethod.id;
           var amount = document.getElementById('amount').value;
           var returnUrl = document.getElementById('return-url').value;
+          var idCustomer = document.getElementById('id-customer').value; // Retrieve customer ID
 
           // Send payment details and decoded 'id' to the server
           fetch('/.netlify/functions/client_payment_server', {
@@ -243,7 +250,8 @@ permalink: /client_payment/
               seller_account_id: sellerAccountId, // Use retrieved seller account ID
               return_url: returnUrl,
               receipt_email: document.getElementById('email').value,
-              id: id // Send the decoded 'id' to the server
+              id: id, // Send the decoded 'id' to the server
+              id_customer: idCustomer // Send the decoded 'id_customer' to the server
             }),
           }).then(function(response) {
             return response.json();
