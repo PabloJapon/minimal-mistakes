@@ -231,7 +231,6 @@ permalink: /client_payment/
           var paymentMethod = result.paymentMethod.id;
           var amount = document.getElementById('amount').value;
           var returnUrl = document.getElementById('return-url').value;
-          var idCustomer = document.getElementById('id-customer').value; // Retrieve customer ID
 
           // Send payment details and decoded 'id' to the server
           fetch('/.netlify/functions/client_payment_server', {
