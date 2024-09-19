@@ -162,19 +162,19 @@ permalink: /client_payment/
   document.getElementById('amount').value = amount;
   const amountDecimal = (amount / 100).toFixed(2);
   const formattedAmount = amountDecimal.toLocaleString('es-ES', { minimumFractionDigits: 2 });
-  document.getElementById('amount-display').textContent = Cantidad: ${formattedAmount} €;
+  document.getElementById('amount-display').textContent = `Cantidad: ${formattedAmount} €`;
 
   async function getSellerAccountId(id) {
   console.log('Fetching seller account ID for ID:', id); // Log the ID being fetched
 
     try {
-      const response = await fetch(https://pablogastrali.pythonanywhere.com/personalizacion?id=${id});
+      const response = await fetch(`https://pablogastrali.pythonanywhere.com/personalizacion?id=${id}`);
       
       console.log('Response Status:', response.status); // Log the response status
 
       // Check if the response is OK (status code 200)
       if (!response.ok) {
-        throw new Error(Network response was not ok: ${response.statusText});
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       
       const data = await response.json();
