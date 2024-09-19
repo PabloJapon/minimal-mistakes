@@ -8,11 +8,12 @@ const stripe = require('stripe')(stripeSecretKey);
 
 exports.handler = async (event, context) => {
   try {
-    const { payment_method, amount, seller_account_id, return_url, receipt_email } = JSON.parse(event.body);
+    // Parse the request body
+    const { payment_method, amount, seller_account_id, return_url, receipt_email, table_number } = JSON.parse(event.body);
 
     // Validate input
     if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url || !payment_method.startsWith('pm_')) {
-      console.error('Invalid input:', { payment_method, amount, seller_account_id, return_url });
+      console.error('Invalid input:', { payment_method, amount, seller_account_id, return_url, table_number });
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid input. Please provide a valid payment method, amount, seller account ID, and return URL.' }),
@@ -31,13 +32,16 @@ exports.handler = async (event, context) => {
     // Log critical info for debugging
     console.log('Seller Account ID:', seller_account_id);
     console.log('Payment Method ID:', payment_method);
+    console.log('Table Number:', table_number); // Add this line
 
+    // Create payment intent
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
       receipt_email, // Use provided email
       payment_method,
       confirmation_method: 'automatic',
+      description: `Table Number: ${table_number}`, // Optionally include table_number in the description
     };
 
     console.log('Payment Intent Payload:', paymentIntentData);

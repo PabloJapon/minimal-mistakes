@@ -149,14 +149,17 @@ permalink: /client_payment/
   // Retrieve parameters from URL
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
-  const encryptedId = queryParams['id']; // Extract the encoded 'id' from URL
+  const encryptedId = queryParams['id'];
+  const encryptedTableNumber = queryParams['table_number']; // Add this line
 
-  // Decode the 'amount' and 'id'
+  // Decode the parameters
   const amount = decodeBase64(encryptedAmount);
-  const id = decodeBase64(encryptedId); // Decode the 'id'
+  const id = decodeBase64(encryptedId);
+  const tableNumber = decodeBase64(encryptedTableNumber); // Add this line
 
-  // Log the decoded 'id' to the console for debugging
+  // Log the decoded values to the console for debugging
   console.log('Decoded ID from URL:', id);
+  console.log('Decoded Table Number from URL:', tableNumber); // Add this line
 
   // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
@@ -240,10 +243,11 @@ permalink: /client_payment/
             body: JSON.stringify({
               payment_method: paymentMethod,
               amount: amount,
-              seller_account_id: sellerAccountId, // Use retrieved seller account ID
+              seller_account_id: sellerAccountId,
               return_url: returnUrl,
               receipt_email: document.getElementById('email').value,
-              id: id // Send the decoded 'id' to the server
+              id: id,
+              table_number: tableNumber // Add this line
             }),
           }).then(function(response) {
             return response.json();
@@ -251,7 +255,6 @@ permalink: /client_payment/
             if (data.error) {
               alert('Error: ' + data.error);
             } else {
-              // Confirm the payment with the received client_secret
               confirmPayment(data.clientSecret, returnUrl);
             }
           }).catch(function(error) {
