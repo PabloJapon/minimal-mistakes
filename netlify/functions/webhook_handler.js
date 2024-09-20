@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
-const fetch = require('node-fetch'); // Ensure you have node-fetch installed
+const axios = require('axios'); // Import axios
 
 exports.handler = async (event, context) => {
   const sig = event.headers['stripe-signature'];
@@ -24,22 +24,16 @@ exports.handler = async (event, context) => {
       console.log('PaymentIntent was successful!', paymentIntent);
 
       const amount = paymentIntent.amount_received / 100; // Convert amount from cents to dollars
-      const tableNumber = paymentIntent.metadata.table; // Ensure this is set when creating the payment
+      const tableNumber = paymentIntent.description; // Get the table number from the description
 
       // Send confirmation to your Python backend
       try {
-        const response = await fetch('https://pablogastrali.pythonanywhere.com/confirm_payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            amount: amount,
-            table_number: tableNumber,
-          }),
+        const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
+          amount: amount,
+          table_number: tableNumber,
         });
 
-        if (!response.ok) {
+        if (response.status !== 200) {
           console.error('Failed to send payment confirmation:', response.statusText);
         } else {
           console.log('Payment confirmation sent to the database successfully.');
