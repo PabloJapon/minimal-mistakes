@@ -32,7 +32,7 @@ exports.handler = async (event, context) => {
     // Log critical info for debugging
     console.log('Seller Account ID:', seller_account_id);
     console.log('Payment Method ID:', payment_method);
-    console.log('Table Number:', table_number); // Add this line
+    console.log('Table Number:', table_number); 
 
     // Create payment intent
     const paymentIntentData = {
@@ -41,7 +41,10 @@ exports.handler = async (event, context) => {
       receipt_email, // Use provided email
       payment_method,
       confirmation_method: 'automatic',
-      description: `Table Number: ${table_number}`, // Optionally include table_number in the description
+      metadata: {
+        table_number: table_number, // Store table number
+        // Add any other custom fields you want
+      },
     };
 
     console.log('Payment Intent Payload:', paymentIntentData);
