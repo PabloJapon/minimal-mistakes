@@ -30,9 +30,9 @@ exports.handler = async (event, context) => {
       // Send confirmation to your Python backend
       try {
         const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
+          id: id,
           amount: amount,
           table_number: tableNumber,
-          id: id,
         });
 
         if (response.status !== 200) {
