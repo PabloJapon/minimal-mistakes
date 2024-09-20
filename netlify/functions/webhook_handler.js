@@ -24,14 +24,15 @@ exports.handler = async (event, context) => {
       console.log('PaymentIntent was successful!', paymentIntent);
 
       const amount = paymentIntent.amount_received / 100; // Convert amount from cents to euros
-      const tableNumber = paymentIntent.metadata.table_number; // Get the table number from metadata
+      const tableNumber = paymentIntent.metadata.table_number;
+      const id = paymentIntent.metadata.id;
 
       // Send confirmation to your Python backend
       try {
         const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
           amount: amount,
           table_number: tableNumber,
-          // Include any other metadata fields you want to send
+          id: id,
         });
 
         if (response.status !== 200) {

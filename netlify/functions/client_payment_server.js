@@ -9,7 +9,7 @@ const stripe = require('stripe')(stripeSecretKey);
 exports.handler = async (event, context) => {
   try {
     // Parse the request body
-    const { payment_method, amount, seller_account_id, return_url, receipt_email, table_number } = JSON.parse(event.body);
+    const { payment_method, amount, seller_account_id, return_url, receipt_email, table_number, id } = JSON.parse(event.body);
 
     // Validate input
     if (!payment_method || !amount || isNaN(amount) || amount <= 0 || !seller_account_id || !return_url || !payment_method.startsWith('pm_')) {
@@ -38,12 +38,12 @@ exports.handler = async (event, context) => {
     const paymentIntentData = {
       amount: parsedAmount,
       currency: 'eur',
-      receipt_email, // Use provided email
+      receipt_email,
       payment_method,
       confirmation_method: 'automatic',
       metadata: {
-        table_number: table_number, // Store table number
-        // Add any other custom fields you want
+        table_number: table_number,
+        id: id,
       },
     };
 
