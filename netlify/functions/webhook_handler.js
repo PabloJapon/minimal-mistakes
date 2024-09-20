@@ -1,5 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
+const fetch = require('node-fetch'); // Ensure you have node-fetch installed
 
 exports.handler = async (event, context) => {
   const sig = event.headers['stripe-signature'];
@@ -21,14 +22,40 @@ exports.handler = async (event, context) => {
     case 'payment_intent.succeeded':
       const paymentIntent = eventData.data.object;
       console.log('PaymentIntent was successful!', paymentIntent);
-      // Handle successful payment (e.g., update database, notify Unity)
+
+      const amount = paymentIntent.amount_received / 100; // Convert amount from cents to dollars
+      const tableNumber = paymentIntent.metadata.table; // Ensure this is set when creating the payment
+
+      // Send confirmation to your Python backend
+      try {
+        const response = await fetch('https://pablogastrali.pythonanywhere.com/confirm_payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: amount,
+            table_number: tableNumber,
+          }),
+        });
+
+        if (!response.ok) {
+          console.error('Failed to send payment confirmation:', response.statusText);
+        } else {
+          console.log('Payment confirmation sent to the database successfully.');
+        }
+      } catch (error) {
+        console.error('Error sending payment confirmation:', error);
+      }
+
       break;
+
     case 'payment_intent.failed':
       const failedPaymentIntent = eventData.data.object;
       console.log('PaymentIntent failed:', failedPaymentIntent);
       // Handle failed payment
       break;
-    // Add other cases for different event types if needed
+
     default:
       console.warn(`Unhandled event type ${eventData.type}`);
   }
