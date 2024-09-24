@@ -19,13 +19,11 @@ permalink: /payment_form/
 
     .wrap {
       max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .container-master {
-      display: flex;
-    }
-
-    .sub-container {
       display: flex;
     }
 
@@ -131,12 +129,13 @@ permalink: /payment_form/
 <body>
 
 
+<div class="wrap">
+
 <h2 style="margin-top: 3em;">Elige un método de pago</h2>
 <p>Introduce los datos de la tarjeta con la que quieras realizar los pagos de tu plan</p>
 
 
 <div class="container-master">
-  <div class="wrap">
     <div class="container">
       <div class="sub-container">
         <h3>Tarjeta de crédito</h3>
