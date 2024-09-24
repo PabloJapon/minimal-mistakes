@@ -12,20 +12,27 @@ permalink: /payment_form/
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
-      max-width: 1280px;
       background-color: #f8f9fa;
       margin: 0;
       padding: 0;
+    }
+
+    .wrap {
+      max-width: 1280px;
     }
 
     .container-master {
       display: flex;
     }
 
-    .container {
+    .sub-container {
+      display: flex;
+    }
+
+    .sub-container {
       max-width: 400px;
-      margin: 50px auto; /* Ajustar margen según sea necesario */
-      padding: 20px;
+      margin: 50px auto;
+      padding: 25px 40px;;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -129,38 +136,42 @@ permalink: /payment_form/
 
 
 <div class="container-master">
-  <div class="container">
-    <h3>Tarjeta de crédito</h3>
-    <h6>Mastercard, Visa, Maestro, American Express, ...</h6>
-    
-    <label for="card-number-element" class="element-label">Número de Tarjeta</label>
-    <div id="card-number-element" class="stripe-element"></div>
+  <div class="wrap">
+    <div class="container">
+      <div class="sub-container">
+        <h3>Tarjeta de crédito</h3>
+        <h6>Mastercard, Visa, Maestro, American Express, ...</h6>
+        
+        <label for="card-number-element" class="element-label">Número de Tarjeta</label>
+        <div id="card-number-element" class="stripe-element"></div>
 
-    <div class="inline-labels">
-      <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-      <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+        <div class="inline-labels">
+          <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
+          <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
+        </div>
+
+        <div class="inline-elements">
+          <div id="card-expiry-element" class="stripe-element-50"></div>
+          <div id="card-cvc-element" class="stripe-element-50"></div>
+        </div>
+
+        <button id="card-button" type="submit">
+          <span id="button-text">Realizar pago</span>
+          <div class="progress-circle"></div>
+        </button>
+      </div>
     </div>
 
-    <div class="inline-elements">
-      <div id="card-expiry-element" class="stripe-element-50"></div>
-      <div id="card-cvc-element" class="stripe-element-50"></div>
+    <div class="sub-container" style="background-color: #e7e7e7;">
+      <h4>Resumen</h4>
+      <p id="plan"></p>
+      <p>Duración: 1 mes</p>
+      <p>Próxima renovación automática: 1 mes</p>
+      
+      <!-- Display the price of the selected plan -->
+      <p id="price"></p>
+
     </div>
-
-    <button id="card-button" type="submit">
-      <span id="button-text">Realizar pago</span>
-      <div class="progress-circle"></div>
-    </button>
-  </div>
-
-  <div class="container" style="background-color: #fff;">
-    <h4>Resumen</h4>
-    <p id="plan"></p>
-    <p>Duración: 1 mes</p>
-    <p>Próxima renovación automática: 1 mes</p>
-    
-    <!-- Display the price of the selected plan -->
-    <p id="price"></p>
-
   </div>
 </div>
 
