@@ -12,7 +12,7 @@ permalink: /payment_form/
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      max-width: 1280px;
       background-color: #f8f9fa;
       margin: 0;
       padding: 0;
@@ -124,7 +124,7 @@ permalink: /payment_form/
 <body>
 
 
-<h2>Elige un método de pago</h2>
+<h2 style="margin-top: 3em;">Elige un método de pago</h2>
 <p>Introduce los datos de la tarjeta con la que quieras realizar los pagos de tu plan</p>
 
 
@@ -158,22 +158,9 @@ permalink: /payment_form/
     <p>Duración: 1 mes</p>
     <p>Próxima renovación automática: 1 mes</p>
     
-    
     <!-- Display the price of the selected plan -->
     <p id="price"></p>
 
-    <label for="card-number-element" class="element-label">Número de Tarjeta</label>
-    <div id="card-number-element" class="stripe-element"></div>
-
-    <div class="inline-labels">
-      <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-      <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
-    </div>
-
-    <div class="inline-elements">
-      <div id="card-expiry-element" class="stripe-element-50"></div>
-      <div id="card-cvc-element" class="stripe-element-50"></div>
-    </div>
   </div>
 </div>
 
@@ -212,17 +199,17 @@ permalink: /payment_form/
   // Retrieve plan from URL
   const urlParams = new URLSearchParams(window.location.search);
   const plan = urlParams.get('plan');
-  document.getElementById('plan').textContent = "Plan: " + plan;
+  document.getElementById('plan').textContent = "Plan " + plan;
 
   // Define the price for each plan
   const prices = {
-    Gratis: '$0',
-    Pro: '$30',
-    Premium: '$50'
+    Gratis: '0€',
+    Pro: '30€',
+    Premium: '50€'
   };
 
   // Display the price of the selected plan
-  document.getElementById('price').textContent = "Precio: " + prices[plan];
+  document.getElementById('price').textContent = prices[plan];
   
 </script>
 
