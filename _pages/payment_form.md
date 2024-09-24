@@ -18,18 +18,19 @@ permalink: /payment_form/
     }
 
     .wrap {
-      max-width: 1280px;
+      max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .container-master {
       display: flex;
+      justify-content: space-evenly;
     }
 
     .sub-container {
       max-width: 400px;
-      margin: 50px auto;
+      margin: 50px 0;
       padding: 25px 40px;;
       background-color: #fff;
       border-radius: 10px;
@@ -139,7 +140,7 @@ permalink: /payment_form/
     <div class="container">
       <div class="sub-container">
         <h3>Tarjeta de crédito</h3>
-        <h6>Mastercard, Visa, Maestro, American Express, ...</h6>
+        <h6 style="font-weight: normal;">Mastercard, Visa, Maestro, American Express, ...</h6>
         
         <label for="card-number-element" class="element-label">Número de Tarjeta</label>
         <div id="card-number-element" class="stripe-element"></div>
