@@ -31,7 +31,7 @@ permalink: /payment_form/
 
     .sub-container {
       margin: 50px 0;
-      padding: 36px 50px;;
+      padding: 36px 50px;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -72,17 +72,17 @@ permalink: /payment_form/
       background-color: #0056b3;
     }
 
-    /* Estilo personalizado para los elementos de Stripe */
     .stripe-element {
-      width: 100%; /* Establecer el ancho para ocupar el 100% del contenedor */
+      width: 100%;
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
     }
+
     .stripe-element-50 {
-      width: 50%; /* Establecer el ancho para ocupar el 50% del contenedor */
+      width: 50%;
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -93,7 +93,7 @@ permalink: /payment_form/
     .element-label {
       font-weight: bold;
       margin-bottom: 5px;
-      font-size: 14px; /* Ajustar el tamaño de fuente de las etiquetas */
+      font-size: 14px;
     }
 
     .inline-elements{
@@ -101,6 +101,7 @@ permalink: /payment_form/
       align-items: center;
       gap: 10px;
     }
+
     .inline-labels {
       display: flex;
       gap: 68px;
@@ -123,7 +124,7 @@ permalink: /payment_form/
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
-      display: none; /* Initially hidden */
+      display: none;
     }
 
     @keyframes spin {
@@ -134,116 +135,84 @@ permalink: /payment_form/
 </head>
 <body>
 
-
 <div class="wrap">
 
 <h2 style="margin-top: 3em;">Elige un método de pago</h2>
 <p>Introduce los datos de la tarjeta con la que quieras realizar los pagos de tu plan</p>
 
-
 <div class="container-master">
-    <div class="container">
-      <div class="sub-container" style="width: 32em;">
-        <h3>Tarjeta de crédito</h3>
-        <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
-        <hr>
-        
-        <label for="card-number-element" class="element-label" style="margin-top: 2em;">Número de Tarjeta</label>
-        <div id="card-number-element" class="stripe-element"></div>
+  <div class="container">
+    <div class="sub-container" style="width: 32em;">
+      <h3>Tarjeta de crédito</h3>
+      <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
+      <hr>
 
-        <div class="inline-labels">
-          <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-          <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
-        </div>
+      <label for="card-number-element" class="element-label" style="margin-top: 2em;">Número de Tarjeta</label>
+      <div id="card-number-element" class="stripe-element"></div>
 
-        <div class="inline-elements">
-          <div id="card-expiry-element" class="stripe-element-50"></div>
-          <div id="card-cvc-element" class="stripe-element-50"></div>
-        </div>
+      <div class="inline-labels">
+        <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
+        <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
       </div>
-        <button id="card-button" type="submit">
-          <span id="button-text">Realizar pago</span>
-          <div class="progress-circle"></div>
-        </button>
+
+      <div class="inline-elements">
+        <div id="card-expiry-element" class="stripe-element-50"></div>
+        <div id="card-cvc-element" class="stripe-element-50"></div>
+      </div>
     </div>
 
-    <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
-      <h4>Resumen</h4>
-      <p id="plan-summary"></p>
-      <p>Duración: <b>1 mes</b></p>
-      <p>Próxima renovación automática: <b>00/00/2024</b></p>
-      <hr>
-      <div class="container-line">
-        <p id="plan-summary"></p>
-        <p id="price-summary"></p>
-      </div>
-      
-      <p>Descuento aplicado: 0%</p>
-      <hr>
-      <div class="container-line">
-        <h4 style="color: #6699ff;" >Total</h4>
-        <h4 id="total-price-summary"></h4>
-      </div>
+    <button id="card-button" type="submit">
+      <span id="button-text">Realizar pago</span>
+      <div class="progress-circle"></div>
+    </button>
   </div>
 
+  <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
+    <h4>Resumen</h4>
+    <p class="plan"></p>
+    <p>Duración: <b>1 mes</b></p>
+    <p>Próxima renovación automática: <b>00/00/2024</b></p>
+
+    <hr>
+
+    <div class="container-line">
+      <p class="plan"></p>
+      <p class="price"></p>
+    </div>
+
+    <p id="plan"></p>
+    <p> 0 </p>
+
+    <hr>
+
+    <div class="container-line">
+      <h4 style="color: #6699ff;">Total</h4>
+      <h4 class="price"></h4>
+    </div>
   </div>
 </div>
-
-<style>
-  /* Circular progress animation */
-  .progress-button {
-    position: relative;
-    overflow: hidden;
-    background: none;
-    border: none;
-  }
-  /* Adjust the progress circle styles */
-  .progress-circle {
-    position: relative; /* Set position to relative */
-    top: -50%; /* Position vertically at -50% */
-    left: 50%; /* Position horizontally at 50% */
-    transform: translateX(-50%); /* Center horizontally */
-    border: 2px solid transparent; /* Transparent border */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    display: none; /* Initially hidden */
-  }
-
-  @keyframes spin {
-    0% { border-color: transparent transparent transparent #fff; }
-    25% { border-color: #fff transparent transparent transparent; }
-    50% { border-color: transparent #fff transparent transparent; }
-    75% { border-color: transparent transparent #fff transparent; }
-    100% { border-color: transparent transparent transparent #fff; }
-  }
-</style>
+</div>
 
 <script>
-  // Retrieve plan from URL
+  // Retrieve the plan from URL parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan');
-  document.getElementById('plan').textContent = "Plan " + plan;
-
-  // Define the price for each plan
+  const plan = urlParams.get('plan'); // Example: 'Pro'
+  
+  // Price object based on the plan
   const prices = {
     Gratis: '0€',
     Pro: '30€',
     Premium: '50€'
   };
 
-  // Display the price of the selected plan
-  document.getElementById('price').textContent = prices[plan];
-  
-</script>
+  // Update all elements with the class "price"
+  document.querySelectorAll('.price').forEach(function(el) {
+    el.textContent = prices[plan];
+  });
 
-
-<script>
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
   var elements = stripe.elements();
 
-  // Estilo personalizado para los elementos de Stripe
   var style = {
     base: {
       fontSize: '16px',
@@ -275,23 +244,22 @@ permalink: /payment_form/
     // Show the progress circle and hide the button text
     progressCircle.style.display = 'block';
     document.getElementById('button-text').style.display = 'none';
+    cardButton.disabled = true; // Disable button on click
 
-    // Usar Netlify Identity para obtener los datos del usuario
+    // Use Netlify Identity to get user data
     var user = netlifyIdentity && netlifyIdentity.currentUser();
     if (!user) {
       progressCircle.style.display = 'none';
       document.getElementById('button-text').style.display = 'inline-block';
-      // Si el usuario no ha iniciado sesión, pedirle que inicie sesión
+      cardButton.disabled = false; // Re-enable button if not logged in
       alert('Por favor, inicia sesión para continuar con el pago.');
       return;
     }
 
-    // Obtener el correo electrónico y el nombre del usuario
     var userEmail = user.email;
     var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
-    // Si el usuario ha iniciado sesión, proceder con el pago
-    var paymentMethod = 'card'; // Utilizar tarjeta como método de pago
+    var paymentMethod = 'card';
     var priceId;
     switch (plan) {
       case 'Gratis':
@@ -305,10 +273,9 @@ permalink: /payment_form/
         break;
       default:
         console.error('Unsupported plan or no plan specified');
-        return; // Exit early if plan is unsupported
+        return;
     }
-    
-    // Crear método de pago con Stripe
+
     stripe.createPaymentMethod({
       type: 'card',
       card: cardNumberElement,
@@ -317,65 +284,16 @@ permalink: /payment_form/
       },
     }).then(function(result) {
       if (result.error) {
-        // Error al crear método de pago
         console.error(result.error.message);
         alert('Error al crear método de pago: ' + result.error.message);
+        progressCircle.style.display = 'none';
+        document.getElementById('button-text').style.display = 'inline-block';
+        cardButton.disabled = false; // Re-enable button on error
       } else {
-        // Método de pago creado con éxito, proceder con el pago
-        var paymentMethodId = result.paymentMethod.id;
-        
-        // Hacer solicitud AJAX al punto final de la Función de Netlify
-        fetch('https://gastrali.netlify.app/.netlify/functions/server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: userEmail,
-            name: userName,
-            payment_method: paymentMethodId,
-            priceId: priceId
-          })
-        })
-        .then(response => {
-          // Hide the progress circle and show the button text
-          progressCircle.style.display = 'none';
-          document.getElementById('button-text').style.display = 'inline-block';
-
-          // Parse JSON response
-          return response.json().then(data => {
-            console.log('Response status data:', response.status);
-            // Handle the response from server.js
-            if (response.status === 400) {
-              // If server.js returns a status code 400
-              console.log('Server returned status 400');
-              alert('Error al crear suscripción. El cliente ya tiene una suscripción activa.');
-            } else if (response.status === 500) {
-              // If server.js returns a status code 500
-              console.log('Server returned status 500');
-              alert('Error al crear suscripción. Error interno del servidor. Por favor, inténtalo de nuevo más tarde.');
-            } else if (response.ok) {
-              // If server.js returns a success message or other data
-              console.log('Server response:', data);
-              // Update user metadata with subscription plan
-              console.log('User:', user);
-              user.update({
-                data: { subscription_plan: plan }
-              }).then(updatedUser => {
-                console.log('User metadata updated successfully:', updatedUser);
-                alert('¡Suscripción creada con éxito!');
-                // Redirect to /micuenta/ page
-                window.location.href = '/miCuenta/';
-              }).catch(error => {
-                console.error('Error updating user metadata:', error);
-              });
-            }
-          });
-        })
-        .catch(error => {
-          // Handle other errors
-          console.error('Error inesperado al crear suscripción:', error);
-        });
+        console.log('Método de pago creado exitosamente');
+        progressCircle.style.display = 'none';
+        document.getElementById('button-text').style.display = 'inline-block';
+        // Proceed with Stripe payment or subscription
       }
     });
   });
