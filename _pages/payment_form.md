@@ -25,7 +25,8 @@ permalink: /payment_form/
 
     .container-master {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
+      align-items: flex-start;
     }
 
     .sub-container {
@@ -139,7 +140,8 @@ permalink: /payment_form/
     <div class="container">
       <div class="sub-container">
         <h3>Tarjeta de crédito</h3>
-        <h6 style="font-weight: normal;">Mastercard, Visa, Maestro, American Express, ...</h6>
+        <h6 style="font-weight: normal; margin-bottom: 2em">Mastercard, Visa, Maestro, American Express, ...</h6>
+        <hr>
         
         <label for="card-number-element" class="element-label" style="margin-top: 4em;">Número de Tarjeta</label>
         <div id="card-number-element" class="stripe-element"></div>
@@ -164,7 +166,7 @@ permalink: /payment_form/
       <h4>Resumen</h4>
       <p id="plan"></p>
       <p>Duración: <b>1 mes</b></p>
-      <p>Próxima renovación automática: <b>1 mes</b></p>
+      <p>Próxima renovación automática: <b>00/00/2024</b></p>
       <hr>
       
       <!-- Display the price of the selected plan -->
