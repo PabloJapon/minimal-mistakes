@@ -29,9 +29,8 @@ permalink: /payment_form/
     }
 
     .sub-container {
-      max-width: 400px;
       margin: 50px 0;
-      padding: 25px 40px;;
+      padding: 35px 50px;;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -142,7 +141,7 @@ permalink: /payment_form/
         <h3>Tarjeta de crédito</h3>
         <h6 style="font-weight: normal;">Mastercard, Visa, Maestro, American Express, ...</h6>
         
-        <label for="card-number-element" class="element-label">Número de Tarjeta</label>
+        <label for="card-number-element" class="element-label" style="margin-top: 4em;">Número de Tarjeta</label>
         <div id="card-number-element" class="stripe-element"></div>
 
         <div class="inline-labels">
@@ -154,19 +153,19 @@ permalink: /payment_form/
           <div id="card-expiry-element" class="stripe-element-50"></div>
           <div id="card-cvc-element" class="stripe-element-50"></div>
         </div>
-
+      </div>
         <button id="card-button" type="submit">
           <span id="button-text">Realizar pago</span>
           <div class="progress-circle"></div>
         </button>
-      </div>
     </div>
 
     <div class="sub-container" style="background-color: #e7e7e7;">
       <h4>Resumen</h4>
       <p id="plan"></p>
-      <p>Duración: 1 mes</p>
-      <p>Próxima renovación automática: 1 mes</p>
+      <p>Duración: <b>1 mes</b></p>
+      <p>Próxima renovación automática: <b>1 mes</b></p>
+      <hr>
       
       <!-- Display the price of the selected plan -->
       <p id="price"></p>
