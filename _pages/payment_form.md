@@ -37,6 +37,12 @@ permalink: /payment_form/
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
+    .container-line {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
     h1 {
       text-align: center;
       color: #333;
@@ -97,8 +103,7 @@ permalink: /payment_form/
     }
     .inline-labels {
       display: flex;
-      align-items: center;
-      gap: 49px;
+      gap: 68px;
     }
 
     .progress-button {
@@ -162,17 +167,25 @@ permalink: /payment_form/
         </button>
     </div>
 
-    <div class="sub-container" style="background-color: #e7e7e7;">
+    <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
       <h4>Resumen</h4>
       <p id="plan"></p>
       <p>Duración: <b>1 mes</b></p>
       <p>Próxima renovación automática: <b>00/00/2024</b></p>
       <hr>
+      <div class="container-line">
+        <p id="plan"></p>
+        <p id="price"></p>
+      </div>
       
-      <!-- Display the price of the selected plan -->
-      <p id="price"></p>
+      <p id="plan"></p>
+      <p> 0 </p>
       <hr>
-      <h4 style="color: #6699ff;" >Total 15€</h4>
+      <div class="container-line">
+        <h4 style="color: #6699ff;" >Total</h4>
+        <h4 id="price"></h4>
+      </div>
+      
 
 
     </div>
