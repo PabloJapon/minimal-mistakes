@@ -25,7 +25,7 @@ permalink: /payment_form/
 
     .container-master {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: flex-start;
     }
 
@@ -171,6 +171,9 @@ permalink: /payment_form/
       
       <!-- Display the price of the selected plan -->
       <p id="price"></p>
+      <hr>
+      <h4 style="color: #6699ff;" >Total 15€</h4>
+
 
     </div>
   </div>
