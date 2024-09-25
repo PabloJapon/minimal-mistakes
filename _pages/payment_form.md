@@ -31,7 +31,7 @@ permalink: /payment_form/
 
     .sub-container {
       margin: 50px 0;
-      padding: 35px 50px;;
+      padding: 36px 50px;;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -138,12 +138,12 @@ permalink: /payment_form/
 
 <div class="container-master">
     <div class="container">
-      <div class="sub-container">
+      <div class="sub-container" style="width: 32em;>
         <h3>Tarjeta de crédito</h3>
-        <h6 style="font-weight: normal; margin-bottom: 2em">Mastercard, Visa, Maestro, American Express, ...</h6>
+        <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
         <hr>
         
-        <label for="card-number-element" class="element-label" style="margin-top: 4em;">Número de Tarjeta</label>
+        <label for="card-number-element" class="element-label" style="margin-top: 2em;">Número de Tarjeta</label>
         <div id="card-number-element" class="stripe-element"></div>
 
         <div class="inline-labels">
