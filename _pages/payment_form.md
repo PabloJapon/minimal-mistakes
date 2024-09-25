@@ -138,7 +138,7 @@ permalink: /payment_form/
 
 <div class="container-master">
     <div class="container">
-      <div class="sub-container" style="width: 32em;>
+      <div class="sub-container" style="width: 32em;">
         <h3>Tarjeta de crédito</h3>
         <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
         <hr>
