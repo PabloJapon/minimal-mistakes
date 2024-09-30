@@ -62,12 +62,15 @@ img {
   margin-right: 8px;
 }
 
-.item-container{
+.item-container {
     display: flex;
-    text-align: left;
-    margin-left: 2em;
-    align-content: center;
-    align-items: center;
+    align-items: center; /* This centers the items vertically */
+    margin: 0.5em 0; /* Adjusting margin for better spacing */
+}
+
+.item-container p {
+    margin: 0;
+    padding-left: 10px; /* Adds space between the icon and the text */
 }
 
 .plan-container .plan:nth-child(1) {
@@ -149,7 +152,8 @@ img {
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
 
     <div class="item-container">
-      <p><span class="tick-icon"></span>Gratis. Para siempre</p>
+      <span class="tick-icon"></span>
+      <p>Feature 1 description</p>
     </div>
   </div>
 
@@ -159,7 +163,8 @@ img {
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
     
     <div class="item-container">
-      <p><span class="tick-icon"></span>Y este buenisimo del to</p>
+      <span class="tick-icon"></span>
+      <p>Feature 2 description</p>
     </div>
   </div>
 
@@ -169,7 +174,8 @@ img {
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
     
     <div class="item-container">
-      <p><span class="tick-icon"></span>Y este buenisimo del to</p>
+      <span class="tick-icon"></span>
+      <p>Feature 3 description</p>
     </div>
   </div>
 </div>
