@@ -30,7 +30,7 @@ permalink: /payment_form/
     }
 
     .sub-container {
-      margin: 50px 0;
+      margin: 50px 0 20px;
       padding: 36px 50px;
       background-color: #fff;
       border-radius: 10px;
@@ -74,7 +74,7 @@ permalink: /payment_form/
 
     .stripe-element {
       width: 100%;
-      margin-bottom: 15px;
+      margin-bottom: 35px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -180,14 +180,16 @@ permalink: /payment_form/
       <p class="price"></p>
     </div>
 
-    <p id="plan"></p>
-    <p> 0 </p>
+    <div class="container-line">
+      <p>Descuento</p>
+      <p>0€</p>
+    </div>
 
     <hr>
 
     <div class="container-line">
       <h4 style="color: #6699ff;">Total</h4>
-      <h4 class="price"></h4>
+      <h4 style="color: #6699ff;" class="price"></h4>
     </div>
   </div>
 </div>
