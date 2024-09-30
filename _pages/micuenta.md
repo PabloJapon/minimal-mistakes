@@ -91,6 +91,7 @@ img {
     Cambiar contraseña
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
+  <div class="linea"></div>
   <button class="boton" onclick="window.location.href='/misFacturas/'">
     Mis Facturas
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
@@ -105,9 +106,6 @@ img {
 
 <!-- Unsubscribe button -->
 <button onclick="cancelSubscription()">Cancelar Suscripción</button>
-
-<!-- Link to view invoices -->
-<a href="/misFacturas/" class="button">Ver mis facturas</a>
 
 <!-- Conditional button based on connected Stripe account -->
 <div id="stripe-button"></div>
