@@ -160,6 +160,7 @@ img {
     <p style="text-align: left; margin-left: 2em;">
       <span class="tick-icon"></span>Y este buenisimo del to
     </p>
+    <div> Icons made by <a href="https://www.flaticon.com/authors/stasy" title="Stasy"> Stasy </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
   </div>
 </div>
 
