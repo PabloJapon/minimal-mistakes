@@ -55,17 +55,24 @@ img {
 
 .plan .tick-icon {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 26px;
+  height: 26px;
   background-color: #6699ff;
   mask: url('/assets/images/done.png') no-repeat center / contain;
-  margin-right: 8px;
+}
+
+.plan .tick-icon-yellow {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-color: #ffc368;
+  mask: url('/assets/images/done.png') no-repeat center / contain;
 }
 
 .item-container {
     display: flex;
     align-items: center; /* This centers the items vertically */
-    margin: 0.5em 0; /* Adjusting margin for better spacing */
+    margin: 0.5em 2em; /* Adjusting margin for better spacing */
 }
 
 .item-container p {
@@ -163,7 +170,7 @@ img {
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
     
     <div class="item-container">
-      <span class="tick-icon"></span>
+      <span class="tick-icon-yellow"></span>
       <p>Feature 2 description</p>
     </div>
   </div>
@@ -174,7 +181,7 @@ img {
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
     
     <div class="item-container">
-      <span class="tick-icon"></span>
+      <span class="tick-icon-yellow"></span>
       <p>Feature 3 description</p>
     </div>
   </div>
