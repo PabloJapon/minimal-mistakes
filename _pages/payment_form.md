@@ -19,10 +19,15 @@ permalink: /payment_form/
 
     .tick-icon {
       display: inline-block;
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
       background-color: #6699ff;
       mask: url('/assets/images/circle-outline-of-small-size.png') no-repeat center / contain;
+    }
+
+    .item-container {
+      display: flex;
+      align-items: center;
     }
 
     .wrap {
@@ -151,8 +156,10 @@ permalink: /payment_form/
 <div class="container-master">
   <div class="container">
     <div class="sub-container" style="width: 32em;">
-      <span class="tick-icon"></span>
-      <h3>Tarjeta de crédito</h3>
+      <div class="item-container">
+        <span class="tick-icon"></span>
+        <h3>Tarjeta de crédito</h3>
+      </div>
       <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
       <hr>
 
@@ -219,6 +226,11 @@ permalink: /payment_form/
   // Update all elements with the class "price"
   document.querySelectorAll('.price').forEach(function(el) {
     el.textContent = prices[plan];
+  });
+
+  // Update all elements with the class "plan"
+  document.querySelectorAll('.plan').forEach(function(el) {
+    el.textContent = plan ? plan : 'Ningún plan seleccionado';
   });
 
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
