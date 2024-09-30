@@ -17,6 +17,14 @@ permalink: /payment_form/
       padding: 0;
     }
 
+    .tick-icon {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      background-color: #6699ff;
+      mask: url('/assets/images/circle-outline-of-small-size.png') no-repeat center / contain;
+    }
+
     .wrap {
       max-width: 1000px;
       margin-left: auto;
@@ -143,6 +151,7 @@ permalink: /payment_form/
 <div class="container-master">
   <div class="container">
     <div class="sub-container" style="width: 32em;">
+      <span class="tick-icon"></span>
       <h3>Tarjeta de crédito</h3>
       <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
       <hr>
