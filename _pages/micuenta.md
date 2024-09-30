@@ -99,7 +99,7 @@ img {
 </div>
 
 <!-- Logout button -->
-<button onclick="logout()">Cerrar Sesión</button>
+<button class="boton" onclick="logout()"><i class="fas fa-arrow-right-from-bracket"></i>Cerrar Sesión</button>
 
 <!-- Display subscription plan -->
 <p id="subscription-plan"></p>
