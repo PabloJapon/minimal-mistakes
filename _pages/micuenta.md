@@ -91,6 +91,10 @@ img {
     Cambiar contraseña
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
+  <button class="boton" onclick="window.location.href='/misFacturas/'">
+    Mis Facturas
+    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
+  </button>
 </div>
 
 <!-- Logout button -->
