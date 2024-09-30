@@ -145,8 +145,8 @@ img {
   </div>
 
   <div class="plan">
-    <h2 style="margin-bottom: 2em;">Pro</h2>
-    <h1 style="font-weight: normal;">0€</h1>
+    <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
+    <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
     <p style="text-align: left; margin-left: 2em;">
       <span class="tick-icon"></span>Este pues mejor tu sabe
@@ -155,7 +155,7 @@ img {
 
   <div class="plan">
     <h2 style="margin-bottom: 2em;">Premium</h2>
-    <h1 style="font-weight: normal;">0€</h1>
+    <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
     <p style="text-align: left; margin-left: 2em;">
       <span class="tick-icon"></span>Y este buenisimo del to
@@ -202,6 +202,72 @@ img {
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Precio mensual</td>
+        <td style="text-align: center;">Gratis</td>
+        <td style="text-align: center;">30€ - 50€/mes</td>
+        <td style="text-align: center;">100€ - 150€/mes</td>
+      </tr>
+      <tr>
+        <td>Software completo</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Accesos a software básico</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Procesamiento de pagos</td>
+        <td style="text-align: center;">Disponible, con tarifa 2%</td>
+        <td style="text-align: center;">Disponible, con cargo 1%</td>
+        <td style="text-align: center;">Disponible, sin comisión</td>
+      </tr>
+      <tr>
+        <td>Procesamiento de pagos</td>
+        <td style="text-align: center;">Disponible, con cargo</td>
+        <td style="text-align: center;">Disponible, con cargo</td>
+        <td style="text-align: center;">Disponible, sin cargo</td>
+      </tr>
+      <tr>
+        <td>Imágenes en el menú</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Personalización (colores, texto)</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">Parcial</td>
+        <td style="text-align: center;">Completa</td>
+      </tr>
+      <tr>
+        <td>Estadísticas y análisis</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Análisis/informes</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Fuentes personalizadas/marca completa</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">✓</td>
+      </tr>
+      <tr>
+        <td>Tarifa de transacción</td>
+        <td style="text-align: center;">2% - 3% adicional a Stripe</td>
+        <td style="text-align: center;">1% - 1.5% adicional a Stripe</td>
+        <td style="text-align: center;">Ninguna, solo Stripe</td>
       </tr>
     </tbody>
   </table>
