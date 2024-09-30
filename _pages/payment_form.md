@@ -19,8 +19,8 @@ permalink: /payment_form/
 
     .tick-icon {
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       background-color: #6699ff;
       mask: url('/assets/images/circle-outline-of-small-size.png') no-repeat center / contain;
     }
@@ -158,9 +158,9 @@ permalink: /payment_form/
     <div class="sub-container" style="width: 32em;">
       <div class="item-container">
         <span class="tick-icon"></span>
-        <h3>Tarjeta de crédito</h3>
+        <h3 style="margin-left: 0.5em;">Tarjeta de crédito</h3>
       </div>
-      <h6 style="font-weight: normal; margin-bottom: 3em">Mastercard, Visa, Maestro, American Express, ...</h6>
+      <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Mastercard, Visa, Maestro, American Express, ...</h6>
       <hr>
 
       <label for="card-number-element" class="element-label" style="margin-top: 2em;">Número de Tarjeta</label>
