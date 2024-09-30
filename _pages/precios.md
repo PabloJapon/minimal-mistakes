@@ -58,7 +58,7 @@ img {
   width: 16px;
   height: 16px;
   background-color: #4c80d9;
-  mask: url('tick-icon.svg') no-repeat center / contain; /* Replace with actual tick icon path */
+  mask: url('/assets/images/done.png') no-repeat center / contain; /* Replace with actual tick icon path */
   margin-right: 8px;
 }
 
@@ -160,7 +160,6 @@ img {
     <p style="text-align: left; margin-left: 2em;">
       <span class="tick-icon"></span>Y este buenisimo del to
     </p>
-    <div> Icons made by <a href="https://www.flaticon.com/authors/stasy" title="Stasy"> Stasy </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
   </div>
 </div>
 
