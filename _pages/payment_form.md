@@ -185,14 +185,14 @@ permalink: /payment_form/
 
   <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
     <h4>Resumen</h4>
-    <p class="plan"></p>
+    <p>Plan: <b><span class="plan"></span></b></p>
     <p>Duración: <b>1 mes</b></p>
     <p>Próxima renovación automática: <b>00/00/2024</b></p>
 
     <hr>
 
     <div class="container-line">
-      <p class="plan"></p>
+      <p>Plan <span class="plan"></span></p>
       <p class="price"></p>
     </div>
 
