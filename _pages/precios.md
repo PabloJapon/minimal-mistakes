@@ -57,9 +57,17 @@ img {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background-color: #4c80d9;
-  mask: url('/assets/images/done.png') no-repeat center / contain; /* Replace with actual tick icon path */
+  background-color: #6699ff;
+  mask: url('/assets/images/done.png') no-repeat center / contain;
   margin-right: 8px;
+}
+
+.item-container{
+    display: flex;
+    text-align: left;
+    margin-left: 2em;
+    align-content: center;
+    align-items: center;
 }
 
 .plan-container .plan:nth-child(1) {
@@ -139,27 +147,30 @@ img {
     <h2 style="margin-bottom: 2em;">Gratis</h2>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
-    <p style="text-align: left; margin-left: 2em;">
-      <span class="tick-icon"></span>Gratis. Para siempre
-    </p>
+
+    <div class="item-container">
+      <p><span class="tick-icon"></span>Gratis. Para siempre</p>
+    </div>
   </div>
 
   <div class="plan">
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
-    <p style="text-align: left; margin-left: 2em;">
-      <span class="tick-icon"></span>Este pues mejor tu sabe
-    </p>
+    
+    <div class="item-container">
+      <p><span class="tick-icon"></span>Y este buenisimo del to</p>
+    </div>
   </div>
 
   <div class="plan">
     <h2 style="margin-bottom: 2em;">Premium</h2>
     <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
-    <p style="text-align: left; margin-left: 2em;">
-      <span class="tick-icon"></span>Y este buenisimo del to
-    </p>
+    
+    <div class="item-container">
+      <p><span class="tick-icon"></span>Y este buenisimo del to</p>
+    </div>
   </div>
 </div>
 
