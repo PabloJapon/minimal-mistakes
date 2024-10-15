@@ -153,29 +153,23 @@ img {
     .then(response => response.json())
     .then(data => {
       console.log('Response from check_connected_account:', data);
+      const stripeDiv = document.getElementById('stripe-button');
       if (data && data.hasConnectedAccount) {
         console.log('User has a connected Stripe account.');
-        // Show button to manage things on stripe.com
-        const stripeButton = document.createElement('a');
-        stripeButton.classList.add('button');
-        stripeButton.textContent = 'Administrar cosas en Stripe';
-        stripeButton.href = 'https://dashboard.stripe.com/'; // Link to manage Stripe account
-        stripeButton.target = '_blank'; // Open in new tab
-        const stripeDiv = document.getElementById('stripe-button');
-        if (stripeDiv) {
-          stripeDiv.appendChild(stripeButton);
-        }
+        // Show button to manage account on stripe.com
+        const stripeButton = document.createElement('button'); // Change to a button element
+        stripeButton.classList.add('boton'); // Use the same class as other buttons
+        stripeButton.textContent = 'Gestionar cuenta de Stripe'; // Set button text
+        stripeButton.onclick = () => window.open('https://dashboard.stripe.com/', '_blank'); // Open in new tab
+        stripeDiv.appendChild(stripeButton); // Append the button to the div
       } else {
         console.log('User does not have a connected Stripe account.');
         // Show button to create a connected account
-        const createAccountButton = document.createElement('a');
-        createAccountButton.classList.add('button');
-        createAccountButton.textContent = 'Crear cuenta conectada de Stripe';
-        createAccountButton.href = '/create_account_stripe/'; // Link to create connected account
-        const stripeDiv = document.getElementById('stripe-button');
-        if (stripeDiv) {
-          stripeDiv.appendChild(createAccountButton);
-        }
+        const createAccountButton = document.createElement('button'); // Change to a button element
+        createAccountButton.classList.add('boton'); // Use the same class as other buttons
+        createAccountButton.textContent = 'Crear cuenta conectada de Stripe'; // Set button text
+        createAccountButton.onclick = () => window.location.href = '/create_account_stripe/'; // Redirect to create account
+        stripeDiv.appendChild(createAccountButton); // Append the button to the div
       }
     })
     .catch(error => console.error('Error checking connected account:', error));
