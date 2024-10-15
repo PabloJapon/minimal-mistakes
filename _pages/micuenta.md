@@ -96,7 +96,7 @@ img {
   </button>
   <div class="linea"></div> <!-- Line after "Mis Facturas" -->
   <button class="boton" id="stripe-button-manage">
-    <span id="stripe-button-text">Gestionar cuenta de Stripe</span>
+    <span id="stripe-button-text"></span>
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
 </div>
