@@ -61,7 +61,10 @@ img {
   font-size: 20px;
   cursor: pointer;
   display: flex;
-  align-items: center; /* Alinea la imagen y el texto verticalmente */
+  align-items: center; /* Alinea la imagen y el texto verticalmente */ */
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .button-log-out img.icon {
@@ -72,11 +75,11 @@ img {
 
 .button-log-out:hover {
   background-color: transparent;
-  color: #c3c3c3;
+  color: #417ef7;
 }
 
 .boton:hover {
-  background-color: #c3c3c3;
+  background-color: #e7e7e7;
 }
 </style>
 
