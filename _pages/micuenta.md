@@ -53,6 +53,28 @@ img {
   outline: none; /* Quita el borde azul al hacer clic en el botón */
 }
 
+.button-log-out {
+  background-color: transparent;
+  color: #69f;
+  border: none;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Alinea la imagen y el texto verticalmente */
+}
+
+.button-log-out img.icon {
+  width: 20px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 20px;
+  margin-right: 10px; /* Añade espacio entre la imagen y el texto */
+}
+
+.button-log-out:hover {
+  background-color: transparent;
+  color: #c3c3c3;
+}
+
 .boton:hover {
   background-color: #c3c3c3;
 }
@@ -103,7 +125,10 @@ img {
 
 
 <!-- Logout button -->
-<button class="boton" onclick="logout()"><i class="fas fa-arrow-right-from-bracket"></i>Cerrar Sesión</button>
+<button class="button-log-out">
+  <img src="/assets/images/log-out.png" alt="Log Out Icon" class="icon"> Cerrar Sesión
+</button>
+
 
 <!-- Display subscription plan -->
 <p id="subscription-plan"></p>
