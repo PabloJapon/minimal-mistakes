@@ -69,6 +69,14 @@ img {
   mask: url('/assets/images/done.png') no-repeat center / contain;
 }
 
+.fancy-label {
+  position: absolute; 
+  top: 10px; 
+  left: 10px;
+  width: 50px; 
+  height: auto; 
+}
+
 .item-container {
     display: flex;
     align-items: center; /* This centers the items vertically */
@@ -165,6 +173,7 @@ img {
   </div>
 
   <div class="plan">
+    <img src="/assets/images/Label.png" alt="Label" class="fancy-label">
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
