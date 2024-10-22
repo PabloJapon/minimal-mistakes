@@ -67,7 +67,7 @@ permalink: /create_account_stripe/
     <input type="email" id="email" name="email" required><br>
     <label for="business_name">Nombre del Negocio:</label>
     <input type="text" id="business_name" name="business_name" required><br>
-    <input type="hidden" id="restaurant_id" name="restaurant_id"> <!-- Hidden field for restaurant ID -->
+    <input type="hidden" id="id" name="restaurant_id" />
     <button type="submit">Crear Cuenta</button>
   </form>
 </div>
@@ -76,21 +76,23 @@ permalink: /create_account_stripe/
 <script src="/assets/js/create-account.js"></script> <!-- Ensure the path matches the location of your JS file -->
 
 <script>
-  // Netlify identity
-  netlifyIdentity.on('login', user => {
-    const usernameSpan = document.getElementById('username');
-    if (usernameSpan) {
-      usernameSpan.innerText = user.user_metadata.full_name || user.email;
-    }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Netlify identity
+    netlifyIdentity.on('login', user => {
+      const usernameSpan = document.getElementById('username');
+      if (usernameSpan) {
+        usernameSpan.innerText = user.user_metadata.full_name || user.email;
+      }
 
-    // Populate the hidden restaurant ID input field
-    const restaurantIdInput = document.getElementById('id');
-    if (user.user_metadata.id) {
-      restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
-      console.log('Restaurant ID:', restaurantIdInput.value);
-    } else {
-      console.error('No user is currently logged in.');
-    }
+      // Populate the hidden restaurant ID input field
+      const restaurantIdInput = document.getElementById('id');
+      if (restaurantIdInput && user.user_metadata.id) {
+        restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
+        console.log('Restaurant ID:', restaurantIdInput.value);
+      } else {
+        console.error('No user is currently logged in or restaurant ID element not found.');
+      }
+    });
   });
 
   // Handle form submission
