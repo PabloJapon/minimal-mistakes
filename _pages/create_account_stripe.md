@@ -75,38 +75,51 @@ permalink: /create_account_stripe/
 <script src="/assets/js/create-account.js"></script> <!-- Ensure the path matches the location of your JS file -->
 
 <script>
+  // Initialize Netlify Identity
+  netlifyIdentity.init();
+
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Netlify Identity
-    netlifyIdentity.init();
+    const user = netlifyIdentity.currentUser(); // Get the current user
+    if (user) {
+      console.log('Current user:', user);
+      handleUserLogin(user);
+    }
 
     // Netlify identity login event
     netlifyIdentity.on('login', user => {
       console.log('User logged in:', user); // Log the entire user object for debugging
+      handleUserLogin(user);
+    });
 
-      // Check if user is logged in
-      if (user) {
-        console.log('User is logged in.');
-
-        // Check if user_metadata exists
-        if (user.user_metadata) {
-          console.log('User Metadata:', user.user_metadata);
-
-          // Populate the hidden restaurant ID input field
-          const restaurantIdInput = document.getElementById('id');
-          if (restaurantIdInput && user.user_metadata.id) {
-            restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
-            console.log('Restaurant ID:', restaurantIdInput.value);
-          } else {
-            console.error('User is logged in, but restaurant ID not found in metadata.');
-          }
-        } else {
-          console.error('User is logged in, but no user metadata found.');
-        }
-      } else {
-        console.log('No user is logged in.');
+    // Netlify identity logout event
+    netlifyIdentity.on('logout', () => {
+      const usernameSpan = document.getElementById('username');
+      if (usernameSpan) {
+        usernameSpan.innerText = '';
       }
+      console.log('User logged out.');
     });
   });
+
+  function handleUserLogin(user) {
+    console.log('User is logged in.');
+
+    // Check if user_metadata exists
+    if (user.user_metadata) {
+      console.log('User Metadata:', user.user_metadata);
+
+      // Populate the hidden restaurant ID input field
+      const restaurantIdInput = document.getElementById('id');
+      if (restaurantIdInput && user.user_metadata.id) {
+        restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
+        console.log('Restaurant ID:', restaurantIdInput.value);
+      } else {
+        console.error('User is logged in, but restaurant ID not found in metadata.');
+      }
+    } else {
+      console.error('User is logged in, but no user metadata found.');
+    }
+  }
 
   // Handle form submission
   document.getElementById('connected-account-form').addEventListener('submit', function(event) {
@@ -151,6 +164,7 @@ permalink: /create_account_stripe/
     });
   });
 </script>
+
 
 </body>
 </html>
