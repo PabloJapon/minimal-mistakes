@@ -1,3 +1,8 @@
+---
+layout: default
+permalink: /create_account_stripe/
+---
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
