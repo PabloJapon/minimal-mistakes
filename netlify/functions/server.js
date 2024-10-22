@@ -1,4 +1,5 @@
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const axios = require('axios');
 
 if (!stripeSecretKey) {
   console.error('Error: Stripe secret key is missing!');
@@ -42,25 +43,41 @@ exports.handler = async (event, context) => {
     if (body.action === 'create_connected_account') {
       const { email, business_name } = body;
 
+      // Access the restaurant ID from the user metadata in the context
+      const restaurantId = context.clientContext.user.user_metadata.id;
+
       const account = await stripe.accounts.create({
         type: 'standard',
         email,
         business_profile: {
           name: business_name,
-          url: 'https://gastrali.com',  // replace with your website
+          url: 'https://gastrali.com',
         }
       });
 
+      const accountId = account.id; // Connected account ID
+
+      // Step to store the connected account ID in your external API
+      try {
+        await axios.post(`https://pablogastrali.pythonanywhere.com/personalizacion/restaurant/${restaurantId}`, {
+          id_connect: accountId // This will store the connected account ID
+        });
+        console.log('Connected account ID stored successfully.');
+      } catch (storeError) {
+        console.error('Error storing connected account ID:', storeError);
+        // Optionally handle the error (e.g., return an error response)
+      }
+
       const accountLink = await stripe.accountLinks.create({
         account: account.id,
-        refresh_url: 'https://yourdomain.com/reauth',
-        return_url: 'https://yourdomain.com/return',
+        refresh_url: 'https://astrali.com',
+        return_url: 'https://gastrali.com',
         type: 'account_onboarding',
       });
 
       return {
         statusCode: 200,
-        headers,  // Include CORS headers
+        headers,
         body: JSON.stringify({ url: accountLink.url }),
       };
     }

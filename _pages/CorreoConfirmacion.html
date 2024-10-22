@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirma tu correo electrónico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            color: #51545e;
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: none;
+        }
+        .email-wrapper {
+            width: 100%;
+            background-color: #f4f4f7;
+            padding: 20px;
+        }
+        .email-content {
+            background-color: white;
+            border-radius: 5px;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333333;
+        }
+        p {
+            color: #51545e;
+        }
+        a {
+            background-color: #69f;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 45px;
+            text-align: center;
+            text-decoration: none;
+            width: 200px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-content">
+            <h1>¡Bienvenido a {{ site_name }}!</h1>
+            <p>Hola {{ user_email }},</p>
+            <p>Gracias por registrarte en {{ site_name }}. Para completar tu registro, confirma tu correo electrónico haciendo clic en el siguiente botón:</p>
+            <p>
+                <a href="{{ confirm_url }}">Confirmar correo</a>
+            </p>
+            <p>Si no te registraste en {{ site_name }}, puedes ignorar este correo.</p>
+            <p>Gracias,<br>El equipo de {{ site_name }}</p>
+        </div>
+        <div class="footer">
+            <p>{{ site_name }} | <a href="{{ site_url }}">{{ site_url }}</a></p>
+        </div>
+    </div>
+</body>
+</html>
