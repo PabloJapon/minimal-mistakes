@@ -87,6 +87,7 @@ permalink: /create_account_stripe/
     const restaurantIdInput = document.getElementById('id');
     if (user.user_metadata.id) {
       restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
+      console.log('id:', id);
     } else {
       console.error('No user is currently logged in.');
     }
