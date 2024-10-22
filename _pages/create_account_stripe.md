@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /create_account_stripe/
----
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,25 +67,38 @@ permalink: /create_account_stripe/
   </form>
 </div>
 
-<!-- Include the JavaScript file -->
 <script src="/assets/js/create-account.js"></script> <!-- Ensure the path matches the location of your JS file -->
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Netlify identity
-    netlifyIdentity.on('login', user => {
-      const usernameSpan = document.getElementById('username');
-      if (usernameSpan) {
-        usernameSpan.innerText = user.user_metadata.full_name || user.email;
-      }
+    // Initialize Netlify Identity
+    netlifyIdentity.init();
 
-      // Populate the hidden restaurant ID input field
-      const restaurantIdInput = document.getElementById('id');
-      if (restaurantIdInput && user.user_metadata.id) {
-        restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
-        console.log('Restaurant ID:', restaurantIdInput.value);
+    // Netlify identity login event
+    netlifyIdentity.on('login', user => {
+      console.log('User logged in:', user); // Log the entire user object for debugging
+
+      // Check if user is logged in
+      if (user) {
+        console.log('User is logged in.');
+
+        // Check if user_metadata exists
+        if (user.user_metadata) {
+          console.log('User Metadata:', user.user_metadata);
+
+          // Populate the hidden restaurant ID input field
+          const restaurantIdInput = document.getElementById('id');
+          if (restaurantIdInput && user.user_metadata.id) {
+            restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
+            console.log('Restaurant ID:', restaurantIdInput.value);
+          } else {
+            console.error('User is logged in, but restaurant ID not found in metadata.');
+          }
+        } else {
+          console.error('User is logged in, but no user metadata found.');
+        }
       } else {
-        console.error('No user is currently logged in or restaurant ID element not found.');
+        console.log('No user is logged in.');
       }
     });
   });
@@ -138,7 +146,6 @@ permalink: /create_account_stripe/
     });
   });
 </script>
-
 
 </body>
 </html>
