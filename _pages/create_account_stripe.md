@@ -87,48 +87,56 @@ permalink: /create_account_stripe/
     const restaurantIdInput = document.getElementById('id');
     if (user.user_metadata.id) {
       restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
-      console.log('id:', id);
+      console.log('Restaurant ID:', restaurantIdInput.value);
     } else {
       console.error('No user is currently logged in.');
     }
   });
 
-// Handle form submission
-document.getElementById('connected-account-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent default form submission
+  // Handle form submission
+  document.getElementById('connected-account-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-  const email = document.getElementById('email').value;
-  const businessName = document.getElementById('business_name').value;
-  const restaurantId = document.getElementById('id').value; // Get restaurant ID
+    const email = document.getElementById('email').value;
+    const businessName = document.getElementById('business_name').value;
+    const restaurantId = document.getElementById('id').value; // Get restaurant ID
 
-  // Log the values for debugging
-  console.log('Email:', email);
-  console.log('Business Name:', businessName);
-  console.log('Restaurant ID:', restaurantId);
+    // Validation
+    if (!email || !businessName || !restaurantId) {
+      console.error('All fields must be filled out.');
+      return;
+    }
 
-  // Make a POST request to your serverless function or API to create the Stripe connected account
-  fetch('/.netlify/functions/your-function', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      business_name: businessName,
-      restaurant_id: restaurantId // Send restaurant ID to your API
-    }),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-    // Handle success (e.g., show a message or redirect)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-    // Handle error (e.g., show an error message)
+    // Log the values for debugging
+    console.log('Email:', email);
+    console.log('Business Name:', businessName);
+    console.log('Restaurant ID:', restaurantId);
+
+    // Make a POST request to your serverless function or API to create the Stripe connected account
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'create_connected_account',
+        email: email,
+        business_name: businessName,
+        restaurant_id: restaurantId // Send restaurant ID to your API
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      // Handle success (e.g., show a message or redirect)
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle error (e.g., show an error message)
+    });
   });
-});
 </script>
+
 
 </body>
 </html>
