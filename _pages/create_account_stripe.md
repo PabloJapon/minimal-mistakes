@@ -76,21 +76,23 @@ permalink: /create_account_stripe/
 <script src="/assets/js/create-account.js"></script> <!-- Ensure the path matches the location of your JS file -->
 
 <script>
-// Check if Netlify Identity is available
-if (typeof netlifyIdentity !== 'undefined') {
-  // Get the current user
-  const user = netlifyIdentity.currentUser();
-
-  if (user) {
-    // Populate the hidden restaurant ID input field
-    const restaurantIdInput = document.getElementById('restaurant_id');
-    if (user.user_metadata.restaurant_id) {
-      restaurantIdInput.value = user.user_metadata.restaurant_id; // Set the restaurant ID
+  // Netlify identity
+  netlifyIdentity.on('login', user => {
+    const usernameSpan = document.getElementById('username');
+    if (usernameSpan) {
+      usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
-  } else {
-    console.error('No user is currently logged in.');
-  }
-}
+    const subscriptionPlan = user.user_metadata.subscription_plan;
+    if (subscriptionPlan) {
+      const subscriptionPlanElement = document.getElementById('subscription-plan');
+      subscriptionPlanElement.textContent = "Planoo " + subscriptionPlan;
+      console.log('Subscription planooo:', subscriptionPlan);
+    } else {
+      console.log('Userooo', user);
+      console.log('sin plan de suscripciónooo');
+    }
+  });
+
 
 // Handle form submission
 document.getElementById('connected-account-form').addEventListener('submit', function(event) {
