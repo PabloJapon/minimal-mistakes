@@ -161,7 +161,7 @@ img {
 </style>
 
 <div class="plan-container">
-  <div class="plan">
+  <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Gratis</h2>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
@@ -173,6 +173,7 @@ img {
   </div>
 
   <div class="plan" style="padding: 0px 20px;">
+  <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px;"> Recomendado </p>
     <p style="background-color: #ffc368; color: white"> Recomendado </p>
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
@@ -184,7 +185,7 @@ img {
     </div>
   </div>
 
-  <div class="plan">
+  <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Premium</h2>
     <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
