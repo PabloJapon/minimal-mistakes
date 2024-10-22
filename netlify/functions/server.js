@@ -41,19 +41,17 @@ exports.handler = async (event, context) => {
     const body = JSON.parse(event.body);
 
     if (body.action === 'create_connected_account') {
-      const { email, business_name } = body;
+      const { email, business_name, restaurant_id } = body; // Destructure restaurant_id
 
       // Log context for debugging
       console.log('Context:', context);
 
-      // Safely access the restaurant ID
-      const restaurantId = context.clientContext.user?.user_metadata?.id;
-
-      if (!restaurantId) {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ error: 'Restaurant ID not found in user metadata' }),
-        };
+      // Check if restaurant ID is provided
+      if (!restaurant_id) {
+          return {
+              statusCode: 400,
+              body: JSON.stringify({ error: 'Restaurant ID not provided' }),
+          };
       }
 
       const account = await stripe.accounts.create({
