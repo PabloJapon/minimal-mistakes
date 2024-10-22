@@ -173,17 +173,7 @@ img {
   </div>
 
   <div class="plan" style="padding: 0px 20px;">
-    <img src="/assets/images/Label.png" alt="Label" class="fancy-label">
-    <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
-    <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
-    
-    <div class="item-container">
-      <span class="tick-icon-yellow"></span>
-      <p>Feature 2 description</p>
-    </div>
-  </div>
-    <img src="/assets/images/Label.png" alt="Label" class="fancy-label">
+    <p style="background-color: #ffc368; color: white"> Recomendado </p>
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
