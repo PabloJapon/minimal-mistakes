@@ -82,17 +82,15 @@ permalink: /create_account_stripe/
     if (usernameSpan) {
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
-    const subscriptionPlan = user.user_metadata.subscription_plan;
-    if (subscriptionPlan) {
-      const subscriptionPlanElement = document.getElementById('subscription-plan');
-      subscriptionPlanElement.textContent = "Planoo " + subscriptionPlan;
-      console.log('Subscription planooo:', subscriptionPlan);
+
+    // Populate the hidden restaurant ID input field
+    const restaurantIdInput = document.getElementById('id');
+    if (user.user_metadata.id) {
+      restaurantIdInput.value = user.user_metadata.id; // Set the restaurant ID
     } else {
-      console.log('Userooo', user);
-      console.log('sin plan de suscripciónooo');
+      console.error('No user is currently logged in.');
     }
   });
-
 
 // Handle form submission
 document.getElementById('connected-account-form').addEventListener('submit', function(event) {
@@ -100,7 +98,7 @@ document.getElementById('connected-account-form').addEventListener('submit', fun
 
   const email = document.getElementById('email').value;
   const businessName = document.getElementById('business_name').value;
-  const restaurantId = document.getElementById('restaurant_id').value; // Get restaurant ID
+  const restaurantId = document.getElementById('id').value; // Get restaurant ID
 
   // Log the values for debugging
   console.log('Email:', email);
