@@ -67,7 +67,7 @@ exports.handler = async (event, context) => {
 
       // Step to store the connected account ID in your external API
       try {
-        await axios.post(`https://pablogastrali.pythonanywhere.com/personalizacion/restaurant/${restaurantId}`, {
+        await axios.post(`https://pablogastrali.pythonanywhere.com/personalizacion/restaurant/${restaurant_id}`, {
           id_connect: accountId // This will store the connected account ID
         });
         console.log('Connected account ID stored successfully.');
