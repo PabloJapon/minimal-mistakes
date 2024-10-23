@@ -213,7 +213,7 @@ permalink: /payment_form/
   console.log('Plan extracted from URL:', plan); // Debug log for plan
 
   // Fetch clientSecret from your backend
-  fetch('/.netlify/functions/client_payment_server', {
+  fetch('/.netlify/functions/server', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
