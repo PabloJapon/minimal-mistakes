@@ -156,15 +156,9 @@ permalink: /payment_form/
   <div class="container-master">
     <div class="container">
       <div class="sub-container" style="width: 32em;">
-        <div class="item-container">
-          <span class="tick-icon"></span>
-          <h3 style="margin-left: 0.5em;">Método de Pago</h3>
-        </div>
-        <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Selecciona el método de pago deseado</h6>
-        <hr>
 
         <!-- This is where the Payment Element will be mounted -->
-        <div id="payment-element" class="stripe-element"></div>
+        <div id="payment-element"></div>
       </div>
 
       <button id="card-button" type="submit">
@@ -264,7 +258,7 @@ permalink: /payment_form/
 
   // Handle payment button click
   const cardButton = document.getElementById('card-button');
-  const progressCircle = document.getElementById('progress-circle');
+  const progressCircle = document.querySelector('.progress-circle');
 
   cardButton.addEventListener('click', function (ev) {
       ev.preventDefault();
