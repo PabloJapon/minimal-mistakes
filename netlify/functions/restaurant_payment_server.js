@@ -40,7 +40,6 @@ exports.handler = async (event, context) => {
       automatic_payment_methods: {
         enabled: true,
       },
-      confirmation_method: 'automatic',
     };
 
     console.log('Payment Intent Payload:', paymentIntentData);
