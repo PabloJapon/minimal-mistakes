@@ -105,13 +105,19 @@ exports.handler = async (event, context) => {
 
     if (body.action === 'create_payment_intent') {
       const { plan } = body;
-
+    
       const priceIds = {
         Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
         Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
         Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
       };
-
+    
+      const amounts = {
+        Gratis: 0,        // In cents, so 0€ is 0
+        Pro: 3000,        // 30€ -> 3000 cents
+        Premium: 5000     // 50€ -> 5000 cents
+      };
+    
       if (!priceIds[plan]) {
         return {
           statusCode: 400,
@@ -119,13 +125,13 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({ error: 'Invalid plan' })
         };
       }
-
+    
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: 1000, // replace with the actual amount in cents
-        currency: 'usd',
-        payment_method_types: ['card'],
+        amount: amounts[plan],  // Set the amount based on the plan
+        currency: 'eur',        // Set to 'eur' if charging in euros
+        payment_method_types: ['card'], // Stripe will choose the available methods
       });
-
+    
       return {
         statusCode: 200,
         headers,  // Include CORS headers
@@ -135,6 +141,7 @@ exports.handler = async (event, context) => {
         })
       };
     }
+    
 
     if (body.action === 'next_invoice_date') {
       const customerEmail = body.email;

@@ -158,29 +158,20 @@ permalink: /payment_form/
     <div class="sub-container" style="width: 32em;">
       <div class="item-container">
         <span class="tick-icon"></span>
-        <h3 style="margin-left: 0.5em;">Tarjeta de crédito</h3>
+        <h3 style="margin-left: 0.5em;">Método de Pago</h3>
       </div>
-      <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Mastercard, Visa, Maestro, American Express, ...</h6>
+      <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Selecciona el método de pago deseado</h6>
       <hr>
 
-      <label for="card-number-element" class="element-label" style="margin-top: 2em;">Número de Tarjeta</label>
-      <div id="card-number-element" class="stripe-element"></div>
-
-      <div class="inline-labels">
-        <label for="card-expiry-element" class="element-label">Fecha de Expiración</label>
-        <label for="card-cvc-element" class="element-label">Código de Seguridad</label>
-      </div>
-
-      <div class="inline-elements">
-        <div id="card-expiry-element" class="stripe-element-50"></div>
-        <div id="card-cvc-element" class="stripe-element-50"></div>
-      </div>
+      <!-- This is where the Payment Element will be mounted -->
+      <div id="payment-element" class="stripe-element"></div>
     </div>
 
     <button id="card-button" type="submit">
       <span id="button-text">Realizar pago</span>
       <div class="progress-circle"></div>
     </button>
+
   </div>
 
   <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
@@ -212,69 +203,44 @@ permalink: /payment_form/
 </div>
 
 <script>
-  // Retrieve the plan from URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan'); // Example: 'Pro'
-  
-  // Price object based on the plan
-  const prices = {
-    Gratis: '0€',
-    Pro: '30€',
-    Premium: '50€'
-  };
-
-  // Update all elements with the class "price"
-  document.querySelectorAll('.price').forEach(function(el) {
-    el.textContent = prices[plan];
-  });
-
-  // Update all elements with the class "plan"
-  document.querySelectorAll('.plan').forEach(function(el) {
-    el.textContent = plan ? plan : 'Ningún plan seleccionado';
-  });
-
   var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
-  var elements = stripe.elements();
 
-  var style = {
-    base: {
-      fontSize: '16px',
-      color: '#32325d',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-    },
-    invalid: {
-      color: '#fa755a',
-    },
-  };
+// This variable is already set up to capture the plan from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const plan = urlParams.get('plan');
 
-  var cardNumberElement = elements.create('cardNumber', { style: style });
-  cardNumberElement.mount('#card-number-element');
+// Price object based on the plan
+const prices = {
+  Gratis: '0€',
+  Pro: '30€',
+  Premium: '50€'
+};
 
-  var cardExpiryElement = elements.create('cardExpiry', { style: style });
-  cardExpiryElement.mount('#card-expiry-element');
+// Update all elements with the class "price"
+document.querySelectorAll('.price').forEach(function(el) {
+  el.textContent = prices[plan];
+});
 
-  var cardCvcElement = elements.create('cardCvc', { style: style });
-  cardCvcElement.mount('#card-cvc-element');
+// Update all elements with the class "plan"
+document.querySelectorAll('.plan').forEach(function(el) {
+  el.textContent = plan ? plan : 'Ningún plan seleccionado';
+});
 
-  var cardButton = document.getElementById('card-button');
-  var progressCircle = document.querySelector('.progress-circle');
+var cardButton = document.getElementById('card-button');
+var progressCircle = document.querySelector('.progress-circle');
 
-  cardButton.addEventListener('click', function(ev) {
+cardButton.addEventListener('click', function(ev) {
     ev.preventDefault();
 
-    // Show the progress circle and hide the button text
     progressCircle.style.display = 'block';
     document.getElementById('button-text').style.display = 'none';
     cardButton.disabled = true; // Disable button on click
 
-    // Use Netlify Identity to get user data
     var user = netlifyIdentity && netlifyIdentity.currentUser();
     if (!user) {
       progressCircle.style.display = 'none';
       document.getElementById('button-text').style.display = 'inline-block';
-      cardButton.disabled = false; // Re-enable button if not logged in
+      cardButton.disabled = false;
       alert('Por favor, inicia sesión para continuar con el pago.');
       return;
     }
@@ -282,44 +248,63 @@ permalink: /payment_form/
     var userEmail = user.email;
     var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
 
-    var paymentMethod = 'card';
-    var priceId;
-    switch (plan) {
-      case 'Gratis':
-        priceId = 'price_1On5B9E2UvP4xcDsTat7ZHhV';
-        break;
-      case 'Pro':
-        priceId = 'price_1On33zE2UvP4xcDsDD9jPJzw';
-        break;
-      case 'Premium':
-        priceId = 'price_1On5CAE2UvP4xcDso6epRdMs';
-        break;
-      default:
-        console.error('Unsupported plan or no plan specified');
-        return;
-    }
+    // Fetch the Payment Intent client secret from your server
+    fetch('/your-server-endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'create_payment_intent',
+          plan: plan
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error en el servidor: ' + data.error);
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+        } else {
+            const clientSecret = data.clientSecret;
 
-    stripe.createPaymentMethod({
-      type: 'card',
-      card: cardNumberElement,
-      billing_details: {
-        name: userName,
-      },
-    }).then(function(result) {
-      if (result.error) {
-        console.error(result.error.message);
-        alert('Error al crear método de pago: ' + result.error.message);
+            // Create an instance of Payment Element
+            var elements = stripe.elements();
+            var paymentElement = elements.create('payment');
+            paymentElement.mount('#payment-element');
+
+            // Confirm the payment when the button is clicked
+            stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: window.location.href, // Optionally, handle the result on the backend
+                },
+            }).then(function(result) {
+                if (result.error) {
+                    alert('Error al confirmar el pago: ' + result.error.message);
+                    progressCircle.style.display = 'none';
+                    document.getElementById('button-text').style.display = 'inline-block';
+                    cardButton.disabled = false;
+                } else {
+                    alert('Pago exitoso');
+                    progressCircle.style.display = 'none';
+                    document.getElementById('button-text').style.display = 'inline-block';
+                    cardButton.disabled = false;
+                }
+            });
+        }
+    })
+    .catch(err => {
+        console.error('Error en la solicitud:', err);
+        alert('Error al comunicarse con el servidor');
         progressCircle.style.display = 'none';
         document.getElementById('button-text').style.display = 'inline-block';
-        cardButton.disabled = false; // Re-enable button on error
-      } else {
-        console.log('Método de pago creado exitosamente');
-        progressCircle.style.display = 'none';
-        document.getElementById('button-text').style.display = 'inline-block';
-        // Proceed with Stripe payment or subscription
-      }
+        cardButton.disabled = false;
     });
-  });
+});
+
+
 </script>
 
 </body>
