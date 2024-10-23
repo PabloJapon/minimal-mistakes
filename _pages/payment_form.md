@@ -150,86 +150,89 @@ permalink: /payment_form/
 
 <div class="wrap">
 
-<h2 style="margin-top: 3em;">Elige un método de pago</h2>
-<p>Introduce los datos de la tarjeta con la que quieras realizar los pagos de tu plan</p>
+  <h2 style="margin-top: 3em;">Elige un método de pago</h2>
+  <p>Introduce los datos de la tarjeta con la que quieras realizar los pagos de tu plan</p>
 
-<div class="container-master">
-  <div class="container">
-    <div class="sub-container" style="width: 32em;">
-      <div class="item-container">
-        <span class="tick-icon"></span>
-        <h3 style="margin-left: 0.5em;">Método de Pago</h3>
+  <div class="container-master">
+    <div class="container">
+      <div class="sub-container" style="width: 32em;">
+        <div class="item-container">
+          <span class="tick-icon"></span>
+          <h3 style="margin-left: 0.5em;">Método de Pago</h3>
+        </div>
+        <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Selecciona el método de pago deseado</h6>
+        <hr>
+
+        <!-- This is where the Payment Element will be mounted -->
+        <div id="payment-element" class="stripe-element"></div>
       </div>
-      <h6 style="font-weight: normal;margin-bottom: 3em;margin-left: 2.5em;">Selecciona el método de pago deseado</h6>
+
+      <button id="card-button" type="submit">
+        <span id="button-text">Realizar pago</span>
+        <div class="progress-circle"></div>
+      </button>
+
+    </div>
+
+    <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
+      <h4>Resumen</h4>
+      <p>Plan: <b><span class="plan"></span></b></p>
+      <p>Duración: <b>1 mes</b></p>
+      <p>Próxima renovación automática: <b>00/00/2024</b></p>
+
       <hr>
 
-      <!-- This is where the Payment Element will be mounted -->
-      <div id="payment-element" class="stripe-element"></div>
-    </div>
+      <div class="container-line">
+        <p>Plan <span class="plan"></span></p>
+        <p class="price"></p>
+      </div>
 
-    <button id="card-button" type="submit">
-      <span id="button-text">Realizar pago</span>
-      <div class="progress-circle"></div>
-    </button>
+      <div class="container-line">
+        <p>Descuento</p>
+        <p>0€</p>
+      </div>
 
-  </div>
+      <hr>
 
-  <div class="sub-container" style="background-color: #e7e7e7;padding: 30px;">
-    <h4>Resumen</h4>
-    <p>Plan: <b><span class="plan"></span></b></p>
-    <p>Duración: <b>1 mes</b></p>
-    <p>Próxima renovación automática: <b>00/00/2024</b></p>
-
-    <hr>
-
-    <div class="container-line">
-      <p>Plan <span class="plan"></span></p>
-      <p class="price"></p>
-    </div>
-
-    <div class="container-line">
-      <p>Descuento</p>
-      <p>0€</p>
-    </div>
-
-    <hr>
-
-    <div class="container-line">
-      <h4 style="color: #6699ff;">Total</h4>
-      <h4 style="color: #6699ff;" class="price"></h4>
+      <div class="container-line">
+        <h4 style="color: #6699ff;">Total</h4>
+        <h4 style="color: #6699ff;" class="price"></h4>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 <script>
-  var stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
 
-// This variable is already set up to capture the plan from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const plan = urlParams.get('plan');
+  const elements = stripe.elements();
+  const paymentElement = elements.create('payment');
+  paymentElement.mount('#payment-element');
 
-// Price object based on the plan
-const prices = {
-  Gratis: '0€',
-  Pro: '30€',
-  Premium: '50€'
-};
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan');
 
-// Update all elements with the class "price"
-document.querySelectorAll('.price').forEach(function(el) {
-  el.textContent = prices[plan];
-});
+  // Price object based on the plan
+  const prices = {
+    Gratis: '0€',
+    Pro: '30€',
+    Premium: '50€'
+  };
 
-// Update all elements with the class "plan"
-document.querySelectorAll('.plan').forEach(function(el) {
-  el.textContent = plan ? plan : 'Ningún plan seleccionado';
-});
+  // Update all elements with the class "price"
+  document.querySelectorAll('.price').forEach(function (el) {
+    el.textContent = prices[plan];
+  });
 
-var cardButton = document.getElementById('card-button');
-var progressCircle = document.querySelector('.progress-circle');
+  // Update all elements with the class "plan"
+  document.querySelectorAll('.plan').forEach(function (el) {
+    el.textContent = plan ? plan : 'Ningún plan seleccionado';
+  });
 
-cardButton.addEventListener('click', function(ev) {
+  var cardButton = document.getElementById('card-button');
+  var progressCircle = document.querySelector('.progress-circle');
+
+  cardButton.addEventListener('click', function (ev) {
     ev.preventDefault();
 
     progressCircle.style.display = 'block';
@@ -245,66 +248,52 @@ cardButton.addEventListener('click', function(ev) {
       return;
     }
 
-    var userEmail = user.email;
-    var userName = user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : '';
-
     // Fetch the Payment Intent client secret from your server
-    fetch('/your-server-endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          action: 'create_payment_intent',
-          plan: plan
-        })
+    fetch('/.netlify/functions/client_payment_server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'create_payment_intent',
+        plan: plan
+      })
     })
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
         if (data.error) {
-            alert('Error en el servidor: ' + data.error);
+          alert('Error en el servidor: ' + data.error);
+          progressCircle.style.display = 'none';
+          document.getElementById('button-text').style.display = 'inline-block';
+          cardButton.disabled = false;
+        } else {
+          const clientSecret = data.clientSecret;
+
+          stripe.confirmPayment({
+            elements,
+            confirmParams: {
+              return_url: window.location.href, // Optionally, handle the result on the backend
+            },
+          }).then(function (result) {
+            if (result.error) {
+              alert('Error al confirmar el pago: ' + result.error.message);
+            } else {
+              alert('Pago exitoso');
+            }
             progressCircle.style.display = 'none';
             document.getElementById('button-text').style.display = 'inline-block';
             cardButton.disabled = false;
-        } else {
-            const clientSecret = data.clientSecret;
-
-            // Create an instance of Payment Element
-            var elements = stripe.elements();
-            var paymentElement = elements.create('payment');
-            paymentElement.mount('#payment-element');
-
-            // Confirm the payment when the button is clicked
-            stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    return_url: window.location.href, // Optionally, handle the result on the backend
-                },
-            }).then(function(result) {
-                if (result.error) {
-                    alert('Error al confirmar el pago: ' + result.error.message);
-                    progressCircle.style.display = 'none';
-                    document.getElementById('button-text').style.display = 'inline-block';
-                    cardButton.disabled = false;
-                } else {
-                    alert('Pago exitoso');
-                    progressCircle.style.display = 'none';
-                    document.getElementById('button-text').style.display = 'inline-block';
-                    cardButton.disabled = false;
-                }
-            });
+          });
         }
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.error('Error en la solicitud:', err);
         alert('Error al comunicarse con el servidor');
         progressCircle.style.display = 'none';
         document.getElementById('button-text').style.display = 'inline-block';
         cardButton.disabled = false;
-    });
-});
-
-
+      });
+  });
 </script>
 
 </body>
