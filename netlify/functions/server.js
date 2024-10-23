@@ -105,41 +105,59 @@ exports.handler = async (event, context) => {
 
     if (body.action === 'create_payment_intent') {
       const { plan } = body;
-    
+  
+      // Define price IDs and amounts for each plan
       const priceIds = {
         Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
         Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
         Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
       };
-    
+  
       const amounts = {
         Gratis: 0,        // In cents, so 0€ is 0
         Pro: 3000,        // 30€ -> 3000 cents
         Premium: 5000     // 50€ -> 5000 cents
       };
-    
+  
+      // Check if the plan exists
       if (!priceIds[plan]) {
         return {
           statusCode: 400,
-          headers,  // Include CORS headers
+          headers, // Include CORS headers
           body: JSON.stringify({ error: 'Invalid plan' })
         };
       }
-    
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amounts[plan],  // Set the amount based on the plan
-        currency: 'eur',        // Set to 'eur' if charging in euros
-        payment_method_types: ['card'], // Stripe will choose the available methods
-      });
-    
-      return {
-        statusCode: 200,
-        headers,  // Include CORS headers
-        body: JSON.stringify({
-          clientSecret: paymentIntent.client_secret,
-          priceId: priceIds[plan]
-        })
-      };
+  
+      try {
+        // Create a payment intent
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: amounts[plan],  // Amount in cents
+          currency: 'eur',        // Set currency (EUR in this case)
+          payment_method_types: ['card'], // Restrict to card payments
+          metadata: {
+            plan: plan, // Optional: attach the selected plan as metadata
+            // Add more metadata if needed (e.g., user email if you have it)
+          },
+        });
+  
+        // Return client secret and price ID to the frontend
+        return {
+          statusCode: 200,
+          headers,  // Include CORS headers
+          body: JSON.stringify({
+            clientSecret: paymentIntent.client_secret,
+            priceId: priceIds[plan]
+          })
+        };
+      } catch (error) {
+        // Log and return error response
+        console.error('Error creating payment intent:', error);
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify({ error: 'Failed to create payment intent' })
+        };
+      }
     }
     
 

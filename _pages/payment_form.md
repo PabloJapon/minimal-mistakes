@@ -205,70 +205,56 @@ permalink: /payment_form/
 <script>
   const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
 
-  const elements = stripe.elements();
-  const paymentElement = elements.create('payment');
-  paymentElement.mount('#payment-element');
-
+  // Extract the plan from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const plan = urlParams.get('plan');
 
-  // Price object based on the plan
-  const prices = {
-    Gratis: '0€',
-    Pro: '30€',
-    Premium: '50€'
-  };
-
-  // Update all elements with the class "price"
-  document.querySelectorAll('.price').forEach(function (el) {
-    el.textContent = prices[plan];
-  });
-
-  // Update all elements with the class "plan"
-  document.querySelectorAll('.plan').forEach(function (el) {
-    el.textContent = plan ? plan : 'Ningún plan seleccionado';
-  });
-
-  var cardButton = document.getElementById('card-button');
-  var progressCircle = document.querySelector('.progress-circle');
-
-  cardButton.addEventListener('click', function (ev) {
-    ev.preventDefault();
-
-    progressCircle.style.display = 'block';
-    document.getElementById('button-text').style.display = 'none';
-    cardButton.disabled = true; // Disable button on click
-
-    var user = netlifyIdentity && netlifyIdentity.currentUser();
-    if (!user) {
-      progressCircle.style.display = 'none';
-      document.getElementById('button-text').style.display = 'inline-block';
-      cardButton.disabled = false;
-      alert('Por favor, inicia sesión para continuar con el pago.');
-      return;
-    }
-
-    // Fetch the Payment Intent client secret from your server
-    fetch('/.netlify/functions/client_payment_server', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        action: 'create_payment_intent',
-        plan: plan
-      })
+  // Fetch clientSecret from your backend
+  fetch('/.netlify/functions/client_payment_server', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      action: 'create_payment_intent',
+      plan: plan
     })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          alert('Error en el servidor: ' + data.error);
-          progressCircle.style.display = 'none';
-          document.getElementById('button-text').style.display = 'inline-block';
-          cardButton.disabled = false;
-        } else {
-          const clientSecret = data.clientSecret;
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert('Error en el servidor: ' + data.error);
+      } else {
+        const clientSecret = data.clientSecret;
 
+        // Initialize Stripe elements with clientSecret
+        const elements = stripe.elements({ clientSecret });
+
+        // Create and mount the payment element
+        const paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
+
+        // Add event listener to the payment button
+        var cardButton = document.getElementById('card-button');
+        var progressCircle = document.querySelector('.progress-circle');
+
+        cardButton.addEventListener('click', function (ev) {
+          ev.preventDefault();
+
+          progressCircle.style.display = 'block';
+          document.getElementById('button-text').style.display = 'none';
+          cardButton.disabled = true; // Disable button on click
+
+          var user = netlifyIdentity && netlifyIdentity.currentUser();
+          if (!user) {
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+            alert('Por favor, inicia sesión para continuar con el pago.');
+            return;
+          }
+
+          // Confirm the payment
           stripe.confirmPayment({
             elements,
             confirmParams: {
@@ -277,24 +263,25 @@ permalink: /payment_form/
           }).then(function (result) {
             if (result.error) {
               alert('Error al confirmar el pago: ' + result.error.message);
+              progressCircle.style.display = 'none';
+              document.getElementById('button-text').style.display = 'inline-block';
+              cardButton.disabled = false;
             } else {
               alert('Pago exitoso');
+              progressCircle.style.display = 'none';
+              document.getElementById('button-text').style.display = 'inline-block';
+              cardButton.disabled = false;
             }
-            progressCircle.style.display = 'none';
-            document.getElementById('button-text').style.display = 'inline-block';
-            cardButton.disabled = false;
           });
-        }
-      })
-      .catch(err => {
-        console.error('Error en la solicitud:', err);
-        alert('Error al comunicarse con el servidor');
-        progressCircle.style.display = 'none';
-        document.getElementById('button-text').style.display = 'inline-block';
-        cardButton.disabled = false;
-      });
-  });
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Error en la solicitud:', err);
+      alert('Error al comunicarse con el servidor');
+    });
 </script>
+
 
 </body>
 </html>
