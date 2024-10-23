@@ -204,7 +204,7 @@ permalink: /payment_form/
 
 <script>
   // Initialize Stripe with your publishable API key
-  const stripe = Stripe(''pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo'');
+  const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo'); // Ensure correct publishable key
   const elements = stripe.elements();
 
   // Extract the plan from the URL
@@ -232,9 +232,6 @@ permalink: /payment_form/
     } else {
       const clientSecret = data.clientSecret;
       console.log('Client secret received:', clientSecret); // Log client secret
-
-      // Initialize Stripe elements with clientSecret
-      const elements = stripe.elements({ clientSecret });
 
       // Create and mount the payment element
       const paymentElement = elements.create('payment');
@@ -292,8 +289,5 @@ permalink: /payment_form/
     });
   });
 </script>
-
-
-
 </body>
 </html>
