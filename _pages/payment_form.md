@@ -206,7 +206,10 @@ permalink: /payment_form/
       labels: 'floating', // Choose labels: 'floating' or 'inline'
   };
 
-  // Options for the payment element (initially empty)
+  // Declare `elements` variable globally so it can be accessed anywhere
+  let elements;
+
+  // Options for the payment element
   const options = {
       layout: {
         type: 'accordion',
@@ -243,7 +246,7 @@ permalink: /payment_form/
           console.log('Client secret received:', clientSecret); // Log client secret
 
           // Create an instance of Elements with clientSecret and appearance
-          const elements = stripe.elements({ clientSecret, appearance });
+          elements = stripe.elements({ clientSecret, appearance });
 
           // Create and mount the payment element
           const paymentElement = elements.create('payment', options);
@@ -263,6 +266,12 @@ permalink: /payment_form/
   cardButton.addEventListener('click', function (ev) {
       ev.preventDefault();
       console.log('Payment button clicked.'); // Log button click event
+
+      // Ensure the `elements` object is available
+      if (!elements) {
+          alert('Error: Elements object not initialized.');
+          return;
+      }
 
       progressCircle.style.display = 'block';
       document.getElementById('button-text').style.display = 'none';
@@ -291,6 +300,7 @@ permalink: /payment_form/
       });
   });
 </script>
+
 
 </body>
 </html>
