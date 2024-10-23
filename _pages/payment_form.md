@@ -233,8 +233,8 @@ permalink: /payment_form/
       const clientSecret = data.clientSecret;
       console.log('Client secret received:', clientSecret); // Log client secret
 
-      // Create and mount the payment element
-      const paymentElement = elements.create('payment');
+      // Create and mount the payment element with the client secret
+      const paymentElement = elements.create('payment', { clientSecret: clientSecret });
       paymentElement.mount('#payment-element');
       console.log('Payment element mounted successfully.'); // Confirm payment element mount
     }
