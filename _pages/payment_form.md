@@ -215,6 +215,12 @@ permalink: /payment_form/
   // Options for the payment element (initially empty)
   const options = {
       clientSecret: '', // To be set after fetching from the server
+      layout: {
+        type: 'accordion',
+        defaultCollapsed: false,
+        radios: true,
+        spacedAccordionItems: false
+      }
   };
 
   // Extract the plan from the URL
