@@ -214,7 +214,6 @@ permalink: /payment_form/
 
   // Options for the payment element (initially empty)
   const options = {
-      clientSecret: '', // To be set after fetching from the server
       layout: {
         type: 'accordion',
         defaultCollapsed: false,
@@ -248,9 +247,6 @@ permalink: /payment_form/
       } else {
           const clientSecret = data.clientSecret;
           console.log('Client secret received:', clientSecret); // Log client secret
-
-          // Update options with the received clientSecret
-          options.clientSecret = clientSecret;
 
           // Create an instance of Elements with clientSecret and appearance
           const elements = stripe.elements({ clientSecret, appearance });
