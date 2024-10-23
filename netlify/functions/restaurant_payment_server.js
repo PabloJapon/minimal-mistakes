@@ -45,9 +45,7 @@ exports.handler = async (event, context) => {
 
     console.log('Payment Intent Payload:', paymentIntentData);
 
-    const paymentIntent = await stripe.paymentIntents.create(paymentIntentData, {
-      stripeAccount: seller_account_id,
-    });
+    const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
 
     console.log('Payment Intent Created:', paymentIntent);
 
