@@ -78,7 +78,7 @@ exports.handler = async (event, context) => {
 
       const accountLink = await stripe.accountLinks.create({
         account: account.id,
-        refresh_url: 'https://astrali.com',
+        refresh_url: 'https://gastrali.com',
         return_url: 'https://gastrali.com',
         type: 'account_onboarding',
       });
@@ -133,7 +133,6 @@ exports.handler = async (event, context) => {
         const paymentIntent = await stripe.paymentIntents.create({
           amount: amounts[plan],  // Amount in cents
           currency: 'eur',        // Set currency (EUR in this case)
-          payment_method_types: ['card'], // Restrict to card payments
           metadata: {
             plan: plan, // Optional: attach the selected plan as metadata
             // Add more metadata if needed (e.g., user email if you have it)

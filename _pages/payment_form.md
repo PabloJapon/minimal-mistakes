@@ -203,83 +203,102 @@ permalink: /payment_form/
 </div>
 
 <script>
-  const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+// This is your test publishable API key.
+const stripe = Stripe("pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo");
 
-  // Extract the plan from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan');
+// The items the customer wants to buy
+const items = [{ id: "xl-tshirt", amount: 1000 }];
 
-  // Fetch clientSecret from your backend
-  fetch('/.netlify/functions/client_payment_server', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+let elements;
+
+initialize();
+
+document
+  .querySelector("#payment-form")
+  .addEventListener("submit", handleSubmit);
+
+// Fetches a payment intent and captures the client secret
+async function initialize() {
+  const response = await fetch("/create-payment-intent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ items }),
+  });
+  const { clientSecret, dpmCheckerLink } = await response.json();
+
+  const appearance = {
+    theme: 'stripe',
+  };
+  elements = stripe.elements({ appearance, clientSecret });
+
+  const paymentElementOptions = {
+    layout: "tabs",
+  };
+
+  const paymentElement = elements.create("payment", paymentElementOptions);
+  paymentElement.mount("#payment-element");
+
+  // [DEV] For demo purposes only
+  setDpmCheckerLink(dpmCheckerLink);
+}
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  setLoading(true);
+
+  const { error } = await stripe.confirmPayment({
+    elements,
+    confirmParams: {
+      // Make sure to change this to your payment completion page
+      return_url: "http://gastrali.coml",
     },
-    body: JSON.stringify({
-      action: 'create_payment_intent',
-      plan: plan
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        alert('Error en el servidor: ' + data.error);
-      } else {
-        const clientSecret = data.clientSecret;
+  });
 
-        // Initialize Stripe elements with clientSecret
-        const elements = stripe.elements({ clientSecret });
+  // This point will only be reached if there is an immediate error when
+  // confirming the payment. Otherwise, your customer will be redirected to
+  // your `return_url`. For some payment methods like iDEAL, your customer will
+  // be redirected to an intermediate site first to authorize the payment, then
+  // redirected to the `return_url`.
+  if (error.type === "card_error" || error.type === "validation_error") {
+    showMessage(error.message);
+  } else {
+    showMessage("An unexpected error occurred.");
+  }
 
-        // Create and mount the payment element
-        const paymentElement = elements.create('payment');
-        paymentElement.mount('#payment-element');
+  setLoading(false);
+}
 
-        // Add event listener to the payment button
-        var cardButton = document.getElementById('card-button');
-        var progressCircle = document.querySelector('.progress-circle');
+// ------- UI helpers -------
 
-        cardButton.addEventListener('click', function (ev) {
-          ev.preventDefault();
+function showMessage(messageText) {
+  const messageContainer = document.querySelector("#payment-message");
 
-          progressCircle.style.display = 'block';
-          document.getElementById('button-text').style.display = 'none';
-          cardButton.disabled = true; // Disable button on click
+  messageContainer.classList.remove("hidden");
+  messageContainer.textContent = messageText;
 
-          var user = netlifyIdentity && netlifyIdentity.currentUser();
-          if (!user) {
-            progressCircle.style.display = 'none';
-            document.getElementById('button-text').style.display = 'inline-block';
-            cardButton.disabled = false;
-            alert('Por favor, inicia sesión para continuar con el pago.');
-            return;
-          }
+  setTimeout(function () {
+    messageContainer.classList.add("hidden");
+    messageContainer.textContent = "";
+  }, 4000);
+}
 
-          // Confirm the payment
-          stripe.confirmPayment({
-            elements,
-            confirmParams: {
-              return_url: window.location.href, // Optionally, handle the result on the backend
-            },
-          }).then(function (result) {
-            if (result.error) {
-              alert('Error al confirmar el pago: ' + result.error.message);
-              progressCircle.style.display = 'none';
-              document.getElementById('button-text').style.display = 'inline-block';
-              cardButton.disabled = false;
-            } else {
-              alert('Pago exitoso');
-              progressCircle.style.display = 'none';
-              document.getElementById('button-text').style.display = 'inline-block';
-              cardButton.disabled = false;
-            }
-          });
-        });
-      }
-    })
-    .catch(err => {
-      console.error('Error en la solicitud:', err);
-      alert('Error al comunicarse con el servidor');
-    });
+// Show a spinner on payment submission
+function setLoading(isLoading) {
+  if (isLoading) {
+    // Disable the button and show a spinner
+    document.querySelector("#submit").disabled = true;
+    document.querySelector("#spinner").classList.remove("hidden");
+    document.querySelector("#button-text").classList.add("hidden");
+  } else {
+    document.querySelector("#submit").disabled = false;
+    document.querySelector("#spinner").classList.add("hidden");
+    document.querySelector("#button-text").classList.remove("hidden");
+  }
+}
+
+function setDpmCheckerLink(url) {
+  document.querySelector("#dpm-integration-checker").href = url;
+}
 </script>
 
 
