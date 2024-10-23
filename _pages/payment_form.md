@@ -204,51 +204,62 @@ permalink: /payment_form/
 
 <script>
   // Initialize Stripe with your publishable API key
-  const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo'); // Ensure correct publishable key
-  const elements = stripe.elements();
+const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
 
-  // Extract the plan from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan');
-  console.log('Plan extracted from URL:', plan); // Debug log for plan
+// Appearance settings for the payment element
+const appearance = {
+    theme: 'stripe', // Choose a theme: 'stripe', 'flat', or 'night'
+    labels: 'floating', // Choose labels: 'floating' or 'inline'
+};
 
-  // Fetch clientSecret from your backend
-  fetch('/.netlify/functions/restaurant_payment_server', {
+// Options for the payment element (you can customize these further)
+const options = {
+    clientSecret: '', // To be set after fetching from the server
+};
+
+// Fetch clientSecret from your backend
+fetch('/.netlify/functions/restaurant_payment_server', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      action: 'create_payment_intent',
-      plan: plan
+        action: 'create_payment_intent',
+        plan: plan // Ensure plan is defined from the URL
     })
-  })
-  .then(response => response.json())
-  .then(data => {
+})
+.then(response => response.json())
+.then(data => {
     console.log('Response from payment server:', data); // Log server response
 
     if (data.error) {
-      alert('Error en el servidor: ' + data.error);
+        alert('Error en el servidor: ' + data.error);
     } else {
-      const clientSecret = data.clientSecret;
-      console.log('Client secret received:', clientSecret); // Log client secret
+        const clientSecret = data.clientSecret;
+        console.log('Client secret received:', clientSecret); // Log client secret
 
-      // Create and mount the payment element with the client secret
-      const paymentElement = elements.create('payment', { clientSecret: clientSecret });
-      paymentElement.mount('#payment-element');
-      console.log('Payment element mounted successfully.'); // Confirm payment element mount
+        // Update options with the received clientSecret
+        options.clientSecret = clientSecret;
+
+        // Create an instance of Elements
+        const elements = stripe.elements({ clientSecret, appearance });
+
+        // Create and mount the payment element
+        const paymentElement = elements.create('payment', options);
+        paymentElement.mount('#payment-element');
+        console.log('Payment element mounted successfully.'); // Confirm payment element mount
     }
-  })
-  .catch(err => {
+})
+.catch(err => {
     console.error('Error en la solicitud:', err);
     alert('Error al comunicarse con el servidor');
-  });
+});
 
-  // Handle payment button click
-  const cardButton = document.getElementById('card-button');
-  const progressCircle = document.getElementById('progress-circle');
+// Handle payment button click
+const cardButton = document.getElementById('card-button');
+const progressCircle = document.getElementById('progress-circle');
 
-  cardButton.addEventListener('click', function (ev) {
+cardButton.addEventListener('click', function (ev) {
     ev.preventDefault();
     console.log('Payment button clicked.'); // Log button click event
 
@@ -256,38 +267,29 @@ permalink: /payment_form/
     document.getElementById('button-text').style.display = 'none';
     cardButton.disabled = true; // Disable button on click
 
-    var user = netlifyIdentity && netlifyIdentity.currentUser();
-    if (!user) {
-      console.log('User not logged in.'); // Log user state
-      progressCircle.style.display = 'none';
-      document.getElementById('button-text').style.display = 'inline-block';
-      cardButton.disabled = false;
-      alert('Por favor, inicia sesión para continuar con el pago.');
-      return;
-    }
-
     // Confirm the payment
     stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: window.location.href, // Optionally, handle the result on the backend
-      },
+        elements,
+        confirmParams: {
+            return_url: window.location.href, // Optionally, handle the result on the backend
+        },
     }).then(function (result) {
-      console.log('Payment confirmation result:', result); // Log the result of payment confirmation
+        console.log('Payment confirmation result:', result); // Log the result of payment confirmation
 
-      if (result.error) {
-        alert('Error al confirmar el pago: ' + result.error.message);
-        progressCircle.style.display = 'none';
-        document.getElementById('button-text').style.display = 'inline-block';
-        cardButton.disabled = false;
-      } else {
-        alert('Pago exitoso');
-        progressCircle.style.display = 'none';
-        document.getElementById('button-text').style.display = 'inline-block';
-        cardButton.disabled = false;
-      }
+        if (result.error) {
+            alert('Error al confirmar el pago: ' + result.error.message);
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+        } else {
+            alert('Pago exitoso');
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+        }
     });
-  });
+});
+
 </script>
 </body>
 </html>
