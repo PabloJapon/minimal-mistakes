@@ -104,60 +104,35 @@ exports.handler = async (event, context) => {
     }
 
     if (body.action === 'create_payment_intent') {
-      const { plan } = body;
-  
-      // Define price IDs and amounts for each plan
-      const priceIds = {
-        Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
-        Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
-        Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
-      };
-  
-      const amounts = {
-        Gratis: 0,        // In cents, so 0€ is 0
-        Pro: 3000,        // 30€ -> 3000 cents
-        Premium: 5000     // 50€ -> 5000 cents
-      };
-  
-      // Check if the plan exists
-      if (!priceIds[plan]) {
-        return {
-          statusCode: 400,
-          headers, // Include CORS headers
-          body: JSON.stringify({ error: 'Invalid plan' })
-        };
-      }
-  
-      try {
-        // Create a payment intent
-        const paymentIntent = await stripe.paymentIntents.create({
-          amount: amounts[plan],  // Amount in cents
-          currency: 'eur',        // Set currency (EUR in this case)
-          metadata: {
-            plan: plan, // Optional: attach the selected plan as metadata
-            // Add more metadata if needed (e.g., user email if you have it)
-          },
+      const calculateOrderAmount = (items) => {
+        // Calculate the order total on the server to prevent
+        // people from directly manipulating the amount on the client
+        let total = 0;
+        items.forEach((item) => {
+          total += item.amount;
         });
-  
-        // Return client secret and price ID to the frontend
-        return {
-          statusCode: 200,
-          headers,  // Include CORS headers
-          body: JSON.stringify({
-            clientSecret: paymentIntent.client_secret,
-            priceId: priceIds[plan]
-          })
-        };
-      } catch (error) {
-        // Log and return error response
-        console.error('Error creating payment intent:', error);
-        return {
-          statusCode: 500,
-          headers,
-          body: JSON.stringify({ error: 'Failed to create payment intent' })
-        };
-      }
+        return total;
+      };
+
+      const { items } = req.body;
+    
+      // Create a PaymentIntent with the order amount and currency
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: calculateOrderAmount(items),
+        currency: "usd",
+        // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+    
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+        // [DEV]: For demo purposes only, you should avoid exposing the PaymentIntent ID in the client-side code.
+        dpmCheckerLink: `https://dashboard.stripe.com/settings/payment_methods/review?transaction_id=${paymentIntent.id}`,
+      });
     }
+
     
 
     if (body.action === 'next_invoice_date') {
