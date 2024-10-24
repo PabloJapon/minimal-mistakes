@@ -224,14 +224,14 @@ permalink: /payment_form/
   const plan = urlParams.get('plan');
   console.log('Plan extracted from URL:', plan); // Debug log for plan
 
-  // Fetch clientSecret from your backend
+  // Fetch clientSecret for subscription
   fetch('/.netlify/functions/restaurant_payment_server', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          action: 'create_payment_intent',
+          action: 'create_subscription',  // Updated action for creating subscription
           plan: plan // Ensure plan is defined from the URL
       })
   })
@@ -249,9 +249,8 @@ permalink: /payment_form/
           elements = stripe.elements({ clientSecret, appearance });
 
           // Create and mount the payment element
-          const paymentElement = elements.create('payment', options);
+          const paymentElement = elements.create('payment');
           paymentElement.mount('#payment-element');
-          console.log('Payment element mounted successfully.'); // Confirm payment element mount
       }
   })
   .catch(err => {
@@ -259,46 +258,47 @@ permalink: /payment_form/
       alert('Error al comunicarse con el servidor');
   });
 
+
   // Handle payment button click
   const cardButton = document.getElementById('card-button');
   const progressCircle = document.querySelector('.progress-circle');
 
   cardButton.addEventListener('click', function (ev) {
-      ev.preventDefault();
-      console.log('Payment button clicked.'); // Log button click event
+    ev.preventDefault();
 
-      // Ensure the `elements` object is available
-      if (!elements) {
-          alert('Error: Elements object not initialized.');
-          return;
-      }
+    if (!elements) {
+        alert('Error: Elements object not initialized.');
+        return;
+    }
 
-      progressCircle.style.display = 'block';
-      document.getElementById('button-text').style.display = 'none';
-      cardButton.disabled = true; // Disable button on click
+    // Display loading spinner
+    progressCircle.style.display = 'block';
+    document.getElementById('button-text').style.display = 'none';
+    cardButton.disabled = true;
 
-      // Confirm the payment
-      stripe.confirmPayment({
-          elements,
-          confirmParams: {
-              return_url: window.location.href, // Optionally, handle the result on the backend
-          },
-      }).then(function (result) {
-          console.log('Payment confirmation result:', result); // Log the result of payment confirmation
+    // Confirm the subscription payment
+    stripe.confirmPayment({
+        elements,
+        confirmParams: {
+            return_url: window.location.href, // Redirect or handle on the backend
+        },
+    }).then(function (result) {
+        console.log('Payment confirmation result:', result);
 
-          if (result.error) {
-              alert('Error al confirmar el pago: ' + result.error.message);
-              progressCircle.style.display = 'none';
-              document.getElementById('button-text').style.display = 'inline-block';
-              cardButton.disabled = false;
-          } else {
-              alert('Pago exitoso');
-              progressCircle.style.display = 'none';
-              document.getElementById('button-text').style.display = 'inline-block';
-              cardButton.disabled = false;
-          }
-      });
-  });
+        if (result.error) {
+            alert('Error al confirmar el pago: ' + result.error.message);
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+        } else {
+            alert('Subscription payment successful!');
+            progressCircle.style.display = 'none';
+            document.getElementById('button-text').style.display = 'inline-block';
+            cardButton.disabled = false;
+        }
+    });
+});
+
 </script>
 
 

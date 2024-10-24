@@ -20,50 +20,49 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Define price IDs and amounts for each plan
+    // Define price IDs for each subscription plan (Stripe price IDs for subscriptions)
     const priceIds = {
-      Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
-      Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
-      Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
+      Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV', // Free tier
+      Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',   // Pro tier
+      Premium: 'price_1On5CAE2UvP4xcDso6epRdMs' // Premium tier
     };
 
-    const amounts = {
-      Gratis: 0, // In cents
-      Pro: 3000, // 30€
-      Premium: 5000 // 50€
-    };
+    // Check if the selected plan is valid
+    if (!priceIds[plan]) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Invalid plan selected.' }),
+      };
+    }
 
-    // Create payment intent
-    const paymentIntentData = {
-      amount: amounts[plan],
-      currency: 'eur',
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    };
+    // Create a new customer (if not already existing in your system)
+    const customer = await stripe.customers.create({
+      description: `Customer for ${plan} plan`,
+      // Optionally, collect more customer info here (e.g., email)
+    });
 
-    console.log('Payment Intent Payload:', paymentIntentData);
-
-    const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
-
-    console.log('Payment Intent Created:', paymentIntent);
+    // Create a subscription
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ price: priceIds[plan] }],
+      payment_behavior: 'default_incomplete', // Ensures customer must complete payment setup
+      expand: ['latest_invoice.payment_intent'], // Expands to get the client secret
+    });
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: 'Payment processed successfully.',
-        clientSecret: paymentIntent.client_secret,
+        clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+        subscriptionId: subscription.id, // Send the subscription ID if needed
       }),
     };
   } catch (error) {
-    console.error('Error creating payment intent:', error);
-    const errorMessage = error.raw ? error.raw.message : error.message;
-
+    console.error('Error creating subscription:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: 'An error occurred while processing the payment.',
-        details: errorMessage,
+        error: 'An error occurred while creating the subscription.',
+        details: error.message,
       }),
     };
   }
