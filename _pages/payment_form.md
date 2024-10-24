@@ -204,14 +204,12 @@ permalink: /payment_form/
 
     // Appearance settings for the payment element
     const appearance = {
-        theme: 'stripe', // Choose a theme: 'stripe', 'flat', or 'night'
-        labels: 'floating', // Choose labels: 'floating' or 'inline'
+        theme: 'stripe',
+        labels: 'floating',
     };
 
-    // Declare `elements` variable globally so it can be accessed anywhere
     let elements;
 
-    // Options for the payment element
     const options = {
         layout: {
           type: 'accordion',
@@ -221,57 +219,54 @@ permalink: /payment_form/
         }
     };
 
-    // Ensure Netlify Identity is initialized
     netlifyIdentity.init();
 
-    // Check if the user is logged in
     const user = netlifyIdentity.currentUser();
     if (user) {
       user.jwt().then((token) => {
           const fullName = user.user_metadata.full_name;
           const email = user.email;
 
-          console.log('User Name:', fullName);  // Debug: Log the user's full name
-          console.log('User Email:', email);    // Debug: Log the user's email
+          console.log('User Name:', fullName);
+          console.log('User Email:', email);
 
-          // Extract the plan from the URL
           const urlParams = new URLSearchParams(window.location.search);
           const plan = urlParams.get('plan');
-          console.log('Plan extracted from URL:', plan); // Debug log for plan
+          console.log('Plan extracted from URL:', plan);
 
-          // Send request to backend to retrieve clientSecret and plan details
+          // Send request to backend
           fetch('/.netlify/functions/restaurant_payment_server', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`  // Pass the user's token for authentication
+                  'Authorization': `Bearer ${token}`
               },
               body: JSON.stringify({
                   action: 'create_subscription',
-                  plan: plan,               // Extracted plan from URL params
-                  customerName: fullName,   // User's full name from Netlify Identity
-                  customerEmail: email      // User's email from Netlify Identity
+                  plan: plan,
+                  customerName: fullName,
+                  customerEmail: email
               })
           })
-          .then(response => response.json())
+          .then(response => {
+              console.log('Response status:', response.status); // Log the response status
+              return response.json();
+          })
           .then(data => {
               if (data.error) {
                   alert('Error in creating subscription: ' + data.error);
+                  console.error('Backend error response:', data.error);
               } else {
-                  // Process clientSecret and handle Stripe payment
                   const clientSecret = data.clientSecret;
-                  console.log('Client secret received:', clientSecret); // Log client secret
-                  
-                  // Create an instance of Elements with clientSecret and appearance
-                  elements = stripe.elements({ clientSecret, appearance });
+                  console.log('Client secret received:', clientSecret);
 
-                  // Create and mount the payment element immediately after the client secret is received
+                  elements = stripe.elements({ clientSecret, appearance });
                   const paymentElement = elements.create('payment', options);
                   paymentElement.mount('#payment-element');
               }
           })
           .catch(err => {
-              console.error('Error:', err);
+              console.error('Error during fetch:', err);
               alert('Error connecting to the server.');
           });
       });
@@ -279,7 +274,7 @@ permalink: /payment_form/
       alert('User is not logged in. Please log in to continue.');
     }
 
-    // Handle payment button click for processing the payment
+    // Handle payment button click
     const cardButton = document.getElementById('card-button');
     const progressCircle = document.querySelector('.progress-circle');
 
@@ -299,6 +294,7 @@ permalink: /payment_form/
       .then((result) => {
         if (result.error) {
           alert('Payment failed: ' + result.error.message);
+          console.error('Payment error:', result.error);
         } else {
           console.log('Payment successful');
         }
@@ -311,6 +307,7 @@ permalink: /payment_form/
     });
   });
 </script>
+
 
 </body>
 </html>

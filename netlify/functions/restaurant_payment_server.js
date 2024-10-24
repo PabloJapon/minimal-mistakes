@@ -9,10 +9,16 @@ const stripe = require('stripe')(stripeSecretKey);
 exports.handler = async (event, context) => {
   try {
     // Parse the request body
-    const { plan, customerName, customerEmail } = JSON.parse(event.body);
+    const { action, plan, customerName, customerEmail } = JSON.parse(event.body);
+
+    console.log('Received action:', action); // Debugging log
+    console.log('Received plan:', plan); // Debugging log
+    console.log('Received customer name:', customerName); // Debugging log
+    console.log('Received customer email:', customerEmail); // Debugging log
 
     // Validate input
     if (!plan || !customerName || !customerEmail) {
+      console.log('Invalid input. Returning error response.'); // Debugging log
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid input. Please provide a valid plan, name, and email.' }),
@@ -31,6 +37,7 @@ exports.handler = async (event, context) => {
       name: customerName,
       email: customerEmail,
     });
+    console.log('Customer created:', customer); // Debugging log
 
     // Create a subscription for the customer
     const subscription = await stripe.subscriptions.create({
@@ -39,6 +46,8 @@ exports.handler = async (event, context) => {
       payment_behavior: 'default_incomplete', // Customer needs to complete payment setup
       expand: ['latest_invoice.payment_intent'],
     });
+
+    console.log('Subscription created:', subscription); // Debugging log
 
     return {
       statusCode: 200,
