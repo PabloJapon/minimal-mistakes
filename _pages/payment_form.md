@@ -10,6 +10,7 @@ permalink: /payment_form/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     body {
       background-color: #f8f9fa;
@@ -249,7 +250,7 @@ permalink: /payment_form/
           elements = stripe.elements({ clientSecret, appearance });
 
           // Create and mount the payment element
-          const paymentElement = elements.create('payment');
+          const paymentElement = elements.create('payment', options);
           paymentElement.mount('#payment-element');
       }
   })
@@ -263,41 +264,58 @@ permalink: /payment_form/
   const cardButton = document.getElementById('card-button');
   const progressCircle = document.querySelector('.progress-circle');
 
+  // Handle payment button click
   cardButton.addEventListener('click', function (ev) {
-    ev.preventDefault();
+      ev.preventDefault();
 
-    if (!elements) {
-        alert('Error: Elements object not initialized.');
-        return;
-    }
+      // Ensure Netlify Identity is initialized
+      const user = netlifyIdentity.currentUser();
 
-    // Display loading spinner
-    progressCircle.style.display = 'block';
-    document.getElementById('button-text').style.display = 'none';
-    cardButton.disabled = true;
+      // If the user is logged in, retrieve the user's name and email from their metadata
+      if (user) {
+          user.jwt().then((token) => {
+              const fullName = user.user_metadata.full_name;
+              const email = user.email;
 
-    // Confirm the subscription payment
-    stripe.confirmPayment({
-        elements,
-        confirmParams: {
-            return_url: window.location.href, // Redirect or handle on the backend
-        },
-    }).then(function (result) {
-        console.log('Payment confirmation result:', result);
+              console.log('User Name:', fullName);  // Debug: Log the user's full name
+              console.log('User Email:', email);    // Debug: Log the user's email
 
-        if (result.error) {
-            alert('Error al confirmar el pago: ' + result.error.message);
-            progressCircle.style.display = 'none';
-            document.getElementById('button-text').style.display = 'inline-block';
-            cardButton.disabled = false;
-        } else {
-            alert('Subscription payment successful!');
-            progressCircle.style.display = 'none';
-            document.getElementById('button-text').style.display = 'inline-block';
-            cardButton.disabled = false;
-        }
-    });
-});
+              // Send user data and subscription plan to your backend
+              fetch('/.netlify/functions/restaurant_payment_server', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`  // Pass the user's token
+                  },
+                  body: JSON.stringify({
+                      action: 'create_subscription',
+                      plan: plan,  // Extracted plan from URL params
+                      customerName: fullName,  // User's full name from Netlify Identity
+                      customerEmail: email     // User's email from Netlify Identity
+                  })
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      alert('Error in creating subscription: ' + data.error);
+                  } else {
+                      // Process clientSecret and handle Stripe payment
+                      const clientSecret = data.clientSecret;
+                      elements = stripe.elements({ clientSecret, appearance });
+
+                      const paymentElement = elements.create('payment');
+                      paymentElement.mount('#payment-element');
+                  }
+              })
+              .catch(err => {
+                  console.error('Error:', err);
+                  alert('Error connecting to the server.');
+              });
+          });
+      } else {
+          alert('User is not logged in. Please log in to continue.');
+      }
+  });
 
 </script>
 
