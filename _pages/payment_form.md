@@ -1,3 +1,8 @@
+---
+layout: default
+permalink: /payment_form/
+---
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
