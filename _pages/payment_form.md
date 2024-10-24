@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /payment_form/
----
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -110,7 +105,7 @@ permalink: /payment_form/
       font-size: 14px;
     }
 
-    .inline-elements{
+    .inline-elements {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -198,97 +193,96 @@ permalink: /payment_form/
 </div>
 
 <script>
-  // Initialize Stripe with your publishable API key
-  const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+  document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Stripe with your publishable API key
+    const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
 
-  // Appearance settings for the payment element
-  const appearance = {
-      theme: 'stripe', // Choose a theme: 'stripe', 'flat', or 'night'
-      labels: 'floating', // Choose labels: 'floating' or 'inline'
-  };
+    // Appearance settings for the payment element
+    const appearance = {
+        theme: 'stripe', // Choose a theme: 'stripe', 'flat', or 'night'
+        labels: 'floating', // Choose labels: 'floating' or 'inline'
+    };
 
-  // Declare `elements` variable globally so it can be accessed anywhere
-  let elements;
+    // Declare `elements` variable globally so it can be accessed anywhere
+    let elements;
 
-  // Options for the payment element
-  const options = {
-      layout: {
-        type: 'accordion',
-        defaultCollapsed: false,
-        radios: true,
-        spacedAccordionItems: false
+    // Options for the payment element
+    const options = {
+        layout: {
+          type: 'accordion',
+          defaultCollapsed: false,
+          radios: true,
+          spacedAccordionItems: false
+        }
+    };
+
+    // Get the payment button element
+    const cardButton = document.getElementById('card-button');  
+    const progressCircle = document.querySelector('.progress-circle');
+
+    // Handle payment button click
+    cardButton.addEventListener('click', function (ev) {
+      ev.preventDefault();
+
+      // Ensure Netlify Identity is initialized
+      const user = netlifyIdentity.currentUser();
+
+      // If the user is logged in, retrieve the user's name and email from their metadata
+      if (user) {
+          user.jwt().then((token) => {
+              const fullName = user.user_metadata.full_name;
+              const email = user.email;
+
+              console.log('User Name:', fullName);  // Debug: Log the user's full name
+              console.log('User Email:', email);    // Debug: Log the user's email
+
+              // Extract the plan from the URL
+              const urlParams = new URLSearchParams(window.location.search);
+              const plan = urlParams.get('plan');
+              console.log('Plan extracted from URL:', plan); // Debug log for plan
+
+              // Send all necessary data to your backend (plan, customerName, customerEmail)
+              fetch('/.netlify/functions/restaurant_payment_server', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`  // Pass the user's token for authentication
+                  },
+                  body: JSON.stringify({
+                      action: 'create_subscription',
+                      plan: plan,               // Extracted plan from URL params
+                      customerName: fullName,   // User's full name from Netlify Identity
+                      customerEmail: email      // User's email from Netlify Identity
+                  })
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      alert('Error in creating subscription: ' + data.error);
+                  } else {
+                      // Process clientSecret and handle Stripe payment
+                      const clientSecret = data.clientSecret;
+                      console.log('Client secret received:', clientSecret); // Log client secret
+                      
+                      // Create an instance of Elements with clientSecret and appearance
+                      elements = stripe.elements({ clientSecret, appearance });
+
+                      // Create and mount the payment element
+                      const paymentElement = elements.create('payment', options);
+                      paymentElement.mount('#payment-element');
+                  }
+              })
+              .catch(err => {
+                  console.error('Error:', err);
+                  alert('Error connecting to the server.');
+              });
+          });
+      } else {
+          alert('User is not logged in. Please log in to continue.');
       }
-  };
-
-  // Extract the plan from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get('plan');
-  console.log('Plan extracted from URL:', plan); // Debug log for plan
-
-  // Handle payment button click
-  cardButton.addEventListener('click', function (ev) {
-    ev.preventDefault();
-
-    // Ensure Netlify Identity is initialized
-    const user = netlifyIdentity.currentUser();
-
-    // If the user is logged in, retrieve the user's name and email from their metadata
-    if (user) {
-        user.jwt().then((token) => {
-            const fullName = user.user_metadata.full_name;
-            const email = user.email;
-
-            console.log('User Name:', fullName);  // Debug: Log the user's full name
-            console.log('User Email:', email);    // Debug: Log the user's email
-
-            // Extract the plan from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const plan = urlParams.get('plan');
-            console.log('Plan extracted from URL:', plan); // Debug log for plan
-
-            // Send all necessary data to your backend (plan, customerName, customerEmail)
-            fetch('/.netlify/functions/restaurant_payment_server', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`  // Pass the user's token for authentication
-                },
-                body: JSON.stringify({
-                    action: 'create_subscription',
-                    plan: plan,               // Extracted plan from URL params
-                    customerName: fullName,   // User's full name from Netlify Identity
-                    customerEmail: email      // User's email from Netlify Identity
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert('Error in creating subscription: ' + data.error);
-                } else {
-                    // Process clientSecret and handle Stripe payment
-                    const clientSecret = data.clientSecret;
-                    console.log('Client secret received:', clientSecret); // Log client secret
-                    
-                    // Create an instance of Elements with clientSecret and appearance
-                    elements = stripe.elements({ clientSecret, appearance });
-
-                    // Create and mount the payment element
-                    const paymentElement = elements.create('payment');
-                    paymentElement.mount('#payment-element');
-                }
-            })
-            .catch(err => {
-                console.error('Error:', err);
-                alert('Error connecting to the server.');
-            });
-        });
-    } else {
-        alert('User is not logged in. Please log in to continue.');
-    }
-});
-
+    });
+  });
 </script>
-
 
 </body>
 </html>
