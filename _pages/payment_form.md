@@ -10,7 +10,6 @@ permalink: /payment_form/
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Introduzca sus datos de pago</title>
   <script src="https://js.stripe.com/v3/"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     body {
       background-color: #f8f9fa;
@@ -200,8 +199,22 @@ permalink: /payment_form/
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
-    const appearance = { theme: 'stripe', labels: 'floating' };
+
+    const appearance = {
+        theme: 'stripe',
+        labels: 'floating',
+    };
+
     let elements;
+
+    const options = {
+        layout: {
+          type: 'accordion',
+          defaultCollapsed: false,
+          radios: true,
+          spacedAccordionItems: false
+        }
+    };
 
     // Initialize Netlify Identity
     netlifyIdentity.init();
@@ -209,84 +222,80 @@ permalink: /payment_form/
     const user = netlifyIdentity.currentUser();
 
     if (!user) {
-      netlifyIdentity.open(); // Open login if not logged in
+      // Show the Netlify Identity login widget if no user is logged in
+      netlifyIdentity.open();
       alert('Please log in to proceed with the payment.');
       return;
     }
 
-    // Hide the Netlify Identity widget if it appears in the masthead
-    document.querySelector('.netlify-identity-button')?.style.display = 'none';
+    // Fetch token and set up payment element once user is confirmed to be logged in
+    user.jwt().then((token) => {
+      const fullName = user.user_metadata.full_name;
+      const email = user.email;
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get('plan');
 
-    // Handle payment button click
+      // Send request to create subscription and retrieve clientSecret
+      fetch('/.netlify/functions/restaurant_payment_server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'create_subscription',
+          plan: plan,
+          customerName: fullName,
+          customerEmail: email
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert('Error creating subscription: ' + data.error);
+        } else {
+          const clientSecret = data.clientSecret;
+          
+          elements = stripe.elements({ clientSecret, appearance });
+          const paymentElement = elements.create('payment', options);
+          paymentElement.mount('#payment-element'); // Mount payment element immediately if clientSecret is available
+        }
+      })
+      .catch(error => {
+        console.error('Error during subscription setup:', error);
+        alert('There was an error connecting to the server.');
+      });
+    });
+
     const cardButton = document.getElementById('card-button');
     const progressCircle = document.querySelector('.progress-circle');
 
+    // Handle payment button click
     cardButton.addEventListener('click', function (ev) {
       ev.preventDefault();
       progressCircle.style.display = 'block';
 
-      // Fetch the token and create the subscription on button click
-      user.jwt().then((token) => {
-        const fullName = user.user_metadata.full_name;
-        const email = user.email;
-        const urlParams = new URLSearchParams(window.location.search);
-        const plan = urlParams.get('plan');
-
-        // Send request to create subscription and retrieve clientSecret
-        fetch('/.netlify/functions/restaurant_payment_server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            action: 'create_subscription',
-            plan: plan,
-            customerName: fullName,
-            customerEmail: email
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            alert('Error creating subscription: ' + data.error);
-          } else {
-            const clientSecret = data.clientSecret;
-
-            // Initialize payment element if subscription created successfully
-            elements = stripe.elements({ clientSecret, appearance });
-            const paymentElement = elements.create('payment', { layout: { type: 'accordion' } });
-            paymentElement.mount('#payment-element');
-
-            // Confirm the payment with Stripe after initializing the element
-            stripe.confirmPayment({
-              elements,
-              confirmParams: { return_url: window.location.origin + '/payment_success' }
-            })
-            .then((result) => {
-              if (result.error) {
-                alert('Payment failed: ' + result.error.message);
-              } else {
-                console.log('Payment successful');
-              }
-              progressCircle.style.display = 'none';
-            })
-            .catch((error) => {
-              console.error('Error confirming payment:', error);
-              progressCircle.style.display = 'none';
-            });
-          }
-        })
-        .catch(error => {
-          console.error('Error during subscription setup:', error);
-          alert('There was an error connecting to the server.');
-          progressCircle.style.display = 'none';
-        });
+      stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: window.location.origin + '/payment_success',
+        },
+      })
+      .then((result) => {
+        if (result.error) {
+          alert('Payment failed: ' + result.error.message);
+        } else {
+          console.log('Payment successful');
+        }
+        progressCircle.style.display = 'none';
+      })
+      .catch((error) => {
+        console.error('Error confirming payment:', error);
+        progressCircle.style.display = 'none';
       });
     });
   });
 </script>
-
 
 
 </body>
