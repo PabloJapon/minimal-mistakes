@@ -199,10 +199,8 @@ permalink: /payment_form/
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Initialize Stripe with your publishable API key
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
 
-    // Appearance settings for the payment element
     const appearance = {
         theme: 'stripe',
         labels: 'floating',
@@ -219,79 +217,82 @@ permalink: /payment_form/
         }
     };
 
+    // Initialize Netlify Identity
     netlifyIdentity.init();
 
     const user = netlifyIdentity.currentUser();
+
     if (!user) {
-      alert('User is not logged in. Please log in to continue.');
+      // Show the Netlify Identity login widget if no user is logged in
+      netlifyIdentity.open();
+      alert('Please log in to proceed with the payment.');
       return;
     }
 
-    // Handle payment button click
+    // Fetch token and set up payment element once user is confirmed to be logged in
+    user.jwt().then((token) => {
+      const fullName = user.user_metadata.full_name;
+      const email = user.email;
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get('plan');
+
+      // Send request to create subscription and retrieve clientSecret
+      fetch('/.netlify/functions/restaurant_payment_server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'create_subscription',
+          plan: plan,
+          customerName: fullName,
+          customerEmail: email
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert('Error creating subscription: ' + data.error);
+        } else {
+          const clientSecret = data.clientSecret;
+          
+          elements = stripe.elements({ clientSecret, appearance });
+          const paymentElement = elements.create('payment', options);
+          paymentElement.mount('#payment-element'); // Mount payment element immediately if clientSecret is available
+        }
+      })
+      .catch(error => {
+        console.error('Error during subscription setup:', error);
+        alert('There was an error connecting to the server.');
+      });
+    });
+
     const cardButton = document.getElementById('card-button');
     const progressCircle = document.querySelector('.progress-circle');
 
+    // Handle payment button click
     cardButton.addEventListener('click', function (ev) {
       ev.preventDefault();
-      
-      // Show loading spinner
       progressCircle.style.display = 'block';
 
-      user.jwt().then((token) => {
-        const fullName = user.user_metadata.full_name;
-        const email = user.email;
-        const urlParams = new URLSearchParams(window.location.search);
-        const plan = urlParams.get('plan');
-        
-        // Send request to backend to create the subscription only when button is clicked
-        fetch('/.netlify/functions/restaurant_payment_server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            action: 'create_subscription',
-            plan: plan,
-            customerName: fullName,
-            customerEmail: email
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            alert('Error in creating subscription: ' + data.error);
-            console.error('Backend error response:', data.error);
-            progressCircle.style.display = 'none';
-          } else {
-            const clientSecret = data.clientSecret;
-            
-            elements = stripe.elements({ clientSecret, appearance });
-            const paymentElement = elements.create('payment', options);
-            paymentElement.mount('#payment-element');
-            
-            // Confirm the payment with Stripe
-            stripe.confirmPayment({
-              elements,
-              confirmParams: {
-                return_url: window.location.origin + '/payment_success',
-              },
-            }).then((result) => {
-              if (result.error) {
-                alert('Payment failed: ' + result.error.message);
-                console.error('Payment error:', result.error);
-              } else {
-                console.log('Payment successful');
-              }
-              progressCircle.style.display = 'none'; // Hide the spinner after processing
-            });
-          }
-        })
-        .catch(error => {
-          console.error('Error during fetch:', error);
-          alert('Error connecting to the server.');
-          progressCircle.style.display = 'none';
-        });
+      stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: window.location.origin + '/payment_success',
+        },
+      })
+      .then((result) => {
+        if (result.error) {
+          alert('Payment failed: ' + result.error.message);
+        } else {
+          console.log('Payment successful');
+        }
+        progressCircle.style.display = 'none';
+      })
+      .catch((error) => {
+        console.error('Error confirming payment:', error);
+        progressCircle.style.display = 'none';
       });
     });
   });
