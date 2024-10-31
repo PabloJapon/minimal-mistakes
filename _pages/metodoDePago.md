@@ -112,10 +112,10 @@ layout: splash
 
   <div id="overlay"></div>
   <div id="update-payment-modal" style="display: none;">
-    <form id="payment-form">
-      <div id="card-element"><!-- Stripe card input --></div>
+    <form id="payment-form" style="display: flex; flex-direction: column;">
+      <div id="card-element" style="margin: 1em;">><!-- Stripe card input --></div>
       <div id="card-errors" role="alert" style="color: red;"></div> <!-- For displaying card errors -->
-      <button type="submit">Guardar</button>
+      <button type="submit"style="margin: 1em auto;">Guardar</button>
     </form>
   </div>
 </div>
