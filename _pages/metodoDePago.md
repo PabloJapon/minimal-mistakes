@@ -24,7 +24,7 @@ layout: splash
     gap: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 80%;
-    margin: auto;
+    margin: 2em 0;
     transition: box-shadow 0.3s;
 }
 
@@ -34,12 +34,14 @@ layout: splash
 
 /* Icon styling */
 .payment-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+    width: 60px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 10px;
+    margin: 0.5em;
 }
 
 /* Payment text styling */
