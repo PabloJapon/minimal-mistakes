@@ -159,7 +159,52 @@ exports.handler = async (event, context) => {
       }
     }
   
+    if (body.action === 'get_payment_method') {
+      const customerEmail = body.email;
     
+      try {
+        // Retrieve customer using email
+        const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+        const customer = customers.data[0];
+    
+        if (!customer) {
+          return {
+            statusCode: 400,
+            headers,  // Include CORS headers
+            body: JSON.stringify({ error: 'Customer not found' })
+          };
+        }
+    
+        // Get the default payment method attached to the customer
+        const paymentMethods = await stripe.paymentMethods.list({
+          customer: customer.id,
+          type: 'card'
+        });
+    
+        // Check if there's at least one payment method and retrieve the first one
+        if (paymentMethods.data.length > 0) {
+          const paymentMethod = paymentMethods.data[0];
+          return {
+            statusCode: 200,
+            headers,  // Include CORS headers
+            body: JSON.stringify({ paymentMethod })
+          };
+        } else {
+          return {
+            statusCode: 400,
+            headers,  // Include CORS headers
+            body: JSON.stringify({ error: 'No payment method found for the customer' })
+          };
+        }
+      } catch (error) {
+        console.error('Error retrieving payment method:', error);
+        return {
+          statusCode: 500,
+          headers,  // Include CORS headers
+          body: JSON.stringify({ error: 'Failed to retrieve payment method' })
+        };
+      }
+    }
 
     if (body.action === 'next_invoice_date') {
       const customerEmail = body.email;
