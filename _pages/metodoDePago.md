@@ -7,16 +7,9 @@ layout: splash
 <style>
 /* Container styling */
 .wrap {
-    max-width: 800px;
-    margin: 3em auto;
-    padding: 0 20px;
-}
-
-/* Title and info styling */
-.wrap h2 {
-    text-align: center;
-    color: #444;
-    font-weight: 600;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .wrap p {
@@ -59,8 +52,8 @@ layout: splash
 /* Payment text styling */
 .payment-info {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    gap: 50px;
+    align-items: flex-end;
 }
 
 .payment-info p {
@@ -95,14 +88,11 @@ layout: splash
 </style>
 
 <div class="wrap">
-  <h2>Configurar forma de pago</h2>
+  <h4>Configurar forma de pago</h4>
   <p>Controla cómo pagas tu plan.</p>
 
   <div class="payment-details">
-    <!-- Placeholder for payment icon -->
-    <div class="payment-icon" id="payment-icon"></div>
-
-    <!-- Payment Information -->
+    <img id="payment-icon" class="payment-icon" src="" alt="Payment Method Icon" style="display: none;">
     <div class="payment-info">
       <p><strong><span id="payment-type"></span></strong></p>
       <p>*******<span id="payment-last4"></span></p>
@@ -133,15 +123,16 @@ layout: splash
         paymentLast4Element.textContent = data.paymentMethod.card.last4;
         paymentExpiryElement.textContent = data.paymentMethod.card.exp_month + '/' + data.paymentMethod.card.exp_year;
 
-        // Map brand to icon URL or default icon
-        const icons = {
-          'Visa': 'url(/path-to-icons/visa-icon.png)',
-          'MasterCard': 'url(/path-to-icons/mastercard-icon.png)',
-          'American Express': 'url(/path-to-icons/amex-icon.png)',
-          'Desconocido': 'url(/path-to-icons/default-icon.png)'
-        };
-        
-        paymentIconElement.style.backgroundImage = icons[brand] || icons['Desconocido'];
+        // Display the correct icon based on the payment type
+        if (brand === 'visa') {
+          paymentIcon.src = "/assets/images/visa.png";
+        } else if (brand === 'mastercard') {
+          paymentIcon.src = "/assets/images/mastercard.jpg";
+        } else {
+          paymentIcon.src = ""; // Placeholder if no icon is available
+        }
+
+        paymentIcon.style.display = paymentIcon.src ? "block" : "none";
       } else {
         console.error('Error fetching payment method:', data.error);
       }
