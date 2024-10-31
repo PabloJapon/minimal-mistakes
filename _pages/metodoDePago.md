@@ -48,7 +48,7 @@ layout: splash
 .payment-info {
     display: flex;
     gap: 50px;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .payment-info p {
@@ -128,7 +128,9 @@ layout: splash
     .catch(error => console.error('Error:', error));
   }
 
+  let userEmail = "";
   netlifyIdentity.on('login', user => {
+    userEmail = user.email;
     fetchPaymentMethod(user.email);
   });
 
