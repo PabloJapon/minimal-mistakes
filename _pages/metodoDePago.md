@@ -41,7 +41,7 @@ layout: splash
     background-position: center;
     background-repeat: no-repeat;
     padding: 10px;
-    margin: 0.5em;
+    margin: 0.5em 1em;
 }
 
 /* Payment text styling */
@@ -75,8 +75,14 @@ layout: splash
       <p><strong><span id="payment-type"></span></strong></p>
       <p>*******<span id="payment-last4"></span></p>
       <p class="expiry">Cad. <span id="payment-expiry"></span></p>
-      <button onclick="alert('Update payment method')">Cambiar</button>
+      <button onclick="openUpdatePaymentModal()">Cambiar</button>
     </div>
+  </div>
+  <div id="update-payment-modal" style="display: none;">
+    <form id="payment-form">
+      <div id="card-element"><!-- Stripe card input --></div>
+      <button type="submit">Guardar</button>
+    </form>
   </div>
 </div>
 
@@ -125,4 +131,41 @@ layout: splash
   netlifyIdentity.on('login', user => {
     fetchPaymentMethod(user.email);
   });
+
+  async function openUpdatePaymentModal() {
+    document.getElementById('update-payment-modal').style.display = 'block';
+
+    // Fetch SetupIntent client secret
+    const response = await fetch('/.netlify/functions/server', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_setup_intent', email: userEmail })
+    });
+
+    const { clientSecret } = await response.json();
+    setupStripeElements(clientSecret);
+    }
+
+    function setupStripeElements(clientSecret) {
+    const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    document.getElementById('payment-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
+        payment_method: { card: cardElement }
+        });
+
+        if (error) {
+        alert('Error: ' + error.message);
+        } else {
+        alert('Método de pago actualizado con éxito');
+        document.getElementById('update-payment-modal').style.display = 'none';
+        }
+    });
+    }
+
 </script>

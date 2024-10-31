@@ -158,6 +158,33 @@ exports.handler = async (event, context) => {
         };
       }
     }
+
+    if (body.action === 'create_setup_intent') {
+      const customerEmail = body.email;
+    
+      // Fetch the Stripe customer
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      const customer = customers.data[0];
+    
+      if (!customer) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Customer not found' })
+        };
+      }
+    
+      // Create SetupIntent for updating payment method
+      const setupIntent = await stripe.setupIntents.create({
+        customer: customer.id,
+      });
+    
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ clientSecret: setupIntent.client_secret })
+      };
+    }    
   
     if (body.action === 'get_payment_method') {
       const customerEmail = body.email;
