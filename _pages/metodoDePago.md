@@ -4,6 +4,7 @@ permalink: /metodoDePago/
 layout: splash
 ---
 
+<script src="https://js.stripe.com/v3/"></script>
 <style>
 /* Container styling */
 .wrap {
