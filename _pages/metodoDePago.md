@@ -86,24 +86,13 @@ layout: splash
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   z-index: 1001; /* Above the overlay */
-  width: 300px; /* Set a fixed width for the modal */
+  width: 700px; /* Set a fixed width for the modal */
 }
 
-/* Button styling */
-#update-payment-modal button {
-  margin-top: 10px; /* Space between the card input and button */
-  background: #4CAF50; /* Green background */
-  color: white; /* White text */
-  border: none; /* Remove border */
-  padding: 10px; /* Padding */
-  cursor: pointer; /* Pointer on hover */
-  border-radius: 5px; /* Rounded corners */
-  width: 100%; /* Full width */
+#update-payment-modal p {
+    font-size: 1.2em; /* Adjust this value as needed */
 }
 
-#update-payment-modal button:hover {
-  background: #45a049; /* Darker green on hover */
-}
 </style>
 
 <div class="wrap">
