@@ -101,17 +101,17 @@ layout: splash
 
         // Display the correct icon based on the payment type
         if (brand === 'visa') {
-          paymentIcon.src = "/assets/images/visa.png";
-          console.log('visa');
+            paymentIconElement.src = "/assets/images/visa.png";
+            console.log('visa');
         } else if (brand === 'mastercard') {
-          paymentIcon.src = "/assets/images/mastercard.jpg";
-          console.log('mastercard');
+            paymentIconElement.src = "/assets/images/mastercard.jpg";
+            console.log('mastercard');
         } else {
-          paymentIcon.src = ""; // Placeholder if no icon is available
-          console.log('none');
+            paymentIconElement.src = ""; // Placeholder if no icon is available
+            console.log('none');
         }
 
-        paymentIcon.style.display = paymentIcon.src ? "block" : "none";
+        paymentIconElement.style.display = paymentIconElement.src ? "block" : "none";
       } else {
         console.error('Error fetching payment method:', data.error);
       }
