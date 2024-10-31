@@ -63,6 +63,47 @@ layout: splash
     font-size: 0.9em;
 }
 
+/* Overlay styling */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Darken the background */
+  z-index: 1000; /* Ensures it covers everything */
+  display: none; /* Initially hidden */
+}
+
+/* Modal styling */
+#update-payment-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white; /* Modal background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001; /* Above the overlay */
+  width: 300px; /* Set a fixed width for the modal */
+}
+
+/* Button styling */
+#update-payment-modal button {
+  margin-top: 10px; /* Space between the card input and button */
+  background: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 10px; /* Padding */
+  cursor: pointer; /* Pointer on hover */
+  border-radius: 5px; /* Rounded corners */
+  width: 100%; /* Full width */
+}
+
+#update-payment-modal button:hover {
+  background: #45a049; /* Darker green on hover */
+}
 </style>
 
 <div class="wrap">
@@ -79,9 +120,12 @@ layout: splash
       <button onclick="openUpdatePaymentModal()">Cambiar</button>
     </div>
   </div>
+
+  <div id="overlay"></div>
   <div id="update-payment-modal" style="display: none;">
     <form id="payment-form">
       <div id="card-element"><!-- Stripe card input --></div>
+      <div id="card-errors" role="alert" style="color: red;"></div> <!-- For displaying card errors -->
       <button type="submit">Guardar</button>
     </form>
   </div>
@@ -136,39 +180,50 @@ layout: splash
   });
 
   async function openUpdatePaymentModal() {
-    document.getElementById('update-payment-modal').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block'; // Show overlay
+    document.getElementById('update-payment-modal').style.display = 'block'; // Show modal
 
     // Fetch SetupIntent client secret
     const response = await fetch('/.netlify/functions/server', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'create_setup_intent', email: userEmail })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create_setup_intent', email: userEmail })
     });
 
     const { clientSecret } = await response.json();
     setupStripeElements(clientSecret);
-    }
+  }
 
-    function setupStripeElements(clientSecret) {
+  function closeUpdatePaymentModal() {
+    document.getElementById('overlay').style.display = 'none'; // Hide overlay
+    document.getElementById('update-payment-modal').style.display = 'none'; // Hide modal
+  }
+
+  // Add a close event to the overlay
+  document.getElementById('overlay').onclick = closeUpdatePaymentModal;
+
+  function setupStripeElements(clientSecret) {
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
     const elements = stripe.elements();
-    const cardElement = elements.create('card');
+    const cardElement = elements.create('card', {
+      hidePostalCode: true, // This hides the postal code field
+    });
     cardElement.mount('#card-element');
 
     document.getElementById('payment-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
+      event.preventDefault();
 
-        const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
+      const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: { card: cardElement }
-        });
+      });
 
-        if (error) {
-        alert('Error: ' + error.message);
-        } else {
+      if (error) {
+        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
+      } else {
         alert('Método de pago actualizado con éxito');
-        document.getElementById('update-payment-modal').style.display = 'none';
-        }
+        closeUpdatePaymentModal(); // Hide modal after successful update
+      }
     });
-    }
+  }
 
 </script>
