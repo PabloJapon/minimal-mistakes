@@ -100,7 +100,7 @@ img {
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
-  <button class="boton">
+  <button class="boton" onclick="window.location.href='/metodoDePago/'">
     Administrar formas de pago
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
