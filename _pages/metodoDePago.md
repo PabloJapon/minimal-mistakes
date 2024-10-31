@@ -5,6 +5,12 @@ layout: splash
 ---
 
 <style>
+.wrap {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .payment-details {
   width: 60%;
   padding: 10px;
@@ -13,12 +19,7 @@ layout: splash
   background: white;
   text-align: left;
   margin: 2em auto;
-}
-
-.payment-info {
-  font-size: 1em;
-  line-height: 1.6em;
-  color: #333;
+  display: flex;
 }
 
 .boton {
@@ -40,13 +41,17 @@ layout: splash
 }
 </style>
 
-<div class="payment-details">
-  <h2>Método de Pago</h2>
-  <p class="payment-info">
-    Tipo: <span id="payment-type"></span><br>
-    Últimos 4 dígitos: <span id="payment-last4"></span><br>
-    Fecha de vencimiento: <span id="payment-expiry"></span>
-  </p>
+
+<div class="wrap">
+  <h2 style="margin-top: 3em;">Configurar forma de pago</h2>
+  <p>Controla como pagas tu plan.</p>
+
+    <div class="payment-details">
+    <h4><span id="payment-type"></span><br></h4>
+    <p>*******<span id="payment-last4"></span><br></p>
+    <p>Cad. <span id="payment-expiry"></span></p>
+    
+    </div>
 </div>
 
 <script>
