@@ -75,6 +75,7 @@ layout: splash
       <p><strong><span id="payment-type"></span></strong></p>
       <p>*******<span id="payment-last4"></span></p>
       <p class="expiry">Cad. <span id="payment-expiry"></span></p>
+      <button onclick="alert('Update payment method')">Cambiar</button>
     </div>
   </div>
 </div>
@@ -97,7 +98,7 @@ layout: splash
         const paymentIconElement = document.getElementById('payment-icon');
 
         const brand = data.paymentMethod.card.brand || 'Desconocido';
-        paymentTypeElement.textContent = brand;
+        paymentTypeElement.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
         paymentLast4Element.textContent = data.paymentMethod.card.last4;
         paymentExpiryElement.textContent = data.paymentMethod.card.exp_month + '/' + data.paymentMethod.card.exp_year;
 
