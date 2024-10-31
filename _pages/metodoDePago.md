@@ -12,13 +12,6 @@ layout: splash
     margin-right: auto;
 }
 
-.wrap p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 1.5em;
-    font-size: 1.1em;
-}
-
 /* Payment details box styling */
 .payment-details {
     padding: 20px;
@@ -67,28 +60,11 @@ layout: splash
     font-size: 0.9em;
 }
 
-.boton {
-    display: inline-block;
-    padding: 12px 25px;
-    color: #222;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1em;
-    text-align: center;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-.boton:hover {
-    background-color: #eee;
-    border-color: #ccc;
-}
 </style>
 
 <div class="wrap">
-  <h4>Configurar forma de pago</h4>
+
+  <h2 style="margin-top: 3em;">Configurar forma de pago</h2>
   <p>Controla cómo pagas tu plan.</p>
 
   <div class="payment-details">
@@ -126,10 +102,13 @@ layout: splash
         // Display the correct icon based on the payment type
         if (brand === 'visa') {
           paymentIcon.src = "/assets/images/visa.png";
+          console.log('visa');
         } else if (brand === 'mastercard') {
           paymentIcon.src = "/assets/images/mastercard.jpg";
+          console.log('mastercard');
         } else {
           paymentIcon.src = ""; // Placeholder if no icon is available
+          console.log('none');
         }
 
         paymentIcon.style.display = paymentIcon.src ? "block" : "none";
