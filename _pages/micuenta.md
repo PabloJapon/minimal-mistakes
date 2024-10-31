@@ -95,18 +95,13 @@ img {
 <p style="margin-top: 2em;margin-left: 20%;">Acciones</p>
 
 <div class="plan">
-  <button class="boton">
+  <button class="boton" onclick="window.location.href='/precios/'">
     Cambiar de plan
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
   <button class="boton">
     Administrar formas de pago
-    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
-  </button>
-  <div class="linea"></div>
-  <button class="boton">
-    Editar datos del perfil
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
