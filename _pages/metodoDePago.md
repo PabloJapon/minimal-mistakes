@@ -70,9 +70,9 @@ layout: splash
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Slightly dark background */
-  z-index: 1000; /* Ensures it covers everything */
-  display: none; /* Initially hidden */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
 }
 
 /* Modal styling */
@@ -81,12 +81,12 @@ layout: splash
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff; /* Modal background color */
+  background: #fff;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  z-index: 1001; /* Above the overlay */
-  width: 600px; /* Set a fixed width for the modal */
+  z-index: 1001;
+  width: 600px;
   max-width: 90%;
 }
 
@@ -99,7 +99,7 @@ layout: splash
 
 /* Button styling */
 .submit-button {
-  background-color: #007bff; /* Primary button color */
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   font-size: 1em;
@@ -121,11 +121,9 @@ layout: splash
     width: 90%;
   }
 }
-
 </style>
 
 <div class="wrap">
-
   <h2 style="margin-top: 3em;">Configurar forma de pago</h2>
   <p>Controla cómo pagas tu plan.</p>
 
@@ -147,16 +145,13 @@ layout: splash
       <button type="submit" class="submit-button">Guardar</button>
     </form>
   </div>
-
 </div>
 
 <script>
   function fetchPaymentMethod(email) {
     fetch('/.netlify/functions/server', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'get_payment_method', email: email })
     })
     .then(response => response.json())
@@ -175,13 +170,10 @@ layout: splash
         // Display the correct icon based on the payment type
         if (brand === 'visa') {
             paymentIconElement.src = "/assets/images/visa.png";
-            console.log('visa');
         } else if (brand === 'mastercard') {
             paymentIconElement.src = "/assets/images/mastercard.jpg";
-            console.log('mastercard');
         } else {
-            paymentIconElement.src = ""; // Placeholder if no icon is available
-            console.log('none');
+            paymentIconElement.src = "";
         }
 
         paymentIconElement.style.display = paymentIconElement.src ? "block" : "none";
@@ -199,10 +191,9 @@ layout: splash
   });
 
   async function openUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'block'; // Show overlay
-    document.getElementById('update-payment-modal').style.display = 'block'; // Show modal
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('update-payment-modal').style.display = 'block';
 
-    // Fetch SetupIntent client secret
     const response = await fetch('/.netlify/functions/server', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -214,19 +205,27 @@ layout: splash
   }
 
   function closeUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'none'; // Hide overlay
-    document.getElementById('update-payment-modal').style.display = 'none'; // Hide modal
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('update-payment-modal').style.display = 'none';
   }
 
-  // Add a close event to the overlay
   document.getElementById('overlay').onclick = closeUpdatePaymentModal;
 
   function setupStripeElements(clientSecret) {
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
-    const elements = stripe.elements();
+
+    const elements = stripe.elements({ clientSecret });
     const cardElement = elements.create('card', {
-      hidePostalCode: true, // This hides the postal code field
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#32325d',
+          '::placeholder': { color: '#aab7c4' }
+        },
+        invalid: { color: '#e63946' }
+      }
     });
+    
     cardElement.mount('#card-element');
 
     document.getElementById('payment-form').addEventListener('submit', async (event) => {
@@ -237,12 +236,11 @@ layout: splash
       });
 
       if (error) {
-        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
+        document.getElementById('card-errors').textContent = error.message;
       } else {
         alert('Método de pago actualizado con éxito');
-        closeUpdatePaymentModal(); // Hide modal after successful update
+        closeUpdatePaymentModal();
       }
     });
   }
-
 </script>
