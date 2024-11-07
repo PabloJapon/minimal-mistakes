@@ -234,23 +234,25 @@ layout: splash
     });
     cardElement.mount('#card-element');
 
-    document.getElementById('payment-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      console.log('Submit button clicked'); // Log when the button is clicked
+    document.getElementById('submit-payment').addEventListener('click', async (event) => {
+      console.log('Guardar button clicked'); // Log when clicked
 
+      event.preventDefault();  // Prevent the default form submission
+      
       const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: { card: cardElement }
       });
 
       if (error) {
-        console.error('Stripe error:', error); // Log any error from Stripe
-        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
+        console.error('Stripe error:', error);
+        document.getElementById('card-errors').textContent = error.message;
       } else {
-        console.log('Payment method updated successfully'); // Log success
+        console.log('Payment method updated successfully');
         alert('Método de pago actualizado con éxito');
-        closeUpdatePaymentModal(); // Hide modal after successful update
+        closeUpdatePaymentModal();
       }
     });
+
 
   }
 </script>

@@ -320,12 +320,12 @@ img {
         const user = netlifyIdentity.currentUser();
 
         if (!user) {
-          console.log(user);
+          console.log('nouserlogged');
           return;
         }
 
         // Assuming the user's plan is stored in user metadata or returned via API
-        const userPlan = user.app_metadata.subscription_plan || "Gratis";  // Example: 'Gratis', 'Básico', or 'Premium'
+        const userPlan = user.app_metadata.subscription_plan;
 
         // Update the plan text based on the user's plan
         if (userPlan === 'Gratis') {
