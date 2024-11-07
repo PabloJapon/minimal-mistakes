@@ -170,10 +170,13 @@ img {
       <span class="tick-icon"></span>
       <p>Feature 1 description</p>
     </div>
+
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-gratis" class="plan-current-text"></p>
   </div>
 
   <div class="plan" style="padding: 0px 20px;">
-  <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px; width: 10em;"> Recomendado </p>
+    <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px; width: 10em;"> Recomendado </p>
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
@@ -182,6 +185,9 @@ img {
       <span class="tick-icon-yellow"></span>
       <p>Feature 2 description</p>
     </div>
+
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-basico" class="plan-current-text"></p>
   </div>
 
   <div class="plan" style="padding-top: 4.7em;">
@@ -193,6 +199,9 @@ img {
       <span class="tick-icon-yellow"></span>
       <p>Feature 3 description</p>
     </div>
+
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-premium" class="plan-current-text"></p>
   </div>
 </div>
 
@@ -302,6 +311,32 @@ img {
         <td style="text-align: center;">1% - 1.5% adicional a Stripe</td>
         <td style="text-align: center;">Ninguna, solo Stripe</td>
       </tr>
+
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Netlify Identity
+        netlifyIdentity.init();
+
+        const user = netlifyIdentity.currentUser();
+
+        if (!user) {
+          return;
+        }
+
+        // Assuming the user's plan is stored in user metadata or returned via API
+        const userPlan = user.app_metadata.subscription_plan || "Gratis";  // Example: 'Gratis', 'Básico', or 'Premium'
+
+        // Update the plan text based on the user's plan
+        if (userPlan === 'Gratis') {
+          document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
+        } else if (userPlan === 'Básico') {
+          document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
+        } else if (userPlan === 'Premium') {
+          document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
+        }
+
+      });
+    </script>
     </tbody>
   </table>
 </div>

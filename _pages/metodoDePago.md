@@ -6,14 +6,13 @@ layout: splash
 
 <script src="https://js.stripe.com/v3/"></script>
 <style>
-/* Container styling */
+/* Main container */
 .wrap {
     max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
-/* Payment details box styling */
+/* Payment details box */
 .payment-details {
     padding: 20px;
     border: 1px solid #ddd;
@@ -21,11 +20,10 @@ layout: splash
     background: #f9f9f9;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 80%;
-    margin: 2em 0;
+    margin: 2em auto;
     transition: box-shadow 0.3s;
 }
 
@@ -33,22 +31,22 @@ layout: splash
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Icon styling */
+/* Payment icon */
 .payment-icon {
     width: 60px;
+    height: 60px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     padding: 10px;
-    margin: 0.5em 1em;
+    margin-right: 15px;
 }
 
-/* Payment text styling */
+/* Payment text */
 .payment-info {
     display: flex;
-    gap: 50px;
+    gap: 15px;
     align-items: center;
 }
 
@@ -63,7 +61,7 @@ layout: splash
     font-size: 0.9em;
 }
 
-/* Modal and overlay styling */
+/* Overlay styling */
 #overlay {
     display: none;
     position: fixed;
@@ -72,26 +70,56 @@ layout: splash
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1000;
 }
 
+/* Modal styling */
 #update-payment-modal {
     display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: 500px;
-    margin: 5% auto;
+    width: 90%;
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    text-align: center;
 }
 
-/* Loading animation for the save button */
+/* Payment form styling */
+#payment-form {
+    margin-top: 20px;
+}
+
+.stripe-element {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#submit-payment {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6699ff;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* Spinner */
 .progress-circle {
     display: none;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border: 3px solid #ccc;
-    border-top-color: #6699ff;
+    border-top-color: #fff;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -104,8 +132,8 @@ layout: splash
 
 <div class="wrap">
 
-  <h2 style="margin-top: 3em;">Configurar forma de pago</h2>
-  <p>Controla cómo pagas tu plan.</p>
+  <h2 style="margin-top: 3em; text-align: center;">Configurar forma de pago</h2>
+  <p style="text-align: center;">Controla cómo pagas tu plan.</p>
 
   <div class="payment-details">
     <img id="payment-icon" class="payment-icon" src="" alt="Payment Method Icon" style="display: none;">
@@ -117,18 +145,16 @@ layout: splash
     </div>
   </div>
 
-  <div id="overlay" onclick="closeUpdatePaymentModal()"></div>
+  <div id="overlay"></div>
   <div id="update-payment-modal">
-      <div class="sub-container">
-          <h2>Elige un método de pago</h2>
-          <div id="payment-form">
-              <div id="card-element" class="stripe-element"></div>
-              <div id="card-errors" role="alert"></div>
-              <button type="submit" id="submit-payment">
-                  Guardar
-                  <div class="progress-circle"></div>
-              </button>
-          </div>
+      <h2>Elige un método de pago</h2>
+      <div id="payment-form">
+          <div id="card-element" class="stripe-element"></div>
+          <div id="card-errors" role="alert" style="color: red; margin-top: 10px;"></div>
+          <button type="submit" id="submit-payment">
+              Guardar
+              <div class="progress-circle"></div>
+          </button>
       </div>
   </div>
 
@@ -180,10 +206,9 @@ layout: splash
   });
 
   async function openUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'block'; // Show overlay
-    document.getElementById('update-payment-modal').style.display = 'block'; // Show modal
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('update-payment-modal').style.display = 'block';
 
-    // Fetch SetupIntent client secret
     const response = await fetch('/.netlify/functions/server', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -195,18 +220,17 @@ layout: splash
   }
 
   function closeUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'none'; // Hide overlay
-    document.getElementById('update-payment-modal').style.display = 'none'; // Hide modal
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('update-payment-modal').style.display = 'none';
   }
 
-  // Add a close event to the overlay
   document.getElementById('overlay').onclick = closeUpdatePaymentModal;
 
   function setupStripeElements(clientSecret) {
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
-      hidePostalCode: true, // This hides the postal code field
+      hidePostalCode: true
     });
     cardElement.mount('#card-element');
 
@@ -218,12 +242,11 @@ layout: splash
       });
 
       if (error) {
-        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
+        document.getElementById('card-errors').textContent = error.message;
       } else {
         alert('Método de pago actualizado con éxito');
-        closeUpdatePaymentModal(); // Hide modal after successful update
+        closeUpdatePaymentModal();
       }
     });
   }
-
-</script> 
+</script>
