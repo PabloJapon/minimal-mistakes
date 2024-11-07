@@ -163,6 +163,8 @@ img {
 <div class="plan-container">
   <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Gratis</h2>
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-gratis" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
 
@@ -171,13 +173,13 @@ img {
       <p>Feature 1 description</p>
     </div>
 
-    <!-- New: Add "Tu plan actual" text here -->
-    <p id="plan-current-gratis" class="plan-current-text"></p>
   </div>
 
   <div class="plan" style="padding: 0px 20px;">
     <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px; width: 10em;"> Recomendado </p>
     <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-basico" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
     
@@ -186,12 +188,12 @@ img {
       <p>Feature 2 description</p>
     </div>
 
-    <!-- New: Add "Tu plan actual" text here -->
-    <p id="plan-current-basico" class="plan-current-text"></p>
   </div>
 
   <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Premium</h2>
+    <!-- New: Add "Tu plan actual" text here -->
+    <p id="plan-current-premium" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
     
@@ -200,8 +202,6 @@ img {
       <p>Feature 3 description</p>
     </div>
 
-    <!-- New: Add "Tu plan actual" text here -->
-    <p id="plan-current-premium" class="plan-current-text"></p>
   </div>
 </div>
 
@@ -320,28 +320,23 @@ img {
         const user = netlifyIdentity.currentUser();
 
         if (!user) {
-          console.log('nouserlogged');
+          //console.log('nouserlogged');
           return;
         }
 
         // Assuming the user's plan is stored in user metadata or returned via API
         const userPlan = user.user_metadata.subscription_plan;
-        console.log(userPlan);
-
+        // console.log(userPlan);
 
         // Update the plan text based on the user's plan
         if (userPlan === 'Gratis') {
-          console.log(userPlan);
           document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
         } else if (userPlan === 'Pro') {
-          console.log(userPlan);
           document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
         } else if (userPlan === 'Premium') {
-          console.log(userPlan);
           document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
         }
 
-        console.log(user);  // Optional: Check if the user object is correct
       });
     </script>
 
