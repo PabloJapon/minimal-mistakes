@@ -63,67 +63,47 @@ layout: splash
     font-size: 0.9em;
 }
 
-/* Overlay styling */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  display: none;
+/* Modal and overlay styling */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-/* Modal styling */
-.payment-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  z-index: 1001;
-  width: 600px;
-  max-width: 90%;
+#update-payment-modal {
+    display: none;
+    max-width: 500px;
+    margin: 5% auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Error styling */
-.card-errors {
-  color: #e63946;
-  font-size: 0.9em;
-  margin-top: 10px;
+/* Loading animation for the save button */
+.progress-circle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #ccc;
+    border-top-color: #6699ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-/* Button styling */
-.submit-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive styling for smaller screens */
-@media (max-width: 600px) {
-  .payment-modal {
-    padding: 20px;
-    width: 90%;
-  }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 </style>
 
 <div class="wrap">
+
   <h2 style="margin-top: 3em;">Configurar forma de pago</h2>
   <p>Controla cómo pagas tu plan.</p>
 
@@ -137,21 +117,30 @@ layout: splash
     </div>
   </div>
 
-  <div class="modal-overlay" id="overlay"></div>
-  <div class="payment-modal" id="update-payment-modal" style="display: none;">
-    <form id="payment-form">
-      <div id="card-element"><!-- Stripe card input --></div>
-      <div class="card-errors" id="card-errors" role="alert"></div> <!-- For displaying card errors -->
-      <button type="submit" class="submit-button">Guardar</button>
-    </form>
+  <div id="overlay" onclick="closeUpdatePaymentModal()"></div>
+  <div id="update-payment-modal">
+      <div class="sub-container">
+          <h2>Elige un método de pago</h2>
+          <div id="payment-form">
+              <div id="card-element" class="stripe-element"></div>
+              <div id="card-errors" role="alert"></div>
+              <button type="submit" id="submit-payment">
+                  Guardar
+                  <div class="progress-circle"></div>
+              </button>
+          </div>
+      </div>
   </div>
+
 </div>
 
 <script>
   function fetchPaymentMethod(email) {
     fetch('/.netlify/functions/server', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ action: 'get_payment_method', email: email })
     })
     .then(response => response.json())
@@ -173,7 +162,7 @@ layout: splash
         } else if (brand === 'mastercard') {
             paymentIconElement.src = "/assets/images/mastercard.jpg";
         } else {
-            paymentIconElement.src = "";
+            paymentIconElement.src = ""; // Placeholder if no icon is available
         }
 
         paymentIconElement.style.display = paymentIconElement.src ? "block" : "none";
@@ -191,9 +180,10 @@ layout: splash
   });
 
   async function openUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('update-payment-modal').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block'; // Show overlay
+    document.getElementById('update-payment-modal').style.display = 'block'; // Show modal
 
+    // Fetch SetupIntent client secret
     const response = await fetch('/.netlify/functions/server', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -205,27 +195,19 @@ layout: splash
   }
 
   function closeUpdatePaymentModal() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('update-payment-modal').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none'; // Hide overlay
+    document.getElementById('update-payment-modal').style.display = 'none'; // Hide modal
   }
 
+  // Add a close event to the overlay
   document.getElementById('overlay').onclick = closeUpdatePaymentModal;
 
   function setupStripeElements(clientSecret) {
     const stripe = Stripe('pk_test_51OmfAYE2UvP4xcDs92nWGG93clovJ2N6OBjuvPv9k26lrUnU0VDdS4ra32km006KbVhlHGygobi4SQpTbpBTeyGa00FwesDfwo');
-
-    const elements = stripe.elements({ clientSecret });
+    const elements = stripe.elements();
     const cardElement = elements.create('card', {
-      style: {
-        base: {
-          fontSize: '16px',
-          color: '#32325d',
-          '::placeholder': { color: '#aab7c4' }
-        },
-        invalid: { color: '#e63946' }
-      }
+      hidePostalCode: true, // This hides the postal code field
     });
-    
     cardElement.mount('#card-element');
 
     document.getElementById('payment-form').addEventListener('submit', async (event) => {
@@ -236,11 +218,12 @@ layout: splash
       });
 
       if (error) {
-        document.getElementById('card-errors').textContent = error.message;
+        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
       } else {
         alert('Método de pago actualizado con éxito');
-        closeUpdatePaymentModal();
+        closeUpdatePaymentModal(); // Hide modal after successful update
       }
     });
   }
-</script>
+
+</script> 
