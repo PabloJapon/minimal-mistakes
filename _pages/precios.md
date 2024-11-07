@@ -320,6 +320,7 @@ img {
         const user = netlifyIdentity.currentUser();
 
         if (!user) {
+          console.log(user);
           return;
         }
 
@@ -328,15 +329,20 @@ img {
 
         // Update the plan text based on the user's plan
         if (userPlan === 'Gratis') {
+          console.log(userPlan);
           document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
         } else if (userPlan === 'Básico') {
+          console.log(userPlan);
           document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
         } else if (userPlan === 'Premium') {
+          console.log(userPlan);
           document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
         }
 
+        console.log(user);  // Optional: Check if the user object is correct
       });
     </script>
+
     </tbody>
   </table>
 </div>

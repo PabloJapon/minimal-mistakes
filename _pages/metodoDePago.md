@@ -236,17 +236,21 @@ layout: splash
 
     document.getElementById('payment-form').addEventListener('submit', async (event) => {
       event.preventDefault();
+      console.log('Submit button clicked'); // Log when the button is clicked
 
       const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
         payment_method: { card: cardElement }
       });
 
       if (error) {
-        document.getElementById('card-errors').textContent = error.message;
+        console.error('Stripe error:', error); // Log any error from Stripe
+        document.getElementById('card-errors').textContent = error.message; // Display error in the modal
       } else {
+        console.log('Payment method updated successfully'); // Log success
         alert('Método de pago actualizado con éxito');
-        closeUpdatePaymentModal();
+        closeUpdatePaymentModal(); // Hide modal after successful update
       }
     });
+
   }
 </script>
