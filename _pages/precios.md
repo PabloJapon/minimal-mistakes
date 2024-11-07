@@ -326,12 +326,14 @@ img {
 
         // Assuming the user's plan is stored in user metadata or returned via API
         const userPlan = user.user_metadata.subscription_plan;
+        console.log(userPlan);
+
 
         // Update the plan text based on the user's plan
         if (userPlan === 'Gratis') {
           console.log(userPlan);
           document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
-        } else if (userPlan === 'Básico') {
+        } else if (userPlan === 'Pro') {
           console.log(userPlan);
           document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
         } else if (userPlan === 'Premium') {
