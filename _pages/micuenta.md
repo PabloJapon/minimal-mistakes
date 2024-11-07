@@ -105,11 +105,6 @@ img {
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
   </button>
   <div class="linea"></div>
-  <button class="boton">
-    Cambiar contraseña
-    <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
-  </button>
-  <div class="linea"></div>
   <button class="boton" onclick="window.location.href='/misFacturas/'">
     Mis Facturas
     <img src="/assets/images/angulo-derecho.svg" width="20" height="20" style="vertical-align: middle;">
@@ -124,7 +119,7 @@ img {
 
 <!-- Logout button -->
 <button class="button-log-out">
-  <img src="/assets/images/log-out.png" alt="Log Out Icon" class="icon"> Cerrar Sesión
+  <img src="/assets/images/log-out-azul.png" alt="Log Out Icon" class="icon"> Cerrar Sesión
 </button>
 
 
@@ -132,7 +127,7 @@ img {
 <p id="subscription-plan"></p>
 
 <!-- Unsubscribe button -->
-<button onclick="cancelSubscription()">Cancelar Suscripción</button>
+<!-- <button onclick="cancelSubscription()">Cancelar Suscripción</button> -->
 
 <!-- Conditional button based on connected Stripe account -->
 <div id="stripe-button"></div>

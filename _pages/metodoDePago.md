@@ -64,33 +64,62 @@ layout: splash
 }
 
 /* Overlay styling */
-#overlay {
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Darken the background */
+  background: rgba(0, 0, 0, 0.5); /* Slightly dark background */
   z-index: 1000; /* Ensures it covers everything */
   display: none; /* Initially hidden */
 }
 
 /* Modal styling */
-#update-payment-modal {
+.payment-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white; /* Modal background color */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: #fff; /* Modal background color */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   z-index: 1001; /* Above the overlay */
-  width: 700px; /* Set a fixed width for the modal */
+  width: 600px; /* Set a fixed width for the modal */
+  max-width: 90%;
 }
 
-#update-payment-modal p {
-    font-size: 1.2em; /* Adjust this value as needed */
+/* Error styling */
+.card-errors {
+  color: #e63946;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+/* Button styling */
+.submit-button {
+  background-color: #007bff; /* Primary button color */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+  .payment-modal {
+    padding: 20px;
+    width: 90%;
+  }
 }
 
 </style>
@@ -110,14 +139,15 @@ layout: splash
     </div>
   </div>
 
-  <div id="overlay"></div>
-  <div id="update-payment-modal" style="display: none;">
+  <div class="modal-overlay" id="overlay"></div>
+  <div class="payment-modal" id="update-payment-modal" style="display: none;">
     <form id="payment-form">
       <div id="card-element"><!-- Stripe card input --></div>
-      <div id="card-errors" role="alert" style="color: red;"></div> <!-- For displaying card errors -->
-      <button type="submit">Guardar</button>
+      <div class="card-errors" id="card-errors" role="alert"></div> <!-- For displaying card errors -->
+      <button type="submit" class="submit-button">Guardar</button>
     </form>
   </div>
+
 </div>
 
 <script>
