@@ -18,34 +18,54 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // Debug: Log the event type
+  console.log(`DEBUG: Stripe event type received: ${eventData.type}`);
+
   switch (eventData.type) {
     case 'payment_intent.succeeded':
-    const paymentIntent = eventData.data.object;
-    console.log('PaymentIntent was successful!', paymentIntent);
+      // Extract the paymentIntent from the event
+      const paymentIntent = eventData.data.object;
 
-    const amount = paymentIntent.amount_received / 100; // Convert amount from cents to euros
-    const tableNumber = paymentIntent.metadata.table_number;
-    const id = paymentIntent.metadata.id;
-    const paymentIntentId = paymentIntent.id; // The unique PaymentIntent ID
+      // Debug: Log the raw paymentIntent
+      console.log('DEBUG: Full paymentIntent object:', JSON.stringify(paymentIntent, null, 2));
 
-    // Send confirmation to your Python backend
-    try {
-      const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
-        id: id,
-        amount: amount,
-        table_number: tableNumber,
-        id_payment: paymentIntentId  // <-- Add this line
-      });
+      console.log('PaymentIntent was successful!');
 
-      if (response.status !== 200) {
-        console.error('Failed to send payment confirmation:', response.statusText);
-      } else {
-        console.log('Payment confirmation sent to the database successfully.');
+      // Convert amount from cents to euros
+      const amount = paymentIntent.amount_received / 100;
+      // Pull table_number and id from metadata
+      const tableNumber = paymentIntent.metadata.table_number;
+      const id = paymentIntent.metadata.id;
+      // The unique PaymentIntent ID
+      const paymentIntentId = paymentIntent.id;
+
+      // Debug: Confirm values
+      console.log('DEBUG: paymentIntentId:', paymentIntentId);
+      console.log('DEBUG: tableNumber:', tableNumber);
+      console.log('DEBUG: id:', id);
+      console.log('DEBUG: amount:', amount);
+
+      // Send confirmation to your Python backend
+      try {
+        const response = await axios.post(
+          'https://pablogastrali.pythonanywhere.com/confirm_payment',
+          {
+            id: id,
+            amount: amount,
+            table_number: tableNumber,
+            id_payment: paymentIntentId, // Here is the unique PaymentIntent ID
+          }
+        );
+
+        if (response.status !== 200) {
+          console.error('Failed to send payment confirmation:', response.statusText);
+        } else {
+          console.log('Payment confirmation sent to the database successfully.');
+        }
+      } catch (error) {
+        console.error('Error sending payment confirmation:', error);
       }
-    } catch (error) {
-      console.error('Error sending payment confirmation:', error);
-    }
-    break;
+      break;
 
     case 'payment_intent.failed':
       const failedPaymentIntent = eventData.data.object;
