@@ -20,31 +20,32 @@ exports.handler = async (event, context) => {
 
   switch (eventData.type) {
     case 'payment_intent.succeeded':
-      const paymentIntent = eventData.data.object;
-      console.log('PaymentIntent was successful!', paymentIntent);
+    const paymentIntent = eventData.data.object;
+    console.log('PaymentIntent was successful!', paymentIntent);
 
-      const amount = paymentIntent.amount_received / 100; // Convert amount from cents to euros
-      const tableNumber = paymentIntent.metadata.table_number;
-      const id = paymentIntent.metadata.id;
+    const amount = paymentIntent.amount_received / 100; // Convert amount from cents to euros
+    const tableNumber = paymentIntent.metadata.table_number;
+    const id = paymentIntent.metadata.id;
+    const paymentIntentId = paymentIntent.id; // The unique PaymentIntent ID
 
-      // Send confirmation to your Python backend
-      try {
-        const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
-          id: id,
-          amount: amount,
-          table_number: tableNumber,
-        });
+    // Send confirmation to your Python backend
+    try {
+      const response = await axios.post('https://pablogastrali.pythonanywhere.com/confirm_payment', {
+        id: id,
+        amount: amount,
+        table_number: tableNumber,
+        id_payment: paymentIntentId  // <-- Add this line
+      });
 
-        if (response.status !== 200) {
-          console.error('Failed to send payment confirmation:', response.statusText);
-        } else {
-          console.log('Payment confirmation sent to the database successfully.');
-        }
-      } catch (error) {
-        console.error('Error sending payment confirmation:', error);
+      if (response.status !== 200) {
+        console.error('Failed to send payment confirmation:', response.statusText);
+      } else {
+        console.log('Payment confirmation sent to the database successfully.');
       }
-
-      break;
+    } catch (error) {
+      console.error('Error sending payment confirmation:', error);
+    }
+    break;
 
     case 'payment_intent.failed':
       const failedPaymentIntent = eventData.data.object;
