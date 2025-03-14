@@ -11,13 +11,12 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
   document.addEventListener('DOMContentLoaded', function () {
     console.log('Success page loaded.');
     
-    // Log the current URL parameters for debugging
     const urlParams = new URLSearchParams(window.location.search);
-    console.log('Query parameters:', Object.fromEntries(urlParams.entries()));
+    console.log('URL Parameters:', Object.fromEntries(urlParams.entries()));
     
     const paymentSuccess = urlParams.get('payment_success');
     const plan = urlParams.get('plan');
-
+    
     if (paymentSuccess === 'true' && plan) {
       const user = netlifyIdentity.currentUser();
       if (user) {
@@ -29,6 +28,7 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
           })
           .then((updatedUser) => {
             console.log('Subscription plan updated successfully:', updatedUser);
+            // window.location.href = '/dashboard'; // Uncomment once you confirm the update works
           })
           .catch((error) => {
             console.error('Error updating user metadata:', error);
@@ -43,10 +43,11 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
   });
 </script>
 
-<p>Serás redirigido en unos segundos...</p>
+<p>Check the console for update logs. You will be redirected soon...</p>
 
 <script>
+  // Temporarily increase delay for debugging
   setTimeout(() => {
-    window.location.href = '/dashboard'; // Change this to your desired redirect path
-  }, 5000);
+    window.location.href = '/dashboard';
+  }, 30000); // 30 seconds
 </script>
