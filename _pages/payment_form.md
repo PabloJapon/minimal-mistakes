@@ -278,10 +278,6 @@ permalink: /payment_form/
       const urlParams = new URLSearchParams(window.location.search);
       const plan = urlParams.get('plan');
 
-      // Get the selected plan from the URL parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const plan = urlParams.get('plan');
-
       stripe.confirmPayment({
         elements,
         confirmParams: {
