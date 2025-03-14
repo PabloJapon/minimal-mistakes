@@ -74,6 +74,28 @@
 <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <script>
+  // Function to fetch subscription plan (product name)
+  function fetchSubscriptionPlan(email) {
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.product_name) {
+        updateSubscriptionPlan(data.product_name); // Function to update the UI with the product name
+      } else {
+        console.error('Subscription plan (product name) not found in response:', data);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching subscription plan:', error);
+    });
+  }
+  
   function openNetlifyIdentity() {
     console.log("Clic en iniciar sesión");
     if (window.netlifyIdentity) {
@@ -102,21 +124,15 @@
   // Netlify Identity script y manejo de eventos
   netlifyIdentity.on('login', user => {
     console.log('Usuario inició sesión', user);
+    fetchSubscriptionPlan(user.email);
     handleAuthenticationChange();
     // Display welcome message and username
     const usernameButtonSpan = document.getElementById('account-username-button');
     const usernameMenuSpan = document.getElementById('account-username');
-    const planUser = document.getElementById('account-plan');
     if (usernameButtonSpan && usernameMenuSpan) {
       const username = user.user_metadata.full_name || user.email;
-      const subscriptionPlan = user.user_metadata.subscription_plan;
       usernameButtonSpan.innerText = username;
       usernameMenuSpan.innerText = username;
-      if (subscriptionPlan) {
-        planUser.innerText = "Plan " + subscriptionPlan;
-      } else {
-        planUser.innerText = "Sin plan";
-      }
     }
 
     // Set the initial letter
@@ -131,6 +147,15 @@
     // Redirigir a la página principal después de cerrar sesión
     location.href = '/';
   });
+
+  // Function to update the subscription plan on the UI
+  function updateSubscriptionPlan(productName) {
+    const subscriptionElement = document.getElementById('account-plan');
+    if (subscriptionElement) {
+      subscriptionElement.textContent = `Plan: ${productName}`;
+      console.log('Subscribed Plan:', subscriptionElement.textContent);
+    }
+  }
 
   function logout() {
     netlifyIdentity.logout();
