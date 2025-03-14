@@ -122,10 +122,6 @@ img {
   <img src="/assets/images/log-out-azul.png" alt="Log Out Icon" class="icon"> Cerrar Sesión
 </button>
 
-
-<!-- Display subscription plan -->
-<p id="subscription-plan"></p>
-
 <!-- Unsubscribe button -->
 <!-- <button onclick="cancelSubscription()">Cancelar Suscripción</button> -->
 
@@ -142,6 +138,37 @@ img {
       console.log('Next invoice date:', formattedDate); // Log the next invoice date
     }
   }
+
+  // Function to fetch subscription plan (product name)
+  function fetchSubscriptionPlan(email) {
+    fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.product_name) {
+        updateSubscriptionPlan(data.product_name); // Function to update the UI with the product name
+      } else {
+        console.error('Subscription plan (product name) not found in response:', data);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching subscription plan:', error);
+    });
+  }
+  
+  // Function to update the subscription plan on the UI
+  function updateSubscriptionPlan(productName) {
+    const subscriptionElement = document.getElementById('subscription-plan');
+    if (subscriptionElement) {
+      subscriptionElement.textContent = `Subscribed Plan: ${productName}`;
+    }
+  }
+
 
   // Function to fetch next invoice date
   function fetchNextInvoiceDate(email) {
