@@ -263,17 +263,8 @@ img {
       usernameSpan.innerText = user.user_metadata.full_name || user.email;
     }
 
-    const subscriptionPlan = user.user_metadata.subscription_plan;
-    if (subscriptionPlan) {
-      const subscriptionPlanElement = document.getElementById('subscription-plan');
-      subscriptionPlanElement.textContent = "Plan " + subscriptionPlan;
-      console.log('Subscription plan:', subscriptionPlan);
-    } else {
-      console.log('User', user);
-      console.log('sin plan de suscripción');
-    }
-
     fetchNextInvoiceDate(user.email);
+    fetchSubscriptionPlan(user.email);
     fetchCheckConnectedAccount(user.email); // Fetch connected account status on login
 
     // Add or update ID in user metadata
