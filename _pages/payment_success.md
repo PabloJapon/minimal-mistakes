@@ -27,27 +27,19 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
           const token = await user.jwt();
           console.log('JWT Token received:', token);
 
-          const response = await fetch('/.netlify/identity/user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              user_metadata: { subscription_plan: plan }
-            }),
+          // Ensure the user metadata update persists
+          const updatedUser = await user.update({
+            user_metadata: { subscription_plan: plan }
           });
 
-          if (!response.ok) {
-            throw new Error(`Failed to update metadata: ${response.statusText}`);
-          }
-
-          const updatedUser = await response.json();
           console.log('Subscription plan updated successfully:', updatedUser);
 
-          // Refresh user object to reflect changes
-          await netlifyIdentity.refresh();
-          console.log('User metadata after refresh:', netlifyIdentity.currentUser());
+          // Manually refresh the user session
+          netlifyIdentity.refresh().then((newUser) => {
+            console.log('User metadata after refresh:', newUser);
+          }).catch((error) => {
+            console.error('Error refreshing user session:', error);
+          });
 
         } catch (error) {
           console.error('Error updating subscription plan:', error);
