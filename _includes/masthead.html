@@ -150,10 +150,9 @@
 
   // Function to update the subscription plan on the UI
   function updateSubscriptionPlan(productName) {
-    console.log('daediajediajed');
     const subscriptionElement = document.getElementById('account-plan');
     if (subscriptionElement) {
-      subscriptionElement.textContent = `Plan: ${productName}`;
+      subscriptionElement.textContent = `Plan ${productName}`;
       console.log('Subscribed Plan:', subscriptionElement.textContent);
     }
   }
