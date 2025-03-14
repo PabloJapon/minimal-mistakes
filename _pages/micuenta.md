@@ -143,7 +143,7 @@ img {
   function updateSubscriptionPlan(productName) {
     const subscriptionElement = document.getElementById('subscription-plan');
     if (subscriptionElement) {
-      subscriptionElement.textContent = `${productName}`;
+      subscriptionElement.textContent = `Plan: ${productName}`;
       console.log('Subscribed Plan:', subscriptionElement.textContent);
     }
   }
