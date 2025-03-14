@@ -278,6 +278,46 @@ exports.handler = async (event, context) => {
       };
     }
 
+    if (body.action === 'get_productId') {
+      const customerEmail = body.email;
+
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      const customer = customers.data[0];
+
+      if (!customer) {
+        return {
+          statusCode: 400,
+          headers,  // Include CORS headers
+          body: JSON.stringify({ error: 'Customer not found' })
+        };
+      }
+
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customer.id,
+        status: 'active',
+        limit: 1
+      });
+
+      if (subscriptions.data.length === 0) {
+        return {
+          statusCode: 400,
+          headers,  // Include CORS headers
+          body: JSON.stringify({ error: 'No active subscription found for the customer' })
+        };
+      }
+
+      const subscription = subscriptions.data[0];
+
+      // Get the product ID from the subscription
+      const productId = subscription.items.data[0].price.product;
+
+      return {
+        statusCode: 200,
+        headers,  // Include CORS headers
+        body: JSON.stringify({ productId })
+      };
+    }
+
     if (body.action === 'get_invoices') {
       const customerEmail = body.email;
 
