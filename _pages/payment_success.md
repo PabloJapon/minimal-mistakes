@@ -67,5 +67,5 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
 <script>
   setTimeout(() => {
     window.location.href = '/dashboard';
-  }, 5000); // Reduced to 5 seconds for better UX
+  }, 30000); // Reduced to 5 seconds for better UX
 </script>
