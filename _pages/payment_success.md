@@ -24,7 +24,7 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
         user.jwt().then((token) => {
           console.log('Token received. Attempting to update user metadata with plan:', plan);
           user.update({
-            user_metadata: { subscription_plan: plan }
+            user_metadata: { subscription_plan: 'Premium' }
           })
           .then((updatedUser) => {
             console.log('Subscription plan updated successfully:', updatedUser);
