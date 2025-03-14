@@ -90,14 +90,54 @@ layout: splash
     }
   }
 
+  // Function to fetch subscription plan (product name)
+  function fetchSubscriptionPlan(email) {
+    return fetch('/.netlify/functions/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.product_name) {
+        updateSubscriptionPlan(data.product_name); // Update UI with product name
+        return data.product_name; // Return product name for further use
+      } else {
+        console.error('Subscription plan (product name) not found in response:', data);
+        return null;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching subscription plan:', error);
+      return null;
+    });
+  }
+  
+  // Function to update the UI with the subscription plan
+  function updateSubscriptionPlan(productName) {
+    const subscriptionElement = document.getElementById('subscription-plan');
+    if (subscriptionElement) {
+      subscriptionElement.textContent = `${productName}`;
+    }
+  }
+  
   // Event listener for login event
-  netlifyIdentity.on('login', user => {
+  netlifyIdentity.on('login', async (user) => {
     addIDToUserMetadata(user); // Ensure user has an ID
     const id = user.user_metadata.id;
     const username = user ? (user.user_metadata.full_name || user.email) : null;
-    const plan = user ? user.user_metadata.subscription_plan : null;
-    updateUsername(user);
-    sendData(username, plan, id); // Send username, plan, and id to server
+  
+    try {
+      // Fetch the updated subscription plan dynamically
+      const plan = await fetchSubscriptionPlan(user.email);
+  
+      updateUsername(user);
+      sendData(username, plan, id); // Send username, updated plan, and id to server
+    } catch (error) {
+      console.error('Error fetching subscription plan:', error);
+    }
   });
 </script>
 
