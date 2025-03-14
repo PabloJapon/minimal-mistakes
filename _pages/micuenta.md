@@ -146,7 +146,7 @@ img {
     if (subscriptionElement) {
       subscriptionElement.textContent = `Plan: ${productName}`;
       console.log('Subscribed Plan:', subscriptionElement.textContent);
-      subscriptionElementNav.textContent = `Plan: ${productName}`;
+      subscriptionElementNav.textContent = `Plan ${productName}`;
       console.log('Subscribed Plan Nav:', subscriptionElementNav.textContent);
     }
   }
