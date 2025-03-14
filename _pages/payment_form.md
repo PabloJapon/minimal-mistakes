@@ -270,7 +270,6 @@ permalink: /payment_form/
     const cardButton = document.getElementById('card-button');
     const progressCircle = document.querySelector('.progress-circle');
 
-    // Handle payment button click
     cardButton.addEventListener('click', function (ev) {
       ev.preventDefault();
       progressCircle.style.display = 'block';
@@ -284,10 +283,30 @@ permalink: /payment_form/
       .then((result) => {
         if (result.error) {
           alert('Payment failed: ' + result.error.message);
+          progressCircle.style.display = 'none';
         } else {
           console.log('Payment successful');
+
+          // Get user details and plan
+          const user = netlifyIdentity.currentUser();
+          const urlParams = new URLSearchParams(window.location.search);
+          const plan = urlParams.get('plan');
+
+          if (user) {
+            user.jwt().then((token) => {
+              user.update({
+                user_metadata: { subscription_plan: plan }
+              })
+              .then((updatedUser) => {
+                console.log('Subscription plan updated:', updatedUser);
+                window.location.href = '/payment_success'; // Redirect after update
+              })
+              .catch((error) => {
+                console.error('Error updating user metadata:', error);
+              });
+            });
+          }
         }
-        progressCircle.style.display = 'none';
       })
       .catch((error) => {
         console.error('Error confirming payment:', error);
