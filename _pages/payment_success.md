@@ -20,53 +20,59 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
     if (paymentSuccess === 'true' && plan) {
       const user = netlifyIdentity.currentUser();
 
-      if (user) {
-        console.log('User found:', user);
+      if (!user) {
+        console.error('No user logged in. Cannot update metadata.');
+        return;
+      }
 
-        try {
-          const token = await user.jwt();
-          console.log('JWT Token received:', token);
+      console.log('User found:', user);
 
-          // Ensure the user metadata update persists
-          console.log('Attempting to update user metadata with subscription_plan:', plan);
+      try {
+        // Get the JWT token (some updates require authentication)
+        const token = await user.jwt();
+        console.log('JWT Token received:', token);
 
-          const updatedUser = await user.update({
-            user_metadata: { subscription_plan: plan }
-          });
+        console.log('Updating user metadata with subscription_plan:', plan);
 
-          console.log('Subscription plan updated successfully:', updatedUser);
+        // Update user metadata
+        const updatedUser = await user.update({
+          user_metadata: { subscription_plan: plan }
+        });
 
-          // Check if the update was successful
-          if (updatedUser.user_metadata && updatedUser.user_metadata.subscription_plan === plan) {
-            console.log('User metadata confirmed with updated subscription plan:', updatedUser.user_metadata.subscription_plan);
-          } else {
-            console.error('User metadata update failed, plan mismatch:', updatedUser.user_metadata);
-          }
+        console.log('Subscription plan updated successfully:', updatedUser);
 
-          // Manually refresh the user session
-          netlifyIdentity.refresh().then((newUser) => {
-            console.log('User metadata after refresh:', newUser);
-            // Verify if the subscription plan persists after the refresh
-            if (newUser.user_metadata && newUser.user_metadata.subscription_plan === plan) {
-              console.log('User metadata confirmed after refresh:', newUser.user_metadata.subscription_plan);
-            } else {
-              console.error('User metadata after refresh does not match the expected plan:', newUser.user_metadata);
-            }
-          }).catch((error) => {
-            console.error('Error refreshing user session:', error);
-          });
-
-        } catch (error) {
-          console.error('Error updating subscription plan:', error);
+        // Verify if the update was successful
+        if (updatedUser?.user_metadata?.subscription_plan === plan) {
+          console.log('User metadata confirmed with updated subscription plan:', updatedUser.user_metadata.subscription_plan);
+        } else {
+          console.error('User metadata update failed, plan mismatch:', updatedUser.user_metadata);
         }
 
-      } else {
-        console.error('No user logged in.');
+        // Manually refresh the user session to ensure persistence
+        const refreshedUser = await netlifyIdentity.refresh();
+        console.log('User metadata after refresh:', refreshedUser);
+
+        if (refreshedUser?.user_metadata?.subscription_plan === plan) {
+          console.log('User metadata confirmed after refresh:', refreshedUser.user_metadata.subscription_plan);
+        } else {
+          console.error('Subscription plan did not persist after refresh:', refreshedUser.user_metadata);
+        }
+
+      } catch (error) {
+        console.error('Error updating subscription plan:', error);
       }
     } else {
       console.warn('Missing required query parameters (payment_success and/or plan).');
     }
   });
+</script>
+
+<p>Check the console for update logs. You will be redirected soon...</p>
+
+<script>
+  setTimeout(() => {
+    window.location.href = '/dashboard';
+  }, 5000); // Redirect in 5 seconds for better UX
 </script>
 
 <p>Check the console for update logs. You will be redirected soon...</p>
