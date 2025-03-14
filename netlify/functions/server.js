@@ -257,6 +257,51 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ invoices: invoices.data })
       };
     }
+    
+    if (body.action === 'next_invoice_date') {
+      const customerEmail = body.email;
+
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      const customer = customers.data[0];
+
+      if (!customer) {
+        return {
+          statusCode: 400,
+          headers,  // Include CORS headers
+          body: JSON.stringify({ error: 'Customer not found' })
+        };
+      }
+
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customer.id,
+        status: 'active',
+        limit: 1
+      });
+
+      if (subscriptions.data.length === 0) {
+        return {
+          statusCode: 400,
+          headers,  // Include CORS headers
+          body: JSON.stringify({ error: 'No active subscription found for the customer' })
+        };
+      }
+
+      const subscription = subscriptions.data[0];
+
+      const upcomingInvoice = await stripe.invoices.retrieveUpcoming({
+        customer: customer.id,
+        subscription: subscription.id
+      });
+
+      const nextInvoiceDateTimestamp = upcomingInvoice.next_payment_attempt;
+      const nextInvoiceDate = new Date(nextInvoiceDateTimestamp * 1000).toLocaleString();
+
+      return {
+        statusCode: 200,
+        headers,  // Include CORS headers
+        body: JSON.stringify({ nextInvoiceDate })
+      };
+    }
 
     if (body.action === 'cancel_subscription') {
       const customerEmail = body.email;
