@@ -274,39 +274,20 @@ permalink: /payment_form/
       ev.preventDefault();
       progressCircle.style.display = 'block';
 
+      // Get the selected plan from the URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get('plan');
+
+      // Get the selected plan from the URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get('plan');
+
       stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: window.location.origin + '/payment_success',
+          // Append parameters to be used by the success page
+          return_url: `${window.location.origin}/payment_success?payment_success=true&plan=${plan}`,
         },
-      })
-      .then((result) => {
-        if (result.error) {
-          alert('Payment failed: ' + result.error.message);
-          progressCircle.style.display = 'none';
-        } else {
-          console.log('Payment successful');
-
-          // Get user details and plan
-          const user = netlifyIdentity.currentUser();
-          const urlParams = new URLSearchParams(window.location.search);
-          const plan = urlParams.get('plan');
-
-          if (user) {
-            user.jwt().then((token) => {
-              user.update({
-                user_metadata: { subscription_plan: plan }
-              })
-              .then((updatedUser) => {
-                console.log('Subscription plan updated:', updatedUser);
-                window.location.href = '/payment_success'; // Redirect after update
-              })
-              .catch((error) => {
-                console.error('Error updating user metadata:', error);
-              });
-            });
-          }
-        }
       })
       .catch((error) => {
         console.error('Error confirming payment:', error);
