@@ -142,9 +142,12 @@ img {
   // Function to update the subscription plan on the UI
   function updateSubscriptionPlan(productName) {
     const subscriptionElement = document.getElementById('subscription-plan');
+    const subscriptionElementNav = document.getElementById('account-plan');
     if (subscriptionElement) {
       subscriptionElement.textContent = `Plan: ${productName}`;
       console.log('Subscribed Plan:', subscriptionElement.textContent);
+      subscriptionElementNav.textContent = `Plan: ${productName}`;
+      console.log('Subscribed Plan Nav:', subscriptionElementNav.textContent);
     }
   }
 
