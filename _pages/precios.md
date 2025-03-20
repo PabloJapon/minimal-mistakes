@@ -177,11 +177,11 @@ img {
 
   <div class="plan" style="padding: 0px 20px;">
     <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px; width: 10em;"> Recomendado </p>
-    <h2 style="margin-bottom: 2em;">Básico/Pro</h2>
+    <h2 style="margin-bottom: 2em;">Avanzado</h2>
     <!-- New: Add "Tu plan actual" text here -->
     <p id="plan-current-basico" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Avanzado'" style="background-color: #ffc368;">Empieza</button>
     
     <div class="item-container">
       <span class="tick-icon-yellow"></span>

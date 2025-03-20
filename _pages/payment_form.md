@@ -172,7 +172,7 @@ permalink: /payment_form/
       <h4>Resumen</h4>
       <p>Plan: <b><span class="plan"></span></b></p>
       <p>Duración: <b>1 mes</b></p>
-      <p>Próxima renovación automática: <b>00/00/2024</b></p>
+      <p>Próxima renovación automática: <b id="renewal-date">00/00/2024</b></p>
 
       <hr>
 
@@ -239,6 +239,14 @@ permalink: /payment_form/
       document.querySelectorAll('.plan').forEach(el => {
         el.textContent = plan;
       });
+      
+      // Calculate next month's date dynamically
+      const today = new Date();
+      const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+      // Format date as MM/DD/YYYY (adjust if you prefer a different format)
+      const formattedDate = `${(nextMonth.getMonth() + 1).toString().padStart(2, '0')}/${nextMonth.getDate().toString().padStart(2, '0')}/${nextMonth.getFullYear()}`;
+      // Update the renewal date element
+      document.getElementById('renewal-date').textContent = formattedDate;
 
       // Send request to create subscription and retrieve clientSecret
       fetch('/.netlify/functions/restaurant_payment_server', {
