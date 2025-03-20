@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
     // Define price IDs for the subscription plan
     const priceIds = {
       Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
-      Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
+      Avanzado: 'price_1On33zE2UvP4xcDsDD9jPJzw',
       Premium: 'price_1On5CAE2UvP4xcDso6epRdMs',
     };
 

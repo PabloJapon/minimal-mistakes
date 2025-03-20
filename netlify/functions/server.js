@@ -110,13 +110,13 @@ exports.handler = async (event, context) => {
       // Define price IDs and amounts for each plan
       const priceIds = {
         Gratis: 'price_1On5B9E2UvP4xcDsTat7ZHhV',
-        Pro: 'price_1On33zE2UvP4xcDsDD9jPJzw',
+        Avanzado: 'price_1On33zE2UvP4xcDsDD9jPJzw',
         Premium: 'price_1On5CAE2UvP4xcDso6epRdMs'
       };
 
       const amounts = {
         Gratis: 0, // In cents
-        Pro: 3000, // 30€
+        Avanzado: 3000, // 30€
         Premium: 5000 // 50€
       };
 
