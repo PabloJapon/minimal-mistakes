@@ -235,6 +235,11 @@ permalink: /payment_form/
       const urlParams = new URLSearchParams(window.location.search);
       const plan = urlParams.get('plan');
 
+      // Update all elements with class "plan" to display the plan name
+      document.querySelectorAll('.plan').forEach(el => {
+        el.textContent = plan;
+      });
+
       // Send request to create subscription and retrieve clientSecret
       fetch('/.netlify/functions/restaurant_payment_server', {
         method: 'POST',
