@@ -239,6 +239,19 @@ permalink: /payment_form/
       document.querySelectorAll('.plan').forEach(el => {
         el.textContent = plan;
       });
+
+      // Set the price based on the selected plan
+      let price = 0;
+      if (plan === 'Avanzado') {
+        price = 50;
+      } else if (plan === 'Premium') {
+        price = 80;
+      }
+
+      // Update all elements with class "price" to display the price
+      document.querySelectorAll('.price').forEach(el => {
+        el.textContent = price + '€';
+      });
       
       // Calculate next month's date dynamically
       const today = new Date();
