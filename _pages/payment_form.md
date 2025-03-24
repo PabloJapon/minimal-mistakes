@@ -256,8 +256,8 @@ permalink: /payment_form/
       // Calculate next month's date dynamically
       const today = new Date();
       const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-      // Format date as MM/DD/YYYY (adjust if you prefer a different format)
-      const formattedDate = `${(nextMonth.getMonth() + 1).toString().padStart(2, '0')}/${nextMonth.getDate().toString().padStart(2, '0')}/${nextMonth.getFullYear()}`;
+      // Format date as DD/MM/YYYY
+      const formattedDate = `${nextMonth.getDate().toString().padStart(2, '0')}/${(nextMonth.getMonth() + 1).toString().padStart(2, '0')}/${nextMonth.getFullYear()}`;
       // Update the renewal date element
       document.getElementById('renewal-date').textContent = formattedDate;
 
