@@ -313,32 +313,37 @@ img {
       </tr>
 
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Netlify Identity
-        netlifyIdentity.init();
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializa Netlify Identity
+      netlifyIdentity.init();
 
-        const user = netlifyIdentity.currentUser();
+      const user = netlifyIdentity.currentUser();
 
-        if (!user) {
-          //console.log('nouserlogged');
-          return;
+      if (!user) {
+        return;
+      }
+
+      // Obtiene el plan del usuario (asumiendo que está en los metadatos)
+      const userPlan = user.user_metadata.subscription_plan;
+
+      // Cambia el texto de los botones "Empieza" a "Cambiar"
+      document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
+        if (button.innerText.trim() === "Empieza") {
+          button.innerText = "Cambiar";
         }
-
-        // Assuming the user's plan is stored in user metadata or returned via API
-        const userPlan = user.user_metadata.subscription_plan;
-        // console.log(userPlan);
-
-        // Update the plan text based on the user's plan
-        if (userPlan === 'Gratis') {
-          document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
-        } else if (userPlan === 'Pro') {
-          document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
-        } else if (userPlan === 'Premium') {
-          document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
-        }
-
       });
-    </script>
+
+      // Muestra "Tu plan actual" en el plan correspondiente
+      if (userPlan === 'Gratis') {
+        document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
+      } else if (userPlan === 'Pro') {
+        document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
+      } else if (userPlan === 'Premium') {
+        document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
+      }
+    });
+  </script>
+
 
     </tbody>
   </table>

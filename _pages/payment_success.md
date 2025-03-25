@@ -67,18 +67,19 @@ Tu pago ha sido procesado con éxito. Gracias por tu compra.
   });
 </script>
 
-<p>Check the console for update logs. You will be redirected soon...</p>
+<p id="message">Serás redirigido en <span id="countdown">5</span> segundos...</p>
 
 <script>
-  setTimeout(() => {
-    window.location.href = '/dashboard';
-  }, 5000); // Redirect in 5 seconds for better UX
-</script>
+  let timeLeft = 5;
+  const countdownElement = document.getElementById("countdown");
 
-<p>Check the console for update logs. You will be redirected soon...</p>
-
-<script>
-  setTimeout(() => {
-    window.location.href = '/dashboard';
-  }, 30000); // Reduced to 5 seconds for better UX
+  let timer = setInterval(() => {
+    timeLeft--;
+    countdownElement.textContent = timeLeft;
+    
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      window.location.href = "/micuenta";
+    }
+  }, 1000);
 </script>
