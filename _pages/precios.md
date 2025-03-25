@@ -1,5 +1,5 @@
 ---
-permalink: /precios/
+permalink: /planes/
 layout: default
 ---
 
@@ -313,58 +313,74 @@ img {
       </tr>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Function to update the UI based on the subscription plan
-      function updateSubscriptionPlan(plan) {
-        if (plan) { // Only update if a valid plan is returned
-          if (plan === 'Gratis') {
-            document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
-          } else if (plan === 'Pro') {
-            document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
-          } else if (plan === 'Premium') {
-            document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
-          }
+      document.addEventListener('DOMContentLoaded', function() {
+        // Function to update the UI based on the subscription plan
+        function updateSubscriptionPlan(plan) {
+          console.log('Updating subscription plan:', plan);  // Debug log for the plan
 
-          // Change "Empieza" buttons to "Cambiar" only if user has a valid plan
-          document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
-            if (button.innerText.trim() === "Empieza") {
-              button.innerText = "Cambiar";
+          if (plan) { // Only update if a valid plan is returned
+            console.log('Plan found:', plan);  // Log if plan is valid
+
+            if (plan === 'Gratis') {
+              document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
+            } else if (plan === 'Pro') {
+              document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
+            } else if (plan === 'Premium') {
+              document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
             }
+
+            // Change "Empieza" buttons to "Cambiar" only if user has a valid plan
+            document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
+              console.log('Button text before update:', button.innerText); // Debug log for button text before change
+              if (button.innerText.trim() === "Empieza") {
+                button.innerText = "Cambiar";
+                console.log('Button text changed to "Cambiar"'); // Log after button text change
+              }
+            });
+          } else {
+            console.log('No valid plan found for update.');
+          }
+        }
+
+        // Function to fetch subscription plan (product name) from Stripe
+        function fetchSubscriptionPlan(email) {
+          console.log('Fetching subscription plan for email:', email);  // Debug log for email
+
+          fetch('/.netlify/functions/server', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Received data:', data);  // Log the received data from server
+
+            if (data && data.product_name) {
+              updateSubscriptionPlan(data.product_name);
+            } else {
+              console.error('Subscription plan (product name) not found:', data);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching subscription plan:', error);
           });
         }
-      }
 
-      // Function to fetch subscription plan (product name) from Stripe
-      function fetchSubscriptionPlan(email) {
-        fetch('/.netlify/functions/server', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ action: 'get_subscription_plan', email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.product_name) {
-            updateSubscriptionPlan(data.product_name);
+        // Initialize Netlify Identity and check for user login
+        netlifyIdentity.init();
+        netlifyIdentity.on('init', user => {
+          console.log('Netlify Identity user:', user); // Log the user object
+          if (user && user.email) {
+            fetchSubscriptionPlan(user.email);
           } else {
-            console.error('Subscription plan (product name) not found:', data);
+            console.log('No user logged in.');
           }
-        })
-        .catch(error => {
-          console.error('Error fetching subscription plan:', error);
         });
-      }
-
-      // Initialize Netlify Identity and check for user login
-      netlifyIdentity.init();
-      netlifyIdentity.on('init', user => {
-        if (user && user.email) {
-          fetchSubscriptionPlan(user.email);
-        }
       });
-    });
-  </script>
+    </script>
+
 
 
     </tbody>

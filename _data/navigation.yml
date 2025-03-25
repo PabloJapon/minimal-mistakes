@@ -4,7 +4,7 @@ main:
     url: /productos/
   - title: "Descargar"
     url: /descargar/
-  - title: "Precios"
-    url: /precios/
+  - title: "Planes"
+    url: /planes/
   - title: "Tutoriales"
     url: /tutoriales/
