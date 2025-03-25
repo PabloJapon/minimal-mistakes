@@ -314,33 +314,55 @@ img {
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Inicializa Netlify Identity
-      netlifyIdentity.init();
+      // Function to update the UI based on the subscription plan
+      function updateSubscriptionPlan(plan) {
+        if (plan) { // Only update if a valid plan is returned
+          if (plan === 'Gratis') {
+            document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
+          } else if (plan === 'Pro') {
+            document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
+          } else if (plan === 'Premium') {
+            document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
+          }
 
-      const user = netlifyIdentity.currentUser();
-
-      if (!user) {
-        return;
+          // Change "Empieza" buttons to "Cambiar" only if user has a valid plan
+          document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
+            if (button.innerText.trim() === "Empieza") {
+              button.innerText = "Cambiar";
+            }
+          });
+        }
       }
 
-      // Obtiene el plan del usuario (asumiendo que está en los metadatos)
-      const userPlan = user.user_metadata.subscription_plan;
+      // Function to fetch subscription plan (product name) from Stripe
+      function fetchSubscriptionPlan(email) {
+        fetch('/.netlify/functions/server', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.product_name) {
+            updateSubscriptionPlan(data.product_name);
+          } else {
+            console.error('Subscription plan (product name) not found:', data);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching subscription plan:', error);
+        });
+      }
 
-      // Cambia el texto de los botones "Empieza" a "Cambiar"
-      document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
-        if (button.innerText.trim() === "Empieza") {
-          button.innerText = "Cambiar";
+      // Initialize Netlify Identity and check for user login
+      netlifyIdentity.init();
+      netlifyIdentity.on('init', user => {
+        if (user && user.email) {
+          fetchSubscriptionPlan(user.email);
         }
       });
-
-      // Muestra "Tu plan actual" en el plan correspondiente
-      if (userPlan === 'Gratis') {
-        document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
-      } else if (userPlan === 'Pro') {
-        document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
-      } else if (userPlan === 'Premium') {
-        document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
-      }
     });
   </script>
 
