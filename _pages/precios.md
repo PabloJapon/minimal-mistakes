@@ -78,14 +78,14 @@ img {
 }
 
 .item-container {
-    display: flex;
-    align-items: center; /* This centers the items vertically */
-    margin: 0.5em 2em; /* Adjusting margin for better spacing */
+  display: flex;
+  align-items: center; /* Centers the items vertically */
+  margin: 0.5em 2em; /* Better spacing */
 }
 
 .item-container p {
-    margin: 0;
-    padding-left: 10px; /* Adds space between the icon and the text */
+  margin: 0;
+  padding-left: 10px; /* Space between icon and text */
 }
 
 .plan-container .plan:nth-child(1) {
@@ -101,7 +101,9 @@ img {
   background: #081655;
 }
 
-.plan-container .plan:nth-child(3) h2, .plan-container .plan:nth-child(3) h1, .plan-container .plan:nth-child(3) p {
+.plan-container .plan:nth-child(3) h2, 
+.plan-container .plan:nth-child(3) h1, 
+.plan-container .plan:nth-child(3) p {
   color: white;
 }
 
@@ -121,7 +123,8 @@ img {
   align-items: center;
 }
 
-.table-container td, .table-container th {
+.table-container td, 
+.table-container th {
   padding: 8px;
 }
 
@@ -139,23 +142,28 @@ img {
   background-color: #e0e0e0;
 }
 
-.table-container th:first-child, .table-container td:first-child {
+.table-container th:first-child, 
+.table-container td:first-child {
   border-left: none;
 }
 
-.table-container th:last-child, .table-container td:last-child {
+.table-container th:last-child, 
+.table-container td:last-child {
   border-right: none;
 }
 
-.table-container tr:last-child th, .table-container tr:last-child td {
+.table-container tr:last-child th, 
+.table-container tr:last-child td {
   border-bottom: none;
 }
 
-.table-container tr:first-child th, .table-container tr:first-child td {
+.table-container tr:first-child th, 
+.table-container tr:first-child td {
   border-top: none;
 }
 
-.table-container tr:nth-child(2) th, .table-container tr:nth-child(2) td {
+.table-container tr:nth-child(2) th, 
+.table-container tr:nth-child(2) td {
   border-top: none;
 }
 </style>
@@ -163,45 +171,39 @@ img {
 <div class="plan-container">
   <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Gratis</h2>
-    <!-- New: Add "Tu plan actual" text here -->
+    <!-- "Tu plan actual" text will appear here -->
     <p id="plan-current-gratis" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">0€</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
-
     <div class="item-container">
       <span class="tick-icon"></span>
       <p>Feature 1 description</p>
     </div>
-
   </div>
 
   <div class="plan" style="padding: 0px 20px;">
-    <p style="background-color: #ffc368;color: white; margin: 2em auto; border-radius: 4px; width: 10em;"> Recomendado </p>
+    <p style="background-color: #ffc368; color: white; margin: 2em auto; border-radius: 4px; width: 10em;">Recomendado</p>
     <h2 style="margin-bottom: 2em;">Avanzado</h2>
-    <!-- New: Add "Tu plan actual" text here -->
+    <!-- "Tu plan actual" text will appear here -->
     <p id="plan-current-basico" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Avanzado'" style="background-color: #ffc368;">Empieza</button>
-    
     <div class="item-container">
       <span class="tick-icon-yellow"></span>
       <p>Feature 2 description</p>
     </div>
-
   </div>
 
   <div class="plan" style="padding-top: 4.7em;">
     <h2 style="margin-bottom: 2em;">Premium</h2>
-    <!-- New: Add "Tu plan actual" text here -->
+    <!-- "Tu plan actual" text will appear here -->
     <p id="plan-current-premium" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
-    
     <div class="item-container">
       <span class="tick-icon-yellow"></span>
       <p>Feature 3 description</p>
     </div>
-
   </div>
 </div>
 
@@ -311,78 +313,70 @@ img {
         <td style="text-align: center;">1% - 1.5% adicional a Stripe</td>
         <td style="text-align: center;">Ninguna, solo Stripe</td>
       </tr>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Function to update the UI based on the subscription plan
-        function updateSubscriptionPlan(plan) {
-          console.log('Updating subscription plan:', plan);  // Debug log for the plan
-
-          if (plan) { // Only update if a valid plan is returned
-            console.log('Plan found:', plan);  // Log if plan is valid
-
-            if (plan === 'Gratis') {
-              document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
-            } else if (plan === 'Pro') {
-              document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
-            } else if (plan === 'Premium') {
-              document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
-            }
-
-            // Change "Empieza" buttons to "Cambiar" only if user has a valid plan
-            document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
-              console.log('Button text before update:', button.innerText); // Debug log for button text before change
-              if (button.innerText.trim() === "Empieza") {
-                button.innerText = "Cambiar";
-                console.log('Button text changed to "Cambiar"'); // Log after button text change
-              }
-            });
-          } else {
-            console.log('No valid plan found for update.');
-          }
-        }
-
-        // Function to fetch subscription plan (product name) from Stripe
-        function fetchSubscriptionPlan(email) {
-          console.log('Fetching subscription plan for email:', email);  // Debug log for email
-
-          fetch('/.netlify/functions/server', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ action: 'get_subscription_plan', email: email })
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Received data:', data);  // Log the received data from server
-
-            if (data && data.product_name) {
-              updateSubscriptionPlan(data.product_name);
-            } else {
-              console.error('Subscription plan (product name) not found:', data);
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching subscription plan:', error);
-          });
-        }
-
-        // Initialize Netlify Identity and check for user login
-        netlifyIdentity.init();
-        netlifyIdentity.on('init', user => {
-          console.log('Netlify Identity user:', user); // Log the user object
-          if (user && user.email) {
-            fetchSubscriptionPlan(user.email);
-          } else {
-            console.log('No user logged in.');
-          }
-        });
-      });
-    </script>
-
-
-
     </tbody>
   </table>
 </div>
+
+<!-- Place the script below the content, outside the table -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to update the UI based on the subscription plan
+    function updateSubscriptionPlan(plan) {
+      console.log('Updating subscription plan:', plan);
+      if (plan) {
+        console.log('Plan found:', plan);
+        if (plan === 'Gratis') {
+          document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
+        } else if (plan === 'Pro') {
+          document.getElementById('plan-current-basico').innerText = 'Tu plan actual';
+        } else if (plan === 'Premium') {
+          document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
+        }
+        document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
+          console.log('Button text before update:', button.innerText);
+          if (button.innerText.trim() === "Empieza") {
+            button.innerText = "Cambiar";
+            console.log('Button text changed to "Cambiar"');
+          }
+        });
+      } else {
+        console.log('No valid plan found for update.');
+      }
+    }
+
+    // Function to fetch subscription plan (product name) from Stripe
+    function fetchSubscriptionPlan(email) {
+      console.log('Fetching subscription plan for email:', email);
+      fetch('/.netlify/functions/server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'get_subscription_plan', email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Received data:', data);
+        if (data && data.product_name) {
+          updateSubscriptionPlan(data.product_name);
+        } else {
+          console.error('Subscription plan (product name) not found:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching subscription plan:', error);
+      });
+    }
+
+    // Initialize Netlify Identity and check for user login
+    netlifyIdentity.init();
+    netlifyIdentity.on('init', user => {
+      console.log('Netlify Identity user:', user);
+      if (user && user.email) {
+        fetchSubscriptionPlan(user.email);
+      } else {
+        console.log('No user logged in.');
+      }
+    });
+  });
+</script>
