@@ -35,6 +35,7 @@ exports.handler = async (event, context) => {
       const amount = paymentIntent.amount_received / 100;
       // Pull table_number and id from metadata
       const tableNumber = paymentIntent.metadata.table_number;
+      const method = paymentIntent.metadata.method;
       const id = paymentIntent.metadata.id;
       // The unique PaymentIntent ID
       const paymentIntentId = paymentIntent.id;
@@ -42,6 +43,7 @@ exports.handler = async (event, context) => {
       // Debug: Confirm values
       console.log('DEBUG: paymentIntentId:', paymentIntentId);
       console.log('DEBUG: tableNumber:', tableNumber);
+      console.log('DEBUG: method:', method);
       console.log('DEBUG: id:', id);
       console.log('DEBUG: amount:', amount);
 
@@ -53,6 +55,7 @@ exports.handler = async (event, context) => {
             id: id,
             amount: amount,
             table_number: tableNumber,
+            method: method,
             id_payment: paymentIntentId, // Here is the unique PaymentIntent ID
           }
         );
