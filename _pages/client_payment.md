@@ -150,16 +150,19 @@ permalink: /client_payment/
   const queryParams = getQueryParams();
   const encryptedAmount = queryParams['amount'];
   const encryptedId = queryParams['id'];
-  const encryptedTableNumber = queryParams['table_number']; // Add this line
+  const encryptedTableNumber = queryParams['table_number']; 
+  const encryptedMethod = queryParams['method']; 
 
   // Decode the parameters
   const amount = decodeBase64(encryptedAmount);
   const id = decodeBase64(encryptedId);
-  const tableNumber = decodeBase64(encryptedTableNumber); // Add this line
+  const tableNumber = decodeBase64(encryptedTableNumber); 
+  const method = decodeBase64(encryptedMethod); 
 
   // Log the decoded values to the console for debugging
   console.log('Decoded ID from URL:', id);
-  console.log('Decoded Table Number from URL:', tableNumber); // Add this line
+  console.log('Decoded Table Number from URL:', tableNumber);
+  console.log('Decoded Method from URL:', method);
 
   // Decode the 'amount' and display it
   document.getElementById('amount').value = amount;
@@ -247,7 +250,8 @@ permalink: /client_payment/
               return_url: returnUrl,
               receipt_email: document.getElementById('email').value,
               id: id,
-              table_number: tableNumber // Add this line
+              table_number: tableNumber,
+              method: method
             }),
           }).then(function(response) {
             return response.json();
