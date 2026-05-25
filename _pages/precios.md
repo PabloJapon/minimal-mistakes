@@ -4,6 +4,7 @@ layout: default
 ---
 
 <h1 style="margin-top: 5em; text-align: center;">Elige tu plan ideal</h1>
+<p style="text-align: center; color: #666; margin-top: 0.5em;">Sin permanencia. Cancela cuando quieras.</p>
 
 <style>
 img {
@@ -39,7 +40,7 @@ img {
 }
 
 .plan-button {
-  padding: 15px 100px;
+  padding: 15px 80px;
   font-size: 20px;
   margin: 30px;
 }
@@ -79,13 +80,13 @@ img {
 
 .item-container {
   display: flex;
-  align-items: center; /* Centers the items vertically */
-  margin: 0.5em 2em; /* Better spacing */
+  align-items: center;
+  margin: 0.5em 2em;
 }
 
 .item-container p {
   margin: 0;
-  padding-left: 10px; /* Space between icon and text */
+  padding-left: 10px;
 }
 
 .plan-container .plan:nth-child(1) {
@@ -109,6 +110,17 @@ img {
 
 .plan-container .plan:nth-child(3) .plan-button {
   background-color: #ffc368;
+}
+
+.plan-price-note {
+  font-size: 13px;
+  color: #888;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.plan-container .plan:nth-child(3) .plan-price-note {
+  color: #aaa;
 }
 
 .table-container {
@@ -169,42 +181,62 @@ img {
 </style>
 
 <div class="plan-container">
+
+  <!-- PLAN GRATIS -->
   <div class="plan" style="padding-top: 4.7em;">
-    <h2 style="margin-bottom: 2em;">Gratis</h2>
-    <!-- "Tu plan actual" text will appear here -->
+    <h2 style="margin-bottom: 0.3em;">Gratis</h2>
     <p id="plan-current-gratis" class="plan-current-text"></p>
     <h1 style="font-weight: normal;">0€</h1>
+    <p class="plan-price-note">Para siempre</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
-    <div class="item-container">
-      <span class="tick-icon"></span>
-      <p>Feature 1 description</p>
-    </div>
+    <div class="item-container"><span class="tick-icon"></span><p>TPV completo</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>App cocina</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>App camareros</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>App cliente (pedidos y pago)</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>Panel propietario básico</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>Dispositivos ilimitados</p></div>
+    <div class="item-container"><span class="tick-icon"></span><p>Con nuestra marca en las apps</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon"></span><p>Sin fotos en el menú</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon"></span><p>Sin estadísticas</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon"></span><p>Sin soporte</p></div>
+    <p style="margin-top: 1.5em; font-size: 13px; color: #888;">1,5% de comisión por transacción</p>
   </div>
 
+  <!-- PLAN PRO -->
   <div class="plan" style="padding: 0px 20px;">
-    <p style="background-color: #ffc368; color: white; margin: 2em auto; border-radius: 4px; width: 10em;">Recomendado</p>
-    <h2 style="margin-bottom: 2em;">Avanzado</h2>
-    <!-- "Tu plan actual" text will appear here -->
+    <p style="background-color: #ffc368; color: white; margin: 2em auto; border-radius: 4px; width: 10em;">Más popular</p>
+    <h2 style="margin-bottom: 0.3em;">Pro</h2>
     <p id="plan-current-basico" class="plan-current-text"></p>
-    <h1 style="font-weight: normal;">30€ - 50€/mes</h1>
-    <button class="plan-button" onclick="location.href='/payment_form/?plan=Avanzado'" style="background-color: #ffc368;">Empieza</button>
-    <div class="item-container">
-      <span class="tick-icon-yellow"></span>
-      <p>Feature 2 description</p>
-    </div>
+    <h1 style="font-weight: normal;">99,99€<span style="font-size:18px; font-weight:normal;">/mes</span></h1>
+    <p class="plan-price-note">o 83,99€/mes pagando anual · 2 meses gratis</p>
+    <button class="plan-button" onclick="location.href='/payment_form/?plan=Pro'" style="background-color: #ffc368;">Empieza</button>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Todo lo del plan Gratis</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Tu logo y colores en todas las apps</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Fotos en el menú</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Estadísticas básicas</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Dispositivos ilimitados</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Soporte por email</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon-yellow"></span><p>Sin estadísticas avanzadas</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon-yellow"></span><p>Sin personalización de tipografía</p></div>
+    <div class="item-container" style="opacity:0.4;"><span class="tick-icon-yellow"></span><p>Sin exportación de estadísticas</p></div>
+    <p style="margin-top: 1.5em; font-size: 13px; color: #888;">0,5% de comisión por transacción</p>
   </div>
 
+  <!-- PLAN PREMIUM -->
   <div class="plan" style="padding-top: 4.7em;">
-    <h2 style="margin-bottom: 2em;">Premium</h2>
-    <!-- "Tu plan actual" text will appear here -->
+    <h2 style="margin-bottom: 0.3em;">Premium</h2>
     <p id="plan-current-premium" class="plan-current-text"></p>
-    <h1 style="font-weight: normal;">100€ - 150€/mes</h1>
+    <h1 style="font-weight: normal;">159,99€<span style="font-size:18px; font-weight:normal;">/mes</span></h1>
+    <p class="plan-price-note">o 133,99€/mes pagando anual · 2 meses gratis</p>
     <button class="plan-button" onclick="location.href='/payment_form/?plan=Premium'" style="background-color: #ffc368;">Empieza</button>
-    <div class="item-container">
-      <span class="tick-icon-yellow"></span>
-      <p>Feature 3 description</p>
-    </div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Todo lo del plan Pro</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Colores y tipografía completamente personalizados</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Estadísticas completas + exportación</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Dispositivos ilimitados</p></div>
+    <div class="item-container"><span class="tick-icon-yellow"></span><p>Soporte prioritario por teléfono</p></div>
+    <p style="margin-top: 1.5em; font-size: 13px; color: #ccc;">Sin comisión por transacción</p>
   </div>
+
 </div>
 
 <h3 style="text-align: center;">Compara los planes</h3>
@@ -215,116 +247,119 @@ img {
       <tr>
         <th style="width: 400px;"></th>
         <th style="width: 200px; text-align: center;">
-          <h2>Básico</h2>
-          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
-        </th>
-        <th style="width: 200px; text-align: center;">
-          <h2>Estándar</h2>
+          <h2>Gratis</h2>
           <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
         </th>
         <th style="width: 200px; text-align: center;">
           <h2>Pro</h2>
-          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Gratis'">Empieza</button>
+          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Pro'">Empieza</button>
+        </th>
+        <th style="width: 200px; text-align: center;">
+          <h2>Premium</h2>
+          <button class="plan-button2" onclick="location.href='/payment_form/?plan=Premium'">Empieza</button>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Platos ilimitados</td>
-        <td style="text-align: center;">✓</td>
-        <td style="text-align: center;">✓</td>
-        <td style="text-align: center;">✓</td>
-      </tr>
-      <tr>
-        <td>Personaliza tu marca</td>
-        <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">✓</td>
-        <td style="text-align: center;">✓</td>
-      </tr>
-      <tr>
-        <td>Consulta estadísticas</td>
-        <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">✓</td>
-      </tr>
-      <tr>
         <td>Precio mensual</td>
-        <td style="text-align: center;">Gratis</td>
-        <td style="text-align: center;">30€ - 50€/mes</td>
-        <td style="text-align: center;">100€ - 150€/mes</td>
+        <td style="text-align: center;">0€</td>
+        <td style="text-align: center;">99,99€/mes</td>
+        <td style="text-align: center;">159,99€/mes</td>
       </tr>
       <tr>
-        <td>Software completo</td>
+        <td>Precio anual (2 meses gratis)</td>
+        <td style="text-align: center;">—</td>
+        <td style="text-align: center;">83,99€/mes</td>
+        <td style="text-align: center;">133,99€/mes</td>
+      </tr>
+      <tr>
+        <td>TPV completo</td>
         <td style="text-align: center;">✓</td>
         <td style="text-align: center;">✓</td>
         <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Accesos a software básico</td>
+        <td>App cocina</td>
         <td style="text-align: center;">✓</td>
         <td style="text-align: center;">✓</td>
         <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Procesamiento de pagos</td>
-        <td style="text-align: center;">Disponible, con tarifa 2%</td>
-        <td style="text-align: center;">Disponible, con cargo 1%</td>
-        <td style="text-align: center;">Disponible, sin comisión</td>
+        <td>App camareros (PDA)</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Procesamiento de pagos</td>
-        <td style="text-align: center;">Disponible, con cargo</td>
-        <td style="text-align: center;">Disponible, con cargo</td>
-        <td style="text-align: center;">Disponible, sin cargo</td>
+        <td>App cliente (pedidos y pago)</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Imágenes en el menú</td>
+        <td>Panel propietario</td>
+        <td style="text-align: center;">Básico</td>
+        <td style="text-align: center;">Completo</td>
+        <td style="text-align: center;">Completo</td>
+      </tr>
+      <tr>
+        <td>Marca en las apps</td>
+        <td style="text-align: center;">Nuestra marca</td>
+        <td style="text-align: center;">Tu logo y colores</td>
+        <td style="text-align: center;">Personalización total</td>
+      </tr>
+      <tr>
+        <td>Fotos en el menú</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✓</td>
         <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Personalización (colores, texto)</td>
+        <td>Colores personalizados</td>
         <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">Parcial</td>
-        <td style="text-align: center;">Completa</td>
+        <td style="text-align: center;">✓</td>
+        <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Estadísticas y análisis</td>
+        <td>Tipografía personalizada</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Análisis/informes</td>
+        <td>Estadísticas</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">Básicas</td>
+        <td style="text-align: center;">Completas</td>
+      </tr>
+      <tr>
+        <td>Exportación de estadísticas</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✗</td>
         <td style="text-align: center;">✓</td>
       </tr>
       <tr>
-        <td>Fuentes personalizadas/marca completa</td>
-        <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">✗</td>
-        <td style="text-align: center;">✓</td>
+        <td>Comisión por transacción</td>
+        <td style="text-align: center;">1,5%</td>
+        <td style="text-align: center;">0,5%</td>
+        <td style="text-align: center;">Sin comisión</td>
       </tr>
       <tr>
-        <td>Tarifa de transacción</td>
-        <td style="text-align: center;">2% - 3% adicional a Stripe</td>
-        <td style="text-align: center;">1% - 1.5% adicional a Stripe</td>
-        <td style="text-align: center;">Ninguna, solo Stripe</td>
+        <td>Soporte</td>
+        <td style="text-align: center;">✗</td>
+        <td style="text-align: center;">Email</td>
+        <td style="text-align: center;">Teléfono prioritario</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- Place the script below the content, outside the table -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Function to update the UI based on the subscription plan
     function updateSubscriptionPlan(plan) {
       console.log('Updating subscription plan:', plan);
       if (plan) {
-        console.log('Plan found:', plan);
         if (plan === 'Gratis') {
           document.getElementById('plan-current-gratis').innerText = 'Tu plan actual';
         } else if (plan === 'Pro') {
@@ -333,49 +368,32 @@ img {
           document.getElementById('plan-current-premium').innerText = 'Tu plan actual';
         }
         document.querySelectorAll(".plan-button, .plan-button2").forEach(button => {
-          console.log('Button text before update:', button.innerText);
           if (button.innerText.trim() === "Empieza") {
             button.innerText = "Cambiar";
-            console.log('Button text changed to "Cambiar"');
           }
         });
-      } else {
-        console.log('No valid plan found for update.');
       }
     }
 
-    // Function to fetch subscription plan (product name) from Stripe
     function fetchSubscriptionPlan(email) {
-      console.log('Fetching subscription plan for email:', email);
       fetch('/.netlify/functions/server', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'get_subscription_plan', email: email })
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Received data:', data);
         if (data && data.product_name) {
           updateSubscriptionPlan(data.product_name);
-        } else {
-          console.error('Subscription plan (product name) not found:', data);
         }
       })
-      .catch(error => {
-        console.error('Error fetching subscription plan:', error);
-      });
+      .catch(error => console.error('Error fetching subscription plan:', error));
     }
 
-    // Initialize Netlify Identity and check for user login
     netlifyIdentity.init();
     netlifyIdentity.on('init', user => {
-      console.log('Netlify Identity user:', user);
       if (user && user.email) {
         fetchSubscriptionPlan(user.email);
-      } else {
-        console.log('No user logged in.');
       }
     });
   });
